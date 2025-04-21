@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patronato Zacualpan</title>
+  <style>
+    :root {
+      --azul: #0d47a1;
+      --amarillo: #ffeb3b;
+      --fondo: #f4f6f8;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--fondo);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: var(--azul);
+      padding: 0.7rem 1rem;
+    }
+    header img {
+      height: 70px;
+    }
+    h1 {
+      color: var(--amarillo);
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+    .frase-bloque {
+      background: linear-gradient(to right, #0d47a1, #ffeb3b);
+      padding: 1.5rem 1rem;
+      margin: 2rem auto 1rem;
+      border-radius: 16px;
+      max-width: 700px;
+      width: 90%;
+      color: #0d47a1;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.6;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    .resaltado {
+      font-weight: bold;
+      color: #0d47a1;
+      animation: brillar 2.5s infinite alternate;
+    }
+    @keyframes brillar {
+      0% { opacity: 0.6; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.03); }
+    }
+    .portada {
+      margin: 0 auto;
+      display: block;
+      width: 90%;
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+    }
+    .botones {
+      margin: 0.3rem auto 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .botones a {
+      min-width: 150px;
+      padding: 0.7rem 1rem;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.25);
+      transition: all 0.2s ease-in-out;
+      position: relative;
+      display: inline-block;
+    }
+    .botones a:active {
+      top: 3px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.25);
+    }
+    .botones a.mesa, .botones a.donadores {
+      background-color: var(--azul);
+    }
+    .botones a.mesa:hover, .botones a.donadores:hover {
+      background-color: #1565c0;
+    }
+    .botones a.donador {
+      background-color: var(--amarillo);
+      color: var(--azul);
+      font-weight: bold;
+    }
+    .botones a.donador:hover {
+      background-color: #ffee58;
+    }
+    .mensaje {
+      margin-top: 2rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #0d47a1;
+      animation: fadein 5s infinite alternate;
+    }
+    @keyframes fadein {
+      from {opacity: 0.4;}
+      to {opacity: 1;}
+    }
+    .decorativa {
+      margin-top: 2rem;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  
+    .portada-container {
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .portada {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      max-height: 300px;
+      object-fit: cover;
+    }
+    .botones-superior {
+      position: absolute;
+      bottom: 3mm;
+      left: 50%;
+      transform: translateX(-50%);
+      gap: 0.5rem;
+    }
+    .frase-bloque {
+      background: linear-gradient(to bottom right, #0d47a1, #ffeb3b);
+      padding: 1.5rem 1rem;
+      margin: 2rem auto 1rem;
+      border-radius: 16px;
+      max-width: 700px;
+      width: 90%;
+      color: #0d47a1;
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.6;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    </style>
+</head>
+<body>
+  <header>
+    <img src="https://github.com/patronatozacualpan/voluntarios/blob/main/img/logo.JPG?raw=true" alt="Logo Patronato" />
+    <h1>PATRONATO ZACUALPAN PRO-EQUIPAMIENTO DE PROTECCIÓN CIVIL</h1>
+  </header>
+
+  
+  <div class="portada-container">
+    <img src="https://github.com/patronatozacualpan/voluntarios/blob/main/img/portada.jpeg?raw=true" class="portada" alt="Portada" />
+    <div class="botones botones-superior">
+      <a href="panel.html" class="mesa">Mesa Directiva</a>
+      <a href="panel_donador.html" class="donadores">Donadores</a>
+      <a href="ingreso.html" class="donador">Hazte Donador</a>
+    </div>
+  </div>
+    
+
+  <div class="botones">
+    <a href="panel.html" class="mesa">Mesa Directiva</a>
+    <a href="panel_donador.html" class="donadores">Donadores</a>
+    <a href="ingreso.html" class="donador">Hazte Donador de $1 por día</a>
+  </div>
+
+  <div class="mensaje">
+    “Un peso no nos sobra a nadie... pero sí nos sobra corazón noble.”
+  </div>
+
+  <img src="https://github.com/patronatozacualpan/voluntarios/blob/main/img/regalo.jpg?raw=true" class="decorativa" alt="Regalo a Voluntarios" />
+
+  <div class="frase-bloque">
+    Los voluntarios agradecen cada regalo, <span class="resaltado">pero los que vienen de un niño, son semillas de esperanza y herencia de los padres</span> para un futuro unido y resiliente.
+  </div>
+</body>
+</html>
