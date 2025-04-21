@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel del Donador</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <style>
+    :root {
+      --azul: #0d47a1;
+      --amarillo: #ffeb3b;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #fffde7);
+      color: var(--azul);
+      text-align: center;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 5mm solid transparent;
+      border-image: linear-gradient(to right, orange, black, orange, black) 1;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    header {
+      background-color: #ff9800; border: 1px solid black;
+      padding: 1rem;
+      color: #ffffff;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+    .contenedor {
+      max-width: 450px;
+      margin: 2rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4); border: 2mm solid black;
+    }
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #ff9800; border: 1px solid black;
+      color: white;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    button:active {
+      top: 3px;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+    }
+    .datos {
+      display: none;
+      text-align: left;
+      margin-top: 1.5rem;
+    }
+    .exito {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Panel del Donador</h1>
+  </header>
+
+  <div class="contenedor">
+    <h2>Consulta tu información</h2>
+    <input type="text" id="nombre" placeholder="Tu nombre completo">
+    <input type="tel" id="telefono" placeholder="Tu número de teléfono">
+    <button onclick="consultar()">Consultar</button>
+
+    <div id="mensaje" class="error"></div>
+
+    <div class="datos" id="datosDonador">
+      <p><strong>Nombre:</strong> <span id="d_nombre"></span></p>
+      <p><strong>Población:</strong> <span id="d_poblacion"></span></p>
+      <p><strong>Teléfono:</strong> <span id="d_telefono"></span></p>
+      <p><strong>Promesa mensual:</strong> $<span id="d_promesa"></span></p>
+      <p><strong>Última aportación:</strong> $<span id="d_ultimo"></span></p>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDZbJmVRMsUJRaVTD__U6U1OQ6WrDAnX8",
+      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+      projectId: "donativos-patronato-zacualpan",
+      storageBucket: "donativos-patronato-zacualpan.appspot.com",
+      messagingSenderId: "140764329947",
+      appId: "1:140764329947:web:74f47df85c25b58b7998cf"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function consultar() {
+      
+    let nombre = document.getElementById("nombre").value.trim().toLowerCase();
+    nombre = nombre.normalize("NFD").replace(/[̀-ͯ]/g, ""); // quita acentos
+    
+      
+    let telefono = document.getElementById("telefono").value.trim().replace(/[^0-9]/g, "");
+    
+      const contenedor = document.getElementById("datosDonador");
+      const mensaje = document.getElementById("mensaje");
+
+      mensaje.innerText = "";
+      contenedor.style.display = "none";
+
+      const query = await db.collection("donativos")
+        .where("nombre", "==", nombre)
+        .where("telefono", "==", telefono)
+        .orderBy("fecha", "desc")
+        .limit(1)
+        .get();
+
+      
+    if (query.empty) {
+        mensaje.innerText = "No se encontró ningún registro con ese nombre y teléfono. Verifica que estén bien escritos.";
+        return;
+    }
+
+        mensaje.innerText = "No se encontró ningún registro con esos datos.";
+        return;
+      }
+
+      const doc = query.docs[0].data();
+      document.getElementById("d_nombre").innerText = doc.nombre;
+      document.getElementById("d_poblacion").innerText = doc.poblacion || "-";
+      document.getElementById("d_telefono").innerText = doc.telefono;
+      document.getElementById("d_promesa").innerText = doc.promesa || "0.00";
+      document.getElementById("d_ultimo").innerText = doc.cantidad || "0.00";
+      
+    contenedor.style.display = "block";
+    const fechaDonativo = doc.fecha?.toDate ? doc.fecha.toDate() : null;
+    if (fechaDonativo) {
+      const hoy = new Date();
+      if (fechaDonativo.getMonth() !== hoy.getMonth() || fechaDonativo.getFullYear() !== hoy.getFullYear()) {
+        mensaje.innerText = "Tu último donativo no es de este mes. ¡Gracias por seguir apoyando!";
+      } else {
+        mensaje.innerText = "Registro encontrado. ¡Gracias por tu apoyo!";
+        mensaje.className = "exito";
+      }
+    } else {
+      mensaje.innerText = "Registro encontrado, pero aún no hay donativos registrados.";
+    }
+
+    }
+  </script>
+</body>
+</html>
