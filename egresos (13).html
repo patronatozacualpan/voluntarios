@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Egresos - Tesorera</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js">
+    function togglePassword() {
+      const input = document.getElementById("clave");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    async function verificarClave() {
+      const clave = document.getElementById("clave").value.trim();
+      const mensaje = document.getElementById("mensajeAcceso");
+      mensaje.innerText = "";
+
+      const doc = await db.collection("claves").doc("tesorera").get();
+      
+    if (doc.exists && clave === doc.data().clave) {
+      document.getElementById("mensajeOk").innerText = "✅ Acceso concedido. Cargando formulario...";
+      setTimeout(() => {
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      }, 1000);
+    
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      } else {
+        mensaje.innerText = "Contraseña incorrecta. Intenta de nuevo.";
+      }
+    }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js">
+    function togglePassword() {
+      const input = document.getElementById("clave");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    async function verificarClave() {
+      const clave = document.getElementById("clave").value.trim();
+      const mensaje = document.getElementById("mensajeAcceso");
+      mensaje.innerText = "";
+
+      const doc = await db.collection("claves").doc("tesorera").get();
+      
+    if (doc.exists && clave === doc.data().clave) {
+      document.getElementById("mensajeOk").innerText = "✅ Acceso concedido. Cargando formulario...";
+      setTimeout(() => {
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      }, 1000);
+    
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      } else {
+        mensaje.innerText = "Contraseña incorrecta. Intenta de nuevo.";
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --azul: #0d47a1;
+      --naranja: #ff9800;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #fffde7);
+      color: var(--azul);
+      text-align: center;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 5mm solid transparent;
+      border-image: linear-gradient(to right, orange, black, orange, black) 1;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    header {
+      background-color: var(--naranja);
+      color: white;
+      padding: 1rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    .contenedor {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2mm solid black;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    input[type="file"] {
+      padding: 0.3rem;
+    }
+    button {
+      background-color: var(--naranja);
+      color: white;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: 2mm solid black;
+      border-radius: 12px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    button:active {
+      top: 3px;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+    }
+    .vista-previa img {
+      width: 100px;
+      margin: 0.5rem;
+      border-radius: 6px;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    .exito {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Registro de Egresos</h1>
+  </header>
+
+  <div class="contenedor" id="acceso">
+    <h2>Acceso Tesorera</h2>
+    
+    <div style="position:relative;">
+      <input type="password" id="clave" placeholder="Contraseña" style="padding-right:2.5rem;" />
+      <span onclick="togglePassword()" style="position:absolute; right:10px; top:10px; cursor:pointer;">👁️</span>
+    </div>
+    
+    <button onclick="verificarClave()">Ingresar</button>
+    <div id="mensajeAcceso" class="error"></div><div id="mensajeOk" class="exito" style="margin-top:10px;"></div>
+  </div>
+
+  <div class="contenedor" id="formulario" style="display:none;">
+    <h2>Nuevo egreso</h2>
+    <input type="text" id="concepto" placeholder="Concepto del gasto">
+    <input type="number" id="monto" placeholder="Monto en pesos">
+    <input type="date" id="fecha">
+    <input type="file" id="comprobantes" multiple accept="image/*,.pdf" />
+    <div class="vista-previa" id="vista-previa"></div>
+    <button onclick="guardarEgreso()">Guardar egreso</button>
+    <div id="mensaje" class="exito"></div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDZbJmVRMsUJRaVTD__U6U1OQ6WrDAnX8",
+      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+      projectId: "donativos-patronato-zacualpan",
+      storageBucket: "donativos-patronato-zacualpan.appspot.com",
+      messagingSenderId: "140764329947",
+      appId: "1:140764329947:web:74f47df85c25b58b7998cf"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function verificarClave() {
+      const clave = document.getElementById("clave").value;
+      const doc = await db.collection("claves").doc("tesorera").get();
+      
+    if (doc.exists && clave === doc.data().clave) {
+      document.getElementById("mensajeOk").innerText = "✅ Acceso concedido. Cargando formulario...";
+      setTimeout(() => {
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      }, 1000);
+    
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+      } else {
+        document.getElementById("mensajeAcceso").innerText = "Contraseña incorrecta.";
+      }
+    }
+
+    
+    document.getElementById("comprobantes").addEventListener("change", function () {
+      const preview = document.getElementById("vista-previa");
+      preview.innerHTML = "";
+      Array.from(this.files).forEach(file => {
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.width = "100px";
+            img.style.margin = "0.5rem";
+            img.style.borderRadius = "6px";
+            preview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const p = document.createElement("p");
+          p.textContent = "📄 " + file.name;
+          p.style.margin = "0.5rem";
+          p.style.fontSize = "0.9rem";
+          preview.appendChild(p);
+        }
+      });
+    });
+    
+      const preview = document.getElementById("vista-previa");
+      preview.innerHTML = "";
+      Array.from(this.files).forEach(file => {
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            preview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const icono = document.createElement("p");
+          icono.textContent = "📄 " + file.name;
+          preview.appendChild(icono);
+        }
+      });
+    });
+
+    async function guardarEgreso() {
+      const concepto = document.getElementById("concepto").value.trim();
+      const monto = parseFloat(document.getElementById("monto").value);
+      const fecha = document.getElementById("fecha").value;
+
+      if (!concepto || isNaN(monto) || !fecha) {
+        document.getElementById("mensaje").innerText = "Por favor llena todos los campos.";
+        return;
+      }
+
+      await db.collection("egresos").add({
+        concepto, monto, fecha: new Date(fecha), timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      document.getElementById("mensaje").innerText = "Egreso registrado correctamente.";
+      
+    document.getElementById("formulario").reset();
+    document.getElementById("vista-previa").innerHTML = "";
+    document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+    document.getElementById("comprobantes").value = "";
+    
+      document.getElementById("vista-previa").innerHTML = "";
+    }
+  
+    function togglePassword() {
+      const input = document.getElementById("clave");
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    async function verificarClave() {
+      const clave = document.getElementById("clave").value.trim();
+      const mensaje = document.getElementById("mensajeAcceso");
+      mensaje.innerText = "";
+
+      const doc = await db.collection("claves").doc("tesorera").get();
+      
+    if (doc.exists && clave === doc.data().clave) {
+      document.getElementById("mensajeOk").innerText = "✅ Acceso concedido. Cargando formulario...";
+      setTimeout(() => {
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      }, 1000);
+    
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+        document.getElementById("fecha").value = new Date().toISOString().split("T")[0];
+        mostrarEgresosDelMes();
+      } else {
+        mensaje.innerText = "Contraseña incorrecta. Intenta de nuevo.";
+      }
+    }
+  </script>
+
+</body>
+</html>
