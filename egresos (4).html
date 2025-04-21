@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro de Egresos - Tesorera</title>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js">
+    async function eliminarPruebas() {
+      if (!confirm("¿Estás seguro de eliminar todos los egresos de prueba? Esta acción no se puede deshacer.")) return;
+      const egresos = await db.collection("egresos").get();
+      const storage = firebase.storage().ref();
+      for (const doc of egresos.docs) {
+        await db.collection("egresos").doc(doc.id).delete();
+        try {
+          const folderRef = storage.child(`egresos/${doc.id}`);
+          folderRef.listAll().then(listResult => {
+            listResult.items.forEach(item => item.delete());
+          });
+        } catch (e) {
+          console.log("Error eliminando archivos:", e);
+        }
+      }
+      alert("Todos los egresos de prueba han sido eliminados.");
+      location.reload();
+    }
+</script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js">
+    async function eliminarPruebas() {
+      if (!confirm("¿Estás seguro de eliminar todos los egresos de prueba? Esta acción no se puede deshacer.")) return;
+      const egresos = await db.collection("egresos").get();
+      const storage = firebase.storage().ref();
+      for (const doc of egresos.docs) {
+        await db.collection("egresos").doc(doc.id).delete();
+        try {
+          const folderRef = storage.child(`egresos/${doc.id}`);
+          folderRef.listAll().then(listResult => {
+            listResult.items.forEach(item => item.delete());
+          });
+        } catch (e) {
+          console.log("Error eliminando archivos:", e);
+        }
+      }
+      alert("Todos los egresos de prueba han sido eliminados.");
+      location.reload();
+    }
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js">
+    async function eliminarPruebas() {
+      if (!confirm("¿Estás seguro de eliminar todos los egresos de prueba? Esta acción no se puede deshacer.")) return;
+      const egresos = await db.collection("egresos").get();
+      const storage = firebase.storage().ref();
+      for (const doc of egresos.docs) {
+        await db.collection("egresos").doc(doc.id).delete();
+        try {
+          const folderRef = storage.child(`egresos/${doc.id}`);
+          folderRef.listAll().then(listResult => {
+            listResult.items.forEach(item => item.delete());
+          });
+        } catch (e) {
+          console.log("Error eliminando archivos:", e);
+        }
+      }
+      alert("Todos los egresos de prueba han sido eliminados.");
+      location.reload();
+    }
+</script>
+  <style>
+    :root {
+      --azul: #0d47a1;
+      --naranja: #ff9800;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #e3f2fd, #fffde7);
+      color: var(--azul);
+      text-align: center;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: 5mm solid transparent;
+      border-image: linear-gradient(to right, orange, black, orange, black) 1;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    header {
+      background-color: var(--naranja);
+      color: white;
+      padding: 1rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+    .contenedor {
+      max-width: 500px;
+      margin: 2rem auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2mm solid black;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    input[type="file"] {
+      padding: 0.3rem;
+    }
+    button {
+      background-color: var(--naranja);
+      color: white;
+      padding: 0.7rem 1rem;
+      font-size: 1rem;
+      border: 2mm solid black;
+      border-radius: 12px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    button:active {
+      top: 3px;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+    }
+    .vista-previa img {
+      width: 100px;
+      margin: 0.5rem;
+      border-radius: 6px;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+    .exito {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Registro de Egresos</h1>
+  </header>
+
+  <div class="contenedor" id="acceso">
+    <h2>Acceso Tesorera</h2>
+    <input type="password" id="clave" placeholder="Contraseña">
+    <button onclick="verificarClave()">Ingresar</button>
+    <div id="mensajeAcceso" class="error"></div>
+  </div>
+
+  <div class="contenedor" id="formulario" style="display:none;">
+    <h2>Nuevo egreso</h2>
+    <input type="text" id="concepto" placeholder="Concepto del gasto">
+    <input type="number" id="monto" placeholder="Monto en pesos">
+    <input type="date" id="fecha">
+    <input type="file" id="comprobantes" multiple accept="image/*,.pdf" />
+    <div class="vista-previa" id="vista-previa"></div>
+    <button onclick="guardarEgreso()">Guardar egreso</button>
+    <div id="mensaje" class="exito"></div>
+<button onclick="eliminarPruebas()" style="margin-top:1rem;">🧹 Eliminar pruebas</button>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDZbJmVRMsUJRaVTD__U6U1OQ6WrDAnX8",
+      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+      projectId: "donativos-patronato-zacualpan",
+      storageBucket: "donativos-patronato-zacualpan.appspot.com",
+      messagingSenderId: "140764329947",
+      appId: "1:140764329947:web:74f47df85c25b58b7998cf"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function verificarClave() {
+      const clave = document.getElementById("clave").value;
+      const doc = await db.collection("claves").doc("tesorera").get();
+      if (doc.exists && clave === doc.data().clave) {
+        document.getElementById("acceso").style.display = "none";
+        document.getElementById("formulario").style.display = "block";
+      } else {
+        document.getElementById("mensajeAcceso").innerText = "Contraseña incorrecta.";
+      }
+    }
+
+    document.getElementById("comprobantes").addEventListener("change", function () {
+      const preview = document.getElementById("vista-previa");
+      preview.innerHTML = "";
+      Array.from(this.files).forEach(file => {
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            preview.appendChild(img);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          const icono = document.createElement("p");
+          icono.textContent = "📄 " + file.name;
+          preview.appendChild(icono);
+        }
+      });
+    });
+
+    async function guardarEgreso() {
+      const concepto = document.getElementById("concepto").value.trim();
+      const monto = parseFloat(document.getElementById("monto").value);
+      const fecha = document.getElementById("fecha").value;
+
+      if (!concepto || isNaN(monto) || !fecha) {
+        document.getElementById("mensaje").innerText = "Por favor llena todos los campos.";
+        return;
+      }
+
+      
+      const egresoDoc = await db.collection("egresos").add({
+
+        concepto, monto, fecha: new Date(fecha), timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+      document.getElementById("mensaje").innerText = "Egreso registrado correctamente.";
+      
+      const files = document.getElementById("comprobantes").files;
+      const storageRef = firebase.storage().ref();
+      const folder = `egresos/${egresoDoc.id}`;
+      for (let i = 0; i < files.length && i < 3; i++) {
+        const file = files[i];
+        const fileRef = storageRef.child(`${folder}/${file.name}`);
+        await fileRef.put(file);
+      }
+    document.getElementById("formulario").reset();
+      document.getElementById("vista-previa").innerHTML = "";
+    }
+  
+    async function eliminarPruebas() {
+      if (!confirm("¿Estás seguro de eliminar todos los egresos de prueba? Esta acción no se puede deshacer.")) return;
+      const egresos = await db.collection("egresos").get();
+      const storage = firebase.storage().ref();
+      for (const doc of egresos.docs) {
+        await db.collection("egresos").doc(doc.id).delete();
+        try {
+          const folderRef = storage.child(`egresos/${doc.id}`);
+          folderRef.listAll().then(listResult => {
+            listResult.items.forEach(item => item.delete());
+          });
+        } catch (e) {
+          console.log("Error eliminando archivos:", e);
+        }
+      }
+      alert("Todos los egresos de prueba han sido eliminados.");
+      location.reload();
+    }
+</script>
+</body>
+</html>
