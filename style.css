@@ -1,0 +1,47 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f8f9fa;
+  text-align: center;
+}
+header {
+  background: #1565c0;
+  color: white;
+  padding: 1rem;
+}
+.portada {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+}
+.frase-motivadora {
+  font-size: 1.3rem;
+  margin: 1rem;
+  font-weight: bold;
+}
+.botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem;
+}
+.btn {
+  background: #ffca28;
+  padding: 1rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+.imagen-central img {
+  max-width: 90%;
+  margin: 1rem auto;
+  border-radius: 10px;
+}
+footer {
+  background: #eee;
+  padding: 1rem;
+  font-size: 0.9rem;
+}

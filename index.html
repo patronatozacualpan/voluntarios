@@ -3,52 +3,33 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Patronato Zacualpan</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f4f6f8;
-      text-align: center;
-    }
-    header {
-      background: #1976d2;
-      color: white;
-      padding: 1rem;
-      font-size: 1.5rem;
-    }
-    .botones {
-      margin: 2rem;
-    }
-    a.boton {
-      display: inline-block;
-      margin: 1rem;
-      padding: 1rem 2rem;
-      background: #ffc107;
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 10px;
-    }
-    .img-portada {
-      width: 100%;
-      max-height: 300px;
-      object-fit: cover;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    Patronato Zacualpan Pro-equipamiento de Protección Civil
+    <h1>Patronato Zacualpan Pro-equipamiento de Protección Civil</h1>
+    <img src="img/portada.jpeg" alt="Portada Patronato" class="portada" />
   </header>
-  <img src="img/portada.jpeg" alt="Portada" class="img-portada" />
-  <div class="botones">
-    <a href="ingreso.html" class="boton">Registrar Donativo</a>
-    <a href="egreso.html" class="boton">Registrar Egreso</a>
-  </div>
+
+  <section class="frase-motivadora" id="frase"></section>
+
+  <section class="botones">
+    <a href="ingreso.html" class="btn">📝 Registrar Donativo</a>
+    <a href="egreso.html" class="btn">💸 Registrar Egreso</a>
+    <a href="panel.html" class="btn">📊 Ver Panel de Mesa Directiva</a>
+    <a href="panel_donador.html" class="btn">🔎 Consultar Estatus</a>
+  </section>
+
+  <section class="imagen-central">
+    <img src="img/regalo.jpg" alt="Regalo a voluntarios" />
+  </section>
+
   <footer>
-    <img src="img/regalo.jpg" alt="Regalo" style="width: 200px; margin-top: 2rem;" />
+    <p>Contacto: patronatozacualpan@gmail.com | WhatsApp: 3112242880</p>
   </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
