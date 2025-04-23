@@ -2,27 +2,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Patronato Zacualpan</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voluntarios Patronato Zacualpan</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      text-align: center;
+    }
+
+    header {
+      background-color: #1976d2;
+      color: white;
+      padding: 1rem 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    .bienvenida {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .imagenes {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .imagenes img {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Bienvenidos al Patronato Zacualpan</h1>
-    </header>
-    <main>
-        <img src="img/portada.jpeg" alt="Portada del Patronato">
-        <section>
-            <h2>Conócenos</h2>
-            <p>Somos un equipo de voluntarios comprometidos con la protección civil.</p>
-        </section>
-        <section>
-            <img src="img/regalo.jpg" alt="Reconocimiento a voluntarios">
-        </section>
-    </main>
-    <footer>
-        <img src="img/logo.JPG" alt="Logo del Patronato" style="height: 60px;">
-        <p>&copy; 2025 Patronato Zacualpan</p>
-    </footer>
+  <header>
+    Patronato Zacualpan Pro-equipamiento de Protección Civil
+  </header>
+
+  <p class="bienvenida">¡Bienvenidos al Patronato Zacualpan!<br>Gracias por apoyar a nuestros héroes voluntarios.</p>
+
+  <div class="imagenes">
+    <img src="img/portada.jpeg" alt="Portada de bienvenida" />
+    <img src="img/regalo.jpg" alt="Reconocimiento a voluntarios" />
+  </div>
+
+  <footer>© 2025 Patronato Zacualpan</footer>
 </body>
 </html>
