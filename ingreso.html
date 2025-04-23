@@ -3,24 +3,52 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hazte Donador</title>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <h2>Hazte Donador</h2>
-  <label>Nombre:</label><br/>
-  <input type="text" id="nombre"><br/>
-  <label>Teléfono:</label><br/>
-  <input type="text" id="telefono"><br/>
-  <label>Población:</label><br/>
-  <input type="text" id="poblacion"><br/>
-  <label>Promesa mensual ($30 mínimo):</label><br/>
-  <input type="number" id="promesa"><br/><br/>
-  <button onclick="registrarDonador()">Registrarme</button>
+  <form id="formDonador">
+    <label>Nombre:<br><input type="text" id="nombre" required></label><br>
+    <label>Teléfono:<br><input type="text" id="telefono" required></label><br>
+    <label>Población:<br><input type="text" id="poblacion" required></label><br>
+    <label>Promesa mensual ($30 mínimo):<br><input type="number" id="promesa" min="30" required></label><br>
+    <button type="submit">Registrarme</button>
+  </form>
 
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-  <script src="configuracion-firebase.js"></script>
-  <script src="registro-donador.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
+      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+      projectId: "donativos-patronato-zacualpan",
+      storageBucket: "donativos-patronato-zacualpan.firebasestorage.app",
+      messagingSenderId: "173840953766",
+      appId: "1:173840953766:web:efb9fb08ecb93f69989f67"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    document.getElementById("formDonador").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const nombre = document.getElementById("nombre").value.trim().toLowerCase();
+      const telefono = document.getElementById("telefono").value.trim();
+      const poblacion = document.getElementById("poblacion").value.trim();
+      const promesa = parseInt(document.getElementById("promesa").value);
+
+      db.collection("donativos").doc(telefono).set({
+        nombre: nombre,
+        telefono: telefono,
+        poblacion: poblacion,
+        promesa: promesa,
+        registrado: new Date().toISOString()
+      }).then(() => {
+        alert("Donador registrado correctamente.");
+      }).catch((error) => {
+        console.error("Error al registrar:", error);
+        alert("Error al registrar donador.");
+      });
+    });
+  </script>
 </body>
 </html>
