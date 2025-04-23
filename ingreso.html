@@ -3,50 +3,24 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazte Donador - Patronato Zacualpan</title>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
-      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
-      projectId: "donativos-patronato-zacualpan",
-      storageBucket: "donativos-patronato-zacualpan.firebasestorage.app",
-      messagingSenderId: "173840953766",
-      appId: "1:173840953766:web:efb9fb08ecb93f69989f67"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    async function registrarDonador() {
-      const nombre = document.getElementById("nombre").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const poblacion = document.getElementById("poblacion").value.trim();
-      const cantidad = parseInt(document.getElementById("cantidad").value);
-
-      if (!nombre || !telefono || !poblacion || isNaN(cantidad) || cantidad < 30) {
-        alert("Por favor completa todos los campos correctamente. Mínimo $30.");
-        return;
-      }
-
-      const id = telefono + "_" + nombre.toLowerCase().replace(/ /g, "_");
-      await setDoc(doc(db, "donativos", id), {
-        nombre, telefono, poblacion, cantidad, validado: false
-      });
-
-      alert("Registro exitoso. En breve recibirás un mensaje de verificación por WhatsApp.");
-    }
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hazte Donador</title>
 </head>
-<body style="font-family: sans-serif; padding: 2em;">
-  <h1>Hazte Donador</h1>
-  <label>Nombre:<br><input id="nombre" type="text" /></label><br><br>
-  <label>Teléfono:<br><input id="telefono" type="tel" /></label><br><br>
-  <label>Población:<br><input id="poblacion" type="text" /></label><br><br>
-  <label>Promesa mensual ($30 mínimo):<br><input id="cantidad" type="number" /></label><br><br>
+<body>
+  <h2>Hazte Donador</h2>
+  <label>Nombre:</label><br/>
+  <input type="text" id="nombre"><br/>
+  <label>Teléfono:</label><br/>
+  <input type="text" id="telefono"><br/>
+  <label>Población:</label><br/>
+  <input type="text" id="poblacion"><br/>
+  <label>Promesa mensual ($30 mínimo):</label><br/>
+  <input type="number" id="promesa"><br/><br/>
   <button onclick="registrarDonador()">Registrarme</button>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+  <script src="configuracion-firebase.js"></script>
+  <script src="registro-donador.js"></script>
 </body>
 </html>
