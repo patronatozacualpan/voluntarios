@@ -3,63 +3,114 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Voluntarios Patronato Zacualpan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patronato Zacualpan</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
   <style>
+    :root {
+      --azul: #1565c0;
+      --amarillo: #ffeb3b;
+    }
     body {
+      font-family: 'Roboto', sans-serif;
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f6f8;
-      color: #333;
+      background: #f4f6f8;
+      color: #222;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: var(--azul);
+      color: white;
+      padding: 1.2rem;
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: bold;
+      animation: fadeInDown 1s ease-out;
+    }
+    .portada {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .contenedor {
+      padding: 2rem;
       text-align: center;
     }
-
-    header {
-      background-color: #1976d2;
+    .frase {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--azul);
+      margin: 1.5rem 0;
+      animation: zoomIn 1s ease-in-out;
+    }
+    .boton {
+      display: inline-block;
+      background: var(--azul);
       color: white;
-      padding: 1rem 0.5rem;
-      font-size: 1.5rem;
-    }
-
-    .bienvenida {
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-    }
-
-    .imagenes {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .imagenes img {
-      width: 90%;
-      max-width: 600px;
+      border: none;
+      padding: 1rem 2rem;
+      margin: 1rem;
+      font-size: 1rem;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
     }
-
+    .boton:hover {
+      background: #0d47a1;
+      transform: scale(1.05);
+    }
     footer {
-      margin-top: 2rem;
-      font-size: 0.8rem;
-      color: #888;
+      background-color: var(--amarillo);
+      color: #000;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <header>
-    Patronato Zacualpan Pro-equipamiento de Protección Civil
-  </header>
 
-  <p class="bienvenida">¡Bienvenidos al Patronato Zacualpan!<br>Gracias por apoyar a nuestros héroes voluntarios.</p>
+  <header>Patronato Zacualpan Pro-equipamiento de Protección Civil</header>
+  <img class="portada" src="img/portada.jpeg" alt="Portada institucional" />
 
-  <div class="imagenes">
-    <img src="img/portada.jpeg" alt="Portada de bienvenida" />
-    <img src="img/regalo.jpg" alt="Reconocimiento a voluntarios" />
+  <div class="contenedor">
+    <div id="fraseMotivacional" class="frase">Unidos, equipamos esperanza.</div>
+
+    <button class="boton" onclick="location.href='ingreso.html'">Registrar Donativo</button>
+    <button class="boton" onclick="location.href='egresos.html'">Registrar Egreso</button>
+    <button class="boton" onclick="location.href='panel.html'">Ver Panel Administrativo</button>
   </div>
 
-  <footer>© 2025 Patronato Zacualpan</footer>
+  <footer>© Patronato Zacualpan</footer>
+
+  <script>
+    const frases = [
+      "Unidos, equipamos esperanza.",
+      "Tu ayuda salva vidas.",
+      "Con tu donativo, hacemos la diferencia.",
+      "¡Gracias por apoyar a Protección Civil!",
+      "Un peso al día, una vida más protegida."
+    ];
+    let indice = 0;
+    setInterval(() => {
+      indice = (indice + 1) % frases.length;
+      document.getElementById("fraseMotivacional").textContent = frases[indice];
+    }, 5000);
+  </script>
+
 </body>
 </html>
