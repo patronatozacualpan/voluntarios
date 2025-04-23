@@ -2,21 +2,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Hazte Donador</title>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
   <h2>Hazte Donador</h2>
-  <form id="formDonador">
-    <label>Nombre:<br><input type="text" id="nombre" required></label><br>
-    <label>Teléfono:<br><input type="text" id="telefono" required></label><br>
-    <label>Población:<br><input type="text" id="poblacion" required></label><br>
-    <label>Promesa mensual ($30 mínimo):<br><input type="number" id="promesa" min="30" required></label><br>
-    <button type="submit">Registrarme</button>
-  </form>
+  <label>Nombre:<br><input id="nombre" type="text"></label><br>
+  <label>Teléfono:<br><input id="telefono" type="text"></label><br>
+  <label>Población:<br><input id="poblacion" type="text"></label><br>
+  <label>Promesa mensual ($30 mínimo):<br><input id="promesa" type="number" min="30"></label><br><br>
+  <button onclick="registrarDonador()">Registrarme</button>
 
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
@@ -26,29 +24,33 @@
       messagingSenderId: "173840953766",
       appId: "1:173840953766:web:efb9fb08ecb93f69989f67"
     };
+
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    document.getElementById("formDonador").addEventListener("submit", function(e) {
-      e.preventDefault();
+    async function registrarDonador() {
       const nombre = document.getElementById("nombre").value.trim().toLowerCase();
       const telefono = document.getElementById("telefono").value.trim();
       const poblacion = document.getElementById("poblacion").value.trim();
       const promesa = parseInt(document.getElementById("promesa").value);
 
-      db.collection("donativos").doc(telefono).set({
-        nombre: nombre,
-        telefono: telefono,
-        poblacion: poblacion,
-        promesa: promesa,
-        registrado: new Date().toISOString()
-      }).then(() => {
-        alert("Donador registrado correctamente.");
-      }).catch((error) => {
-        console.error("Error al registrar:", error);
+      if (!nombre || !telefono || !poblacion || isNaN(promesa) || promesa < 30) {
+        alert("Completa todos los campos correctamente (mínimo $30).");
+        return;
+      }
+
+      try {
+        await db.collection("donativos").add({
+          nombre, telefono, poblacion, promesa,
+          creado: new Date().toISOString()
+        });
+        alert("¡Registro exitoso!");
+        location.reload();
+      } catch (e) {
+        console.error("Error al registrar:", e);
         alert("Error al registrar donador.");
-      });
-    });
+      }
+    }
   </script>
 </body>
 </html>
