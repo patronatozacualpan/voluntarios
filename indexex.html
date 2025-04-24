@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Donadores PCZ</title>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1rem;
+      background: #f4f4f4;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+    th, td {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    .verde { background: #d0f0c0; }
+    .azul { background: #c0e7f7; }
+    .rojo { background: #f8d0d0; }
+    .leyenda span { margin-right: 2rem; font-weight: bold; }
+    .leyenda .verde::before { content: '✅ '; }
+    .leyenda .azul::before { content: '⏩ '; }
+    .leyenda .rojo::before { content: '⏪ '; }
+    button {
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+    }
+    .instruccion-validacion {
+      background:#fff3cd;
+      padding: 1rem;
+      border-left: 6px solid #ffc107;
+      font-size: 14px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Panel de Donadores</h2>
+
+  <div class="instruccion-validacion">
+    <strong>🛡 Instrucciones de validación:</strong><br>
+    Si un donador aparece en esta lista es porque <strong>no ha confirmado su código por WhatsApp</strong>.<br>
+    Antes de activarlo manualmente, recomendamos <strong>llamar directamente al número registrado</strong> y preguntar:<br>
+    <em>“¿Usted se registró como padrino del Patronato Zacualpan con una promesa mensual de $X?”</em><br>
+    <br>
+    Si la respuesta es afirmativa, puedes validar con el botón verde.<br>
+    Si no responde o niega el registro, puedes descartarlo con el botón rojo.<br>
+    <br>
+    Todos los cambios quedarán registrados para seguimiento y seguridad. ✔️
+  </div>
+
+  <div class="leyenda">
+    <span class="verde">Al día</span>
+    <span class="azul">Adelantado</span>
+    <span class="rojo">Atrasado</span>
+  </div>
+
+  <table id="tablaDonadores">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Población</th>
+        <th>Promesa Mensual</th>
+        <th>Total Aportado</th>
+        <th>Días de Atraso</th>
+        <th>Estatus</th>
+        <th>Último Pago</th>
+        <th>Último Mensaje</th>
+        <th>Recordatorio Preferido</th>
+        <th>WhatsApp</th>
+        <th>Recordar Ahora</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpoTabla"></tbody>
+  </table>
+  <button onclick="descargarExcel()">Descargar Excel</button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const firebaseConfig = {
+        // Tu configuración aquí
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      function diasDeAtraso(fechaPago) {
+        const hoy = new Date();
+        const fecha = new Date(fechaPago);
+        const diferencia = hoy - fecha;
+        return Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      }
+
+      function estatusDonador(dias) {
+        if (dias <= 0) return 'verde';
+        if (dias <= 30) return 'azul';
+        return 'rojo';
+      }
+
+      function cargarDonadores() {
+        db.collection("donadores").get().then(snapshot => {
+          const cuerpo = document.getElementById("cuerpoTabla");
+          cuerpo.innerHTML = "";
+          snapshot.forEach(doc => {
+            const d = doc.data();
+            const diasAtraso = diasDeAtraso(d.ultimoPago);
+            const estatus = estatusDonador(diasAtraso);
+            const fila = `
+              <tr class="${estatus}">
+                <td>${d.nombre}</td>
+                <td>${d.telefono}</td>
+                <td>${d.poblacion}</td>
+                <td>$${d.promesaMensual}</td>
+                <td>$${d.totalAportado || 0}</td>
+                <td>${diasAtraso}</td>
+                <td>${estatus === 'verde' ? '✅ Al día' : estatus === 'azul' ? '⏩ Adelantado' : '⏪ Atrasado'}</td>
+                <td>${d.ultimoPago}</td>
+                <td>${d.ultimoMensaje || 'N/A'}</td>
+                <td>${d.diaPreferido || 'Domingo'}</td>
+                <td><a href="https://wa.me/52${d.telefono}?text=${encodeURIComponent('Hola ' + d.nombre + ', este es tu recordatorio para tu aportación al Patronato Zacualpan.')}" target="_blank">Enviar</a></td>
+                <td><button onclick="enviarRecordatorioManual('${d.telefono}', '${d.nombre}', '${diasAtraso}')">Recordar</button></td>
+              </tr>
+            `;
+            cuerpo.innerHTML += fila;
+          });
+        }).catch(err => {
+          console.error("Error al cargar donadores:", err);
+        });
+      }
+
+      window.enviarRecordatorioManual = function(telefono, nombre, diasAtraso) {
+        const mensaje = `Hola ${nombre}, este es tu recordatorio para apoyar al Patronato Zacualpan. Llevas ${diasAtraso} días de atraso. Puedes hacer tu depósito a la cuenta SPIN OXXO: Miriam Camacho Martínez, CLABE: 7289 6900 0138 8899 56.`;
+        window.open(`https://wa.me/52${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
+      };
+
+      window.descargarExcel = function() {
+        const tabla = document.getElementById("tablaDonadores");
+        const wb = XLSX.utils.table_to_book(tabla, {sheet: "Donadores"});
+        XLSX.writeFile(wb, "reporte-donadores-PCZ.xlsx");
+      };
+
+      cargarDonadores();
+    });
+  </script>
+</body>
+</html>
