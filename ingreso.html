@@ -2,15 +2,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hazte Donador</title>
 </head>
 <body>
   <h2>Hazte Donador</h2>
-  <label>Nombre:<br><input id="nombre" type="text"></label><br>
-  <label>Teléfono:<br><input id="telefono" type="text"></label><br>
-  <label>Población:<br><input id="poblacion" type="text"></label><br>
-  <label>Promesa mensual ($30 mínimo):<br><input id="promesa" type="number" min="30"></label><br><br>
+  <label>Nombre:<br><input type="text" id="nombre"></label><br>
+  <label>Teléfono:<br><input type="text" id="telefono"></label><br>
+  <label>Población:<br><input type="text" id="poblacion"></label><br>
+  <label>Promesa mensual ($30 mínimo):<br><input type="number" id="promesa" min="30"></label><br><br>
   <button onclick="registrarDonador()">Registrarme</button>
 
   <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
@@ -29,26 +30,33 @@
     const db = firebase.firestore();
 
     async function registrarDonador() {
-      const nombre = document.getElementById("nombre").value.trim().toLowerCase();
+      const nombre = document.getElementById("nombre").value.trim();
       const telefono = document.getElementById("telefono").value.trim();
       const poblacion = document.getElementById("poblacion").value.trim();
-      const promesa = parseInt(document.getElementById("promesa").value);
+      const promesa = parseInt(document.getElementById("promesa").value.trim());
 
       if (!nombre || !telefono || !poblacion || isNaN(promesa) || promesa < 30) {
-        alert("Completa todos los campos correctamente (mínimo $30).");
+        alert("Por favor completa todos los campos correctamente.");
         return;
       }
 
       try {
         await db.collection("donativos").add({
-          nombre, telefono, poblacion, promesa,
-          creado: new Date().toISOString()
+          nombre: nombre.toLowerCase(),
+          telefono,
+          poblacion,
+          promesa,
+          validado: false,
+          creado: new Date()
         });
-        alert("¡Registro exitoso!");
-        location.reload();
+
+        const enlace = `https://wa.me/52${telefono}?text=Hola,%20soy%20${encodeURIComponent(nombre)},%20confirmo%20mi%20registro%20como%20donador%20de%20$1%20al%20día%20para%20Protección%20Civil%20Zacualpan.`;
+        alert(`✅ Registro exitoso.\n\nHemos enviado un mensaje de validación al número ${telefono}.\n\nSi no lo recibiste o está incorrecto, vuelve a registrarte.`);
+        window.open(enlace, '_blank');
+
       } catch (e) {
-        console.error("Error al registrar:", e);
-        alert("Error al registrar donador.");
+        console.error("Error al registrar donador:", e);
+        alert("Hubo un error al registrar. Intenta de nuevo.");
       }
     }
   </script>
