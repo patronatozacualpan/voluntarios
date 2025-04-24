@@ -16,6 +16,8 @@
     <button type="submit">Registrarme</button>
   </form>
 
+  <p id="mensajeFinal" style="font-weight: bold; color: green; margin-top: 1rem;"></p>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
@@ -52,10 +54,13 @@
           creado: new Date()
         });
 
-        const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan 💛💙%0A%0ATu promesa mensual es de $${promesa}.%0A%0APara validar tu registro, por favor responde este mensaje con el siguiente código:%0A🔐 ${codigo}%0A%0AUna vez que lo recibamos, quedarás activado en nuestro sistema y comenzaremos a enviarte notificaciones importantes.%0A%0A🌟 Y ya serás un padrino más… ¡gracias por tu bondad!%0A%0ARecuerda que cada peso se transforma en esperanza y protección para quienes más lo necesitan.%0A%0A🙏 Gracias por apoyar a Protección Civil Zacualpan.`;
+        document.getElementById("mensajeFinal").textContent =
+          "✅ Registro exitoso. Recibirás un mensaje por WhatsApp. Por favor, responde con tu código para completar tu registro.";
+
+        const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan 💛💙%0A%0ATu promesa mensual es de $${promesa}.%0A%0APara validar tu registro, por favor responde este mensaje con el siguiente código:%0A*${codigo}*%0A%0AUna vez que lo recibamos, quedarás activado en nuestro sistema y comenzaremos a enviarte notificaciones importantes.%0A%0A🌟 Ya serás un padrino más… ¡gracias por tu bondad! Recuerda que cada peso se transforma en esperanza y protección para quienes más lo necesitan.%0A%0A💛 Gracias por apoyar a Protección Civil Zacualpan.`;
 
         const enlace = `https://wa.me/523112242880?text=${mensaje}`;
-        window.location.href = enlace;
+        setTimeout(() => window.location.href = enlace, 1500);
       } catch (error) {
         console.error("Error al registrar:", error);
         alert("Hubo un error al registrar. Intenta de nuevo.");
