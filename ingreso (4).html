@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hazte Donador</title>
+</head>
+<body>
+    <h2>Hazte Donador</h2>
+    <form id="registroForm">
+        <label for="nombre">Nombre completo:</label><br>
+        <input type="text" id="nombre" required><br>
+
+        <label for="telefono">Teléfono:</label><br>
+        <input type="text" id="telefono" required><br>
+
+        <label for="poblacion">Población:</label><br>
+        <input type="text" id="poblacion" required><br>
+
+        <label for="promesa">Promesa mensual ($30 mínimo):</label><br>
+        <input type="number" id="promesa" min="30" required><br><br>
+
+        <button type="submit">Registrarme</button>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
+            authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+            projectId: "donativos-patronato-zacualpan",
+            storageBucket: "donativos-patronato-zacualpan.appspot.com",
+            messagingSenderId: "173840953766",
+            appId: "1:173840953766:web:efb9fb08ecb93f69989f67"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const form = document.getElementById("registroForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const telefono = document.getElementById("telefono").value.trim();
+            const poblacion = document.getElementById("poblacion").value.trim();
+            const promesa = parseFloat(document.getElementById("promesa").value.trim());
+
+            try {
+                await addDoc(collection(db, "donativos"), {
+                    nombre,
+                    telefono,
+                    poblacion,
+                    promesa,
+                    fechaRegistro: new Date()
+                });
+
+                const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan.%0A%0A📌 Tu promesa mensual es de $${promesa}.%0A%0APara validar tu primer donativo, por favor envía tu comprobante de depósito respondiendo a este mensaje. Nuestro equipo lo revisará y activará tu estatus en el sistema.%0A%0A🟡 Este número es oficial del sistema y canaliza los registros a la tesorera para su validación.%0A%0A¡Gracias por apoyar a Protección Civil Zacualpan!`;
+
+                window.location.href = `https://wa.me/523112242880?text=${mensaje}`;
+            } catch (error) {
+                alert("Error al registrar donador.");
+                console.error("Error:", error);
+            }
+        });
+    </script>
+</body>
+</html>
