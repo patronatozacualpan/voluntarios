@@ -2,72 +2,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazte Donador - Patronato Zacualpan</title>
+  <meta charset="UTF-8">
+  <title>Hazte Donador</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+    }
+    input, button {
+      padding: 8px;
+      margin: 5px 0;
+      width: 250px;
+      font-size: 14px;
+    }
+    .important-note {
+      font-size: 14px;
+      color: #333;
+      margin-top: 1rem;
+      background: #fff3cd;
+      padding: 10px;
+      border-left: 5px solid #ffc107;
+    }
+    .button-yellow {
+      background-color: #ffc107;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h2>Hazte Donador</h2>
-  <form id="registroForm">
-    <label>Nombre completo:<br><input type="text" id="nombre" required></label><br>
-    <label>Teléfono:<br><input type="tel" id="telefono" required></label><br>
-    <label>Población:<br><input type="text" id="poblacion" required></label><br>
-    <label>Promesa mensual ($30 mínimo):<br><input type="number" id="promesa" min="30" required></label><br><br>
-    <button type="submit">Registrarme</button>
+
+  <h1>Hazte Donador</h1>
+  <form>
+    <label>Nombre:<br><input type="text" name="nombre"></label><br>
+    <label>Teléfono:<br><input type="text" name="telefono"></label><br>
+    <label>Población:<br><input type="text" name="poblacion"></label><br>
+    <label>Promesa mensual ($30 mínimo):<br><input type="number" name="promesa" min="30"></label><br>
+    
+    <div class="important-note">
+      <strong>Importante:</strong> Al registrarte, se abrirá tu WhatsApp con un mensaje automático.<br>
+      Por favor, envíalo desde tu número para confirmar tu registro.<br>
+      ¡Solo tienes que tocar “Enviar” y listo!
+    </div>
+    
+    <button type="submit" class="button-yellow">Registrarme</button>
   </form>
 
-  <p id="mensajeFinal" style="font-weight: bold; color: green; margin-top: 1rem;"></p>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
-      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
-      projectId: "donativos-patronato-zacualpan",
-      storageBucket: "donativos-patronato-zacualpan.appspot.com",
-      messagingSenderId: "173840953766",
-      appId: "1:173840953766:web:efb9fb08ecb93f69989f67"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    document.getElementById("registroForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const nombre = document.getElementById("nombre").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const poblacion = document.getElementById("poblacion").value.trim();
-      const promesa = parseFloat(document.getElementById("promesa").value.trim());
-      const codigo = Math.floor(1000 + Math.random() * 9000);
-      const idDonador = "DS-" + Math.floor(10000 + Math.random() * 90000);
-
-      try {
-        await addDoc(collection(db, "donativos"), {
-          nombre,
-          telefono,
-          poblacion,
-          promesa,
-          codigo,
-          idDonador,
-          estado: "pendiente",
-          creado: new Date()
-        });
-
-        document.getElementById("mensajeFinal").textContent =
-          "✅ Se ha generado tu código de validación. Al hacer clic en el botón, se abrirá tu WhatsApp para que envíes el mensaje desde tu propio número, lo estaremos esperando para dar seguimiento y tu bienvenida.";
-
-        const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan 💛💙%0A%0ATu promesa mensual es de $${promesa}.%0A%0APara validar tu registro, por favor responde este mensaje con el siguiente código:%0A*${codigo}*%0A%0A📌 ID donador: ${idDonador}%0A%0AUna vez que lo recibamos, quedarás activado en nuestro sistema y comenzaremos a enviarte notificaciones importantes.%0A%0A🌟 Ya serás un padrino más… ¡gracias por tu bondad!%0A%0ARecuerda que cada peso se transforma en esperanza y protección para quienes más lo necesitan.%0A%0A💛 Gracias por apoyar a Protección Civil Zacualpan.`;
-
-        const enlace = `https://wa.me/523112242880?text=${mensaje}`;
-        setTimeout(() => window.location.href = enlace, 2000);
-      } catch (error) {
-        console.error("Error al registrar:", error);
-        alert("Hubo un error al registrar. Intenta de nuevo.");
-      }
-    });
-  </script>
 </body>
 </html>
