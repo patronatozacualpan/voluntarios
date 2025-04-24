@@ -41,7 +41,8 @@
       const telefono = document.getElementById("telefono").value.trim();
       const poblacion = document.getElementById("poblacion").value.trim();
       const promesa = parseFloat(document.getElementById("promesa").value.trim());
-      const codigo = Math.floor(1000 + Math.random() * 9000); // Código de 4 dígitos
+      const codigo = Math.floor(1000 + Math.random() * 9000);
+      const idDonador = "DS-" + Math.floor(10000 + Math.random() * 90000);
 
       try {
         await addDoc(collection(db, "donativos"), {
@@ -50,17 +51,18 @@
           poblacion,
           promesa,
           codigo,
+          idDonador,
           estado: "pendiente",
           creado: new Date()
         });
 
         document.getElementById("mensajeFinal").textContent =
-          "✅ Registro exitoso. Recibirás un mensaje por WhatsApp. Por favor, responde con tu código para completar tu registro.";
+          "✅ Se ha generado tu código de validación. Al hacer clic en el botón, se abrirá tu WhatsApp para que envíes el mensaje desde tu propio número, lo estaremos esperando para dar seguimiento y tu bienvenida.";
 
-        const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan 💛💙%0A%0ATu promesa mensual es de $${promesa}.%0A%0APara validar tu registro, por favor responde este mensaje con el siguiente código:%0A*${codigo}*%0A%0AUna vez que lo recibamos, quedarás activado en nuestro sistema y comenzaremos a enviarte notificaciones importantes.%0A%0A🌟 Ya serás un padrino más… ¡gracias por tu bondad! Recuerda que cada peso se transforma en esperanza y protección para quienes más lo necesitan.%0A%0A💛 Gracias por apoyar a Protección Civil Zacualpan.`;
+        const mensaje = `Hola ${nombre}.%0A%0AGracias por registrarte como padrino del Patronato Zacualpan 💛💙%0A%0ATu promesa mensual es de $${promesa}.%0A%0APara validar tu registro, por favor responde este mensaje con el siguiente código:%0A*${codigo}*%0A%0A📌 ID donador: ${idDonador}%0A%0AUna vez que lo recibamos, quedarás activado en nuestro sistema y comenzaremos a enviarte notificaciones importantes.%0A%0A🌟 Ya serás un padrino más… ¡gracias por tu bondad!%0A%0ARecuerda que cada peso se transforma en esperanza y protección para quienes más lo necesitan.%0A%0A💛 Gracias por apoyar a Protección Civil Zacualpan.`;
 
         const enlace = `https://wa.me/523112242880?text=${mensaje}`;
-        setTimeout(() => window.location.href = enlace, 1500);
+        setTimeout(() => window.location.href = enlace, 2000);
       } catch (error) {
         console.error("Error al registrar:", error);
         alert("Hubo un error al registrar. Intenta de nuevo.");
