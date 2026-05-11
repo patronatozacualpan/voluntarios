@@ -495,3 +495,106 @@ a {
     flex-direction: column;
   }
 }
+
+
+.table-card,
+.filters-card {
+  background: white;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.filters-card {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filters-card input,
+.filters-card select {
+  flex: 1;
+  min-width: 220px;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 13px 14px;
+  font-size: 1rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 980px;
+}
+
+.data-table th,
+.data-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.data-table th {
+  background: var(--azul);
+  color: white;
+  font-size: .9rem;
+}
+
+.data-table tr:hover {
+  background: #f8fafc;
+}
+
+.leyenda-estatus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.estatus-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
+.estatus-badge.al-dia {
+  background: #dcfce7;
+  color: #14532d;
+}
+
+.estatus-badge.adelantado {
+  background: #dbeafe;
+  color: #1e3a8a;
+}
+
+.estatus-badge.atrasado {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+
+.estatus-badge.pendiente {
+  background: #fef3c7;
+  color: #78350f;
+}
+
+.btn-mini {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--verde);
+  color: white;
+  font-weight: 900;
+  font-size: .85rem;
+}
