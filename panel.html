@@ -1,176 +1,157 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Mesa Directiva</title>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <style>
-    :root {
-      --azul: #0d47a1;
-      --amarillo: #ffeb3b;
-    }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--amarillo);
-      color: var(--azul);
-      text-align: center;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      border: 5mm solid transparent;
-      border-image: linear-gradient(to right, orange, black, orange, black) 1;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    header {
-      background-color: var(--azul);
-      color: var(--amarillo);
-      padding: 1rem;
-    }
-    h1 {
-      margin: 0;
-      font-size: 1.4rem;
-    }
-    .contenedor {
-      max-width: 400px;
-      margin: 2rem auto;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-    input {
-      width: 100%;
-      padding: 0.7rem;
-      margin-bottom: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    button {
-      background-color: var(--azul);
-      color: white;
-      padding: 0.7rem 1rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 6px 0 rgba(0,0,0,0.25);
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-    button:active {
-      top: 3px;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.25);
-    }
-    .ocultar {
-      position: relative;
-    }
-    .ocultar i {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      cursor: pointer;
-    }
-    .seccion {
-      display: none;
-    }
-    .exito { color: green; font-weight: bold; margin-top: 1rem; }
-    .error { color: red; font-weight: bold; margin-bottom: 1rem; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mesa Directiva | Patronato Zacualpan</title>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header>
-    <h1>Acceso al Panel de Mesa Directiva</h1>
+
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <img src="assets/logos/logo-patronato.png" alt="Logo Patronato Zacualpan" class="brand-logo" onerror="this.style.display='none'">
+        <div>
+          <p class="brand-small">Mesa Directiva</p>
+          <h1>Patronato Zacualpan</h1>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="index.html">Inicio</a>
+        <button id="btnCerrarSesion" class="nav-button hidden">Cerrar sesión</button>
+      </nav>
+    </div>
   </header>
 
-  <div class="contenedor" id="login">
-    <h2>Ingresa tu rol y contraseña</h2>
-    <input type="text" id="rol" placeholder="Ej: presidente, vocal1, secretario">
-    <div class="ocultar">
-      <input type="password" id="clave" placeholder="Contraseña">
-      <i onclick="togglePassword()">👁️</i>
+  <main>
+
+    <!-- LOGIN -->
+    <section class="section" id="loginSection">
+      <div class="section-container">
+        <div class="form-card panel-login">
+          <h2>Acceso Mesa Directiva</h2>
+          <p>
+            Ingresa con tu correo y contraseña autorizados para consultar el panel administrativo.
+          </p>
+
+          <form id="formLogin">
+            <label for="loginEmail">Correo electrónico</label>
+            <input type="email" id="loginEmail" required placeholder="correo@ejemplo.com">
+
+            <label for="loginPassword">Contraseña</label>
+            <input type="password" id="loginPassword" required placeholder="Contraseña">
+
+            <button type="submit" class="btn btn-primary full">Ingresar</button>
+          </form>
+
+          <button id="btnRecuperarPassword" class="btn btn-secondary full">
+            Recuperar contraseña
+          </button>
+
+          <div class="success-box hidden" id="mensajeLogin"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL PRIVADO -->
+    <section class="section hidden" id="panelSection">
+      <div class="section-container">
+
+        <div class="panel-title">
+          <div>
+            <p class="section-label">Panel privado</p>
+            <h2>Mesa Directiva</h2>
+            <p id="usuarioActivoTexto">Usuario activo</p>
+          </div>
+        </div>
+
+        <!-- RESUMEN -->
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <span>Ingresos</span>
+            <strong id="totalIngresos">$0.00</strong>
+          </article>
+
+          <article class="dashboard-card">
+            <span>Egresos</span>
+            <strong id="totalEgresos">$0.00</strong>
+          </article>
+
+          <article class="dashboard-card featured">
+            <span>Balance</span>
+            <strong id="saldoActual">$0.00</strong>
+          </article>
+
+          <article class="dashboard-card">
+            <span>Donadores</span>
+            <strong id="totalDonadores">0</strong>
+          </article>
+        </div>
+
+        <!-- ACCESOS -->
+        <div class="quick-access panel-access">
+          <a href="panel_donador.html" class="access-card">
+            <span>01</span>
+            <h3>Donadores</h3>
+            <p>Consulta padrinos, estatus y recordatorios.</p>
+          </a>
+
+          <a href="ingresos.html" class="access-card solo-tesorera">
+            <span>02</span>
+            <h3>Ingresos</h3>
+            <p>Registrar donaciones y generar recibos.</p>
+          </a>
+
+          <a href="egresos.html" class="access-card solo-tesorera">
+            <span>03</span>
+            <h3>Egresos</h3>
+            <p>Registrar gastos con comprobante obligatorio.</p>
+          </a>
+
+          <a href="inventario.html" class="access-card">
+            <span>04</span>
+            <h3>Inventario</h3>
+            <p>Equipo comprado, entregado y evidencias.</p>
+          </a>
+
+          <a href="opiniones_admin.html" class="access-card">
+            <span>05</span>
+            <h3>Opiniones</h3>
+            <p>Encuestas, comentarios y participación ciudadana.</p>
+          </a>
+
+          <a href="#" class="access-card">
+            <span>06</span>
+            <h3>WhatsApp</h3>
+            <p>Seguimiento, cobranza y agradecimientos.</p>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+      <p class="footer-small">Área privada de Mesa Directiva.</p>
     </div>
-    <div id="error" class="error" style="display:none;">Contraseña incorrecta</div>
-    <button onclick="verificarAcceso()">Entrar</button>
-  </div>
+  </footer>
 
-  <div class="contenedor seccion" id="panel">
-    <h2>Bienvenido, <span id="rolActual"></span></h2>
-    <p>Desde aquí podrás visualizar el panel correspondiente y cambiar tu contraseña.</p>
-  </div>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
 
-  <div class="contenedor seccion" id="cambio-clave">
-    <h3>Cambiar contraseña</h3>
-    <input type="password" id="clave-actual" placeholder="Contraseña actual">
-    <input type="password" id="clave-nueva" placeholder="Nueva contraseña">
-    <input type="password" id="clave-confirmar" placeholder="Confirmar nueva contraseña">
-    <button onclick="cambiarClave()">Cambiar contraseña</button>
-    <div id="mensaje-clave" class="exito"></div>
-  </div>
+  <script src="configuracion-firebase.js"></script>
+  <script src="auth.js"></script>
+  <script src="panel.js"></script>
 
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDDZbJmVRMsUJRaVTD__U6U1OQ6WrDAnX8",
-      authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
-      projectId: "donativos-patronato-zacualpan",
-      storageBucket: "donativos-patronato-zacualpan.appspot.com",
-      messagingSenderId: "140764329947",
-      appId: "1:140764329947:web:74f47df85c25b58b7998cf"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    let rolActivo = "";
-
-    async function verificarAcceso() {
-      const rol = document.getElementById("rol").value.toLowerCase().trim();
-      const clave = document.getElementById("clave").value;
-
-      const doc = await db.collection("claves").doc(rol).get();
-      if (doc.exists && clave === doc.data().clave) {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("panel").style.display = "block";
-        document.getElementById("cambio-clave").style.display = "block";
-        document.getElementById("rolActual").innerText = rol;
-        rolActivo = rol;
-      } else {
-        document.getElementById("error").style.display = "block";
-      }
-    }
-
-    async function cambiarClave() {
-      const actual = document.getElementById("clave-actual").value;
-      const nueva = document.getElementById("clave-nueva").value;
-      const confirmar = document.getElementById("clave-confirmar").value;
-      const doc = await db.collection("claves").doc(rolActivo).get();
-
-      if (!doc.exists || actual !== doc.data().clave) {
-        alert("La contraseña actual no es correcta.");
-        return;
-      }
-      if (nueva !== confirmar) {
-        alert("La nueva contraseña no coincide.");
-        return;
-      }
-      await db.collection("claves").doc(rolActivo).set({ clave: nueva });
-      document.getElementById("mensaje-clave").innerText = "Contraseña actualizada correctamente.";
-    }
-
-    function togglePassword() {
-      const input = document.getElementById("clave");
-      input.type = input.type === "password" ? "text" : "password";
-    }
-  </script>
 </body>
 </html>
