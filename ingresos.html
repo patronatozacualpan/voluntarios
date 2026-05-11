@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ingresos | Patronato Zacualpan</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <img src="assets/logos/logo-patronato.png" alt="Logo Patronato Zacualpan" class="brand-logo" onerror="this.style.display='none'">
+        <div>
+          <p class="brand-small">Tesorería</p>
+          <h1>Registro de Ingresos</h1>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <a href="panel.html">Panel</a>
+        <a href="panel_donador.html">Donadores</a>
+        <a href="index.html">Inicio</a>
+        <button id="btnCerrarSesion" class="nav-button">Cerrar sesión</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-container two-columns">
+
+        <div>
+          <p class="section-label">Donaciones</p>
+          <h2>Registrar ingreso</h2>
+          <p>
+            Este módulo permite registrar aportaciones recibidas, generar folio consecutivo,
+            actualizar el total aportado del donador y preparar el recibo de donación.
+          </p>
+
+          <div class="info-card">
+            <h3>Reglas del módulo</h3>
+            <ul>
+              <li>Solo la tesorera puede registrar ingresos.</li>
+              <li>El monto debe ser mayor a cero.</li>
+              <li>El folio se genera automáticamente.</li>
+              <li>El ingreso queda guardado como historial.</li>
+              <li>No se deben borrar ingresos desde el panel.</li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="form-card" id="formIngreso">
+          <h3>Nuevo ingreso</h3>
+
+          <label for="buscarDonadorIngreso">Buscar donador *</label>
+          <input type="search" id="buscarDonadorIngreso" placeholder="Buscar por nombre o teléfono..." autocomplete="off">
+
+          <label for="selectDonadorIngreso">Seleccionar donador *</label>
+          <select id="selectDonadorIngreso" required>
+            <option value="">Cargando donadores...</option>
+          </select>
+
+          <label for="montoIngreso">Cantidad recibida *</label>
+          <input type="number" id="montoIngreso" min="1" step="0.01" required placeholder="Ej. 100">
+
+          <label for="formaPagoIngreso">Forma de pago *</label>
+          <select id="formaPagoIngreso" required>
+            <option value="">Selecciona una opción</option>
+            <option value="efectivo">Efectivo</option>
+            <option value="transferencia">Transferencia</option>
+            <option value="deposito">Depósito</option>
+            <option value="spin_oxxo">SPIN OXXO</option>
+            <option value="otro">Otro</option>
+          </select>
+
+          <label for="notaIngreso">Nota opcional</label>
+          <textarea id="notaIngreso" rows="3" placeholder="Observación interna opcional"></textarea>
+
+          <button type="submit" class="btn btn-primary full">Registrar ingreso</button>
+
+          <div class="success-box hidden" id="mensajeIngreso">
+            ✅ Ingreso registrado correctamente.<br>
+            📄 Recibo preparado con éxito.
+          </div>
+        </form>
+
+      </div>
+
+      <div class="section-container">
+        <div class="table-card">
+          <h3>Ingresos recientes</h3>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Folio</th>
+                  <th>Fecha</th>
+                  <th>Donador</th>
+                  <th>Teléfono</th>
+                  <th>Monto</th>
+                  <th>Forma de pago</th>
+                  <th>Registrado por</th>
+                  <th>Recibo</th>
+                </tr>
+              </thead>
+
+              <tbody id="tablaIngresosBody">
+                <tr>
+                  <td colspan="8">Cargando ingresos...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+      <p class="footer-small">Registro de ingresos y recibos.</p>
+    </div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script src="configuracion-firebase.js"></script>
+  <script src="auth.js"></script>
+  <script src="recibos.js"></script>
+  <script src="ingresos.js"></script>
+
+</body>
+</html>
