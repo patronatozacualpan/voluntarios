@@ -1,156 +1,322 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Donadores PCZ</title>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 1rem;
-      background: #f4f4f4;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 2rem;
-    }
-    th, td {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-    .verde { background: #d0f0c0; }
-    .azul { background: #c0e7f7; }
-    .rojo { background: #f8d0d0; }
-    .leyenda span { margin-right: 2rem; font-weight: bold; }
-    .leyenda .verde::before { content: '✅ '; }
-    .leyenda .azul::before { content: '⏩ '; }
-    .leyenda .rojo::before { content: '⏪ '; }
-    button {
-      padding: 0.5rem 1rem;
-      margin-top: 1rem;
-    }
-    .instruccion-validacion {
-      background:#fff3cd;
-      padding: 1rem;
-      border-left: 6px solid #ffc107;
-      font-size: 14px;
-      margin-bottom: 1rem;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Patronato Zacualpan Pro-equipamiento de Protección Civil</title>
+
+  <meta name="description" content="Patronato Zacualpan Pro-equipamiento de Protección Civil. Unidos para equipar a quienes arriesgan su vida por nuestra comunidad." />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <h2>Panel de Donadores</h2>
 
-  <div class="instruccion-validacion">
-    <strong>🛡 Instrucciones de validación:</strong><br>
-    Si un donador aparece en esta lista es porque <strong>no ha confirmado su código por WhatsApp</strong>.<br>
-    Antes de activarlo manualmente, recomendamos <strong>llamar directamente al número registrado</strong> y preguntar:<br>
-    <em>“¿Usted se registró como padrino del Patronato Zacualpan con una promesa mensual de $X?”</em><br>
-    <br>
-    Si la respuesta es afirmativa, puedes validar con el botón verde.<br>
-    Si no responde o niega el registro, puedes descartarlo con el botón rojo.<br>
-    <br>
-    Todos los cambios quedarán registrados para seguimiento y seguridad. ✔️
-  </div>
+  <!-- ENCABEZADO -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <img src="assets/logos/logo-patronato.png" alt="Logo Patronato Zacualpan" class="brand-logo" onerror="this.style.display='none'">
+        <div>
+          <p class="brand-small">Patronato Zacualpan</p>
+          <h1>Pro-equipamiento de Protección Civil</h1>
+        </div>
+      </div>
 
-  <div class="leyenda">
-    <span class="verde">Al día</span>
-    <span class="azul">Adelantado</span>
-    <span class="rojo">Atrasado</span>
-  </div>
+      <nav class="main-nav">
+        <a href="#causa">La causa</a>
+        <a href="#donador">Hazte donador</a>
+        <a href="#opiniones">Opiniones</a>
+        <a href="panel.html" class="nav-private">Mesa directiva</a>
+      </nav>
+    </div>
+  </header>
 
-  <table id="tablaDonadores">
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Teléfono</th>
-        <th>Población</th>
-        <th>Promesa Mensual</th>
-        <th>Total Aportado</th>
-        <th>Días de Atraso</th>
-        <th>Estatus</th>
-        <th>Último Pago</th>
-        <th>Último Mensaje</th>
-        <th>Recordatorio Preferido</th>
-        <th>WhatsApp</th>
-        <th>Recordar Ahora</th>
-      </tr>
-    </thead>
-    <tbody id="cuerpoTabla"></tbody>
-  </table>
-  <button onclick="descargarExcel()">Descargar Excel</button>
+  <!-- PORTADA PRINCIPAL -->
+  <main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const firebaseConfig = {
-        // Tu configuración aquí
-      };
+    <section class="hero" id="inicio">
+      <div class="hero-overlay"></div>
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+      <div class="hero-content">
+        <p class="hero-label">Unidos por Zacualpan</p>
 
-      function diasDeAtraso(fechaPago) {
-        const hoy = new Date();
-        const fecha = new Date(fechaPago);
-        const diferencia = hoy - fecha;
-        return Math.floor(diferencia / (1000 * 60 * 60 * 24));
-      }
+        <h2>
+          Equipar a Protección Civil
+          <span>también es salvar vidas.</span>
+        </h2>
 
-      function estatusDonador(dias) {
-        if (dias <= 0) return 'verde';
-        if (dias <= 30) return 'azul';
-        return 'rojo';
-      }
+        <p class="hero-text">
+          Somos ciudadanos y voluntarios unidos para fortalecer a Protección Civil Zacualpan con equipo digno,
+          herramientas de rescate y apoyo real para responder ante emergencias.
+        </p>
 
-      function cargarDonadores() {
-        db.collection("donadores").get().then(snapshot => {
-          const cuerpo = document.getElementById("cuerpoTabla");
-          cuerpo.innerHTML = "";
-          snapshot.forEach(doc => {
-            const d = doc.data();
-            const diasAtraso = diasDeAtraso(d.ultimoPago);
-            const estatus = estatusDonador(diasAtraso);
-            const fila = `
-              <tr class="${estatus}">
-                <td>${d.nombre}</td>
-                <td>${d.telefono}</td>
-                <td>${d.poblacion}</td>
-                <td>$${d.promesaMensual}</td>
-                <td>$${d.totalAportado || 0}</td>
-                <td>${diasAtraso}</td>
-                <td>${estatus === 'verde' ? '✅ Al día' : estatus === 'azul' ? '⏩ Adelantado' : '⏪ Atrasado'}</td>
-                <td>${d.ultimoPago}</td>
-                <td>${d.ultimoMensaje || 'N/A'}</td>
-                <td>${d.diaPreferido || 'Domingo'}</td>
-                <td><a href="https://wa.me/52${d.telefono}?text=${encodeURIComponent('Hola ' + d.nombre + ', este es tu recordatorio para tu aportación al Patronato Zacualpan.')}" target="_blank">Enviar</a></td>
-                <td><button onclick="enviarRecordatorioManual('${d.telefono}', '${d.nombre}', '${diasAtraso}')">Recordar</button></td>
-              </tr>
-            `;
-            cuerpo.innerHTML += fila;
-          });
-        }).catch(err => {
-          console.error("Error al cargar donadores:", err);
-        });
-      }
+        <div class="hero-dynamic">
+          <span id="fraseDinamica">Tu apoyo equipa a nuestros héroes voluntarios.</span>
+        </div>
 
-      window.enviarRecordatorioManual = function(telefono, nombre, diasAtraso) {
-        const mensaje = `Hola ${nombre}, este es tu recordatorio para apoyar al Patronato Zacualpan. Llevas ${diasAtraso} días de atraso. Puedes hacer tu depósito a la cuenta SPIN OXXO: Miriam Camacho Martínez, CLABE: 7289 6900 0138 8899 56.`;
-        window.open(`https://wa.me/52${telefono}?text=${encodeURIComponent(mensaje)}`, '_blank');
-      };
+        <div class="hero-actions">
+          <a href="#donador" class="btn btn-primary">Hazte donador</a>
+          <a href="#causa" class="btn btn-secondary">Conoce la causa</a>
+        </div>
+      </div>
+    </section>
 
-      window.descargarExcel = function() {
-        const tabla = document.getElementById("tablaDonadores");
-        const wb = XLSX.utils.table_to_book(tabla, {sheet: "Donadores"});
-        XLSX.writeFile(wb, "reporte-donadores-PCZ.xlsx");
-      };
+    <!-- ACCESOS PRINCIPALES -->
+    <section class="quick-access">
+      <a href="#quienes" class="access-card">
+        <span>01</span>
+        <h3>¿Quiénes somos?</h3>
+        <p>Conoce el origen, misión, visión y valores del patronato.</p>
+      </a>
 
-      cargarDonadores();
-    });
-  </script>
+      <a href="#donador" class="access-card featured">
+        <span>02</span>
+        <h3>Hazte donador</h3>
+        <p>Desde un peso al día puedes fortalecer esta causa.</p>
+      </a>
+
+      <a href="#opiniones" class="access-card">
+        <span>03</span>
+        <h3>Opiniones y encuesta</h3>
+        <p>Tu voz ayuda a decidir qué equipo es más urgente.</p>
+      </a>
+
+      <a href="panel.html" class="access-card private">
+        <span>04</span>
+        <h3>Mesa directiva</h3>
+        <p>Acceso privado para administración y seguimiento.</p>
+      </a>
+    </section>
+
+    <!-- CAUSA URGENTE -->
+    <section class="section cause-section" id="causa">
+      <div class="section-container two-columns">
+        <div>
+          <p class="section-label">La causa</p>
+          <h2>Protección Civil necesita herramientas para responder mejor.</h2>
+          <p>
+            Durante años, el equipo voluntario de Protección Civil Zacualpan ha servido con compromiso,
+            aun enfrentando limitaciones de equipo. La falta de herramientas de rescate vehicular puede marcar
+            la diferencia en accidentes donde hay personas atrapadas.
+          </p>
+          <p>
+            Este patronato nace para organizar la ayuda ciudadana y convertir cada aportación en avance real,
+            con transparencia, seguimiento y participación comunitaria.
+          </p>
+        </div>
+
+        <div class="impact-box">
+          <h3>Prioridades de equipamiento</h3>
+          <ul>
+            <li>Herramientas de rescate vehicular</li>
+            <li>Equipo médico básico</li>
+            <li>Uniformes y protección personal</li>
+            <li>Radiocomunicación</li>
+            <li>Capacitación y apoyo operativo</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section class="section" id="quienes">
+      <div class="section-container">
+        <p class="section-label">Información institucional</p>
+        <h2>¿Quiénes somos?</h2>
+
+        <div class="info-card large">
+          <p>
+            Somos un grupo de voluntarios que decidimos unirnos a la causa de Protección Civil Zacualpan,
+            porque estamos mirando la necesidad de este gran equipo de voluntarios que por más de 20 años
+            ha carecido de equipo suficiente. Hemos visto cómo se pierden vidas en accidentes de nuestro entorno
+            por falta de herramientas de rescate, especialmente para desprensar personas atrapadas entre los
+            fierros comprimidos de un choque o accidente.
+          </p>
+        </div>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>Misión</h3>
+            <p>
+              Unirnos en este patronato para buscar entre todos la forma de recaudar fondos y lograr equipamiento,
+              empezando con la muestra de una cuota autoasignada por los miembros, desde una aportación mínima
+              equivalente a un peso por día.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h3>Visión</h3>
+            <p>
+              Miramos un Zacualpan unido y fortalecido ante la adversidad y la tragedia; un pueblo más sólido
+              cuando las circunstancias difíciles exigen respuesta rápida y organizada.
+            </p>
+          </article>
+
+          <article class="info-card">
+            <h3>Valores</h3>
+            <ul class="values-list">
+              <li>Ética profesional</li>
+              <li>Empatía</li>
+              <li>Diversidad</li>
+              <li>Honestidad</li>
+              <li>Responsabilidad</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORMULARIO DONADOR -->
+    <section class="section donor-section" id="donador">
+      <div class="section-container two-columns">
+        <div>
+          <p class="section-label">Súmate a la causa</p>
+          <h2>Hazte donador de un peso por día.</h2>
+          <p>
+            Tu aportación mensual ayuda a crear una base constante para comprar equipo, herramientas y recursos
+            que fortalezcan a Protección Civil Zacualpan.
+          </p>
+
+          <div class="donor-message">
+            <strong>Un peso al día parece poco,</strong>
+            pero unido al apoyo de muchos puede convertirse en herramientas que salvan vidas.
+          </div>
+        </div>
+
+        <form class="form-card" id="formDonador">
+          <h3>Registro de donador</h3>
+
+          <label for="donadorNombre">Nombre completo *</label>
+          <input type="text" id="donadorNombre" name="nombre" placeholder="Escribe tu nombre completo" required>
+
+          <label for="donadorTelefono">Teléfono WhatsApp *</label>
+          <input type="tel" id="donadorTelefono" name="telefono" placeholder="10 dígitos" required>
+
+          <label for="donadorPoblacion">Población *</label>
+          <input type="text" id="donadorPoblacion" name="poblacion" placeholder="Ej. Zacualpan" required>
+
+          <label for="donadorCantidad">Cantidad mensual prometida *</label>
+          <select id="donadorCantidad" name="promesaMensual" required>
+            <option value="">Selecciona una opción</option>
+            <option value="30">$30 al mes / 1 peso por día</option>
+            <option value="60">$60 al mes / 2 pesos por día</option>
+            <option value="100">$100 al mes</option>
+            <option value="200">$200 al mes</option>
+            <option value="otra">Otra cantidad</option>
+          </select>
+
+          <div id="campoCantidadOtra" class="hidden">
+            <label for="donadorCantidadOtra">Otra cantidad mensual</label>
+            <input type="number" id="donadorCantidadOtra" name="promesaMensualOtra" min="1" placeholder="Ingresa la cantidad">
+          </div>
+
+          <label class="checkbox-line">
+            <input type="checkbox" id="aceptaWhatsApp" name="aceptaWhatsApp" checked>
+            <span>Acepto recibir seguimiento por WhatsApp relacionado con mi apoyo al patronato.</span>
+          </label>
+
+          <button type="submit" class="btn btn-primary full">Registrar mi apoyo</button>
+
+          <div class="success-box hidden" id="mensajeDonador">
+            ✅ Gracias, tus datos han quedado registrados, cada peso potencializa la causa.<br>
+            ⏳ Redirigiendo al inicio...<br>
+            🎉 Te contactaremos pronto.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- OPINIONES Y ENCUESTA -->
+    <section class="section opinions-section" id="opiniones">
+      <div class="section-container two-columns">
+        <div>
+          <p class="section-label">Participación ciudadana</p>
+          <h2>Opiniones y encuesta</h2>
+          <p>
+            Tu opinión ayuda a fortalecer esta causa. Queremos conocer qué piensa la comunidad,
+            qué equipo considera más urgente y cómo podemos sumar más apoyo.
+          </p>
+        </div>
+
+        <form class="form-card" id="formOpinion">
+          <h3>Comparte tu opinión</h3>
+
+          <label for="opinionNombre">Nombre opcional</label>
+          <input type="text" id="opinionNombre" name="nombre" placeholder="Tu nombre">
+
+          <label for="opinionTelefono">Teléfono opcional</label>
+          <input type="tel" id="opinionTelefono" name="telefono" placeholder="10 dígitos">
+
+          <label for="opinionPoblacion">Población *</label>
+          <input type="text" id="opinionPoblacion" name="poblacion" placeholder="Ej. Zacualpan" required>
+
+          <label for="apoyaCausa">¿Apoyas la causa del patronato? *</label>
+          <select id="apoyaCausa" name="apoyaCausa" required>
+            <option value="">Selecciona una opción</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+            <option value="necesito_mas_informacion">Necesito más información</option>
+          </select>
+
+          <label for="necesidadUrgente">¿Qué consideras más urgente comprar? *</label>
+          <select id="necesidadUrgente" name="necesidadUrgente" required>
+            <option value="">Selecciona una opción</option>
+            <option value="herramientas_rescate">Herramientas de rescate vehicular</option>
+            <option value="equipo_medico">Equipo médico básico</option>
+            <option value="uniformes_proteccion">Uniformes y protección personal</option>
+            <option value="radiocomunicacion">Radio comunicación</option>
+            <option value="vehiculo_apoyo">Ambulancia o vehículo de apoyo</option>
+            <option value="capacitacion">Capacitación</option>
+            <option value="otro">Otro</option>
+          </select>
+
+          <label for="quiereSerDonador">¿Te gustaría ser donador? *</label>
+          <select id="quiereSerDonador" name="quiereSerDonador" required>
+            <option value="">Selecciona una opción</option>
+            <option value="si">Sí</option>
+            <option value="tal_vez">Tal vez</option>
+            <option value="no_por_el_momento">No por el momento</option>
+          </select>
+
+          <label for="calificacion">Calificación del proyecto *</label>
+          <select id="calificacion" name="calificacion" required>
+            <option value="">Selecciona una opción</option>
+            <option value="5">★★★★★ Excelente</option>
+            <option value="4">★★★★ Bueno</option>
+            <option value="3">★★★ Regular</option>
+            <option value="2">★★ Bajo</option>
+            <option value="1">★ Muy bajo</option>
+          </select>
+
+          <label for="opinionTexto">Opinión o sugerencia *</label>
+          <textarea id="opinionTexto" name="opinion" rows="4" placeholder="Escribe tu opinión..." required></textarea>
+
+          <button type="submit" class="btn btn-primary full">Enviar opinión</button>
+
+          <div class="success-box hidden" id="mensajeOpinion">
+            ✅ Gracias por compartir tu opinión.<br>
+            Tu voz ayuda a fortalecer esta causa.
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+      <p>Transparencia, solidaridad y acción comunitaria.</p>
+      <p class="footer-small">© 2026 Patronato Zacualpan. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="configuracion-firebase.js"></script>
+  <script src="registro-donador.js"></script>
+  <script src="opiniones.js"></script>
 </body>
 </html>
