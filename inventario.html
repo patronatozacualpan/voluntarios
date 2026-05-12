@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inventario | Patronato Zacualpan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+<header class="site-header">
+  <div class="header-container">
+    <div class="brand">
+      <img src="assets/logos/logo-patronato.png" class="brand-logo" onerror="this.style.display='none'">
+      <div>
+        <p class="brand-small">Transparencia</p>
+        <h1>Inventario y entrega de equipo</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="panel.html">Panel</a>
+      <a href="index.html">Inicio</a>
+      <button id="btnCerrarSesion" class="nav-button">Cerrar sesión</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-container two-columns">
+
+      <div>
+        <p class="section-label">Equipo adquirido</p>
+        <h2>Registrar equipo</h2>
+        <p>
+          Este módulo documenta qué equipo se compra, cuánto costó,
+          cuándo se recibió y cuándo fue entregado a Protección Civil.
+        </p>
+
+        <div class="info-card">
+          <h3>Transparencia pública</h3>
+          <p>
+            Los registros marcados como públicos podrán mostrarse en la página principal
+            como evidencia del avance del patronato.
+          </p>
+        </div>
+      </div>
+
+      <form class="form-card" id="formInventario">
+        <h3>Nuevo equipo</h3>
+
+        <label>Nombre del equipo *</label>
+        <input type="text" id="nombreEquipo" required>
+
+        <label>Categoría *</label>
+        <select id="categoriaEquipo" required>
+          <option value="">Selecciona</option>
+          <option value="rescate_vehicular">Rescate vehicular</option>
+          <option value="equipo_medico">Equipo médico</option>
+          <option value="proteccion_personal">Protección personal</option>
+          <option value="radiocomunicacion">Radiocomunicación</option>
+          <option value="herramienta_manual">Herramienta manual</option>
+          <option value="vehiculo_apoyo">Vehículo de apoyo</option>
+          <option value="otro">Otro</option>
+        </select>
+
+        <label>Descripción</label>
+        <textarea id="descripcionEquipo" rows="3"></textarea>
+
+        <label>Cantidad *</label>
+        <input type="number" id="cantidadEquipo" min="1" value="1" required>
+
+        <label>Costo total *</label>
+        <input type="number" id="costoEquipo" min="1" step="0.01" required>
+
+        <label>Proveedor</label>
+        <input type="text" id="proveedorEquipo">
+
+        <label>Estado *</label>
+        <select id="estadoEquipo" required>
+          <option value="solicitado">Solicitado</option>
+          <option value="cotizado">Cotizado</option>
+          <option value="comprado">Comprado</option>
+          <option value="recibido">Recibido</option>
+          <option value="entregado">Entregado</option>
+          <option value="en_uso">En uso</option>
+          <option value="mantenimiento">Mantenimiento</option>
+          <option value="baja">Baja</option>
+        </select>
+
+        <label>Foto del equipo</label>
+        <input type="file" id="fotoEquipo" accept="image/*">
+
+        <label>Comprobante de compra</label>
+        <input type="file" id="comprobanteEquipo" accept="image/*,application/pdf">
+
+        <label class="checkbox-line">
+          <input type="checkbox" id="publicoEquipo" checked>
+          <span>Mostrar este equipo en transparencia pública.</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary full">Guardar equipo</button>
+
+        <div class="success-box hidden" id="mensajeInventario">
+          ✅ Equipo registrado correctamente.
+        </div>
+      </form>
+    </div>
+
+    <div class="section-container">
+      <div class="table-card">
+        <h3>Inventario registrado</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Equipo</th>
+                <th>Categoría</th>
+                <th>Cantidad</th>
+                <th>Costo</th>
+                <th>Estado</th>
+                <th>Público</th>
+                <th>Foto</th>
+                <th>Comprobante</th>
+              </tr>
+            </thead>
+            <tbody id="tablaInventarioBody">
+              <tr><td colspan="8">Cargando inventario...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+    <p class="footer-small">Inventario, evidencias y transparencia.</p>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+<script src="inventario.js"></script>
+
+</body>
+</html>
