@@ -765,3 +765,18 @@ a {
   color: var(--azul);
 
 }
+
+.hero-emblema {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 22px;
+}
+
+.hero-emblema img {
+  max-height: 200px;
+  width: auto;
+  max-width: 90%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 24px rgba(0,0,0,.35));
+}
