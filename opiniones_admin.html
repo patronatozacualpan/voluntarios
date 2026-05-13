@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opiniones | Patronato Zacualpan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="brand">
+      <div>
+        <p class="brand-small">Mesa Directiva</p>
+        <h1>Opiniones y Encuestas</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="panel.html">Panel</a>
+      <a href="index.html">Inicio</a>
+      <button id="btnCerrarSesion" class="nav-button">Cerrar sesión</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-container">
+      <p class="section-label">Participación ciudadana</p>
+      <h2>Opiniones recibidas</h2>
+
+      <div class="dashboard-grid">
+        <article class="dashboard-card">
+          <span>Total opiniones</span>
+          <strong id="totalOpiniones">0</strong>
+        </article>
+
+        <article class="dashboard-card">
+          <span>Promedio calificación</span>
+          <strong id="promedioCalificacion">0</strong>
+        </article>
+
+        <article class="dashboard-card featured">
+          <span>Interesados en donar</span>
+          <strong id="interesadosDonar">0</strong>
+        </article>
+      </div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Población</th>
+                <th>Apoya</th>
+                <th>Necesidad urgente</th>
+                <th>Quiere donar</th>
+                <th>Calificación</th>
+                <th>Opinión</th>
+              </tr>
+            </thead>
+            <tbody id="tablaOpinionesBody">
+              <tr>
+                <td colspan="9">Cargando opiniones...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+  <p class="footer-small">Opiniones y encuestas ciudadanas.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+<script src="opiniones_admin.js"></script>
+
+</body>
+</html>
