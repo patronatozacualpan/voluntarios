@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp | Patronato Zacualpan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="brand">
+      <div>
+        <p class="brand-small">Mesa Directiva</p>
+        <h1>WhatsApp y Seguimiento</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="panel.html">Panel</a>
+      <a href="index.html">Inicio</a>
+      <button id="btnCerrarSesion" class="nav-button">Cerrar sesión</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-container">
+
+      <p class="section-label">Seguimiento</p>
+      <h2>Cobranza amable y agradecimientos</h2>
+
+      <div class="info-card large">
+        <h3>Módulo WhatsApp</h3>
+        <p>
+          Este módulo servirá para dar seguimiento a donadores, enviar recordatorios,
+          agradecimientos y mensajes informativos del patronato.
+        </p>
+        <p>
+          Por ahora funcionará como seguimiento manual mediante enlaces WhatsApp.
+          En una fase posterior se conectará con WhatsApp Cloud API y plantillas aprobadas por Meta.
+        </p>
+      </div>
+
+      <div class="table-card">
+        <h3>Próximas funciones</h3>
+        <ul>
+          <li>Recordatorio manual por donador.</li>
+          <li>Agradecimiento automático después de registrar ingreso.</li>
+          <li>Plantillas de cobranza amable.</li>
+          <li>Mensajes para donadores atrasados.</li>
+          <li>Registro de historial de mensajes.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+  <p class="footer-small">WhatsApp, cobranza y agradecimientos.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>
