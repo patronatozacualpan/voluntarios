@@ -60,16 +60,7 @@ async function registrarDonador(event) {
   }
 
   try {
-    const existe = await db
-      .collection("donadores")
-      .where("telefono", "==", telefono)
-      .limit(1)
-      .get();
-
-    if (!existe.empty) {
-      alert("⚠️ Este teléfono ya está registrado como donador.");
-      return;
-    }
+   const docRef = await db.collection("donadores").add(nuevoDonador);
 
     const nuevoDonador = {
       nombre,
