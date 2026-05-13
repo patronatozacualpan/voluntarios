@@ -71,7 +71,7 @@ async function cargarDonadoresParaIngreso() {
     });
 
     pintarSelectDonadores(DONADORES_INGRESO_CACHE);
-
+detectarDonadorDesdeURL();
   } catch (error) {
     console.error("Error cargando donadores:", error);
     select.innerHTML = `<option value="">Error cargando donadores</option>`;
@@ -96,6 +96,50 @@ function pintarSelectDonadores(lista) {
     option.textContent = `${d.nombre || "Sin nombre"} | ${d.telefono || ""} | ${formatoMoneda(d.promesaMensual || 0)}/mes`;
     select.appendChild(option);
   });
+}
+
+/* ---------------------------------------------------------
+   Detectar donador desde URL
+--------------------------------------------------------- */
+
+function detectarDonadorDesdeURL() {
+  const params = new URLSearchParams(window.location.search);
+
+  const donadorId = params.get("donadorId");
+
+  if (!donadorId) return;
+
+  const select = document.getElementById("selectDonadorIngreso");
+
+  if (!select) return;
+
+  const donador = DONADORES_INGRESO_CACHE.find((d) => d.id === donadorId);
+
+  if (!donador) return;
+
+  select.value = donadorId;
+
+  sugerirMontoDonador(donador);
+
+  setTimeout(() => {
+    document.getElementById("montoIngreso")?.focus();
+  }, 250);
+}
+
+/* ---------------------------------------------------------
+   Sugerir monto mensual
+--------------------------------------------------------- */
+
+function sugerirMontoDonador(donador) {
+  const inputMonto = document.getElementById("montoIngreso");
+
+  if (!inputMonto || !donador) return;
+
+  const monto = Number(donador.promesaMensual || 0);
+
+  if (monto > 0) {
+    inputMonto.value = monto;
+  }
 }
 
 /* ---------------------------------------------------------
