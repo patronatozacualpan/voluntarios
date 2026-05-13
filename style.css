@@ -950,3 +950,54 @@ a {
   background: var(--rojo);
 }
 
+.toast-success {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(92%, 460px);
+  background: #dcfce7;
+  color: #14532d;
+  border-left: 8px solid var(--verde);
+  border-radius: 18px;
+  padding: 16px 18px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.22);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  animation: toastEntrada .25s ease-out;
+}
+
+.toast-success strong {
+  font-size: 1rem;
+}
+
+.toast-success span {
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.toast-success small {
+  font-weight: 700;
+}
+
+@keyframes toastEntrada {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 560px) {
+  .toast-success {
+    bottom: 16px;
+    width: calc(100% - 28px);
+  }
+}
+
