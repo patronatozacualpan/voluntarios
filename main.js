@@ -1,7 +1,8 @@
 /* =========================================================
    main.js
    Patronato Zacualpan Pro-equipamiento de Protección Civil
-   ========================================================= */
+   Funciones visuales generales
+========================================================= */
 
 /* ---------------------------------------------------------
    FRASES DINÁMICAS
@@ -26,11 +27,7 @@ function iniciarFrasesDinamicas() {
   fraseElemento.textContent = FRASES_PORTADA[indiceFrase];
 
   setInterval(() => {
-    indiceFrase++;
-
-    if (indiceFrase >= FRASES_PORTADA.length) {
-      indiceFrase = 0;
-    }
+    indiceFrase = (indiceFrase + 1) % FRASES_PORTADA.length;
 
     fraseElemento.classList.add("fade-out");
 
@@ -42,9 +39,7 @@ function iniciarFrasesDinamicas() {
       setTimeout(() => {
         fraseElemento.classList.remove("fade-in");
       }, 500);
-
     }, 350);
-
   }, 3000);
 }
 
@@ -53,13 +48,10 @@ function iniciarFrasesDinamicas() {
 --------------------------------------------------------- */
 
 function activarScrollSuave() {
-
   const enlaces = document.querySelectorAll('a[href^="#"]');
 
   enlaces.forEach((enlace) => {
-
     enlace.addEventListener("click", (event) => {
-
       const destinoId = enlace.getAttribute("href");
 
       if (!destinoId || destinoId === "#") return;
@@ -74,11 +66,8 @@ function activarScrollSuave() {
         behavior: "smooth",
         block: "start"
       });
-
     });
-
   });
-
 }
 
 /* ---------------------------------------------------------
@@ -86,38 +75,36 @@ function activarScrollSuave() {
 --------------------------------------------------------- */
 
 function activarCantidadOtra() {
-
   const selectCantidad = document.getElementById("donadorCantidad");
   const campoCantidadOtra = document.getElementById("campoCantidadOtra");
+  const inputCantidadOtra = document.getElementById("donadorCantidadOtra");
 
   if (!selectCantidad || !campoCantidadOtra) return;
 
   selectCantidad.addEventListener("change", () => {
-
     if (selectCantidad.value === "otra") {
       campoCantidadOtra.classList.remove("hidden");
+
+      if (inputCantidadOtra) {
+        inputCantidadOtra.setAttribute("required", "required");
+        inputCantidadOtra.focus();
+      }
     } else {
       campoCantidadOtra.classList.add("hidden");
+
+      if (inputCantidadOtra) {
+        inputCantidadOtra.removeAttribute("required");
+        inputCantidadOtra.value = "";
+      }
     }
-
   });
-
 }
 
 /* ---------------------------------------------------------
-   UTILIDADES
+   UTILIDADES VISUALES
 --------------------------------------------------------- */
 
-function limpiarTelefono(telefono) {
-  return String(telefono || "").replace(/\D/g, "");
-}
-
-function validarTelefonoMexicano(telefono) {
-  return limpiarTelefono(telefono).length === 10;
-}
-
 function mostrarMensajeTemporal(elemento, tiempo = 5000) {
-
   if (!elemento) return;
 
   elemento.classList.remove("hidden");
@@ -125,135 +112,34 @@ function mostrarMensajeTemporal(elemento, tiempo = 5000) {
   setTimeout(() => {
     elemento.classList.add("hidden");
   }, tiempo);
-
-}
-
-function limpiarFormulario(formulario) {
-  if (!formulario) return;
-  formulario.reset();
 }
 
 function scrollAlInicio() {
-
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
-
-}
-
-/* ---------------------------------------------------------
-   VALIDACIÓN FORMULARIO DONADOR
---------------------------------------------------------- */
-
-function activarFormularioDonador() {
-
-  const formDonador = document.getElementById("formDonador");
-
-  if (!formDonador) return;
-
-  formDonador.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    const nombre = document.getElementById("donadorNombre").value.trim();
-
-    const telefono = limpiarTelefono(
-      document.getElementById("donadorTelefono").value
-    );
-
-    const poblacion = document.getElementById("donadorPoblacion").value.trim();
-
-    const cantidad = document.getElementById("donadorCantidad").value;
-
-    if (!nombre || !telefono || !poblacion || !cantidad) {
-
-      alert("⚠️ Completa todos los campos obligatorios.");
-      return;
-
-    }
-
-    if (!validarTelefonoMexicano(telefono)) {
-
-      alert("⚠️ El teléfono debe tener 10 dígitos.");
-      return;
-
-    }
-
-    const mensaje = document.getElementById("mensajeDonador");
-
-    mostrarMensajeTemporal(mensaje);
-
-    limpiarFormulario(formDonador);
-
-    scrollAlInicio();
-
-    console.log("Donador listo para Firebase");
-
-  });
-
-}
-
-/* ---------------------------------------------------------
-   VALIDACIÓN FORMULARIO OPINIÓN
---------------------------------------------------------- */
-
-function activarFormularioOpinion() {
-
-  const formOpinion = document.getElementById("formOpinion");
-
-  if (!formOpinion) return;
-
-  formOpinion.addEventListener("submit", (event) => {
-
-    event.preventDefault();
-
-    const poblacion = document.getElementById("opinionPoblacion").value.trim();
-
-    const opinion = document.getElementById("opinionTexto").value.trim();
-
-    if (!poblacion || !opinion) {
-
-      alert("⚠️ Completa los campos obligatorios.");
-      return;
-
-    }
-
-    if (opinion.length < 10) {
-
-      alert("⚠️ Escribe una opinión más detallada.");
-      return;
-
-    }
-
-    const mensaje = document.getElementById("mensajeOpinion");
-
-    mostrarMensajeTemporal(mensaje);
-
-    limpiarFormulario(formOpinion);
-
-    scrollAlInicio();
-
-    console.log("Opinión lista para Firebase");
-
-  });
-
 }
 
 /* ---------------------------------------------------------
    INICIALIZACIÓN GENERAL
+   Importante:
+   main.js NO guarda formularios.
+   registro-donador.js guarda donadores.
+   opiniones.js guarda opiniones.
 --------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
-
   iniciarFrasesDinamicas();
-
   activarScrollSuave();
-
   activarCantidadOtra();
-
-  activarFormularioDonador();
-
-  activarFormularioOpinion();
-
 });
+
+/* ---------------------------------------------------------
+   EXPONER UTILIDADES OPCIONALES
+--------------------------------------------------------- */
+
+window.PCZ_MAIN = {
+  mostrarMensajeTemporal,
+  scrollAlInicio
+};
