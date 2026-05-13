@@ -36,20 +36,15 @@ if (typeof firebase === "undefined") {
 --------------------------------------------------------- */
 
 const firebaseConfig = {
-
-  apiKey: "REEMPLAZAR_API_KEY",
-
-  authDomain: "REEMPLAZAR_AUTH_DOMAIN",
-
-  projectId: "REEMPLAZAR_PROJECT_ID",
-
-  storageBucket: "REEMPLAZAR_STORAGE_BUCKET",
-
-  messagingSenderId: "REEMPLAZAR_MESSAGING_SENDER_ID",
-
-  appId: "REEMPLAZAR_APP_ID"
-
+  apiKey: "AIzaSyAKoDtHyAwjVd02M-MjcuQ0awoIDxhvJKc",
+  authDomain: "donativos-patronato-zacualpan.firebaseapp.com",
+  projectId: "donativos-patronato-zacualpan",
+  storageBucket: "donativos-patronato-zacualpan.firebasestorage.app",
+  messagingSenderId: "173840953766",
+  appId: "1:173840953766:web:8a9bfa2ec7328fb1989f67"
 };
+
+
 
 /* ---------------------------------------------------------
    3. Inicializar Firebase
