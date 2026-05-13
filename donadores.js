@@ -153,9 +153,11 @@ function pintarTablaDonadores(donadores) {
           ${calculo.estatusTexto}
         </span>
       </td>
-      <td>
-        ${pintarValidacion(donador)}
-      </td>
+<td>
+  ${pintarValidacion(donador)}
+  ${pintarBotonesValidacion(donador)}
+</td>
+      
       <td>
         <a 
           class="btn-mini"
@@ -325,3 +327,148 @@ function escapeHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+/* ---------------------------------------------------------
+   Botones de validación
+--------------------------------------------------------- */
+
+function pintarBotonesValidacion(donador) {
+  const usuario = window.PCZ_AUTH?.obtenerUsuarioActivo?.();
+
+  if (!usuario) return "";
+
+  const rolesPermitidos = ["presidente", "tesorera", "secretario"];
+
+  if (!rolesPermitidos.includes(usuario.rol)) return "";
+
+  if (donador.estadoValidacion === "validado") {
+    return "";
+  }
+
+  if (donador.estadoValidacion === "descartado") {
+    return "";
+  }
+
+  return `
+    <div class="acciones-validacion">
+      <button class="btn-mini validar" onclick="validarDonador('${donador.id}')">
+        Validar
+      </button>
+
+      <button class="btn-mini descartar" onclick="descartarDonador('${donador.id}')">
+        Descartar
+      </button>
+    </div>
+  `;
+}
+
+/* ---------------------------------------------------------
+   Validar donador
+--------------------------------------------------------- */
+
+async function validarDonador(donadorId) {
+  const firebaseTools = window.PCZ_FIREBASE;
+  const usuario = window.PCZ_AUTH?.obtenerUsuarioActivo?.();
+
+  if (!firebaseTools?.db) {
+    alert("⚠️ Firebase no está configurado.");
+    return;
+  }
+
+  if (!usuario) {
+    alert("⛔ No hay sesión activa.");
+    return;
+  }
+
+  const confirmar = confirm("¿Confirmas que este donador fue validado por llamada o WhatsApp?");
+
+  if (!confirmar) return;
+
+  try {
+    await firebaseTools.db.collection("donadores").doc(donadorId).update({
+      estadoValidacion: "validado",
+      activo: true,
+      actualizadoEn: firebase.firestore.FieldValue.serverTimestamp(),
+      validadoPorUid: usuario.uid,
+      validadoPorNombre: usuario.nombre,
+      validadoEn: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    if (firebaseTools.registrarLog) {
+      await firebaseTools.registrarLog({
+        accion: "validar_donador",
+        descripcion: "Donador validado por mesa directiva.",
+        usuarioUid: usuario.uid,
+        usuarioNombre: usuario.nombre,
+        modulo: "donadores",
+        datos: {
+          donadorId
+        }
+      });
+    }
+
+    alert("✅ Donador validado correctamente.");
+
+    await cargarDonadores();
+
+  } catch (error) {
+    console.error("Error validando donador:", error);
+    alert("⚠️ No se pudo validar el donador.");
+  }
+}
+
+/* ---------------------------------------------------------
+   Descartar donador
+--------------------------------------------------------- */
+
+async function descartarDonador(donadorId) {
+  const firebaseTools = window.PCZ_FIREBASE;
+  const usuario = window.PCZ_AUTH?.obtenerUsuarioActivo?.();
+
+  if (!firebaseTools?.db) {
+    alert("⚠️ Firebase no está configurado.");
+    return;
+  }
+
+  if (!usuario) {
+    alert("⛔ No hay sesión activa.");
+    return;
+  }
+
+  const confirmar = confirm("¿Confirmas que deseas descartar este registro?");
+
+  if (!confirmar) return;
+
+  try {
+    await firebaseTools.db.collection("donadores").doc(donadorId).update({
+      estadoValidacion: "descartado",
+      activo: false,
+      actualizadoEn: firebase.firestore.FieldValue.serverTimestamp(),
+      descartadoPorUid: usuario.uid,
+      descartadoPorNombre: usuario.nombre,
+      descartadoEn: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    if (firebaseTools.registrarLog) {
+      await firebaseTools.registrarLog({
+        accion: "descartar_donador",
+        descripcion: "Donador descartado por mesa directiva.",
+        usuarioUid: usuario.uid,
+        usuarioNombre: usuario.nombre,
+        modulo: "donadores",
+        datos: {
+          donadorId
+        }
+      });
+    }
+
+    alert("✅ Registro descartado correctamente.");
+
+    await cargarDonadores();
+
+  } catch (error) {
+    console.error("Error descartando donador:", error);
+    alert("⚠️ No se pudo descartar el donador.");
+  }
+}
+
