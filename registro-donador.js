@@ -111,7 +111,7 @@ async function registrarDonador(event) {
 
       setTimeout(() => {
         mensaje.classList.add("hidden");
-      }, 5000);
+      }, 9000);
     }
 
     formDonador.reset();
