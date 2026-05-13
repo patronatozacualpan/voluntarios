@@ -885,3 +885,52 @@ a {
   }
 }
 
+/* =========================================================
+   DASHBOARD PANEL
+========================================================= */
+
+.panel-title {
+  margin-bottom: 24px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+  margin: 24px 0 34px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow: var(--sombra);
+  border-bottom: 6px solid var(--azul);
+}
+
+.dashboard-card span {
+  display: block;
+  color: #4b5563;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.dashboard-card strong {
+  display: block;
+  color: var(--azul);
+  font-size: 1.8rem;
+}
+
+.dashboard-card.featured {
+  border-bottom-color: var(--amarillo);
+}
+
+.panel-access {
+  margin-top: 22px;
+}
+
+.panel-access.quick-access {
+  position: static;
+  margin: 22px 0 0;
+  padding: 0;
+}
