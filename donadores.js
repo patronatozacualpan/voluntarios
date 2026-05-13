@@ -159,15 +159,26 @@ function pintarTablaDonadores(donadores) {
 </td>
       
       <td>
-        <a 
-          class="btn-mini"
-          href="https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}"
-          target="_blank"
-          rel="noopener"
-        >
-          WhatsApp
-        </a>
-      </td>
+  <div class="acciones-donador">
+    <a 
+      class="btn-mini"
+      href="https://wa.me/${telefonoWhatsApp}?text=${encodeURIComponent(mensaje)}"
+      target="_blank"
+      rel="noopener"
+    >
+      WhatsApp
+    </a>
+
+    ${donador.estadoValidacion === "validado" ? `
+      <a 
+        class="btn-mini pago"
+        href="ingresos.html?donadorId=${donador.id}"
+      >
+        Pago
+      </a>
+    ` : ""}
+  </div>
+</td>
     `;
 
     tbody.appendChild(tr);
