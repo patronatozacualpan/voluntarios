@@ -173,6 +173,20 @@ function activarFormularioIngreso() {
   if (!form) return;
 
   form.addEventListener("submit", registrarIngreso);
+     const selectDonador = document.getElementById("selectDonadorIngreso");
+
+  if (selectDonador) {
+    selectDonador.addEventListener("change", () => {
+
+      const donador = DONADORES_INGRESO_CACHE.find(
+        (d) => d.id === selectDonador.value
+      );
+
+      if (donador) {
+        sugerirMontoDonador(donador);
+      }
+    });
+  }
 }
 
 /* ---------------------------------------------------------
