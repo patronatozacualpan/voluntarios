@@ -857,3 +857,31 @@ a {
     flex-direction: column;
   }
 }
+
+
+.titulo-parpadeo {
+  animation: tituloApareceDesaparece 2.4s ease-in-out infinite;
+}
+
+@keyframes tituloApareceDesaparece {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  70% {
+    opacity: .18;
+    transform: scale(.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
