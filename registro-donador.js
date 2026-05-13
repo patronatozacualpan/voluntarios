@@ -1,12 +1,10 @@
 /* =========================================================
    registro-donador.js
    Registro público de donadores
-   Patronato Zacualpan Pro-equipamiento de Protección Civil
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   const formDonador = document.getElementById("formDonador");
-
   if (!formDonador) return;
 
   formDonador.addEventListener("submit", registrarDonador);
@@ -28,19 +26,20 @@ async function registrarDonador(event) {
     limpiarTelefono,
     normalizarTelefonoMexico,
     sanitizarTexto,
-    esTelefonoValido,
-    registrarLog
+    esTelefonoValido
   } = firebaseTools;
 
-  const nombre = sanitizarTexto(document.getElementById("donadorNombre").value);
-  const telefono = limpiarTelefono(document.getElementById("donadorTelefono").value);
+  const formDonador = document.getElementById("formDonador");
+
+  const nombre = sanitizarTexto(document.getElementById("donadorNombre")?.value || "");
+  const telefono = limpiarTelefono(document.getElementById("donadorTelefono")?.value || "");
   const telefonoNormalizado = normalizarTelefonoMexico(telefono);
-  const poblacion = sanitizarTexto(document.getElementById("donadorPoblacion").value);
-  const cantidadSeleccionada = document.getElementById("donadorCantidad").value;
+  const poblacion = sanitizarTexto(document.getElementById("donadorPoblacion")?.value || "");
+  const cantidadSeleccionada = document.getElementById("donadorCantidad")?.value || "";
   const cantidadOtra = document.getElementById("donadorCantidadOtra")?.value || "";
   const aceptaWhatsApp = document.getElementById("aceptaWhatsApp")?.checked || false;
 
-  let promesaMensual = cantidadSeleccionada === "otra"
+  const promesaMensual = cantidadSeleccionada === "otra"
     ? Number(cantidadOtra)
     : Number(cantidadSeleccionada);
 
@@ -60,8 +59,6 @@ async function registrarDonador(event) {
   }
 
   try {
-   const docRef = await db.collection("donadores").add(nuevoDonador);
-
     const nuevoDonador = {
       nombre,
       telefono,
@@ -80,20 +77,7 @@ async function registrarDonador(event) {
       actualizadoEn: obtenerTimestampServidor()
     };
 
-    const docRef = await db.collection("donadores").add(nuevoDonador);
-
-    await registrarLog({
-      accion: "crear_donador",
-      descripcion: `Nuevo donador registrado desde web pública: ${nombre}`,
-      modulo: "donadores",
-      datos: {
-        donadorId: docRef.id,
-        nombre,
-        telefono,
-        poblacion,
-        promesaMensual
-      }
-    });
+    await db.collection("donadores").add(nuevoDonador);
 
     const mensaje = document.getElementById("mensajeDonador");
 
@@ -110,13 +94,13 @@ async function registrarDonador(event) {
     const campoOtra = document.getElementById("campoCantidadOtra");
     if (campoOtra) campoOtra.classList.add("hidden");
 
-  document.getElementById("formDonador")?.scrollIntoView({
-  behavior: "smooth",
-  block: "center"
-});
+    formDonador.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
 
   } catch (error) {
-   console.error("Error registrando donador:", error);
-alert("⚠️ No se pudo registrar el donador. Verifica tu conexión o intenta nuevamente.");
+    console.error("Error registrando donador:", error);
+    alert("⚠️ No se pudo registrar el donador. Verifica conexión o intenta nuevamente.");
   }
 }
