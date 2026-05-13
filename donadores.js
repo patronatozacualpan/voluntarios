@@ -182,6 +182,16 @@ function calcularEstatusDonador(donador) {
   const promesaMensual = Number(donador.promesaMensual || 0);
   const totalAportado = Number(donador.totalAportado || 0);
 
+  if (donador.estadoValidacion === "validado" && totalAportado === 0) {
+    return {
+      montoEsperado: promesaMensual,
+      montoPendiente: promesaMensual,
+      estatusClave: "primera_aportacion",
+      estatusClase: "pendiente",
+      estatusTexto: "🟡 Primera aportación"
+    };
+  }
+
   if (donador.estadoValidacion === "pendiente" || donador.activo === false) {
     return {
       montoEsperado: 0,
@@ -189,21 +199,6 @@ function calcularEstatusDonador(donador) {
       estatusClave: "pendiente",
       estatusClase: "pendiente",
       estatusTexto: "🕓 Pendiente"
-    };
-  }
-
-  const fechaRegistro = obtenerFechaRegistro(donador);
-  const meses = calcularMesesTranscurridos(fechaRegistro);
-  const montoEsperado = meses * promesaMensual;
-  const montoPendiente = Math.max(montoEsperado - totalAportado, 0);
-
-  if (totalAportado > montoEsperado) {
-    return {
-      montoEsperado,
-      montoPendiente,
-      estatusClave: "adelantado",
-      estatusClase: "adelantado",
-      estatusTexto: "⏩ Adelantado"
     };
   }
 
