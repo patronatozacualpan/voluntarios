@@ -119,10 +119,10 @@ async function registrarDonador(event) {
     const campoOtra = document.getElementById("campoCantidadOtra");
     if (campoOtra) campoOtra.classList.add("hidden");
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+  document.getElementById("formDonador")?.scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
 
   } catch (error) {
     console.error("Error registrando donador:", error);
