@@ -934,3 +934,19 @@ a {
   margin: 22px 0 0;
   padding: 0;
 }
+
+.acciones-validacion {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-mini.validar {
+  background: var(--verde);
+}
+
+.btn-mini.descartar {
+  background: var(--rojo);
+}
+
