@@ -125,7 +125,7 @@ async function registrarDonador(event) {
 });
 
   } catch (error) {
-    console.error("Error registrando donador:", error);
-    alert("⚠️ No se pudo registrar el donador. Intenta nuevamente.");
+   console.error("Error registrando donador:", error);
+alert("⚠️ No se pudo registrar el donador. Verifica tu conexión o intenta nuevamente.");
   }
 }
