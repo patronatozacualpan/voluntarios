@@ -541,16 +541,19 @@ function actualizarBalanceFormasPago(ingresos) {
 
 function mostrarMensajeIngreso() {
   const mensaje = document.getElementById("mensajeIngreso");
+  const btnAceptar = document.getElementById("btnAceptarIngreso");
 
   if (!mensaje) return;
 
   mensaje.classList.remove("hidden");
 
-  setTimeout(() => {
-    mensaje.classList.add("hidden");
-  }, 5000);
+  if (btnAceptar) {
+    btnAceptar.onclick = () => {
+      mensaje.classList.add("hidden");
+      window.location.href = "panel_donador.html";
+    };
+  }
 }
-
 /* ---------------------------------------------------------
    Formatos
 --------------------------------------------------------- */
