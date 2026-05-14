@@ -117,15 +117,15 @@ async function generarReciboPDF(datos) {
   pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 120, 56);
 
   if (firmaData) {
-    pdf.addImage(firmaData, "PNG", 120, 57, 58, 15);
+    pdf.addImage(firmaData, "PNG", 108, 57, 58, 15);
   }
 
   pdf.setDrawColor(80, 80, 80);
   pdf.setLineWidth(0.3);
-  pdf.line(118, 72, 185, 72);
+  pdf.line(106, 72, 173, 72);
 
   pdf.setFontSize(9);
-  pdf.text("Firma", 151, 76, { align: "center" });
+  pdf.text("Firma", 139, 76, { align: "center" });
 
   pdf.setTextColor(...azul);
   pdf.setFont("helvetica", "bold");
