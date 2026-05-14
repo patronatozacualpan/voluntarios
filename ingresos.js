@@ -305,10 +305,6 @@ async function registrarIngreso(event) {
 
     event.target.reset();
 
-    setTimeout(() => {
-      window.location.href = "panel_donador.html";
-    }, 2500);
-
   } catch (error) {
     console.error("Error registrando ingreso:", error);
     alert("⚠️ No se pudo registrar el ingreso.");
