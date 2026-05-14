@@ -237,26 +237,37 @@ async function registrarIngreso(event) {
     const folioNumero = await generarFolioIngreso();
     const folioTexto = formatearFolio(folioNumero);
 
+     const resumenCobertura = calcularCoberturaDonador(donador, monto);
+
     const fraseRecibo = window.PCZ_RECIBOS?.obtenerFraseRecibo?.() || 
       "Tu generosidad equipa a nuestros héroes voluntarios.";
 
-    const ingreso = {
-      folio: folioNumero,
-      folioTexto,
-      donadorId,
-      nombreDonador: donador.nombre || "",
-      telefono: donador.telefono || "",
-      telefonoNormalizado: donador.telefonoNormalizado || "",
-      monto,
-      formaPago,
-      nota,
-      fechaIngreso: obtenerTimestampServidor(),
-      registradoPorUid: usuario.uid,
-      registradoPorNombre: usuario.nombre,
-      reciboUrl: "",
-      fraseRecibo,
-      creadoEn: obtenerTimestampServidor()
-    };
+const ingreso = {
+  folio: folioNumero,
+  folioTexto,
+  donadorId,
+  nombreDonador: donador.nombre || "",
+  telefono: donador.telefono || "",
+  telefonoNormalizado: donador.telefonoNormalizado || "",
+
+  monto,
+  formaPago,
+  nota,
+
+  promesaMensual: Number(donador.promesaMensual || 0),
+  totalAportadoAntes: Number(donador.totalAportado || 0),
+  totalAportadoDespues: resumenCobertura.totalAportadoDespues,
+  cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto,
+  mesesCubiertos: resumenCobertura.mesesCubiertos,
+
+  fechaIngreso: obtenerTimestampServidor(),
+  registradoPorUid: usuario.uid,
+  registradoPorNombre: usuario.nombre,
+
+  reciboUrl: "",
+  fraseRecibo,
+  creadoEn: obtenerTimestampServidor()
+};
 
     const ingresoRef = await db.collection("ingresos").add(ingreso);
 
@@ -454,3 +465,76 @@ function escapeHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+
+function calcularCoberturaDonador(donador, montoPago) {
+  const promesaMensual = Number(donador.promesaMensual || 0);
+  const totalAntes = Number(donador.totalAportado || 0);
+  const totalAportadoDespues = totalAntes + Number(montoPago || 0);
+
+  if (!promesaMensual || promesaMensual <= 0) {
+    return {
+      totalAportadoDespues,
+      mesesCubiertos: 0,
+      cubiertoHastaTexto: "No determinado"
+    };
+  }
+
+  const mesesCubiertos = Math.floor(totalAportadoDespues / promesaMensual);
+
+  const fechaBase = obtenerFechaRegistroDonador(donador);
+  const fechaCubierta = new Date(fechaBase);
+  fechaCubierta.setMonth(fechaCubierta.getMonth() + mesesCubiertos - 1);
+
+  return {
+    totalAportadoDespues,
+    mesesCubiertos,
+    cubiertoHastaTexto: fechaCubierta.toLocaleDateString("es-MX", {
+      month: "long",
+      year: "numeric"
+    })
+  };
+}
+
+function obtenerFechaRegistroDonador(donador) {
+  if (donador.creadoEn?.toDate) {
+    return donador.creadoEn.toDate();
+  }
+
+  if (donador.fechaRegistro?.toDate) {
+    return donador.fechaRegistro.toDate();
+  }
+
+  return new Date();
+}
+
+function actualizarBalanceFormasPago(ingresos) {
+  let efectivo = 0;
+  let banco = 0;
+  let otros = 0;
+
+  ingresos.forEach((ingreso) => {
+    const monto = Number(ingreso.monto || 0);
+    const forma = ingreso.formaPago || "";
+
+    if (forma === "efectivo") {
+      efectivo += monto;
+    } else if (
+      forma === "transferencia" ||
+      forma === "deposito" ||
+      forma === "spin_oxxo"
+    ) {
+      banco += monto;
+    } else {
+      otros += monto;
+    }
+  });
+
+  const total = efectivo + banco + otros;
+
+  document.getElementById("balanceEfectivo").textContent = formatoMoneda(efectivo);
+  document.getElementById("balanceBanco").textContent = formatoMoneda(banco);
+  document.getElementById("balanceOtros").textContent = formatoMoneda(otros);
+  document.getElementById("balanceTotalIngresos").textContent = formatoMoneda(total);
+}
+
