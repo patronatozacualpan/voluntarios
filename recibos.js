@@ -27,14 +27,9 @@ function obtenerFraseRecibo() {
   return FRASES_RECIBO[indice];
 }
 
-/* ---------------------------------------------------------
-   Cargar imagen como DataURL para jsPDF
---------------------------------------------------------- */
-
 function cargarImagenDataURL(ruta) {
   return new Promise((resolve) => {
     const img = new Image();
-
     img.crossOrigin = "anonymous";
 
     img.onload = () => {
@@ -56,10 +51,6 @@ function cargarImagenDataURL(ruta) {
     img.src = `${ruta}?v=${Date.now()}`;
   });
 }
-
-/* ---------------------------------------------------------
-   Generar recibo PDF
---------------------------------------------------------- */
 
 async function generarReciboPDF(datos) {
   if (!window.jspdf || !window.jspdf.jsPDF) {
@@ -83,45 +74,31 @@ async function generarReciboPDF(datos) {
   const azul = [0, 33, 71];
   const amarillo = [244, 196, 48];
 
-  // Marco exterior azul
   pdf.setDrawColor(...azul);
   pdf.setLineWidth(3);
   pdf.rect(4, 4, 208, 85);
 
-  // Marco interior amarillo
   pdf.setDrawColor(...amarillo);
   pdf.setLineWidth(3);
   pdf.rect(9, 9, 198, 75);
 
-  // Encabezado
   pdf.setTextColor(...azul);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(17);
   pdf.text("RECIBO DE DONACIÓN", 108, 20, { align: "center" });
 
-  // Nombre patronato
   pdf.setFontSize(10);
   pdf.setFont("helvetica", "normal");
   pdf.text("Patronato Zacualpan Pro-equipamiento de Protección Civil", 108, 27, { align: "center" });
 
-  // Folio
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(11);
   pdf.text(`Folio: ${datos.folioTexto || "000000"}`, 176, 20);
 
-  // Logo real
   if (logoData) {
-     pdf.addImage(logoData, "PNG", 163, 26, 38, 38);
-  } else {
-    pdf.setDrawColor(...azul);
-    pdf.setLineWidth(0.4);
-    pdf.roundedRect(171, 31, 22, 18, 2, 2);
-    pdf.setFontSize(7);
-    pdf.setTextColor(...azul);
-    pdf.text("LOGO", 182, 42, { align: "center" });
+    pdf.addImage(logoData, "PNG", 163, 26, 38, 38);
   }
 
-  // Datos
   pdf.setTextColor(20, 20, 20);
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(11);
@@ -133,32 +110,29 @@ async function generarReciboPDF(datos) {
   pdf.text(`Cantidad: ${formatearMonedaRecibo(datos.monto || 0)}`, 18, 58);
   pdf.text(`Forma de pago: ${formatearFormaPago(datos.formaPago || "")}`, 18, 68);
 
-  // Recibido por
   pdf.setFont("helvetica", "bold");
-  pdf.text("Recibido por Tesorera", 130, 51);
+  pdf.text("Recibido por Tesorera", 120, 48);
 
   pdf.setFont("helvetica", "normal");
-  pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 130, 59);
+  pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 120, 56);
 
-  // Firma real
   if (firmaData) {
-    pdf.addImage(firmaData, "PNG", 136, 60, 48, 15);
+    pdf.addImage(firmaData, "PNG", 120, 57, 58, 15);
   }
 
-  // Línea de firma
   pdf.setDrawColor(80, 80, 80);
   pdf.setLineWidth(0.3);
-  pdf.line(128, 75, 193, 75);
+  pdf.line(118, 72, 185, 72);
 
   pdf.setFontSize(9);
-  pdf.text("Firma", 160, 81, { align: "center" });
+  pdf.text("Firma", 151, 76, { align: "center" });
 
-  // Frase inferior
   pdf.setTextColor(...azul);
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(10);
+
   const frase = datos.fraseRecibo || obtenerFraseRecibo();
-  pdf.text(frase, 108, 82, { align: "center", maxWidth: 175 });
+  pdf.text(frase, 108, 82, { align: "center", maxWidth: 155 });
 
   const nombreArchivo = `recibo-${datos.folioTexto || "000000"}-${limpiarNombreArchivo(datos.nombreDonador || "donador")}.pdf`;
 
