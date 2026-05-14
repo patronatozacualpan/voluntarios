@@ -120,7 +120,7 @@ pdf.setFont("helvetica", "normal");
 pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 120, 46);
 
 if (firmaData) {
-  pdf.addImage(firmaData, "PNG", 108, 47, 58, 15);
+  pdf.addImage(firmaData, "PNG", 102, 47, 58, 15);
 }
 
 pdf.setDrawColor(80, 80, 80);
