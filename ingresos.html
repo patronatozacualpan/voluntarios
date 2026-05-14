@@ -83,12 +83,22 @@
 
           <button type="submit" class="btn btn-primary full">Registrar ingreso</button>
 
-          <div class="modal-confirmacion hidden" id="mensajeIngreso">
+
+ <div class="modal-confirmacion hidden" id="mensajeIngreso">
   <div class="modal-confirmacion-card">
     <h3>✅ Ingreso registrado</h3>
+
     <p>El pago fue guardado correctamente.</p>
+
     <p>📄 El recibo PDF fue generado.</p>
-    <small>Redirigiendo al panel de donadores...</small>
+
+    <button
+      type="button"
+      class="btn btn-primary full"
+      id="btnAceptarIngreso"
+    >
+      Aceptar y volver al panel
+    </button>
   </div>
 </div>
         </form>
