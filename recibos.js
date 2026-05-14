@@ -113,22 +113,22 @@ pdf.setFontSize(9);
 pdf.text(`Promesa mensual: ${formatearMonedaRecibo(datos.promesaMensual || 0)}`, 18, 75);
 pdf.text(`Total aportado: ${formatearMonedaRecibo(datos.totalAportadoDespues || datos.monto || 0)}`, 70, 75);
 pdf.text(`Cubre hasta: ${datos.cuotaCubiertaHasta || "No determinado"}`, 122, 75);
-  pdf.setFont("helvetica", "bold");
-  pdf.text("Recibido por Tesorera", 120, 48);
+pdf.setFont("helvetica", "bold");
+pdf.text("Recibido por Tesorera", 120, 38);
 
-  pdf.setFont("helvetica", "normal");
-  pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 120, 56);
+pdf.setFont("helvetica", "normal");
+pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 120, 46);
 
-  if (firmaData) {
-    pdf.addImage(firmaData, "PNG", 108, 57, 58, 15);
-  }
+if (firmaData) {
+  pdf.addImage(firmaData, "PNG", 108, 47, 58, 15);
+}
 
-  pdf.setDrawColor(80, 80, 80);
-  pdf.setLineWidth(0.3);
-  pdf.line(106, 72, 173, 72);
+pdf.setDrawColor(80, 80, 80);
+pdf.setLineWidth(0.3);
+pdf.line(106, 62, 173, 62);
 
-  pdf.setFontSize(9);
-  pdf.text("Firma", 139, 76, { align: "center" });
+pdf.setFontSize(9);
+pdf.text("Firma", 139, 66, { align: "center" });
 
   pdf.setTextColor(...azul);
   pdf.setFont("helvetica", "bold");
