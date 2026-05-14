@@ -19,16 +19,58 @@ const FRASES_RECIBO = [
   "La generosidad también es una forma de rescate."
 ];
 
+const RUTA_LOGO_PATRONATO = "assets/logos/logo-patronato.png";
+const RUTA_FIRMA_TESORERA = "assets/firmas/firma-tesorera.png";
+
 function obtenerFraseRecibo() {
   const indice = Math.floor(Math.random() * FRASES_RECIBO.length);
   return FRASES_RECIBO[indice];
 }
 
-function generarReciboPDF(datos) {
+/* ---------------------------------------------------------
+   Cargar imagen como DataURL para jsPDF
+--------------------------------------------------------- */
+
+function cargarImagenDataURL(ruta) {
+  return new Promise((resolve) => {
+    const img = new Image();
+
+    img.crossOrigin = "anonymous";
+
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+
+      resolve(canvas.toDataURL("image/png"));
+    };
+
+    img.onerror = () => {
+      console.warn("No se pudo cargar imagen:", ruta);
+      resolve(null);
+    };
+
+    img.src = `${ruta}?v=${Date.now()}`;
+  });
+}
+
+/* ---------------------------------------------------------
+   Generar recibo PDF
+--------------------------------------------------------- */
+
+async function generarReciboPDF(datos) {
   if (!window.jspdf || !window.jspdf.jsPDF) {
     alert("⚠️ No se cargó la librería jsPDF.");
     return;
   }
+
+  const [logoData, firmaData] = await Promise.all([
+    cargarImagenDataURL(RUTA_LOGO_PATRONATO),
+    cargarImagenDataURL(RUTA_FIRMA_TESORERA)
+  ]);
 
   const { jsPDF } = window.jspdf;
 
@@ -67,6 +109,18 @@ function generarReciboPDF(datos) {
   pdf.setFontSize(11);
   pdf.text(`Folio: ${datos.folioTexto || "000000"}`, 176, 20);
 
+  // Logo real
+  if (logoData) {
+    pdf.addImage(logoData, "PNG", 170, 30, 24, 24);
+  } else {
+    pdf.setDrawColor(...azul);
+    pdf.setLineWidth(0.4);
+    pdf.roundedRect(171, 31, 22, 18, 2, 2);
+    pdf.setFontSize(7);
+    pdf.setTextColor(...azul);
+    pdf.text("LOGO", 182, 42, { align: "center" });
+  }
+
   // Datos
   pdf.setTextColor(20, 20, 20);
   pdf.setFont("helvetica", "normal");
@@ -79,27 +133,25 @@ function generarReciboPDF(datos) {
   pdf.text(`Cantidad: ${formatearMonedaRecibo(datos.monto || 0)}`, 18, 58);
   pdf.text(`Forma de pago: ${formatearFormaPago(datos.formaPago || "")}`, 18, 68);
 
-  // Firma
+  // Recibido por
   pdf.setFont("helvetica", "bold");
-  pdf.text("Recibido por Tesorera", 130, 55);
+  pdf.text("Recibido por Tesorera", 130, 51);
 
   pdf.setFont("helvetica", "normal");
-  pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 130, 63);
+  pdf.text(datos.nombreTesorera || "Tesorera Patronato Zacualpan", 130, 59);
 
+  // Firma real
+  if (firmaData) {
+    pdf.addImage(firmaData, "PNG", 136, 60, 48, 15);
+  }
+
+  // Línea de firma
   pdf.setDrawColor(80, 80, 80);
   pdf.setLineWidth(0.3);
-  pdf.line(128, 70, 193, 70);
+  pdf.line(128, 75, 193, 75);
 
   pdf.setFontSize(9);
-  pdf.text("Firma", 160, 76, { align: "center" });
-
-  // Logo reservado
-  pdf.setDrawColor(...azul);
-  pdf.setLineWidth(0.4);
-  pdf.roundedRect(171, 31, 22, 18, 2, 2);
-  pdf.setFontSize(7);
-  pdf.setTextColor(...azul);
-  pdf.text("LOGO", 182, 42, { align: "center" });
+  pdf.text("Firma", 160, 81, { align: "center" });
 
   // Frase inferior
   pdf.setTextColor(...azul);
