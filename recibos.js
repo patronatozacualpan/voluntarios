@@ -111,7 +111,7 @@ async function generarReciboPDF(datos) {
 
   // Logo real
   if (logoData) {
-    pdf.addImage(logoData, "PNG", 170, 30, 24, 24);
+     pdf.addImage(logoData, "PNG", 163, 26, 38, 38);
   } else {
     pdf.setDrawColor(...azul);
     pdf.setLineWidth(0.4);
