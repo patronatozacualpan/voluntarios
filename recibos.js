@@ -109,7 +109,10 @@ async function generarReciboPDF(datos) {
   pdf.text(`Recibí de: ${datos.nombreDonador || ""}`, 18, 48);
   pdf.text(`Cantidad: ${formatearMonedaRecibo(datos.monto || 0)}`, 18, 58);
   pdf.text(`Forma de pago: ${formatearFormaPago(datos.formaPago || "")}`, 18, 68);
-
+pdf.setFontSize(9);
+pdf.text(`Promesa mensual: ${formatearMonedaRecibo(datos.promesaMensual || 0)}`, 18, 75);
+pdf.text(`Total aportado: ${formatearMonedaRecibo(datos.totalAportadoDespues || datos.monto || 0)}`, 70, 75);
+pdf.text(`Cubre hasta: ${datos.cuotaCubiertaHasta || "No determinado"}`, 122, 75);
   pdf.setFont("helvetica", "bold");
   pdf.text("Recibido por Tesorera", 120, 48);
 
@@ -132,7 +135,7 @@ async function generarReciboPDF(datos) {
   pdf.setFontSize(10);
 
   const frase = datos.fraseRecibo || obtenerFraseRecibo();
-  pdf.text(frase, 108, 82, { align: "center", maxWidth: 155 });
+  pdf.text(frase, 108, 84, { align: "center", maxWidth: 155 });
 
   const nombreArchivo = `recibo-${datos.folioTexto || "000000"}-${limpiarNombreArchivo(datos.nombreDonador || "donador")}.pdf`;
 
