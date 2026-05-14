@@ -398,11 +398,20 @@ async function cargarIngresosRecientes() {
       tbody.innerHTML = `<tr><td colspan="8">No hay ingresos registrados.</td></tr>`;
       return;
     }
+const ingresos = [];
 
+snap.forEach((doc) => {
+  ingresos.push({
+    id: doc.id,
+    ...doc.data()
+  });
+});
+
+actualizarBalanceFormasPago(ingresos);
     tbody.innerHTML = "";
 
-    snap.forEach((doc) => {
-      const d = doc.data();
+    ingresos.forEach((d) => {
+      
 
       const fecha = d.fechaIngreso?.toDate
         ? d.fechaIngreso.toDate().toLocaleDateString("es-MX")
