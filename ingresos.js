@@ -71,7 +71,8 @@ async function cargarDonadoresParaIngreso() {
     });
 
     pintarSelectDonadores(DONADORES_INGRESO_CACHE);
-detectarDonadorDesdeURL();
+    detectarDonadorDesdeURL();
+
   } catch (error) {
     console.error("Error cargando donadores:", error);
     select.innerHTML = `<option value="">Error cargando donadores</option>`;
@@ -104,7 +105,6 @@ function pintarSelectDonadores(lista) {
 
 function detectarDonadorDesdeURL() {
   const params = new URLSearchParams(window.location.search);
-
   const donadorId = params.get("donadorId");
 
   if (!donadorId) return;
@@ -173,11 +173,11 @@ function activarFormularioIngreso() {
   if (!form) return;
 
   form.addEventListener("submit", registrarIngreso);
-     const selectDonador = document.getElementById("selectDonadorIngreso");
+
+  const selectDonador = document.getElementById("selectDonadorIngreso");
 
   if (selectDonador) {
     selectDonador.addEventListener("change", () => {
-
       const donador = DONADORES_INGRESO_CACHE.find(
         (d) => d.id === selectDonador.value
       );
@@ -236,72 +236,78 @@ async function registrarIngreso(event) {
   try {
     const folioNumero = await generarFolioIngreso();
     const folioTexto = formatearFolio(folioNumero);
+    const resumenCobertura = calcularCoberturaDonador(donador, monto);
 
-     const resumenCobertura = calcularCoberturaDonador(donador, monto);
-
-    const fraseRecibo = window.PCZ_RECIBOS?.obtenerFraseRecibo?.() || 
+    const fraseRecibo = window.PCZ_RECIBOS?.obtenerFraseRecibo?.() ||
       "Tu generosidad equipa a nuestros héroes voluntarios.";
 
-const ingreso = {
-  folio: folioNumero,
-  folioTexto,
-  donadorId,
-  nombreDonador: donador.nombre || "",
-  telefono: donador.telefono || "",
-  telefonoNormalizado: donador.telefonoNormalizado || "",
+    const ingreso = {
+      folio: folioNumero,
+      folioTexto,
+      donadorId,
+      nombreDonador: donador.nombre || "",
+      telefono: donador.telefono || "",
+      telefonoNormalizado: donador.telefonoNormalizado || "",
 
-  monto,
-  formaPago,
-  nota,
+      monto,
+      formaPago,
+      nota,
 
-  promesaMensual: Number(donador.promesaMensual || 0),
-  totalAportadoAntes: Number(donador.totalAportado || 0),
-  totalAportadoDespues: resumenCobertura.totalAportadoDespues,
-  cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto,
-  mesesCubiertos: resumenCobertura.mesesCubiertos,
+      promesaMensual: Number(donador.promesaMensual || 0),
+      totalAportadoAntes: Number(donador.totalAportado || 0),
+      totalAportadoDespues: resumenCobertura.totalAportadoDespues,
+      cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto,
+      mesesCubiertos: resumenCobertura.mesesCubiertos,
 
-  fechaIngreso: obtenerTimestampServidor(),
-  registradoPorUid: usuario.uid,
-  registradoPorNombre: usuario.nombre,
+      fechaIngreso: obtenerTimestampServidor(),
+      registradoPorUid: usuario.uid,
+      registradoPorNombre: usuario.nombre,
 
-  reciboUrl: "",
-  fraseRecibo,
-  creadoEn: obtenerTimestampServidor()
-};
+      reciboUrl: "",
+      fraseRecibo,
+      creadoEn: obtenerTimestampServidor()
+    };
 
     const ingresoRef = await db.collection("ingresos").add(ingreso);
 
     await actualizarDonadorDespuesIngreso(donadorId, monto);
 
-    await registrarLog({
-      accion: "crear_ingreso",
-      descripcion: `Ingreso folio ${folioTexto} por ${formatoMoneda(monto)}`,
-      usuarioUid: usuario.uid,
-      usuarioNombre: usuario.nombre,
-      modulo: "ingresos",
-      datos: {
-        ingresoId: ingresoRef.id,
-        donadorId,
-        folioTexto,
-        monto
-      }
-    });
+    if (registrarLog) {
+      await registrarLog({
+        accion: "crear_ingreso",
+        descripcion: `Ingreso folio ${folioTexto} por ${formatoMoneda(monto)}`,
+        usuarioUid: usuario.uid,
+        usuarioNombre: usuario.nombre,
+        modulo: "ingresos",
+        datos: {
+          ingresoId: ingresoRef.id,
+          donadorId,
+          folioTexto,
+          monto,
+          formaPago,
+          cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
+        }
+      });
+    }
 
     if (window.PCZ_RECIBOS?.generarReciboPDF) {
       window.PCZ_RECIBOS.generarReciboPDF({
         ...ingreso,
         fechaTexto: new Date().toLocaleDateString("es-MX"),
-        nombreTesorera: usuario.nombre
+        nombreTesorera: usuario.nombre,
+        promesaMensual: Number(donador.promesaMensual || 0),
+        totalAportadoDespues: resumenCobertura.totalAportadoDespues,
+        cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
       });
     }
 
-   mostrarMensajeIngreso();
+    mostrarMensajeIngreso();
 
-event.target.reset();
+    event.target.reset();
 
-setTimeout(() => {
-  window.location.href = "panel_donador.html";
-}, 2500);
+    setTimeout(() => {
+      window.location.href = "panel_donador.html";
+    }, 2500);
 
   } catch (error) {
     console.error("Error registrando ingreso:", error);
@@ -311,12 +317,10 @@ setTimeout(() => {
 
 /* ---------------------------------------------------------
    Generar folio consecutivo
-   Nota: en fase futura mover a Cloud Functions para máxima seguridad.
 --------------------------------------------------------- */
 
 async function generarFolioIngreso() {
   const { db } = window.PCZ_FIREBASE;
-
   const configRef = db.collection("config").doc("general");
 
   return await db.runTransaction(async (transaction) => {
@@ -349,7 +353,6 @@ async function generarFolioIngreso() {
 
 async function actualizarDonadorDespuesIngreso(donadorId, monto) {
   const { db } = window.PCZ_FIREBASE;
-
   const donadorRef = db.collection("donadores").doc(donadorId);
 
   await db.runTransaction(async (transaction) => {
@@ -396,23 +399,24 @@ async function cargarIngresosRecientes() {
 
     if (snap.empty) {
       tbody.innerHTML = `<tr><td colspan="8">No hay ingresos registrados.</td></tr>`;
+      actualizarBalanceFormasPago([]);
       return;
     }
-const ingresos = [];
 
-snap.forEach((doc) => {
-  ingresos.push({
-    id: doc.id,
-    ...doc.data()
-  });
-});
+    const ingresos = [];
 
-actualizarBalanceFormasPago(ingresos);
+    snap.forEach((doc) => {
+      ingresos.push({
+        id: doc.id,
+        ...doc.data()
+      });
+    });
+
+    actualizarBalanceFormasPago(ingresos);
+
     tbody.innerHTML = "";
 
     ingresos.forEach((d) => {
-      
-
       const fecha = d.fechaIngreso?.toDate
         ? d.fechaIngreso.toDate().toLocaleDateString("es-MX")
         : "Sin fecha";
@@ -425,7 +429,7 @@ actualizarBalanceFormasPago(ingresos);
         <td>${escapeHtml(d.nombreDonador || "")}</td>
         <td>${escapeHtml(d.telefono || "")}</td>
         <td>${formatoMoneda(d.monto || 0)}</td>
-        <td>${escapeHtml(d.formaPago || "")}</td>
+        <td>${escapeHtml(formatearFormaPagoIngreso(d.formaPago || ""))}</td>
         <td>${escapeHtml(d.registradoPorNombre || "")}</td>
         <td>${d.reciboUrl ? `<a href="${d.reciboUrl}" target="_blank">Ver</a>` : "Generado local"}</td>
       `;
@@ -437,6 +441,98 @@ actualizarBalanceFormasPago(ingresos);
     console.error("Error cargando ingresos:", error);
     tbody.innerHTML = `<tr><td colspan="8">⚠️ Error cargando ingresos.</td></tr>`;
   }
+}
+
+/* ---------------------------------------------------------
+   Cobertura de cuota
+--------------------------------------------------------- */
+
+function calcularCoberturaDonador(donador, montoPago) {
+  const promesaMensual = Number(donador.promesaMensual || 0);
+  const totalAntes = Number(donador.totalAportado || 0);
+  const totalAportadoDespues = totalAntes + Number(montoPago || 0);
+
+  if (!promesaMensual || promesaMensual <= 0) {
+    return {
+      totalAportadoDespues,
+      mesesCubiertos: 0,
+      cubiertoHastaTexto: "No determinado"
+    };
+  }
+
+  const mesesCubiertos = Math.floor(totalAportadoDespues / promesaMensual);
+
+  if (mesesCubiertos <= 0) {
+    return {
+      totalAportadoDespues,
+      mesesCubiertos: 0,
+      cubiertoHastaTexto: "Primera aportación incompleta"
+    };
+  }
+
+  const fechaBase = obtenerFechaRegistroDonador(donador);
+  const fechaCubierta = new Date(fechaBase);
+  fechaCubierta.setMonth(fechaCubierta.getMonth() + mesesCubiertos - 1);
+
+  return {
+    totalAportadoDespues,
+    mesesCubiertos,
+    cubiertoHastaTexto: fechaCubierta.toLocaleDateString("es-MX", {
+      month: "long",
+      year: "numeric"
+    })
+  };
+}
+
+function obtenerFechaRegistroDonador(donador) {
+  if (donador.creadoEn?.toDate) {
+    return donador.creadoEn.toDate();
+  }
+
+  if (donador.fechaRegistro?.toDate) {
+    return donador.fechaRegistro.toDate();
+  }
+
+  return new Date();
+}
+
+/* ---------------------------------------------------------
+   Balance por forma de pago
+--------------------------------------------------------- */
+
+function actualizarBalanceFormasPago(ingresos) {
+  let efectivo = 0;
+  let banco = 0;
+  let otros = 0;
+
+  ingresos.forEach((ingreso) => {
+    const monto = Number(ingreso.monto || 0);
+    const forma = ingreso.formaPago || "";
+
+    if (forma === "efectivo") {
+      efectivo += monto;
+    } else if (
+      forma === "transferencia" ||
+      forma === "deposito" ||
+      forma === "spin_oxxo"
+    ) {
+      banco += monto;
+    } else {
+      otros += monto;
+    }
+  });
+
+  const total = efectivo + banco + otros;
+
+  const elEfectivo = document.getElementById("balanceEfectivo");
+  const elBanco = document.getElementById("balanceBanco");
+  const elOtros = document.getElementById("balanceOtros");
+  const elTotal = document.getElementById("balanceTotalIngresos");
+
+  if (elEfectivo) elEfectivo.textContent = formatoMoneda(efectivo);
+  if (elBanco) elBanco.textContent = formatoMoneda(banco);
+  if (elOtros) elOtros.textContent = formatoMoneda(otros);
+  if (elTotal) elTotal.textContent = formatoMoneda(total);
 }
 
 /* ---------------------------------------------------------
@@ -466,6 +562,18 @@ function formatoMoneda(valor) {
   });
 }
 
+function formatearFormaPagoIngreso(valor) {
+  const mapa = {
+    efectivo: "Efectivo",
+    transferencia: "Transferencia",
+    deposito: "Depósito",
+    spin_oxxo: "SPIN OXXO",
+    otro: "Otro"
+  };
+
+  return mapa[valor] || valor;
+}
+
 function escapeHtml(texto) {
   return String(texto || "")
     .replaceAll("&", "&amp;")
@@ -474,76 +582,3 @@ function escapeHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
-
-
-function calcularCoberturaDonador(donador, montoPago) {
-  const promesaMensual = Number(donador.promesaMensual || 0);
-  const totalAntes = Number(donador.totalAportado || 0);
-  const totalAportadoDespues = totalAntes + Number(montoPago || 0);
-
-  if (!promesaMensual || promesaMensual <= 0) {
-    return {
-      totalAportadoDespues,
-      mesesCubiertos: 0,
-      cubiertoHastaTexto: "No determinado"
-    };
-  }
-
-  const mesesCubiertos = Math.floor(totalAportadoDespues / promesaMensual);
-
-  const fechaBase = obtenerFechaRegistroDonador(donador);
-  const fechaCubierta = new Date(fechaBase);
-  fechaCubierta.setMonth(fechaCubierta.getMonth() + mesesCubiertos - 1);
-
-  return {
-    totalAportadoDespues,
-    mesesCubiertos,
-    cubiertoHastaTexto: fechaCubierta.toLocaleDateString("es-MX", {
-      month: "long",
-      year: "numeric"
-    })
-  };
-}
-
-function obtenerFechaRegistroDonador(donador) {
-  if (donador.creadoEn?.toDate) {
-    return donador.creadoEn.toDate();
-  }
-
-  if (donador.fechaRegistro?.toDate) {
-    return donador.fechaRegistro.toDate();
-  }
-
-  return new Date();
-}
-
-function actualizarBalanceFormasPago(ingresos) {
-  let efectivo = 0;
-  let banco = 0;
-  let otros = 0;
-
-  ingresos.forEach((ingreso) => {
-    const monto = Number(ingreso.monto || 0);
-    const forma = ingreso.formaPago || "";
-
-    if (forma === "efectivo") {
-      efectivo += monto;
-    } else if (
-      forma === "transferencia" ||
-      forma === "deposito" ||
-      forma === "spin_oxxo"
-    ) {
-      banco += monto;
-    } else {
-      otros += monto;
-    }
-  });
-
-  const total = efectivo + banco + otros;
-
-  document.getElementById("balanceEfectivo").textContent = formatoMoneda(efectivo);
-  document.getElementById("balanceBanco").textContent = formatoMoneda(banco);
-  document.getElementById("balanceOtros").textContent = formatoMoneda(otros);
-  document.getElementById("balanceTotalIngresos").textContent = formatoMoneda(total);
-}
-
