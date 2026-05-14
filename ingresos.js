@@ -284,12 +284,13 @@ async function registrarIngreso(event) {
       });
     }
 
-    mostrarMensajeIngreso();
+   mostrarMensajeIngreso();
 
-    event.target.reset();
+event.target.reset();
 
-    await cargarDonadoresParaIngreso();
-    await cargarIngresosRecientes();
+setTimeout(() => {
+  window.location.href = "panel_donador.html";
+}, 2500);
 
   } catch (error) {
     console.error("Error registrando ingreso:", error);
