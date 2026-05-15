@@ -290,7 +290,70 @@ async function registrarIngreso(event) {
       });
     }
 
-    if (window.PCZ_RECIBOS?.generarReciboPDF) {
+   if (window.PCZ_RECIBOS?.generarReciboPDF) {
+
+  const resultadoPdf =
+    await window.PCZ_RECIBOS.generarReciboPDF({
+      ...ingreso,
+      fechaTexto: new Date().toLocaleDateString("es-MX"),
+      nombreTesorera: usuario.nombre,
+      promesaMensual: Number(donador.promesaMensual || 0),
+      totalAportadoDespues: resumenCobertura.totalAportadoDespues,
+      cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
+    });
+
+  if (resultadoPdf?.ok) {
+
+    try {
+
+      const fechaActual = new Date();
+
+      const anio = fechaActual.getFullYear();
+
+      const mes = String(
+        fechaActual.getMonth() + 1
+      ).padStart(2, "0");
+
+      const rutaRecibo =
+        `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
+
+      const storageRef =
+        firebase.storage().ref(rutaRecibo);
+
+      await storageRef.put(resultadoPdf.blob);
+
+      const reciboUrl =
+        await storageRef.getDownloadURL();
+
+      await ingresoRef.update({
+        reciboUrl
+      });
+
+      ingreso.reciboUrl = reciboUrl;
+
+      if (
+        window.PCZ_RECIBOS?.descargarBlobPDF
+      ) {
+        window.PCZ_RECIBOS.descargarBlobPDF(
+          resultadoPdf.blob,
+          resultadoPdf.nombreArchivo
+        );
+      }
+
+    } catch (errorPdf) {
+
+      console.error(
+        "Error guardando PDF en Storage:",
+        errorPdf
+      );
+
+      alert(
+        "⚠️ El ingreso se guardó, pero no se pudo subir el recibo PDF."
+      );
+    }
+  }
+}
+     
       window.PCZ_RECIBOS.generarReciboPDF({
         ...ingreso,
         fechaTexto: new Date().toLocaleDateString("es-MX"),
