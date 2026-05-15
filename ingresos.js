@@ -358,15 +358,6 @@ async function registrarIngreso(event) {
   }
 }
      
-      window.PCZ_RECIBOS.generarReciboPDF({
-        ...ingreso,
-        fechaTexto: new Date().toLocaleDateString("es-MX"),
-        nombreTesorera: usuario.nombre,
-        promesaMensual: Number(donador.promesaMensual || 0),
-        totalAportadoDespues: resumenCobertura.totalAportadoDespues,
-        cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
-      });
-    }
 
     mostrarMensajeIngreso();
 
