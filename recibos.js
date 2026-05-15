@@ -139,7 +139,14 @@ pdf.text("Firma", 139, 66, { align: "center" });
 
   const nombreArchivo = `recibo-${datos.folioTexto || "000000"}-${limpiarNombreArchivo(datos.nombreDonador || "donador")}.pdf`;
 
-  pdf.save(nombreArchivo);
+  const blobPdf = pdf.output("blob");
+
+return {
+  ok: true,
+  blob: blobPdf,
+  nombreArchivo,
+  frase
+};
 }
 
 function formatearMonedaRecibo(valor) {
@@ -169,9 +176,26 @@ function limpiarNombreArchivo(nombre) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
+function descargarBlobPDF(blob, nombreArchivo) {
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = nombreArchivo;
+
+  document.body.appendChild(a);
+  a.click();
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+    a.remove();
+  }, 500);
+}
 
 window.PCZ_RECIBOS = {
   FRASES_RECIBO,
   obtenerFraseRecibo,
-  generarReciboPDF
+  generarReciboPDF,
+  descargarBlobPDF
 };
+
