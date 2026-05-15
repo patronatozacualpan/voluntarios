@@ -88,11 +88,18 @@ async function registrarEgreso(event) {
   const concepto = sanitizarTexto(document.getElementById("conceptoEgreso").value);
   const descripcion = sanitizarTexto(document.getElementById("descripcionEgreso").value);
   const monto = Number(document.getElementById("montoEgreso").value || 0);
+   const fuentePago = document.getElementById("fuentePagoEgreso").value;
   const fechaEgresoValor = document.getElementById("fechaEgreso").value;
   const archivo = document.getElementById("comprobanteEgreso").files[0];
 
-  if (!concepto || monto <= 0 || !fechaEgresoValor || !archivo) {
-    alert("⚠️ Completa concepto, monto, fecha y comprobante.");
+  if (
+  !concepto ||
+  monto <= 0 ||
+  !fuentePago ||
+  !fechaEgresoValor ||
+  !archivo
+) {
+    alert("⚠️ Completa concepto, monto, fuente de pago, fecha y comprobante.");
     return;
   }
 
@@ -129,6 +136,7 @@ async function registrarEgreso(event) {
       concepto,
       descripcion,
       monto,
+      fuentePago,
       fechaEgreso: firebase.firestore.Timestamp.fromDate(fechaObj),
       comprobanteUrl: subida.url,
       comprobanteRuta: rutaComprobante,
