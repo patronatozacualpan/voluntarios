@@ -74,7 +74,12 @@ async function cargarDonadoresParaIngreso() {
     detectarDonadorDesdeURL();
 
   } catch (error) {
-    console.error("Error cargando donadores:", error);
+    console.error(
+  "Error guardando PDF en Storage:",
+  errorPdf,
+  errorPdf?.message,
+  errorPdf?.code
+);
     select.innerHTML = `<option value="">Error cargando donadores</option>`;
   }
 }
@@ -355,9 +360,10 @@ const reciboUrl =
       errorPdf
     );
 
-    alert(
-      "⚠️ El ingreso se guardó, pero no se pudo subir el recibo PDF."
-    );
+   alert(
+  "⚠️ Error PDF:\n\n" +
+  (errorPdf?.message || "Error desconocido")
+);
   }
 }
      
