@@ -290,21 +290,21 @@ async function registrarIngreso(event) {
       });
     }
 
-   if (window.PCZ_RECIBOS?.generarReciboPDF) {
+  if (window.PCZ_RECIBOS?.generarReciboPDF) {
 
-  const resultadoPdf =
-    await window.PCZ_RECIBOS.generarReciboPDF({
-      ...ingreso,
-      fechaTexto: new Date().toLocaleDateString("es-MX"),
-      nombreTesorera: usuario.nombre,
-      promesaMensual: Number(donador.promesaMensual || 0),
-      totalAportadoDespues: resumenCobertura.totalAportadoDespues,
-      cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
-    });
+  try {
 
-  if (resultadoPdf?.ok) {
+    const resultadoPdf =
+      await window.PCZ_RECIBOS.generarReciboPDF({
+        ...ingreso,
+        fechaTexto: new Date().toLocaleDateString("es-MX"),
+        nombreTesorera: usuario.nombre,
+        promesaMensual: Number(donador.promesaMensual || 0),
+        totalAportadoDespues: resumenCobertura.totalAportadoDespues,
+        cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
+      });
 
-    try {
+    if (resultadoPdf?.ok && resultadoPdf.blob) {
 
       const fechaActual = new Date();
 
@@ -325,32 +325,36 @@ async function registrarIngreso(event) {
       const reciboUrl =
         await storageRef.getDownloadURL();
 
-      await ingresoRef.update({
-        reciboUrl
-      });
+      await db
+        .collection("ingresos")
+        .doc(ingresoRef.id)
+        .update({
+          reciboUrl
+        });
 
       ingreso.reciboUrl = reciboUrl;
 
       if (
         window.PCZ_RECIBOS?.descargarBlobPDF
       ) {
+
         window.PCZ_RECIBOS.descargarBlobPDF(
           resultadoPdf.blob,
           resultadoPdf.nombreArchivo
         );
       }
-
-    } catch (errorPdf) {
-
-      console.error(
-        "Error guardando PDF en Storage:",
-        errorPdf
-      );
-
-      alert(
-        "⚠️ El ingreso se guardó, pero no se pudo subir el recibo PDF."
-      );
     }
+
+  } catch (errorPdf) {
+
+    console.error(
+      "Error guardando PDF en Storage:",
+      errorPdf
+    );
+
+    alert(
+      "⚠️ El ingreso se guardó, pero no se pudo subir el recibo PDF."
+    );
   }
 }
      
