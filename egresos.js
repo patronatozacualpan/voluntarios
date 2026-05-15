@@ -216,6 +216,7 @@ async function cargarEgresosRecientes() {
         <td>${escapeHtml(d.concepto || "")}</td>
         <td>${escapeHtml(d.descripcion || "")}</td>
         <td>${formatoMoneda(d.monto || 0)}</td>
+        <td>${escapeHtml(formatearFuentePago(d.fuentePago || ""))}</td>
         <td>${escapeHtml(d.registradoPorNombre || "")}</td>
         <td>
           ${
@@ -284,6 +285,15 @@ function formatoMoneda(valor) {
     style: "currency",
     currency: "MXN"
   });
+}
+
+function formatearFuentePago(valor) {
+  const mapa = {
+    efectivo: "Efectivo",
+    banco: "Banco"
+  };
+
+  return mapa[valor] || valor || "No definido";
 }
 
 function escapeHtml(texto) {
