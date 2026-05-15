@@ -103,6 +103,32 @@ async function registrarTraspaso(event) {
     return;
   }
 
+const balanceActual = await obtenerBalanceActual();
+
+if (
+  origen === "efectivo" &&
+  monto > balanceActual.efectivo
+) {
+  alert(
+    `⚠️ No hay suficiente efectivo disponible.\n\n` +
+    `Disponible actual: ${formatoMoneda(balanceActual.efectivo)}`
+  );
+
+  return;
+}
+
+if (
+  origen === "banco" &&
+  monto > balanceActual.banco
+) {
+  alert(
+    `⚠️ No hay suficiente saldo en banco.\n\n` +
+    `Disponible actual: ${formatoMoneda(balanceActual.banco)}`
+  );
+
+  return;
+}
+   
   if (archivo) {
     if (!archivoPermitido(archivo)) {
       alert("⚠️ El comprobante debe ser imagen o PDF.");
@@ -318,6 +344,87 @@ async function calcularBalanceOperativo() {
   } catch (error) {
     console.error("Error calculando balance operativo:", error);
   }
+}
+
+async function obtenerBalanceActual() {
+  const firebaseTools = window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) {
+    return {
+      efectivo: 0,
+      banco: 0,
+      total: 0
+    };
+  }
+
+  const { db } = firebaseTools;
+
+  const [ingresosSnap, egresosSnap, traspasosSnap] = await Promise.all([
+    db.collection("ingresos").get(),
+    db.collection("egresos").get(),
+    db.collection("traspasos").get()
+  ]);
+
+  let efectivo = 0;
+  let banco = 0;
+
+  /* =========================
+     INGRESOS
+  ========================= */
+
+  ingresosSnap.forEach((doc) => {
+    const d = doc.data();
+
+    const monto = Number(d.monto || 0);
+    const forma = d.formaPago || "";
+
+    if (forma === "efectivo") {
+      efectivo += monto;
+    }
+
+    if (
+      forma === "transferencia" ||
+      forma === "deposito" ||
+      forma === "spin_oxxo"
+    ) {
+      banco += monto;
+    }
+  });
+
+  /* =========================
+     TRASPASOS
+  ========================= */
+
+  traspasosSnap.forEach((doc) => {
+    const t = doc.data();
+    const monto = Number(t.monto || 0);
+
+    if (t.origen === "efectivo") efectivo -= monto;
+    if (t.destino === "efectivo") efectivo += monto;
+
+    if (t.origen === "banco") banco -= monto;
+    if (t.destino === "banco") banco += monto;
+  });
+
+  /* =========================
+     EGRESOS
+  ========================= */
+
+  egresosSnap.forEach((doc) => {
+    const e = doc.data();
+
+    const monto = Number(e.monto || 0);
+    const fuente = e.fuentePago || "banco";
+
+    if (fuente === "efectivo") efectivo -= monto;
+    if (fuente === "banco") banco -= monto;
+  });
+
+  return {
+    efectivo,
+    banco,
+    total: efectivo + banco
+  };
 }
 
 function pintarBalanceOperativo({ efectivo, banco, total }) {
