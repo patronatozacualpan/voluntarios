@@ -139,7 +139,19 @@ pdf.text("Firma", 139, 66, { align: "center" });
 
   const nombreArchivo = `recibo-${datos.folioTexto || "000000"}-${limpiarNombreArchivo(datos.nombreDonador || "donador")}.pdf`;
 
-  const blobPdf = pdf.output("blob");
+  const pdfArrayBuffer =
+  pdf.output("arraybuffer");
+
+const blobPdf = new Blob(
+  [pdfArrayBuffer],
+  { type: "application/pdf" }
+);
+
+if (!blobPdf || blobPdf.size <= 0) {
+  throw new Error(
+    "No se pudo generar blob PDF."
+  );
+}
 
 return {
   ok: true,
