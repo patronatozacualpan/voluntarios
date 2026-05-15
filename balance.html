@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Balance General | Patronato Zacualpan</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+
+    <div class="brand">
+      <img
+        src="assets/logos/logo-patronato.png"
+        alt="Logo Patronato"
+        class="brand-logo"
+        onerror="this.style.display='none'"
+      >
+
+      <div>
+        <p class="brand-small">Tesorería</p>
+        <h1>Balance General</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="panel.html">Panel</a>
+      <a href="ingresos.html">Ingresos</a>
+      <a href="egresos.html">Egresos</a>
+      <a href="traspasos.html">Traspasos</a>
+
+      <button id="btnCerrarSesion" class="nav-button">
+        Cerrar sesión
+      </button>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="section">
+
+    <div class="section-container">
+
+      <p class="section-label">
+        Estado financiero
+      </p>
+
+      <h2>
+        Balance financiero general
+      </h2>
+
+      <p>
+        Este módulo muestra el estado financiero real del patronato,
+        incluyendo ingresos, egresos, caja operativa y saldo disponible.
+      </p>
+
+    </div>
+
+    <!-- =======================================================
+         FILTROS
+    ======================================================== -->
+
+    <div class="section-container">
+
+      <div class="form-card">
+
+        <h3>Filtros</h3>
+
+        <div class="two-columns">
+
+          <div>
+            <label for="filtroMesBalance">
+              Mes
+            </label>
+
+            <select id="filtroMesBalance">
+              <option value="">Todos</option>
+
+              <option value="0">Enero</option>
+              <option value="1">Febrero</option>
+              <option value="2">Marzo</option>
+              <option value="3">Abril</option>
+              <option value="4">Mayo</option>
+              <option value="5">Junio</option>
+              <option value="6">Julio</option>
+              <option value="7">Agosto</option>
+              <option value="8">Septiembre</option>
+              <option value="9">Octubre</option>
+              <option value="10">Noviembre</option>
+              <option value="11">Diciembre</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="filtroAnioBalance">
+              Año
+            </label>
+
+            <select id="filtroAnioBalance">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- =======================================================
+         BALANCE GENERAL
+    ======================================================== -->
+
+    <div class="section-container">
+
+      <div class="dashboard-grid">
+
+        <article class="dashboard-card">
+          <span>Total ingresos</span>
+          <strong id="balanceIngresos">
+            $0.00
+          </strong>
+        </article>
+
+        <article class="dashboard-card">
+          <span>Total egresos</span>
+          <strong id="balanceEgresos">
+            $0.00
+          </strong>
+        </article>
+
+        <article class="dashboard-card featured">
+          <span>Saldo neto</span>
+          <strong id="balanceNeto">
+            $0.00
+          </strong>
+        </article>
+
+      </div>
+
+    </div>
+
+    <!-- =======================================================
+         BALANCE OPERATIVO
+    ======================================================== -->
+
+    <div class="section-container">
+
+      <div class="dashboard-grid">
+
+        <article class="dashboard-card">
+          <span>Efectivo real</span>
+          <strong id="balanceEfectivo">
+            $0.00
+          </strong>
+        </article>
+
+        <article class="dashboard-card">
+          <span>Banco real</span>
+          <strong id="balanceBanco">
+            $0.00
+          </strong>
+        </article>
+
+        <article class="dashboard-card featured">
+          <span>Total disponible</span>
+          <strong id="balanceDisponible">
+            $0.00
+          </strong>
+        </article>
+
+      </div>
+
+    </div>
+
+    <!-- =======================================================
+         TABLA RESUMEN
+    ======================================================== -->
+
+    <div class="section-container">
+
+      <div class="table-card">
+
+        <h3>Resumen financiero</h3>
+
+        <div class="table-responsive">
+
+          <table class="data-table">
+
+            <thead>
+              <tr>
+                <th>Concepto</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+
+            <tbody id="tablaBalanceBody">
+
+              <tr>
+                <td colspan="2">
+                  Cargando balance...
+                </td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <p>
+      <strong>
+        Patronato Zacualpan Pro-equipamiento de Protección Civil
+      </strong>
+    </p>
+
+    <p class="footer-small">
+      Balance financiero y operativo del patronato.
+    </p>
+
+  </div>
+
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+<script src="balance.js"></script>
+
+</body>
+</html>
