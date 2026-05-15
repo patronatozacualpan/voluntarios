@@ -66,6 +66,20 @@
           <label for="montoEgreso">Monto *</label>
           <input type="number" id="montoEgreso" min="1" step="0.01" required placeholder="Ej. 1500">
 
+          <label for="fuentePagoEgreso">Fuente de pago *</label>
+
+<select id="fuentePagoEgreso" required>
+  <option value="">Selecciona origen del dinero</option>
+
+  <option value="efectivo">
+    Efectivo en tesorería
+  </option>
+
+  <option value="banco">
+    Banco / cuenta
+  </option>
+</select>
+          
           <label for="fechaEgreso">Fecha del egreso *</label>
           <input type="date" id="fechaEgreso" required>
 
