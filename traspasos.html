@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Traspasos | Patronato Zacualpan</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+    <div class="brand">
+      <div>
+        <p class="brand-small">Tesorería</p>
+        <h1>Traspasos internos</h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="panel.html">Panel</a>
+      <a href="ingresos.html">Ingresos</a>
+      <a href="egresos.html">Egresos</a>
+      <button id="btnCerrarSesion" class="nav-button">Cerrar sesión</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="section-container two-columns">
+
+      <div>
+        <p class="section-label">Caja y banco</p>
+        <h2>Registrar traspaso interno</h2>
+
+        <p>
+          Usa este módulo cuando el dinero cambia de lugar, por ejemplo:
+          de efectivo en tesorería a cuenta bancaria.
+        </p>
+
+        <div class="info-card">
+          <h3>Importante</h3>
+          <ul>
+            <li>Un traspaso no es ingreso.</li>
+            <li>Un traspaso no es egreso.</li>
+            <li>Solo mueve saldo entre efectivo y banco.</li>
+            <li>Sirve para saber cuánto efectivo real tiene la tesorera.</li>
+          </ul>
+        </div>
+      </div>
+
+      <form class="form-card" id="formTraspaso">
+        <h3>Nuevo traspaso</h3>
+
+        <label for="origenTraspaso">Origen *</label>
+        <select id="origenTraspaso" required>
+          <option value="">Selecciona origen</option>
+          <option value="efectivo">Efectivo en tesorería</option>
+          <option value="banco">Banco / cuenta</option>
+        </select>
+
+        <label for="destinoTraspaso">Destino *</label>
+        <select id="destinoTraspaso" required>
+          <option value="">Selecciona destino</option>
+          <option value="efectivo">Efectivo en tesorería</option>
+          <option value="banco">Banco / cuenta</option>
+        </select>
+
+        <label for="montoTraspaso">Monto *</label>
+        <input type="number" id="montoTraspaso" min="1" step="0.01" required placeholder="Ej. 800">
+
+        <label for="fechaTraspaso">Fecha *</label>
+        <input type="date" id="fechaTraspaso" required>
+
+        <label for="notaTraspaso">Nota opcional</label>
+        <textarea id="notaTraspaso" rows="3" placeholder="Ej. Depósito de efectivo recibido a cuenta bancaria"></textarea>
+
+        <label for="comprobanteTraspaso">Comprobante opcional</label>
+        <input type="file" id="comprobanteTraspaso" accept="image/*,application/pdf">
+
+        <button type="submit" class="btn btn-primary full">Registrar traspaso</button>
+
+        <div class="success-box hidden" id="mensajeTraspaso">
+          ✅ Traspaso registrado correctamente.
+        </div>
+      </form>
+
+    </div>
+
+    <div class="section-container">
+      <div class="table-card">
+        <h3>Balance operativo</h3>
+
+        <div class="dashboard-grid">
+          <article class="dashboard-card">
+            <span>Efectivo real en caja</span>
+            <strong id="saldoEfectivoReal">$0.00</strong>
+          </article>
+
+          <article class="dashboard-card">
+            <span>Banco real</span>
+            <strong id="saldoBancoReal">$0.00</strong>
+          </article>
+
+          <article class="dashboard-card featured">
+            <span>Total disponible</span>
+            <strong id="saldoDisponibleReal">$0.00</strong>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-container">
+      <div class="table-card">
+        <h3>Traspasos recientes</h3>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Origen</th>
+                <th>Destino</th>
+                <th>Monto</th>
+                <th>Registrado por</th>
+                <th>Nota</th>
+                <th>Comprobante</th>
+              </tr>
+            </thead>
+
+            <tbody id="tablaTraspasosBody">
+              <tr>
+                <td colspan="7">Cargando traspasos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p><strong>Patronato Zacualpan Pro-equipamiento de Protección Civil</strong></p>
+  <p class="footer-small">Control de caja, banco y traspasos internos.</p>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+<script src="traspasos.js"></script>
+
+</body>
+</html>
