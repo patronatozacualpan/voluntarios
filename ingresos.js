@@ -325,7 +325,6 @@ async function registrarIngreso(event) {
       const storageRef =
         firebase.storage().ref(rutaRecibo);
 
-     const snapshot =
  const snapshot =
   await storageRef.put(
     resultadoPdf.blob,
