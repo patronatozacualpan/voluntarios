@@ -326,8 +326,12 @@ async function registrarIngreso(event) {
         firebase.storage().ref(rutaRecibo);
 
      const snapshot =
+ const snapshot =
   await storageRef.put(
-    resultadoPdf.blob
+    resultadoPdf.blob,
+    {
+      contentType: "application/pdf"
+    }
   );
 
 const reciboUrl =
