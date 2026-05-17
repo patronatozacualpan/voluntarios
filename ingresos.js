@@ -366,14 +366,9 @@ if (!subida.ok) {
 
   } catch (errorPdf) {
 
-    console.error(
-      "Error guardando PDF en Storage:",
-      errorPdf
-    );
-
-   alert(
-  "⚠️ Error PDF:\n\n" +
-  (errorPdf?.message || "Error desconocido")
+    console.warn(
+  "Advertencia PDF:",
+  errorPdf
 );
   }
 }
