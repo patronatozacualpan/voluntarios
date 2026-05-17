@@ -69,10 +69,19 @@ async function iniciarSesion(event) {
 
   try {
     await auth.signInWithEmailAndPassword(email, password);
-  } catch (error) {
-    console.error("Error iniciando sesión:", error);
-    alert("⛔ No se pudo iniciar sesión. Verifica tus datos.");
-  }
+ catch (error) {
+
+  console.error(
+    "Error iniciando sesión:",
+    error
+  );
+
+  alert(
+    "ERROR FIREBASE:\n\n" +
+    error.code +
+    "\n\n" +
+    error.message
+  );
 }
 
 /* ---------------------------------------------------------
@@ -137,6 +146,7 @@ async function cargarPerfilUsuario(user) {
     alert("⚠️ No se pudo cargar el perfil del usuario.");
   }
 }
+
 
 /* ---------------------------------------------------------
    Mostrar panel
