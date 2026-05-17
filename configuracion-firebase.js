@@ -45,8 +45,8 @@ const firebaseConfig = {
   projectId:
     "donativos-patronato-zacualpan",
 
-  storageBucket:
-    "donativos-patronato-zacualpan.firebasestorage.app",
+ storageBucket:
+"donativos-patronato-zacualpan.appspot.com",
 
   messagingSenderId:
     "173840953766",
