@@ -69,11 +69,11 @@ try {
 
   app = firebase.initializeApp(firebaseConfig);
 
-  db = firebase.firestore();
+  db = app.firestore();
 
-  auth = firebase.auth();
+auth = app.auth();
 
-  storage = firebase.storage();
+storage = app.storage();
 
   console.log("Firebase inicializado correctamente.");
 
