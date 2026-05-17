@@ -68,8 +68,12 @@ async function iniciarSesion(event) {
   }
 
   try {
-    await auth.signInWithEmailAndPassword(email, password);
- catch (error) {
+  await auth.signInWithEmailAndPassword(
+    email,
+    password
+  );
+
+} catch (error) {
 
   console.error(
     "Error iniciando sesión:",
