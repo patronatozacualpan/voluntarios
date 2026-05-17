@@ -322,19 +322,20 @@ async function registrarIngreso(event) {
       const rutaRecibo =
         `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
 
-      const storageRef =
-  firebaseTools.storage.ref(rutaRecibo);
+       const subida =
+  await firebaseTools.subirArchivoStorage({
 
- const snapshot =
-  await storageRef.put(
-    resultadoPdf.blob,
-    {
-      contentType: "application/pdf"
-    }
-  );
+    archivo: resultadoPdf.blob,
 
-const reciboUrl =
-  await snapshot.ref.getDownloadURL();
+    ruta: rutaRecibo
+  });
+
+if (!subida.ok) {
+
+  throw subida.error;
+}
+
+const reciboUrl = subida.url;
 
       await db
         .collection("ingresos")
