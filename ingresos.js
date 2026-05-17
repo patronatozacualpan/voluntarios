@@ -323,7 +323,7 @@ async function registrarIngreso(event) {
         `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
 
       const storageRef =
-        firebase.storage().ref(rutaRecibo);
+  firebaseTools.storage.ref(rutaRecibo);
 
  const snapshot =
   await storageRef.put(
