@@ -356,7 +356,6 @@ async function registrarIngreso(event) {
   ingreso.reciboUrl = reciboUrl;
 }
 
-      ingreso.reciboUrl = reciboUrl;
 
       const enlace =
         document.createElement("a");
