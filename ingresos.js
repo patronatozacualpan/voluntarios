@@ -295,7 +295,7 @@ async function registrarIngreso(event) {
       });
     }
 
-  if (window.PCZ_RECIBOS?.generarReciboPDF) {
+ if (window.PCZ_RECIBOS?.generarReciboPDF) {
 
   try {
 
@@ -322,27 +322,27 @@ async function registrarIngreso(event) {
       const rutaRecibo =
         `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
 
-       const subida =
-  await firebaseTools.subirArchivoStorage({
+      const subida =
+        await firebaseTools.subirArchivoStorage({
 
-    archivo: resultadoPdf.blob,
+          archivo: resultadoPdf.blob,
 
-    ruta: rutaRecibo
-  });
+          ruta: rutaRecibo
+        });
 
-let reciboUrl = "";
+      let reciboUrl = "";
 
-if (!subida.ok) {
+      if (!subida.ok) {
 
-  console.warn(
-    "No se pudo obtener URL pública:",
-    subida.error
-  );
+        console.warn(
+          "No se pudo obtener URL pública:",
+          subida.error
+        );
 
-} else {
+      } else {
 
-  reciboUrl = subida.url || "";
-}
+        reciboUrl = subida.url || "";
+      }
 
       await db
         .collection("ingresos")
@@ -353,33 +353,36 @@ if (!subida.ok) {
 
       ingreso.reciboUrl = reciboUrl;
 
-      if (
-        window.PCZ_RECIBOS?.descargarBlobPDF
-      ) {
+      const enlace =
+        document.createElement("a");
 
-        const enlace =
-  document.createElement("a");
+      enlace.href =
+        URL.createObjectURL(resultadoPdf.blob);
 
-enlace.href =
-  URL.createObjectURL(resultadoPdf.blob);
+      enlace.download =
+        resultadoPdf.nombreArchivo;
 
-enlace.download =
-  resultadoPdf.nombreArchivo;
+      document.body.appendChild(enlace);
 
-document.body.appendChild(enlace);
+      enlace.click();
 
-enlace.click();
+      setTimeout(() => {
 
-setTimeout(() => {
+        URL.revokeObjectURL(enlace.href);
 
-  URL.revokeObjectURL(enlace.href);
+        enlace.remove();
 
-  enlace.remove();
+      }, 1000);
+    }
 
-}, 1000);
+  } catch (errorPdf) {
+
+    console.warn(
+      "Advertencia PDF:",
+      errorPdf
+    );
   }
 }
-     
 
     mostrarMensajeIngreso();
 
