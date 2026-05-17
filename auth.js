@@ -48,44 +48,60 @@ function inicializarAuth() {
 --------------------------------------------------------- */
 
 async function iniciarSesion(event) {
+
   event.preventDefault();
 
   const firebaseTools = window.PCZ_FIREBASE;
 
   if (!firebaseTools || !firebaseTools.auth) {
+
     alert("⚠️ Firebase no está configurado.");
+
     return;
   }
 
   const { auth } = firebaseTools;
 
-  const email = document.getElementById("loginEmail").value.trim();
-  const password = document.getElementById("loginPassword").value.trim();
+  const email =
+    document.getElementById("loginEmail")
+    .value
+    .trim();
+
+  const password =
+    document.getElementById("loginPassword")
+    .value
+    .trim();
 
   if (!email || !password) {
-    alert("⚠️ Ingresa correo y contraseña.");
+
+    alert(
+      "⚠️ Ingresa correo y contraseña."
+    );
+
     return;
   }
 
   try {
-  await auth.signInWithEmailAndPassword(
-    email,
-    password
-  );
 
-} catch (error) {
+    await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
 
-  console.error(
-    "Error iniciando sesión:",
-    error
-  );
+  } catch (error) {
 
-  alert(
-    "ERROR FIREBASE:\n\n" +
-    error.code +
-    "\n\n" +
-    error.message
-  );
+    console.error(
+      "Error iniciando sesión:",
+      error
+    );
+
+    alert(
+      "ERROR FIREBASE:\n\n" +
+      error.code +
+      "\n\n" +
+      error.message
+    );
+  }
 }
 
 /* ---------------------------------------------------------
