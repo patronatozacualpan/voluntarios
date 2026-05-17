@@ -330,12 +330,19 @@ async function registrarIngreso(event) {
     ruta: rutaRecibo
   });
 
+let reciboUrl = "";
+
 if (!subida.ok) {
 
-  throw subida.error;
-}
+  console.warn(
+    "No se pudo obtener URL pública:",
+    subida.error
+  );
 
-const reciboUrl = subida.url;
+} else {
+
+  reciboUrl = subida.url || "";
+}
 
       await db
         .collection("ingresos")
