@@ -344,12 +344,17 @@ async function registrarIngreso(event) {
         reciboUrl = subida.url || "";
       }
 
-      await db
-        .collection("ingresos")
-        .doc(ingresoRef.id)
-        .update({
-          reciboUrl
-        });
+     if (reciboUrl) {
+
+  await db
+    .collection("ingresos")
+    .doc(ingresoRef.id)
+    .update({
+      reciboUrl
+    });
+
+  ingreso.reciboUrl = reciboUrl;
+}
 
       ingreso.reciboUrl = reciboUrl;
 
