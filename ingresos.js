@@ -357,19 +357,26 @@ if (!subida.ok) {
         window.PCZ_RECIBOS?.descargarBlobPDF
       ) {
 
-        window.PCZ_RECIBOS.descargarBlobPDF(
-          resultadoPdf.blob,
-          resultadoPdf.nombreArchivo
-        );
-      }
-    }
+        const enlace =
+  document.createElement("a");
 
-  } catch (errorPdf) {
+enlace.href =
+  URL.createObjectURL(resultadoPdf.blob);
 
-    console.warn(
-  "Advertencia PDF:",
-  errorPdf
-);
+enlace.download =
+  resultadoPdf.nombreArchivo;
+
+document.body.appendChild(enlace);
+
+enlace.click();
+
+setTimeout(() => {
+
+  URL.revokeObjectURL(enlace.href);
+
+  enlace.remove();
+
+}, 1000);
   }
 }
      
