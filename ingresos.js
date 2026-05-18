@@ -361,7 +361,7 @@ let reciboUrl = "";
 
       enlace.click();
 
-     setTimeout(() => {
+    setTimeout(() => {
 
   URL.revokeObjectURL(enlace.href);
 
@@ -369,13 +369,9 @@ let reciboUrl = "";
 
 }, 1000);
 
-  } catch (errorPdf) {
+}
 
-    console.error(
-  "Advertencia PDF COMPLETA:",
-  errorPdf
-);
-
+} catch (errorPdf) {
 console.log(
   "STACK:",
   errorPdf?.stack
