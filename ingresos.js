@@ -381,10 +381,15 @@ async function registrarIngreso(event) {
 
   } catch (errorPdf) {
 
-    console.warn(
-      "Advertencia PDF:",
-      errorPdf
-    );
+    console.error(
+  "Advertencia PDF COMPLETA:",
+  errorPdf
+);
+
+console.log(
+  "STACK:",
+  errorPdf?.stack
+);
   }
 }
 
