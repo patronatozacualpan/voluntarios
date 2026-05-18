@@ -348,7 +348,7 @@ let reciboUrl = "";
 }
 
 
-      const enlace =
+          const enlace =
         document.createElement("a");
 
       enlace.href =
@@ -361,24 +361,25 @@ let reciboUrl = "";
 
       enlace.click();
 
-    setTimeout(() => {
+      setTimeout(() => {
 
-  URL.revokeObjectURL(enlace.href);
+        URL.revokeObjectURL(enlace.href);
 
-  enlace.remove();
+        enlace.remove();
 
-}, 1000);
+      }, 1000);
 
     }
 
   }
 
 } catch (errorPdf) {
-console.log(
-  "STACK:",
-  errorPdf?.stack
-);
-  }
+
+  console.log(
+    "STACK:",
+    errorPdf?.stack
+  );
+
 }
 
     mostrarMensajeIngreso();
@@ -386,11 +387,17 @@ console.log(
     event.target.reset();
 
   } catch (error) {
-    console.error("Error registrando ingreso:", error);
-    alert("⚠️ No se pudo registrar el ingreso.");
+
+    console.error(
+      "Error registrando ingreso:",
+      error
+    );
+
+    alert(
+      "⚠️ No se pudo registrar el ingreso."
+    );
   }
 }
-
 /* ---------------------------------------------------------
    Generar folio consecutivo
 --------------------------------------------------------- */
