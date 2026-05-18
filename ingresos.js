@@ -322,26 +322,17 @@ async function registrarIngreso(event) {
       const rutaRecibo =
         `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
 
-      const subida =
-        await firebaseTools.subirArchivoStorage({
+     const storageRef =
+  storage.ref(rutaRecibo);
 
-          archivo: resultadoPdf.blob,
+await storageRef.put(
+  resultadoPdf.blob,
+  {
+    contentType: "application/pdf"
+  }
+);
 
-          ruta: rutaRecibo
-        });
-
-      let reciboUrl = "";
-
-      if (!subida.ok) {
-
-        console.warn(
-          "No se pudo obtener URL pública:",
-          subida.error
-        );
-
-      } else {
-
-        reciboUrl = subida.url || "";
+let reciboUrl = "";
       }
 
      if (reciboUrl) {
