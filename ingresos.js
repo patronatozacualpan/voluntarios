@@ -7,21 +7,27 @@
 let DONADORES_INGRESO_CACHE = [];
 
 document.addEventListener("DOMContentLoaded", () => {
+
   setTimeout(() => {
+
     protegerModuloTesorera();
     cargarDonadoresParaIngreso();
     cargarIngresosRecientes();
     activarFormularioIngreso();
     activarBuscadorDonadoresIngreso();
+
   }, 900);
+
 });
 
 /* ---------------------------------------------------------
-   Proteger módulo: solo tesorera
+   Proteger módulo
 --------------------------------------------------------- */
 
 function protegerModuloTesorera() {
-  const usuario = window.PCZ_AUTH?.obtenerUsuarioActivo?.();
+
+  const usuario =
+    window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
   if (!usuario) {
     console.warn("Usuario no autenticado todavía.");
@@ -29,7 +35,11 @@ function protegerModuloTesorera() {
   }
 
   if (usuario.rol !== "tesorera") {
-    alert("⛔ Solo la tesorera puede registrar ingresos.");
+
+    alert(
+      "⛔ Solo la tesorera puede registrar ingresos."
+    );
+
     window.location.href = "panel.html";
   }
 }
@@ -40,9 +50,11 @@ function protegerModuloTesorera() {
 
 async function cargarDonadoresParaIngreso() {
 
-  const firebaseTools = window.PCZ_FIREBASE;
+  const firebaseTools =
+    window.PCZ_FIREBASE;
 
   if (!firebaseTools?.db) {
+
     alert("⚠️ Firebase no está configurado.");
     return;
   }
@@ -97,7 +109,7 @@ async function cargarDonadoresParaIngreso() {
 }
 
 /* ---------------------------------------------------------
-   Pintar select donadores
+   Pintar select
 --------------------------------------------------------- */
 
 function pintarSelectDonadores(lista) {
@@ -284,7 +296,10 @@ async function registrarIngreso(event) {
 
   if (!usuario || usuario.rol !== "tesorera") {
 
-    alert("⛔ No tienes permiso para registrar ingresos.");
+    alert(
+      "⛔ No tienes permiso para registrar ingresos."
+    );
+
     return;
   }
 
@@ -312,7 +327,10 @@ async function registrarIngreso(event) {
 
   if (!donadorId || monto <= 0 || !formaPago) {
 
-    alert("⚠️ Completa donador, monto y forma de pago.");
+    alert(
+      "⚠️ Completa donador, monto y forma de pago."
+    );
+
     return;
   }
 
@@ -323,7 +341,10 @@ async function registrarIngreso(event) {
 
   if (!donador) {
 
-    alert("⚠️ No se encontró el donador seleccionado.");
+    alert(
+      "⚠️ No se encontró el donador seleccionado."
+    );
+
     return;
   }
 
@@ -357,9 +378,6 @@ async function registrarIngreso(event) {
 
       telefono:
         donador.telefono || "",
-
-      telefonoNormalizado:
-        donador.telefonoNormalizado || "",
 
       monto,
       formaPago,
@@ -640,6 +658,7 @@ async function actualizarDonadorDespuesIngreso(
         donadorRef,
         {
           totalAportado: nuevoTotal,
+
           ultimoPago:
             firebase.firestore.FieldValue.serverTimestamp(),
 
@@ -652,4 +671,226 @@ async function actualizarDonadorDespuesIngreso(
 
     }
   );
+}
+
+/* ---------------------------------------------------------
+   Cargar ingresos recientes
+--------------------------------------------------------- */
+
+async function cargarIngresosRecientes() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } =
+    firebaseTools;
+
+  const tbody =
+    document.getElementById("tablaIngresosBody");
+
+  if (!tbody) return;
+
+  try {
+
+    const snap = await db
+      .collection("ingresos")
+      .orderBy("creadoEn", "desc")
+      .limit(30)
+      .get();
+
+    if (snap.empty) {
+
+      tbody.innerHTML =
+        `<tr><td colspan="8">No hay ingresos registrados.</td></tr>`;
+
+      actualizarBalanceFormasPago([]);
+
+      return;
+    }
+
+    const ingresos = [];
+
+    snap.forEach((doc) => {
+
+      ingresos.push({
+        id: doc.id,
+        ...doc.data()
+      });
+
+    });
+
+    actualizarBalanceFormasPago(ingresos);
+
+    tbody.innerHTML = "";
+
+    ingresos.forEach((d) => {
+
+      const fecha =
+        d.fechaIngreso?.toDate
+          ? d.fechaIngreso.toDate().toLocaleDateString("es-MX")
+          : "Sin fecha";
+
+      const tr =
+        document.createElement("tr");
+
+      tr.innerHTML = `
+        <td>${escapeHtml(d.folioTexto || "")}</td>
+        <td>${escapeHtml(fecha)}</td>
+        <td>${escapeHtml(d.nombreDonador || "")}</td>
+        <td>${escapeHtml(d.telefono || "")}</td>
+        <td>${formatoMoneda(d.monto || 0)}</td>
+        <td>${escapeHtml(d.formaPago || "")}</td>
+        <td>${escapeHtml(d.registradoPorNombre || "")}</td>
+        <td>
+          ${
+            d.reciboUrl
+              ? `<a href="${d.reciboUrl}" target="_blank">Ver</a>`
+              : "Generado local"
+          }
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando ingresos:",
+      error
+    );
+
+    tbody.innerHTML =
+      `<tr><td colspan="8">⚠️ Error cargando ingresos.</td></tr>`;
+  }
+}
+
+/* ---------------------------------------------------------
+   Balance
+--------------------------------------------------------- */
+
+function actualizarBalanceFormasPago(ingresos) {
+
+  let efectivo = 0;
+  let banco = 0;
+  let otros = 0;
+
+  ingresos.forEach((ingreso) => {
+
+    const monto =
+      Number(ingreso.monto || 0);
+
+    const forma =
+      ingreso.formaPago || "";
+
+    if (forma === "efectivo") {
+
+      efectivo += monto;
+
+    } else if (
+      forma === "transferencia"
+      || forma === "deposito"
+      || forma === "spin_oxxo"
+    ) {
+
+      banco += monto;
+
+    } else {
+
+      otros += monto;
+    }
+
+  });
+
+  const total =
+    efectivo + banco + otros;
+
+  const elEfectivo =
+    document.getElementById("balanceEfectivo");
+
+  const elBanco =
+    document.getElementById("balanceBanco");
+
+  const elOtros =
+    document.getElementById("balanceOtros");
+
+  const elTotal =
+    document.getElementById("balanceTotalIngresos");
+
+  if (elEfectivo) {
+    elEfectivo.textContent =
+      formatoMoneda(efectivo);
+  }
+
+  if (elBanco) {
+    elBanco.textContent =
+      formatoMoneda(banco);
+  }
+
+  if (elOtros) {
+    elOtros.textContent =
+      formatoMoneda(otros);
+  }
+
+  if (elTotal) {
+    elTotal.textContent =
+      formatoMoneda(total);
+  }
+}
+
+/* ---------------------------------------------------------
+   Mostrar mensaje
+--------------------------------------------------------- */
+
+function mostrarMensajeIngreso() {
+
+  const mensaje =
+    document.getElementById("mensajeIngreso");
+
+  const btnAceptar =
+    document.getElementById("btnAceptarIngreso");
+
+  if (!mensaje) return;
+
+  mensaje.classList.remove("hidden");
+
+  if (btnAceptar) {
+
+    btnAceptar.onclick = () => {
+
+      mensaje.classList.add("hidden");
+
+      window.location.href =
+        "panel_donador.html";
+    };
+  }
+}
+
+/* ---------------------------------------------------------
+   Formatos
+--------------------------------------------------------- */
+
+function formatoMoneda(valor) {
+
+  return Number(valor || 0)
+    .toLocaleString(
+      "es-MX",
+      {
+        style: "currency",
+        currency: "MXN"
+      }
+    );
+}
+
+function escapeHtml(texto) {
+
+  return String(texto || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
