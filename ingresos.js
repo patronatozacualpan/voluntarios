@@ -309,69 +309,67 @@ async function registrarIngreso(event) {
         cuotaCubiertaHasta: resumenCobertura.cubiertoHastaTexto
       });
 
-    if (resultadoPdf?.ok && resultadoPdf.blob) {
+if (resultadoPdf?.ok && resultadoPdf.blob) {
 
-      const fechaActual = new Date();
+  const fechaActual = new Date();
 
-      const anio = fechaActual.getFullYear();
+  const anio = fechaActual.getFullYear();
 
-      const mes = String(
-        fechaActual.getMonth() + 1
-      ).padStart(2, "0");
+  const mes = String(
+    fechaActual.getMonth() + 1
+  ).padStart(2, "0");
 
-      const rutaRecibo =
-        `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
+  const rutaRecibo =
+    `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
 
-     const storageRef =
-  storage.ref(rutaRecibo);
+  const storage =
+    firebaseTools.storage;
 
-await storageRef.put(
-  resultadoPdf.blob,
-  {
-    contentType: "application/pdf"
-  }
-);
+  const storageRef =
+    storage.ref(rutaRecibo);
 
-let reciboUrl = "";
-      }
-
-     if (reciboUrl) {
-
-  await db
-    .collection("ingresos")
-    .doc(ingresoRef.id)
-    .update({
-      reciboUrl
-    });
-
-  ingreso.reciboUrl = reciboUrl;
-}
-
-
-          const enlace =
-        document.createElement("a");
-
-      enlace.href =
-        URL.createObjectURL(resultadoPdf.blob);
-
-      enlace.download =
-        resultadoPdf.nombreArchivo;
-
-      document.body.appendChild(enlace);
-
-      enlace.click();
-
-      setTimeout(() => {
-
-        URL.revokeObjectURL(enlace.href);
-
-        enlace.remove();
-
-      }, 1000);
-
+  await storageRef.put(
+    resultadoPdf.blob,
+    {
+      contentType: "application/pdf"
     }
+  );
 
+  let reciboUrl = "";
+
+  if (reciboUrl) {
+
+    await db
+      .collection("ingresos")
+      .doc(ingresoRef.id)
+      .update({
+        reciboUrl
+      });
+
+    ingreso.reciboUrl = reciboUrl;
   }
+
+  const enlace =
+    document.createElement("a");
+
+  enlace.href =
+    URL.createObjectURL(resultadoPdf.blob);
+
+  enlace.download =
+    resultadoPdf.nombreArchivo;
+
+  document.body.appendChild(enlace);
+
+  enlace.click();
+
+  setTimeout(() => {
+
+    URL.revokeObjectURL(enlace.href);
+
+    enlace.remove();
+
+  }, 1000);
+}
 
 } catch (errorPdf) {
 
