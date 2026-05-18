@@ -316,7 +316,7 @@ function crearMensajeWhatsApp(donador, calculo) {
     return `Hola ${nombre}, gracias por mantenerte al día con tu apoyo mensual de ${promesa} al Patronato Zacualpan. Tu generosidad equipa a nuestros héroes voluntarios.`;
   }
 
-  return `Hola ${nombre}, gracias por registrarte como donador del Patronato Zacualpan. Queremos confirmar tu apoyo mensual de ${promesa} para fortalecer a Protección Civil Zacualpan.`;
+  return `Hola ${nombre}, gracias por registrarte como donador del Patronato Zacualpan. Queremos confirmar tu apoyo mensual de ${promesa} para fortalecer a Protección Civil Zacualpan. Existen dos formas de pago, 1.- llevarlo a domicilio a la casa de tesorera. 2.- transferir a la cuenta de spin oxxo. 3.- depositarlos en un oxxo. A la siguiente cuenta `;
 }
 
 function normalizarTelefonoParaWhatsApp(telefono) {
