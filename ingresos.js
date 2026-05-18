@@ -484,27 +484,33 @@ async function registrarIngreso(event) {
        if (resultadoPdf?.ok && resultadoPdf.blob) {
 
   const enlace =
-    document.createElement("a");
+  document.createElement("a");
 
-  enlace.href =
-    URL.createObjectURL(resultadoPdf.blob);
+enlace.href =
+  URL.createObjectURL(resultadoPdf.blob);
 
-  enlace.download =
-    resultadoPdf.nombreArchivo;
+enlace.download =
+  resultadoPdf.nombreArchivo;
 
-  document.body.appendChild(enlace);
+document.body.appendChild(enlace);
+
+enlace.style.display = "none";
+
+setTimeout(() => {
 
   enlace.click();
 
-  setTimeout(() => {
+}, 150);
 
-    URL.revokeObjectURL(
-      enlace.href
-    );
+setTimeout(() => {
 
-    enlace.remove();
+  URL.revokeObjectURL(
+    enlace.href
+  );
 
-  }, 1000);
+  enlace.remove();
+
+}, 3000);
 
 }
 
