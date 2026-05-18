@@ -368,16 +368,18 @@ if (resultadoPdf?.ok && resultadoPdf.blob) {
 
     enlace.remove();
 
-  }, 1000);
+      }, 1000);
 
-}catch (errorPdf) {
+    }
 
-  console.log(
-    "STACK:",
-    errorPdf?.stack
-  );
+  } catch (errorPdf) {
 
-}
+    console.log(
+      "STACK:",
+      errorPdf?.stack
+    );
+
+  }
 
     mostrarMensajeIngreso();
 
