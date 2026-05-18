@@ -371,7 +371,7 @@ if (resultadoPdf?.ok && resultadoPdf.blob) {
   }, 1000);
 }
 
-} catch (errorPdf) {
+catch (errorPdf) {
 
   console.log(
     "STACK:",
