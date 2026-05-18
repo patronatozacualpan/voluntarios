@@ -768,6 +768,103 @@ async function cargarIngresosRecientes() {
   }
 }
 
+
+
+/* ---------------------------------------------------------
+   Cobertura de cuota
+--------------------------------------------------------- */
+
+function calcularCoberturaDonador(
+  donador,
+  montoPago
+) {
+
+  const promesaMensual =
+    Number(donador.promesaMensual || 0);
+
+  const totalAntes =
+    Number(donador.totalAportado || 0);
+
+  const totalAportadoDespues =
+    totalAntes + Number(montoPago || 0);
+
+  if (!promesaMensual || promesaMensual <= 0) {
+
+    return {
+      totalAportadoDespues,
+      mesesCubiertos: 0,
+      cubiertoHastaTexto: "No determinado"
+    };
+  }
+
+  const mesesCubiertos =
+    Math.floor(
+      totalAportadoDespues / promesaMensual
+    );
+
+  if (mesesCubiertos <= 0) {
+
+    return {
+      totalAportadoDespues,
+      mesesCubiertos: 0,
+      cubiertoHastaTexto:
+        "Primera aportación incompleta"
+    };
+  }
+
+  const fechaBase =
+    obtenerFechaRegistroDonador(donador);
+
+  const fechaCubierta =
+    new Date(fechaBase);
+
+  fechaCubierta.setMonth(
+    fechaCubierta.getMonth()
+      + mesesCubiertos
+      - 1
+  );
+
+  return {
+
+    totalAportadoDespues,
+
+    mesesCubiertos,
+
+    cubiertoHastaTexto:
+      fechaCubierta.toLocaleDateString(
+        "es-MX",
+        {
+          month: "long",
+          year: "numeric"
+        }
+      )
+  };
+}
+
+/* ---------------------------------------------------------
+   Obtener fecha registro
+--------------------------------------------------------- */
+
+function obtenerFechaRegistroDonador(
+  donador
+) {
+
+  if (donador.creadoEn?.toDate) {
+    return donador.creadoEn.toDate();
+  }
+
+  if (donador.fechaRegistro?.toDate) {
+    return donador.fechaRegistro.toDate();
+  }
+
+  return new Date();
+}
+
+
+
+
+
+
 /* ---------------------------------------------------------
    Balance
 --------------------------------------------------------- */
