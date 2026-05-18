@@ -481,69 +481,32 @@ async function registrarIngreso(event) {
               resumenCobertura.cubiertoHastaTexto
           });
 
-        if (resultadoPdf?.ok && resultadoPdf.blob) {
+       if (resultadoPdf?.ok && resultadoPdf.blob) {
 
-          const fechaActual =
-            new Date();
+  const enlace =
+    document.createElement("a");
 
-          const anio =
-            fechaActual.getFullYear();
+  enlace.href =
+    URL.createObjectURL(resultadoPdf.blob);
 
-          const mes =
-            String(
-              fechaActual.getMonth() + 1
-            ).padStart(2, "0");
+  enlace.download =
+    resultadoPdf.nombreArchivo;
 
-          const rutaRecibo =
-            `recibos/${anio}/${mes}/${resultadoPdf.nombreArchivo}`;
+  document.body.appendChild(enlace);
 
-          const storageRef =
-            storage.ref(rutaRecibo);
+  enlace.click();
 
-          await storageRef.put(
-            resultadoPdf.blob,
-            {
-              contentType: "application/pdf"
-            }
-          );
+  setTimeout(() => {
 
-          const reciboUrl =
-            await storageRef.getDownloadURL();
+    URL.revokeObjectURL(
+      enlace.href
+    );
 
-          await db
-            .collection("ingresos")
-            .doc(ingresoRef.id)
-            .update({
-              reciboUrl
-            });
+    enlace.remove();
 
-          ingreso.reciboUrl =
-            reciboUrl;
+  }, 1000);
 
-          const enlace =
-            document.createElement("a");
-
-          enlace.href =
-            URL.createObjectURL(resultadoPdf.blob);
-
-          enlace.download =
-            resultadoPdf.nombreArchivo;
-
-          document.body.appendChild(enlace);
-
-          enlace.click();
-
-          setTimeout(() => {
-
-            URL.revokeObjectURL(
-              enlace.href
-            );
-
-            enlace.remove();
-
-          }, 1000);
-
-        }
+}
 
       } catch (errorPdf) {
 
@@ -572,7 +535,6 @@ async function registrarIngreso(event) {
     );
   }
 }
-
 /* ---------------------------------------------------------
    Generar folio
 --------------------------------------------------------- */
