@@ -369,7 +369,9 @@ let reciboUrl = "";
 
 }, 1000);
 
-}
+    }
+
+  }
 
 } catch (errorPdf) {
 console.log(
