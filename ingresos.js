@@ -361,14 +361,13 @@ let reciboUrl = "";
 
       enlace.click();
 
-      setTimeout(() => {
+     setTimeout(() => {
 
-        URL.revokeObjectURL(enlace.href);
+  URL.revokeObjectURL(enlace.href);
 
-        enlace.remove();
+  enlace.remove();
 
-      }, 1000);
-    }
+}, 1000);
 
   } catch (errorPdf) {
 
