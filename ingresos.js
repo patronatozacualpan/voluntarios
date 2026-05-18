@@ -369,7 +369,6 @@ if (resultadoPdf?.ok && resultadoPdf.blob) {
     enlace.remove();
 
   }, 1000);
-}
 
 }catch (errorPdf) {
 
