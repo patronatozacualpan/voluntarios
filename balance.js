@@ -120,24 +120,39 @@ async function cargarBalanceGeneral() {
         return;
       }
 
-      const monto = Number(d.monto || 0);
-      const forma = d.formaPago || "";
+    const monto = Number(d.monto || 0);
+const forma = d.formaPago || "";
 
-      totalIngresos += monto;
+totalIngresos += monto;
 
-      if (forma === "efectivo") {
-        efectivo += monto;
-        ingresosEfectivo += monto;
-      }
+/* =========================================
+   EFECTIVO
+========================================= */
 
-      if (
-        forma === "transferencia" ||
-        forma === "deposito" ||
-        forma === "spin_oxxo"
-      ) {
-        banco += monto;
-        ingresosBanco += monto;
-      }
+if (forma === "efectivo") {
+  efectivo += monto;
+  ingresosEfectivo += monto;
+}
+
+/* =========================================
+   BANCO / SPIN
+========================================= */
+
+if (
+  forma === "transferencia_spin" ||
+  forma === "deposito_oxxo_spin"
+) {
+  banco += monto;
+  ingresosBanco += monto;
+}
+
+/* =========================================
+   OTROS
+========================================= */
+
+if (forma === "otro") {
+  ingresosBanco += monto;
+}
     });
 
     /* =====================================================
