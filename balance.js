@@ -208,7 +208,10 @@ if (forma === "otro") {
         egresosEfectivo += monto;
       }
 
-      if (fuente === "banco") {
+      if (
+  fuente === "transferencia_spin" ||
+  fuente === "deposito_oxxo_spin"
+) {
         banco -= monto;
         egresosBanco += monto;
       }
