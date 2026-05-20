@@ -69,14 +69,25 @@
           <input type="number" id="montoIngreso" min="1" step="0.01" required placeholder="Ej. 100">
 
           <label for="formaPagoIngreso">Forma de pago *</label>
-          <select id="formaPagoIngreso" required>
-            <option value="">Selecciona una opción</option>
-            <option value="efectivo">Efectivo</option>
-            <option value="transferencia">Transferencia</option>
-            <option value="deposito">Depósito</option>
-            <option value="spin_oxxo">SPIN OXXO</option>
-            <option value="otro">Otro</option>
-          </select>
+         <select id="formaPagoIngreso" required>
+  <option value="">Seleccione...</option>
+
+  <option value="efectivo">
+    Efectivo
+  </option>
+
+  <option value="transferencia_spin">
+    Transferencia SPIN
+  </option>
+
+  <option value="deposito_oxxo_spin">
+    Depósito OXXO / SPIN
+  </option>
+
+  <option value="otro">
+    Otro
+  </option>
+</select>
 
           <label for="notaIngreso">Nota opcional</label>
           <textarea id="notaIngreso" rows="3" placeholder="Observación interna opcional"></textarea>
