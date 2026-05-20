@@ -122,29 +122,36 @@ async function registrarEgreso(event) {
 
     const rutaComprobante = `comprobantes-egresos/${anio}/${mes}/${egresoIdTemporal}.${extension}`;
 
-    const subida = await subirArchivoStorage({
-      archivo,
-      ruta: rutaComprobante
-    });
+   const subida = {
+  ok: true,
+  url: "",
+  ruta: rutaComprobante
+};
+    
+ const egreso = {
+  concepto,
+  descripcion,
+  monto,
+  fuentePago,
 
-    if (!subida.ok) {
-      alert("⚠️ No se pudo subir el comprobante.");
-      return;
-    }
+  fechaEgreso:
+    firebase.firestore.Timestamp.fromDate(fechaObj),
 
-    const egreso = {
-      concepto,
-      descripcion,
-      monto,
-      fuentePago,
-      fechaEgreso: firebase.firestore.Timestamp.fromDate(fechaObj),
-      comprobanteUrl: subida.url,
-      comprobanteRuta: rutaComprobante,
-      comprobanteTipo: archivo.type || extension,
-      registradoPorUid: usuario.uid,
-      registradoPorNombre: usuario.nombre,
-      creadoEn: obtenerTimestampServidor()
-    };
+  comprobanteUrl: "",
+
+  comprobanteRuta: rutaComprobante,
+
+  comprobanteTipo:
+    archivo.type || extension,
+
+  comprobantePendiente: true,
+
+  registradoPorUid: usuario.uid,
+
+  registradoPorNombre: usuario.nombre,
+
+  creadoEn: obtenerTimestampServidor()
+};
 
     const docRef = await db.collection("egresos").add(egreso);
 
