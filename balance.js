@@ -151,6 +151,7 @@ if (
 ========================================= */
 
 if (forma === "otro") {
+  banco += monto;
   ingresosBanco += monto;
 }
     });
