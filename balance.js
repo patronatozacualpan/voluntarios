@@ -140,7 +140,11 @@ if (forma === "efectivo") {
 
 if (
   forma === "transferencia_spin" ||
-  forma === "deposito_oxxo_spin"
+  forma === "deposito_oxxo_spin" ||
+
+  forma === "transferencia" ||
+  forma === "deposito" ||
+  forma === "spin_oxxo"
 ) {
   banco += monto;
   ingresosBanco += monto;
