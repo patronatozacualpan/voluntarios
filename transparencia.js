@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    Transparencia y Participación Comunitaria |
+    Patronato Zacualpan
+  </title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-container">
+
+    <div class="brand">
+      <img
+        src="assets/logos/logo-patronato.png"
+        alt="Logo Patronato"
+        class="brand-logo"
+        onerror="this.style.display='none'"
+      >
+
+      <div>
+        <p class="brand-small">
+          Transparencia ciudadana
+        </p>
+
+        <h1>
+          Transparencia y Participación Comunitaria
+        </h1>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="index.html">Inicio</a>
+      <a href="panel.html">Panel</a>
+      <a href="inventario.html">Inventario</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- =========================================
+       HERO
+  ========================================== -->
+
+  <section class="section">
+
+    <div class="section-container">
+
+      <div class="hero-card">
+
+        <p class="section-label">
+          Transparencia activa
+        </p>
+
+        <h2>
+          Fortaleciendo la capacidad de respuesta
+          para proteger a nuestra comunidad.
+        </h2>
+
+        <p class="hero-text">
+          Cada aportación ayuda al equipamiento,
+          preparación y fortalecimiento operativo
+          de Protección Civil Zacualpan.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================
+       DASHBOARD
+  ========================================== -->
+
+  <section class="section">
+
+    <div class="section-container dashboard-grid">
+
+      <div class="dashboard-card">
+        <p class="dashboard-title">
+          Total recaudado
+        </p>
+
+        <h3 id="tpTotalIngresos">
+          $0.00
+        </h3>
+      </div>
+
+      <div class="dashboard-card">
+        <p class="dashboard-title">
+          Equipo registrado
+        </p>
+
+        <h3 id="tpTotalEquipos">
+          0
+        </h3>
+      </div>
+
+      <div class="dashboard-card">
+        <p class="dashboard-title">
+          Equipo entregado
+        </p>
+
+        <h3 id="tpEquiposEntregados">
+          0
+        </h3>
+      </div>
+
+      <div class="dashboard-card dashboard-highlight">
+        <p class="dashboard-title">
+          Participación comunitaria
+        </p>
+
+        <h3>
+          Activa
+        </h3>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================
+       INVENTARIO PUBLICO
+  ========================================== -->
+
+  <section class="section">
+
+    <div class="section-container">
+
+      <div class="section-header">
+        <p class="section-label">
+          Transparencia pública
+        </p>
+
+        <h2>
+          Equipo y adquisiciones
+        </h2>
+
+        <p>
+          Consulta parte del equipo y recursos
+          adquiridos para fortalecer la atención
+          de emergencias comunitarias.
+        </p>
+      </div>
+
+      <div
+        class="cards-grid"
+        id="contenedorInventarioPublico"
+      >
+
+        <div class="info-card">
+          <p>
+            Cargando inventario público...
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- =========================================
+       PARTICIPACION
+  ========================================== -->
+
+  <section class="section">
+
+    <div class="section-container">
+
+      <div class="two-columns">
+
+        <div class="info-card">
+
+          <p class="section-label">
+            Participación ciudadana
+          </p>
+
+          <h3>
+            Tu participación fortalece
+            la transparencia.
+          </h3>
+
+          <p>
+            La comunidad puede participar
+            mediante opiniones, propuestas
+            y futuras encuestas comunitarias
+            sobre necesidades prioritarias.
+          </p>
+
+        </div>
+
+        <div class="info-card">
+
+          <p class="section-label">
+            Transparencia comunitaria
+          </p>
+
+          <h3>
+            Recursos aplicados con claridad.
+          </h3>
+
+          <p>
+            El objetivo de esta plataforma es
+            mantener una comunicación abierta,
+            clara y responsable sobre la
+            aplicación de recursos y avances
+            operativos.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="site-footer">
+
+  <div class="footer-container">
+
+    <p>
+      <strong>
+        Patronato Zacualpan Pro-equipamiento
+        de Protección Civil
+      </strong>
+    </p>
+
+    <p class="footer-small">
+      Transparencia y participación comunitaria.
+    </p>
+
+  </div>
+
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+
+<script src="transparencia.js"></script>
+
+</body>
+</html>
