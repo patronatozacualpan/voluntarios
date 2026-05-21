@@ -582,6 +582,91 @@ a {
 }
 
 .inventory-card {
+/* =========================================
+   METAS COMUNITARIAS COMPACTAS
+========================================= */
+
+.meta-card {
+
+  padding: 22px;
+
+  min-height: auto;
+
+}
+
+.meta-card h3 {
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  font-size: 1.3rem;
+
+}
+
+.meta-card .inventory-description {
+
+  margin-bottom: 18px;
+
+  line-height: 1.5;
+
+}
+
+.meta-card .inventory-data {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+
+}
+
+.meta-stat {
+
+  background: #f5f7fb;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+}
+
+.meta-stat strong {
+
+  display: block;
+
+  font-size: 0.85rem;
+
+  margin-bottom: 6px;
+
+  color: #002147;
+
+}
+
+.meta-progress-label {
+
+  margin-top: 10px;
+
+  font-weight: 700;
+
+  color: #002147;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .meta-card .inventory-data {
+
+    grid-template-columns: 1fr;
+
+  }
+}
+  
   background: white;
   border-radius: 24px;
   overflow: hidden;
