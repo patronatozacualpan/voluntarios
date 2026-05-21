@@ -119,28 +119,27 @@ async function registrarEquipo(event) {
     let comprobanteUrl = "";
     let comprobanteRuta = "";
 
-    if (fotoArchivo) {
+  /* =========================================
+   FOTO EQUIPO
+========================================= */
+
+if (fotoArchivo) {
+
   fotoEquipoRuta =
     `inventario/equipo/${anio}/${mes}/${equipoIdTemporal}`;
-    }
 
-    if (comprobanteArchivo) {
-      const extComprobante = obtenerExtensionArchivo(comprobanteArchivo.name);
-      comprobanteRuta = `inventario/comprobantes/${anio}/${mes}/${equipoIdTemporal}.${extComprobante}`;
+}
 
-      const subidaComprobante = await subirArchivoStorage({
-        archivo: comprobanteArchivo,
-        ruta: comprobanteRuta
-      });
+/* =========================================
+   COMPROBANTE
+========================================= */
 
-      if (!subidaComprobante.ok) {
-        alert("⚠️ No se pudo subir el comprobante.");
-        return;
-      }
+if (comprobanteArchivo) {
 
-      comprobanteUrl = subidaComprobante.url;
-    }
+  comprobanteRuta =
+    `inventario/comprobantes/${anio}/${mes}/${equipoIdTemporal}`;
 
+}
     const equipo = {
       nombreEquipo,
       categoria,
