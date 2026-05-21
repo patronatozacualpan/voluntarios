@@ -496,7 +496,7 @@ async function cargarMetasComunitarias() {
         document.createElement("div");
 
       card.className =
-        "inventory-card";
+  "inventory-card meta-card";
 
       card.innerHTML = `
 
