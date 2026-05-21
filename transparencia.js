@@ -450,11 +450,9 @@ async function cargarMetasComunitarias() {
   try {
 
     const snap = await db
-      .collection("metas_comunitarias")
-      .where("publico", "==", true)
-      .where("activa", "==", true)
-      .limit(12)
-      .get();
+     .collection("metas_comunitarias")
+.limit(12)
+.get();
 
     if (snap.empty) {
 
