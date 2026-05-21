@@ -518,19 +518,35 @@ async function cargarMetasComunitarias() {
             )}
           </p>
 
-          <div class="inventory-data">
+         <div class="inventory-data">
 
-            <p>
-              <strong>Meta:</strong>
-              ${formatoMoneda(meta)}
-            </p>
+  <div class="meta-stat">
 
-            <p>
-              <strong>Recaudado:</strong>
-              ${formatoMoneda(actual)}
-            </p>
+    <strong>Meta</strong>
 
-          </div>
+    ${formatoMoneda(meta)}
+
+  </div>
+
+  <div class="meta-stat">
+
+    <strong>Recaudado</strong>
+
+    ${formatoMoneda(actual)}
+
+  </div>
+
+  <div class="meta-stat">
+
+    <strong>Faltante</strong>
+
+    ${formatoMoneda(
+      Math.max(0, meta - actual)
+    )}
+
+  </div>
+
+</div>
 
           <div class="progress-bar">
 
