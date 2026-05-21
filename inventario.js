@@ -120,20 +120,8 @@ async function registrarEquipo(event) {
     let comprobanteRuta = "";
 
     if (fotoArchivo) {
-      const extFoto = obtenerExtensionArchivo(fotoArchivo.name);
-      fotoEquipoRuta = `inventario/equipo/${anio}/${mes}/${equipoIdTemporal}.${extFoto}`;
-
-      const subidaFoto = await subirArchivoStorage({
-        archivo: fotoArchivo,
-        ruta: fotoEquipoRuta
-      });
-
-      if (!subidaFoto.ok) {
-        alert("⚠️ No se pudo subir la foto del equipo.");
-        return;
-      }
-
-      fotoEquipoUrl = subidaFoto.url;
+  fotoEquipoRuta =
+    `inventario/equipo/${anio}/${mes}/${equipoIdTemporal}`;
     }
 
     if (comprobanteArchivo) {
