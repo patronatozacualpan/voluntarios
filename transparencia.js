@@ -341,3 +341,163 @@ function formatearEstado(estado) {
 
   return mapa[estado] || estado;
 }
+
+
+/* =========================================================
+   METAS COMUNITARIAS
+========================================================= */
+
+async function cargarMetasComunitarias() {
+
+  const firebaseTools = window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const contenedor =
+    document.getElementById(
+      "contenedorMetas"
+    );
+
+  if (!contenedor) return;
+
+  try {
+
+    const snap = await db
+      .collection("metas_comunitarias")
+      .where("publico", "==", true)
+      .where("activa", "==", true)
+      .limit(12)
+      .get();
+
+    if (snap.empty) {
+
+      contenedor.innerHTML = `
+
+        <div class="info-card">
+
+          <p>
+            No hay metas activas
+            por el momento.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+    }
+
+    contenedor.innerHTML = "";
+
+    snap.forEach((doc) => {
+
+      const d = doc.data();
+
+      const meta =
+        Number(d.montoMeta || 0);
+
+      const actual =
+        Number(d.montoActual || 0);
+
+      const porcentaje =
+        meta > 0
+          ? Math.min(
+              100,
+              (actual / meta) * 100
+            )
+          : 0;
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "inventory-card";
+
+      card.innerHTML = `
+
+        <div class="inventory-card-body">
+
+          <p class="section-label">
+            Meta comunitaria
+          </p>
+
+          <h3>
+            ${escapeHtml(
+              d.titulo || ""
+            )}
+          </h3>
+
+          <p class="inventory-description">
+            ${escapeHtml(
+              d.descripcion || ""
+            )}
+          </p>
+
+          <div class="inventory-data">
+
+            <p>
+              <strong>Meta:</strong>
+              ${formatoMoneda(meta)}
+            </p>
+
+            <p>
+              <strong>Recaudado:</strong>
+              ${formatoMoneda(actual)}
+            </p>
+
+          </div>
+
+          <div class="progress-bar">
+
+            <div
+              class="progress-fill"
+              style="
+                width:${porcentaje}%;
+              "
+            ></div>
+
+          </div>
+
+          <p style="margin-top:10px;">
+
+            <strong>
+              ${porcentaje.toFixed(0)}%
+            </strong>
+
+            completado
+
+          </p>
+
+        </div>
+
+      `;
+
+      contenedor.appendChild(card);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando metas:",
+      error
+    );
+
+    contenedor.innerHTML = `
+
+      <div class="info-card">
+
+        <p>
+          ⚠️ No se pudieron cargar
+          las metas comunitarias.
+        </p>
+
+      </div>
+
+    `;
+  }
+}
+
+
