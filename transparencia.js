@@ -601,6 +601,7 @@ async function cargarMetasComunitarias() {
 }
 
 
+
 /* =========================================================
    TIMELINE OPERATIVO
 ========================================================= */
@@ -630,7 +631,6 @@ async function cargarTimelineOperativo() {
 
     const ingresosSnap = await db
       .collection("ingresos")
-      .orderBy("creadoEn", "desc")
       .limit(4)
       .get();
 
@@ -660,7 +660,6 @@ async function cargarTimelineOperativo() {
 
     const egresosSnap = await db
       .collection("egresos")
-      .orderBy("creadoEn", "desc")
       .limit(4)
       .get();
 
@@ -691,7 +690,6 @@ async function cargarTimelineOperativo() {
     const inventarioSnap = await db
       .collection("inventario_equipo")
       .where("publico", "==", true)
-      .orderBy("creadoEn", "desc")
       .limit(4)
       .get();
 
@@ -732,6 +730,10 @@ async function cargarTimelineOperativo() {
     const ultimas =
       actividades.slice(0, 8);
 
+    /* =====================================
+       VALIDAR
+    ===================================== */
+
     if (!ultimas.length) {
 
       contenedor.innerHTML = `
@@ -748,6 +750,10 @@ async function cargarTimelineOperativo() {
 
       return;
     }
+
+    /* =====================================
+       PINTAR
+    ===================================== */
 
     contenedor.innerHTML = "";
 
@@ -800,7 +806,7 @@ async function cargarTimelineOperativo() {
       <div class="info-card">
 
         <p>
-          No se pudo cargar la actividad.
+          ⚠️ No se pudo cargar la actividad.
         </p>
 
       </div>
@@ -808,6 +814,3 @@ async function cargarTimelineOperativo() {
     `;
   }
 }
-
-
-
