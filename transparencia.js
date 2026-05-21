@@ -200,12 +200,18 @@ async function cargarInventarioPublico() {
             </p>
 
             <p>
-              <strong>Estado:</strong>
-              ${escapeHtml(
-                formatearEstado(
-                  d.estado || ""
-                )
-              )}
+             <div
+  class="
+    status-chip
+    status-${d.estado || ""}
+  "
+>
+  ${escapeHtml(
+    formatearEstado(
+      d.estado || ""
+    )
+  )}
+</div>
             </p>
 
           </div>
