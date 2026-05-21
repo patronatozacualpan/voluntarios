@@ -1040,3 +1040,186 @@ a {
   font-weight: 700;
 }
 
+/* =========================================
+   TRANSPARENCIA PUBLICA
+========================================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  );
+  gap: 18px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+}
+
+.dashboard-card h3 {
+  margin-top: 10px;
+  font-size: 2rem;
+  color: #002147;
+}
+
+.dashboard-title {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.dashboard-highlight {
+  background:
+    linear-gradient(
+      135deg,
+      #002147,
+      #0d3b66
+    );
+
+  color: white;
+}
+
+.dashboard-highlight h3,
+.dashboard-highlight .dashboard-title {
+  color: white;
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.hero-card {
+  background:
+    linear-gradient(
+      135deg,
+      #002147,
+      #0d3b66
+    );
+
+  color: white;
+
+  padding: 40px;
+  border-radius: 22px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.15);
+}
+
+.hero-card h2 {
+  font-size: 2rem;
+  margin: 12px 0;
+}
+
+.hero-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+/* =========================================
+   INVENTARIO PUBLICO
+========================================= */
+
+.cards-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+
+  gap: 20px;
+}
+
+.inventory-card {
+  background: white;
+
+  border-radius: 18px;
+
+  border: 1px solid #e5e7eb;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  box-shadow:
+    0 5px 16px rgba(0,0,0,0.05);
+}
+
+.inventory-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 24px rgba(0,0,0,0.10);
+}
+
+.inventory-card-body {
+  padding: 22px;
+}
+
+.inventory-card h3 {
+  margin: 10px 0;
+
+  color: #002147;
+
+  font-size: 1.3rem;
+}
+
+.inventory-description {
+  color: #4b5563;
+
+  line-height: 1.6;
+
+  margin-bottom: 18px;
+}
+
+.inventory-data {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* =========================================
+   BADGES ESTADOS
+========================================= */
+
+.status-chip {
+  display: inline-block;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+}
+
+.status-entregado,
+.status-en_uso {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-comprado,
+.status-recibido {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-mantenimiento,
+.status-baja {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.status-solicitado,
+.status-cotizado {
+  background: #fef3c7;
+  color: #92400e;
+}
+
