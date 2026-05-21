@@ -162,6 +162,49 @@ async function cargarInventarioPublico() {
 
       card.innerHTML = `
 
+        <!-- =====================================
+             IMAGEN / PLACEHOLDER
+        ====================================== -->
+
+        <div class="inventory-image-placeholder">
+
+          ${
+            d.fotoEquipoUrl
+
+              ? `
+
+                <img
+                  src="${d.fotoEquipoUrl}"
+                  alt="Equipo"
+                  class="inventory-image"
+                >
+
+              `
+
+              : `
+
+                <div class="inventory-placeholder-content">
+
+                  <div class="inventory-placeholder-icon">
+                    🛡️
+                  </div>
+
+                  <p>
+                    Evidencia visual
+                    pendiente de documentación
+                  </p>
+
+                </div>
+
+              `
+          }
+
+        </div>
+
+        <!-- =====================================
+             CONTENIDO
+        ====================================== -->
+
         <div class="inventory-card-body">
 
           <p class="section-label">
@@ -194,26 +237,24 @@ async function cargarInventarioPublico() {
             </p>
 
             <p>
-              <strong>Costo:</strong>
+              <strong>Inversión:</strong>
               ${formatoMoneda(
                 d.costoTotal || 0
               )}
             </p>
 
-            <p>
-             <div
-  class="
-    status-chip
-    status-${d.estado || ""}
-  "
->
-  ${escapeHtml(
-    formatearEstado(
-      d.estado || ""
-    )
-  )}
-</div>
-            </p>
+            <div
+              class="
+                status-chip
+                status-${d.estado || ""}
+              "
+            >
+              ${escapeHtml(
+                formatearEstado(
+                  d.estado || ""
+                )
+              )}
+            </div>
 
           </div>
 
