@@ -1255,3 +1255,84 @@ a {
 }
 
 
+/* =========================================
+   LAYOUT GENERAL PUBLICO
+========================================= */
+
+.section-container {
+
+  width: 100%;
+
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.section {
+
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* =========================================
+   HERO MEJORADO
+========================================= */
+
+.hero-card {
+
+  max-width: 900px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+.dashboard-grid {
+
+  margin-top: 30px;
+}
+
+/* =========================================
+   INVENTARIO
+========================================= */
+
+.cards-grid {
+
+  margin-top: 28px;
+}
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header {
+
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+
+  font-size: 2.4rem;
+
+  margin-top: 12px;
+
+  color: #002147;
+}
+
+.section-header p {
+
+  color: #4b5563;
+
+  line-height: 1.7;
+
+  max-width: 800px;
+}
+
+
