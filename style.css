@@ -1556,3 +1556,83 @@ a {
   }
 
 }
+
+
+/* =========================================
+   TIMELINE OPERATIVO
+========================================= */
+
+.timeline-container{
+
+  margin-top: 28px;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:18px;
+}
+
+.timeline-item{
+
+  background:white;
+
+  border-radius:18px;
+
+  padding:20px;
+
+  box-shadow:
+    0 10px 25px rgba(0,0,0,.06);
+
+  border-left:6px solid #f4c430;
+
+  transition:.25s ease;
+}
+
+.timeline-item:hover{
+
+  transform:translateY(-3px);
+}
+
+.timeline-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:10px;
+}
+
+.timeline-type{
+
+  font-size:.8rem;
+
+  font-weight:700;
+
+  background:#f4c430;
+
+  color:#002147;
+
+  padding:6px 12px;
+
+  border-radius:999px;
+}
+
+.timeline-date{
+
+  font-size:.9rem;
+
+  color:#5b6475;
+}
+
+.timeline-text{
+
+  color:#002147;
+
+  font-weight:600;
+
+  line-height:1.6;
+}
+
+
