@@ -600,3 +600,212 @@ async function cargarMetasComunitarias() {
 }
 
 
+/* =========================================================
+   TIMELINE OPERATIVO
+========================================================= */
+
+async function cargarTimelineOperativo() {
+
+  const firebaseTools = window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const contenedor =
+    document.getElementById(
+      "contenedorTimeline"
+    );
+
+  if (!contenedor) return;
+
+  try {
+
+    const actividades = [];
+
+    /* =====================================
+       INGRESOS
+    ===================================== */
+
+    const ingresosSnap = await db
+      .collection("ingresos")
+      .orderBy("creadoEn", "desc")
+      .limit(4)
+      .get();
+
+    ingresosSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Ingreso",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Ingreso registrado por ${formatoMoneda(d.monto || 0)}.`
+
+      });
+
+    });
+
+    /* =====================================
+       EGRESOS
+    ===================================== */
+
+    const egresosSnap = await db
+      .collection("egresos")
+      .orderBy("creadoEn", "desc")
+      .limit(4)
+      .get();
+
+    egresosSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Egreso",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Egreso registrado: ${escapeHtml(d.concepto || "")}.`
+
+      });
+
+    });
+
+    /* =====================================
+       INVENTARIO
+    ===================================== */
+
+    const inventarioSnap = await db
+      .collection("inventario_equipo")
+      .where("publico", "==", true)
+      .orderBy("creadoEn", "desc")
+      .limit(4)
+      .get();
+
+    inventarioSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Equipo",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
+
+      });
+
+    });
+
+    /* =====================================
+       ORDENAR
+    ===================================== */
+
+    actividades.sort((a, b) => {
+
+      return (
+        (b.fecha?.getTime?.() || 0)
+        -
+        (a.fecha?.getTime?.() || 0)
+      );
+
+    });
+
+    const ultimas =
+      actividades.slice(0, 8);
+
+    if (!ultimas.length) {
+
+      contenedor.innerHTML = `
+
+        <div class="info-card">
+
+          <p>
+            No hay actividad reciente.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+    }
+
+    contenedor.innerHTML = "";
+
+    ultimas.forEach((item) => {
+
+      const fechaTexto =
+        item.fecha
+          ? item.fecha.toLocaleDateString("es-MX")
+          : "Sin fecha";
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "timeline-item";
+
+      div.innerHTML = `
+
+        <div class="timeline-top">
+
+          <span class="timeline-type">
+            ${item.tipo}
+          </span>
+
+          <span class="timeline-date">
+            ${fechaTexto}
+          </span>
+
+        </div>
+
+        <div class="timeline-text">
+          ${item.texto}
+        </div>
+
+      `;
+
+      contenedor.appendChild(div);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error timeline:",
+      error
+    );
+
+    contenedor.innerHTML = `
+
+      <div class="info-card">
+
+        <p>
+          No se pudo cargar la actividad.
+        </p>
+
+      </div>
+
+    `;
+  }
+}
+
+
