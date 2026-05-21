@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     cargarDashboardPublico();
     cargarInventarioPublico();
+     cargarMetasComunitarias();
   }, 700);
 });
 
