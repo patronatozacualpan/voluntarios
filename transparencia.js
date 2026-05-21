@@ -28,10 +28,13 @@ async function cargarDashboardPublico() {
 
     const [
       ingresosSnap,
+      egresosSnap,
       inventarioSnap
     ] = await Promise.all([
 
       db.collection("ingresos").get(),
+
+      db.collection("egresos").get(),
 
       db.collection("inventario_equipo")
         .where("publico", "==", true)
@@ -39,15 +42,11 @@ async function cargarDashboardPublico() {
 
     ]);
 
-    let totalIngresos = 0;
-
-    let totalEquipos = 0;
-
-    let equiposEntregados = 0;
-
     /* =========================================
        INGRESOS
     ========================================= */
+
+    let totalIngresos = 0;
 
     ingresosSnap.forEach((doc) => {
 
@@ -58,49 +57,94 @@ async function cargarDashboardPublico() {
     });
 
     /* =========================================
+       EGRESOS
+    ========================================= */
+
+    let totalEgresos = 0;
+
+    egresosSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      totalEgresos += Number(d.monto || 0);
+
+    });
+
+    /* =========================================
        INVENTARIO
     ========================================= */
+
+    let equipos = 0;
+
+    let entregados = 0;
+
+    let inversionEquipo = 0;
 
     inventarioSnap.forEach((doc) => {
 
       const d = doc.data();
 
-      totalEquipos += Number(d.cantidad || 0);
+      equipos++;
 
-      if (
-        d.estado === "entregado" ||
-        d.estado === "en_uso"
-      ) {
-        equiposEntregados += Number(
-          d.cantidad || 0
-        );
+      inversionEquipo += Number(
+        d.costoTotal || 0
+      );
+
+      if (d.estado === "entregado") {
+        entregados++;
       }
 
     });
+
+    /* =========================================
+       SALDO REAL
+    ========================================= */
+
+    const saldoDisponible =
+      totalIngresos - totalEgresos;
 
     /* =========================================
        PINTAR
     ========================================= */
 
     setTexto(
-      "tpTotalIngresos",
+      "dashboardTotalRecaudado",
       formatoMoneda(totalIngresos)
     );
 
     setTexto(
-      "tpTotalEquipos",
-      totalEquipos
+      "dashboardEquipoRegistrado",
+      equipos
     );
 
     setTexto(
-      "tpEquiposEntregados",
-      equiposEntregados
+      "dashboardEquipoEntregado",
+      entregados
+    );
+
+    setTexto(
+      "dashboardParticipacion",
+      "Activa"
+    );
+
+    /* =========================================
+       NUEVAS METRICAS OPCIONALES
+    ========================================= */
+
+    setTexto(
+      "dashboardInvertido",
+      formatoMoneda(inversionEquipo)
+    );
+
+    setTexto(
+      "dashboardSaldoDisponible",
+      formatoMoneda(saldoDisponible)
     );
 
   } catch (error) {
 
     console.error(
-      "Error dashboard transparencia:",
+      "Error cargando dashboard público:",
       error
     );
   }
