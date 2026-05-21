@@ -810,3 +810,210 @@ async function cargarTimelineOperativo() {
 }
 
 
+/* =========================================================
+   TIMELINE OPERATIVO
+========================================================= */
+
+async function cargarTimelineOperativo() {
+
+  const firebaseTools = window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const contenedor =
+    document.getElementById(
+      "contenedorTimeline"
+    );
+
+  if (!contenedor) return;
+
+  try {
+
+    const actividades = [];
+
+    /* =====================================
+       INGRESOS
+    ===================================== */
+
+    const ingresosSnap = await db
+      .collection("ingresos")
+      .limit(4)
+      .get();
+
+    ingresosSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Ingreso",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Ingreso registrado por ${formatoMoneda(d.monto || 0)}.`
+
+      });
+
+    });
+
+    /* =====================================
+       EGRESOS
+    ===================================== */
+
+    const egresosSnap = await db
+      .collection("egresos")
+      .limit(4)
+      .get();
+
+    egresosSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Egreso",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Egreso registrado: ${escapeHtml(d.concepto || "")}.`
+
+      });
+
+    });
+
+    /* =====================================
+       INVENTARIO
+    ===================================== */
+
+    const inventarioSnap = await db
+      .collection("inventario_equipo")
+      .where("publico", "==", true)
+      .limit(4)
+      .get();
+
+    inventarioSnap.forEach((doc) => {
+
+      const d = doc.data();
+
+      actividades.push({
+
+        tipo: "Equipo",
+
+        fecha:
+          d.creadoEn?.toDate
+            ? d.creadoEn.toDate()
+            : null,
+
+        texto:
+          `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
+
+      });
+
+    });
+
+    /* =====================================
+       VALIDAR
+    ===================================== */
+
+    if (!actividades.length) {
+
+      contenedor.innerHTML = `
+
+        <div class="info-card">
+
+          <p>
+            No hay actividad reciente.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+    }
+
+    /* =====================================
+       ORDENAR
+    ===================================== */
+
+    actividades.sort((a, b) => {
+
+      return (
+        (b.fecha?.getTime?.() || 0)
+        -
+        (a.fecha?.getTime?.() || 0)
+      );
+
+    });
+
+    contenedor.innerHTML = "";
+
+    actividades.forEach((item) => {
+
+      const fechaTexto =
+        item.fecha
+          ? item.fecha.toLocaleDateString("es-MX")
+          : "Sin fecha";
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "timeline-item";
+
+      div.innerHTML = `
+
+        <div class="timeline-top">
+
+          <span class="timeline-type">
+            ${item.tipo}
+          </span>
+
+          <span class="timeline-date">
+            ${fechaTexto}
+          </span>
+
+        </div>
+
+        <div class="timeline-text">
+          ${item.texto}
+        </div>
+
+      `;
+
+      contenedor.appendChild(div);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error timeline:",
+      error
+    );
+
+    contenedor.innerHTML = `
+
+      <div class="info-card">
+
+        <p>
+          No se pudo cargar la actividad.
+        </p>
+
+      </div>
+
+    `;
+  }
+}
+
+
