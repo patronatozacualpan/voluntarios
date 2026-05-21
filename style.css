@@ -1453,3 +1453,42 @@ a {
 }
 
 
+/* =========================================
+   BOTON HERO PUBLICO
+========================================= */
+
+.hero-actions {
+
+  margin-top: 28px;
+}
+
+.btn-primary {
+
+  display: inline-block;
+
+  background: #f4c430;
+
+  color: #002147;
+
+  padding: 14px 26px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-weight: 700;
+
+  transition: 0.25s ease;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+}
+
+.btn-primary:hover {
+
+  transform: translateY(-2px);
+
+  opacity: 0.92;
+}
+
+
