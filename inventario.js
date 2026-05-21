@@ -163,7 +163,9 @@ async function registrarEquipo(event) {
       creadoPorUid: usuario.uid,
       creadoPorNombre: usuario.nombre,
       creadoEn: obtenerTimestampServidor(),
-      actualizadoEn: obtenerTimestampServidor()
+      actualizadoEn: obtenerTimestampServidor(),
+       fotoPendiente: !!fotoArchivo,
+comprobantePendiente: !!comprobanteArchivo,
     };
 
     const docRef = await db.collection("inventario_equipo").add(equipo);
