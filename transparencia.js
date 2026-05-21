@@ -6,6 +6,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
+     cargarTimelineOperativo();
     cargarDashboardPublico();
     cargarInventarioPublico();
      cargarMetasComunitarias();
