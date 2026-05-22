@@ -222,6 +222,7 @@ async function cargarInventarioPublico() {
                   src="${d.fotoEquipoUrl}"
                   alt="Equipo"
                   class="inventory-image"
+                  onclick="abrirModalImagen('${d.fotoEquipoUrl}')"
                 >
 
               `
@@ -814,3 +815,82 @@ async function cargarTimelineOperativo() {
     `;
   }
 }
+
+
+
+/* =========================================
+   MODAL IMAGEN
+========================================= */
+
+function abrirModalImagen(url) {
+
+  const modal =
+    document.getElementById(
+      "modalImagen"
+    );
+
+  const imagen =
+    document.getElementById(
+      "imagenModalContenido"
+    );
+
+  if (!modal || !imagen) return;
+
+  imagen.src = url;
+
+  modal.classList.add("activo");
+}
+
+function cerrarModalImagen() {
+
+  const modal =
+    document.getElementById(
+      "modalImagen"
+    );
+
+  if (!modal) return;
+
+  modal.classList.remove("activo");
+}
+
+/* =========================================
+   EVENTOS
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const modal =
+      document.getElementById(
+        "modalImagen"
+      );
+
+    const cerrar =
+      document.getElementById(
+        "cerrarModalImagen"
+      );
+
+    if (cerrar) {
+
+      cerrar.addEventListener(
+        "click",
+        cerrarModalImagen
+      );
+    }
+
+    if (modal) {
+
+      modal.addEventListener(
+        "click",
+        (e) => {
+
+          if (e.target === modal) {
+
+            cerrarModalImagen();
+          }
+        }
+      );
+    }
+  }
+);
