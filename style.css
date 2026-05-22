@@ -1738,27 +1738,19 @@ a {
 
 .modal-imagen {
 
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.88);
+
   display: none;
 
-  position: fixed;
-
-  z-index: 9999;
-
-  left: 0;
-  top: 0;
-
-  width: 100%;
-  height: 100%;
-
-  background:
-    rgba(0,0,0,.85);
-
-  backdrop-filter: blur(4px);
-
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
-  padding: 30px;
+  z-index: 999999;
+
+  padding: 20px;
 }
 
 .modal-imagen.activo {
@@ -1768,53 +1760,28 @@ a {
 
 .imagen-modal-contenido {
 
-  max-width: 92%;
-  max-height: 92%;
+  max-width: 95%;
+  max-height: 92vh;
 
-  border-radius: 18px;
+  border-radius: 14px;
 
   box-shadow:
-    0 20px 50px rgba(0,0,0,.45);
-
-  animation:
-    zoomImagen .25s ease;
+    0 0 30px rgba(0,0,0,0.45);
 }
 
 .cerrar-modal-imagen {
 
   position: absolute;
 
-  top: 25px;
-  right: 35px;
-
-  color: white;
+  top: 20px;
+  right: 30px;
 
   font-size: 48px;
-
   font-weight: bold;
+
+  color: #fff;
 
   cursor: pointer;
 
-  transition:
-    transform .2s ease;
-}
-
-.cerrar-modal-imagen:hover {
-
-  transform: scale(1.15);
-}
-
-@keyframes zoomImagen {
-
-  from {
-
-    transform: scale(.85);
-    opacity: 0;
-  }
-
-  to {
-
-    transform: scale(1);
-    opacity: 1;
-  }
+  z-index: 1000000;
 }
