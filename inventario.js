@@ -119,9 +119,7 @@ async function registrarEquipo(event) {
     let comprobanteUrl = "";
     let comprobanteRuta = "";
 
-  /* =========================================
-   FOTO EQUIPO
-========================================= */
+
 /* =========================================
    FOTO EQUIPO
 ========================================= */
@@ -131,17 +129,23 @@ if (fotoArchivo) {
   fotoEquipoRuta =
     `inventario/equipo/${anio}/${mes}/${equipoIdTemporal}`;
 
-  fotoEquipoUrl =
-    await subirArchivoStorage(
-      fotoArchivo,
-      fotoEquipoRuta
-    );
+  const subidaFoto =
+    await subirArchivoStorage({
+
+      archivo: fotoArchivo,
+      ruta: fotoEquipoRuta
+
+    });
+
+  if (subidaFoto.ok) {
+
+    fotoEquipoUrl =
+      subidaFoto.url;
+
+  }
 
 }
 
-/* =========================================
-   COMPROBANTE
-========================================= */
 
 /* =========================================
    COMPROBANTE
@@ -152,11 +156,20 @@ if (comprobanteArchivo) {
   comprobanteRuta =
     `inventario/comprobantes/${anio}/${mes}/${equipoIdTemporal}`;
 
+ const subidaComprobante =
+  await subirArchivoStorage({
+
+    archivo: comprobanteArchivo,
+    ruta: comprobanteRuta
+
+  });
+
+if (subidaComprobante.ok) {
+
   comprobanteUrl =
-    await subirArchivoStorage(
-      comprobanteArchivo,
-      comprobanteRuta
-    );
+    subidaComprobante.url;
+
+}
 
 }
     const equipo = {
