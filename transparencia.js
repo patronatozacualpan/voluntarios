@@ -852,6 +852,88 @@ function cerrarModalImagen() {
   modal.classList.remove("activo");
 }
 
+
+
+/* =========================================
+   MODAL IMAGEN
+========================================= */
+
+window.abrirModalImagen = function(url) {
+
+  const modal =
+    document.getElementById(
+      "modalImagen"
+    );
+
+  const imagen =
+    document.getElementById(
+      "imagenModalContenido"
+    );
+
+  if (!modal || !imagen) return;
+
+  imagen.src = url;
+
+  modal.classList.add("activo");
+};
+
+window.cerrarModalImagen = function() {
+
+  const modal =
+    document.getElementById(
+      "modalImagen"
+    );
+
+  if (!modal) return;
+
+  modal.classList.remove("activo");
+};
+
+/* =========================================
+   EVENTOS MODAL
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const modal =
+      document.getElementById(
+        "modalImagen"
+      );
+
+    const cerrar =
+      document.getElementById(
+        "cerrarModalImagen"
+      );
+
+    if (cerrar) {
+
+      cerrar.addEventListener(
+        "click",
+        cerrarModalImagen
+      );
+    }
+
+    if (modal) {
+
+      modal.addEventListener(
+        "click",
+        (e) => {
+
+          if (e.target === modal) {
+
+            cerrarModalImagen();
+          }
+        }
+      );
+    }
+  }
+);
+
+
+
+
 /* =========================================
    EVENTOS
 ========================================= */
