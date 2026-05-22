@@ -218,13 +218,13 @@ async function cargarInventarioPublico() {
 
               ? `
 
-                <img
-                  src="${d.fotoEquipoUrl}"
-                  alt="Equipo"
-                  class="inventory-image"
-                  onclick="abrirModalImagen('${d.fotoEquipoUrl}')"
-                >
+         
 
+ <img
+  src="${d.fotoEquipoUrl}"
+  class="inventory-image"
+  onclick="abrirModalImagen('${d.fotoEquipoUrl}')"
+>
               `
 
               : `
