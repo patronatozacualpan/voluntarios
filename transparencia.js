@@ -816,7 +816,6 @@ async function cargarTimelineOperativo() {
 }
 
 
-
 /* =========================================
    MODAL IMAGEN
 ========================================= */
@@ -894,50 +893,5 @@ document.addEventListener(
   }
 );
 
-
-
-
-/* =========================================
-   EVENTOS
-========================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    const modal =
-      document.getElementById(
-        "modalImagen"
-      );
-
-    const cerrar =
-      document.getElementById(
-        "cerrarModalImagen"
-      );
-
-    if (cerrar) {
-
-      cerrar.addEventListener(
-        "click",
-        cerrarModalImagen
-      );
-    }
-
-    if (modal) {
-
-      modal.addEventListener(
-        "click",
-        (e) => {
-
-          if (e.target === modal) {
-
-            cerrarModalImagen();
-          }
-        }
-      );
-    }
-  }
-);
-
-
 window.testModal = "FUNCIONANDO";
+
