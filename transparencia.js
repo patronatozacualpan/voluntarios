@@ -975,3 +975,6 @@ document.addEventListener(
     }
   }
 );
+
+
+window.testModal = "FUNCIONANDO";
