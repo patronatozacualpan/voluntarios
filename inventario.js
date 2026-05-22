@@ -122,13 +122,26 @@ async function registrarEquipo(event) {
   /* =========================================
    FOTO EQUIPO
 ========================================= */
+/* =========================================
+   FOTO EQUIPO
+========================================= */
 
 if (fotoArchivo) {
 
   fotoEquipoRuta =
     `inventario/equipo/${anio}/${mes}/${equipoIdTemporal}`;
 
+  fotoEquipoUrl =
+    await subirArchivoStorage(
+      fotoArchivo,
+      fotoEquipoRuta
+    );
+
 }
+
+/* =========================================
+   COMPROBANTE
+========================================= */
 
 /* =========================================
    COMPROBANTE
@@ -138,6 +151,12 @@ if (comprobanteArchivo) {
 
   comprobanteRuta =
     `inventario/comprobantes/${anio}/${mes}/${equipoIdTemporal}`;
+
+  comprobanteUrl =
+    await subirArchivoStorage(
+      comprobanteArchivo,
+      comprobanteRuta
+    );
 
 }
     const equipo = {
