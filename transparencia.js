@@ -893,6 +893,28 @@ document.addEventListener(
     }
   }
 );
+/* =========================================
+   CLICK IMAGEN INVENTARIO
+========================================= */
 
+document.addEventListener(
+  "click",
+  (e) => {
+
+    const imagen =
+      e.target.closest(
+        ".inventory-image"
+      );
+
+    if (!imagen) return;
+
+    const url =
+      imagen.dataset.img;
+
+    if (!url) return;
+
+    abrirModalImagen(url);
+  }
+);
 window.testModal = "FUNCIONANDO";
 
