@@ -211,40 +211,40 @@ async function cargarInventarioPublico() {
              IMAGEN / PLACEHOLDER
         ====================================== -->
 
-        <div class="inventory-image-placeholder">
+       ${
+  d.fotoEquipoUrl
 
-          ${
-            d.fotoEquipoUrl
+    ? `
 
-              ? `
+      <img
+        src="${d.fotoEquipoUrl}"
+        class="inventory-image"
+        onclick="abrirModalImagen('${d.fotoEquipoUrl}')"
+      />
 
-         
-<img
-  src="${d.fotoEquipoUrl}"
-  class="inventory-image"
-  onclick="abrirModalImagen('${d.fotoEquipoUrl}')"
-/>
-              `
+    `
 
-              : `
+    : `
 
-                <div class="inventory-placeholder-content">
+      <div class="inventory-image-placeholder">
 
-                  <div class="inventory-placeholder-icon">
-                    🛡️
-                  </div>
+        <div class="inventory-placeholder-content">
 
-                  <p>
-                    Evidencia visual
-                    pendiente de documentación
-                  </p>
+          <div class="inventory-placeholder-icon">
+            🛡️
+          </div>
 
-                </div>
-
-              `
-          }
+          <p>
+            Evidencia visual
+            pendiente de documentación
+          </p>
 
         </div>
+
+      </div>
+
+    `
+}
 
         <!-- =====================================
              CONTENIDO
