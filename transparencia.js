@@ -210,18 +210,20 @@ async function cargarInventarioPublico() {
         <!-- =====================================
              IMAGEN / PLACEHOLDER
         ====================================== -->
-
        ${
   d.fotoEquipoUrl
 
     ? `
 
-     <img
-  src="${d.fotoEquipoUrl}"
-  class="inventory-image"
-  data-img="${d.fotoEquipoUrl}"
-/>
+      <img
+        src="${d.fotoEquipoUrl}"
+        class="inventory-image"
+        data-img="${d.fotoEquipoUrl}"
+      />
 
+    `
+
+    : `
 
       <div class="inventory-image-placeholder">
 
@@ -239,8 +241,11 @@ async function cargarInventarioPublico() {
         </div>
 
       </div>
-   
+
+    `
 }
+      
+       
 
         <!-- =====================================
              CONTENIDO
