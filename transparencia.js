@@ -821,43 +821,6 @@ async function cargarTimelineOperativo() {
    MODAL IMAGEN
 ========================================= */
 
-function abrirModalImagen(url) {
-
-  const modal =
-    document.getElementById(
-      "modalImagen"
-    );
-
-  const imagen =
-    document.getElementById(
-      "imagenModalContenido"
-    );
-
-  if (!modal || !imagen) return;
-
-  imagen.src = url;
-
-  modal.classList.add("activo");
-}
-
-function cerrarModalImagen() {
-
-  const modal =
-    document.getElementById(
-      "modalImagen"
-    );
-
-  if (!modal) return;
-
-  modal.classList.remove("activo");
-}
-
-
-
-/* =========================================
-   MODAL IMAGEN
-========================================= */
-
 window.abrirModalImagen = function(url) {
 
   const modal =
