@@ -46,7 +46,7 @@ const firebaseConfig = {
     "donativos-patronato-zacualpan",
 
 storageBucket:
-"donativos-patronato-zacualpan.appspot.com",
+"donativos-patronato-zacualpan.firebasestorage.app",
 
   messagingSenderId:
     "173840953766",
@@ -71,9 +71,9 @@ try {
 
   db = app.firestore();
 
-auth = app.auth();
+auth = firebase.auth();
 
-storage = app.storage();
+storage = firebase.storage();
 
   console.log("Firebase inicializado correctamente.");
 
