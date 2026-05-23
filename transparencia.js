@@ -657,7 +657,7 @@ async function cargarTimelineOperativo() {
 
       actividades.push({
 
-        tipo: "Ingreso",
+       tipo: "💰 Ingreso",
 
         fecha:
           d.creadoEn?.toDate
@@ -686,7 +686,7 @@ async function cargarTimelineOperativo() {
 
       actividades.push({
 
-        tipo: "Egreso",
+        tipo: "📄 Egreso",
 
         fecha:
           d.creadoEn?.toDate
@@ -716,7 +716,7 @@ async function cargarTimelineOperativo() {
 
       actividades.push({
 
-        tipo: "Equipo",
+       tipo: "🛡️ Equipo",
 
         fecha:
           d.creadoEn?.toDate
