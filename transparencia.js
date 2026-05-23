@@ -247,62 +247,82 @@ async function cargarInventarioPublico() {
       
        
 
-        <!-- =====================================
-             CONTENIDO
-        ====================================== -->
+    /* =====================================
+   CONTENIDO
+===================================== */
 
-        <div class="inventory-card-body">
+<div class="inventory-card-body">
 
-          <p class="section-label">
-            ${escapeHtml(
-              formatearCategoria(
-                d.categoria || ""
-              )
-            )}
-          </p>
+  <p class="section-label">
+    ${escapeHtml(
+      formatearCategoria(
+        d.categoria || ""
+      )
+    )}
+  </p>
 
-          <h3>
-            ${escapeHtml(
-              d.nombreEquipo || ""
-            )}
-          </h3>
+  <h3>
+    ${escapeHtml(
+      d.nombreEquipo || ""
+    )}
+  </h3>
 
-          <p class="inventory-description">
-            ${
-              escapeHtml(
-                d.descripcion || ""
-              ) || "Sin descripción."
-            }
-          </p>
+  <p class="inventory-description">
+    ${
+      escapeHtml(
+        d.descripcion || ""
+      ) || "Sin descripción."
+    }
+  </p>
 
-          <div class="inventory-data">
+  <div class="inventory-data">
 
-            <p>
-              <strong>Cantidad:</strong>
-              ${Number(d.cantidad || 0)}
-            </p>
+    <p>
+      <strong>Cantidad:</strong>
+      ${Number(d.cantidad || 0)}
+    </p>
 
-            <p>
-              <strong>Inversión:</strong>
-              ${formatoMoneda(
-                d.costoTotal || 0
-              )}
-            </p>
+    <p>
+      <strong>Inversión:</strong>
+      ${formatoMoneda(
+        d.costoTotal || 0
+      )}
+    </p>
 
-            <div
-              class="
-                status-chip
-                status-${d.estado || ""}
-              "
-            >
-              ${escapeHtml(
-                formatearEstado(
-                  d.estado || ""
-                )
-              )}
-            </div>
+    <div
+      class="
+        status-chip
+        status-${d.estado || ""}
+      "
+    >
+      ${escapeHtml(
+        formatearEstado(
+          d.estado || ""
+        )
+      )}
+    </div>
 
-          </div>
+    ${
+      d.comprobanteUrl
+
+        ? `
+
+          <a
+            href="${d.comprobanteUrl}"
+            target="_blank"
+            class="btn-evidencia"
+          >
+            Ver comprobante
+          </a>
+
+        `
+
+        : ""
+    }
+
+  </div>
+
+</div>
 
         </div>
 
