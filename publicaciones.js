@@ -8,6 +8,8 @@ document.addEventListener(
 
     iniciarModuloPublicaciones();
 
+iniciarPreviewImagen();
+     
   }
 );
 
@@ -29,6 +31,62 @@ function iniciarModuloPublicaciones() {
     guardarPublicacion
   );
 }
+
+
+/* =========================================================
+   PREVIEW IMAGEN
+========================================================= */
+
+function iniciarPreviewImagen() {
+
+  const input =
+    document.getElementById(
+      "imagenPublicacion"
+    );
+
+  const preview =
+    document.getElementById(
+      "previewImagenPublicacion"
+    );
+
+  if (!input || !preview) return;
+
+  input.addEventListener(
+    "change",
+    (e) => {
+
+      const archivo =
+        e.target.files?.[0];
+
+      if (!archivo) {
+
+        preview.style.display =
+          "none";
+
+        preview.src = "";
+
+        return;
+      }
+
+      const lector =
+        new FileReader();
+
+      lector.onload = (evento) => {
+
+        preview.src =
+          evento.target.result;
+
+        preview.style.display =
+          "block";
+      };
+
+      lector.readAsDataURL(
+        archivo
+      );
+    }
+  );
+}
+
 
 /* =========================================================
    GUARDAR PUBLICACION
