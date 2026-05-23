@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Publicaciones | Patronato Zacualpan
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="header-container">
+
+    <div class="brand">
+
+      <img
+        src="assets/logos/logo-patronato.png"
+        alt="Logo"
+        class="brand-logo"
+      >
+
+      <div>
+
+        <p class="brand-small">
+          Panel administrativo
+        </p>
+
+        <h1>
+          Gestión de publicaciones
+        </h1>
+
+      </div>
+
+    </div>
+
+    <nav class="main-nav">
+
+      <a href="panel.html">
+        Panel
+      </a>
+
+      <a href="transparencia.html">
+        Transparencia
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<main>
+
+<section class="section">
+
+  <div class="section-container">
+
+    <div class="section-header">
+
+      <p class="section-label">
+        Nueva publicación
+      </p>
+
+      <h2>
+        Crear comunicado institucional
+      </h2>
+
+      <p>
+        Publica actividades, avisos,
+        entregas, adquisiciones
+        y comunicados oficiales.
+      </p>
+
+    </div>
+
+    <div class="form-card">
+
+      <div class="form-grid">
+
+        <!-- TITULO -->
+
+        <div class="form-group">
+
+          <label>
+            Título
+          </label>
+
+          <input
+            type="text"
+            id="tituloPublicacion"
+            placeholder="Título de la publicación"
+          >
+
+        </div>
+
+        <!-- DESCRIPCION -->
+
+        <div class="form-group">
+
+          <label>
+            Descripción
+          </label>
+
+          <textarea
+            id="descripcionPublicacion"
+            rows="5"
+            placeholder="Descripción del comunicado"
+          ></textarea>
+
+        </div>
+
+        <!-- IMAGEN -->
+
+        <div class="form-group">
+
+          <label>
+            Imagen
+          </label>
+
+          <input
+            type="file"
+            id="imagenPublicacion"
+            accept="image/*"
+          >
+
+        </div>
+
+        <!-- ACTIVA -->
+
+        <div class="form-group checkbox-group">
+
+          <label>
+
+            <input
+              type="checkbox"
+              id="publicacionActiva"
+              checked
+            >
+
+            Publicación activa
+
+          </label>
+
+        </div>
+
+        <!-- PUBLICA -->
+
+        <div class="form-group checkbox-group">
+
+          <label>
+
+            <input
+              type="checkbox"
+              id="publicacionPublica"
+              checked
+            >
+
+            Visible públicamente
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <button
+        id="btnGuardarPublicacion"
+        class="primary-btn"
+      >
+
+        Guardar publicación
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+
+<script src="publicaciones.js"></script>
+
+</body>
+</html>
