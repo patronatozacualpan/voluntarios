@@ -247,10 +247,6 @@ async function cargarInventarioPublico() {
       
        
 
-    /* =====================================
-   CONTENIDO
-===================================== */
-
 <div class="inventory-card-body">
 
   <p class="section-label">
