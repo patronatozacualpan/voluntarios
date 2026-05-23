@@ -910,6 +910,135 @@ document.addEventListener(
     }
   }
 );
+
+
+/* =========================================================
+   PUBLICACIONES
+========================================================= */
+
+async function cargarPublicaciones() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const contenedor =
+    document.getElementById(
+      "contenedorPublicaciones"
+    );
+
+  if (!contenedor) return;
+
+  try {
+
+    const snap = await db
+      .collection("publicaciones")
+      .where("publico", "==", true)
+      .where("activa", "==", true)
+      .limit(8)
+      .get();
+
+    if (snap.empty) {
+
+      contenedor.innerHTML = `
+
+        <div class="info-card">
+
+          <p>
+            No hay publicaciones disponibles.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+    }
+
+    contenedor.innerHTML = "";
+
+    snap.forEach((doc) => {
+
+      const d = doc.data();
+
+      const fecha =
+        d.creadoEn?.toDate
+          ? d.creadoEn
+              .toDate()
+              .toLocaleDateString("es-MX")
+          : "Sin fecha";
+
+      const card =
+        document.createElement("div");
+
+      card.className =
+        "inventory-card";
+
+      card.innerHTML = `
+
+        <div class="inventory-card-body">
+
+          <p class="section-label">
+            Publicación
+          </p>
+
+          <h3>
+            ${escapeHtml(
+              d.titulo || ""
+            )}
+          </h3>
+
+          <p class="inventory-description">
+            ${escapeHtml(
+              d.descripcion || ""
+            )}
+          </p>
+
+          <div class="timeline-top">
+
+            <span class="timeline-type">
+              📢 Comunicado
+            </span>
+
+            <span class="timeline-date">
+              ${fecha}
+            </span>
+
+          </div>
+
+        </div>
+
+      `;
+
+      contenedor.appendChild(card);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error publicaciones:",
+      error
+    );
+
+    contenedor.innerHTML = `
+
+      <div class="info-card">
+
+        <p>
+          ⚠️ No se pudieron cargar
+          las publicaciones.
+        </p>
+
+      </div>
+
+    `;
+  }
+}
+
 /* =========================================
    CLICK IMAGEN INVENTARIO
 ========================================= */
