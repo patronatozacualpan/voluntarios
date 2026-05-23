@@ -979,37 +979,59 @@ async function cargarPublicaciones() {
 
       card.innerHTML = `
 
-        <div class="inventory-card-body">
+        
 
-          <p class="section-label">
-            Publicación
-          </p>
+     ${
+  d.imagenUrl
 
-          <h3>
-            ${escapeHtml(
-              d.titulo || ""
-            )}
-          </h3>
+    ? `
 
-          <p class="inventory-description">
-            ${escapeHtml(
-              d.descripcion || ""
-            )}
-          </p>
+      <div class="inventory-image-placeholder">
 
-          <div class="timeline-top">
+        <img
+          src="${d.imagenUrl}"
+          alt="Publicación"
+          class="inventory-image"
+        >
 
-            <span class="timeline-type">
-              📢 Comunicado
-            </span>
+      </div>
 
-            <span class="timeline-date">
-              ${fecha}
-            </span>
+    `
 
-          </div>
+    : ""
+}
 
-        </div>
+<div class="inventory-card-body">
+
+  <p class="section-label">
+    Publicación
+  </p>
+
+  <h3>
+    ${escapeHtml(
+      d.titulo || ""
+    )}
+  </h3>
+
+  <p class="inventory-description">
+    ${escapeHtml(
+      d.descripcion || ""
+    )}
+  </p>
+
+  <div class="timeline-top">
+
+    <span class="timeline-type">
+      📢 Comunicado
+    </span>
+
+    <span class="timeline-date">
+      ${fecha}
+    </span>
+
+  </div>
+
+</div>
 
       `;
 
