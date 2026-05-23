@@ -67,9 +67,9 @@ let storage = null;
 
 try {
 
-  app = firebase.initializeApp(firebaseConfig);
+ app = firebase.initializeApp(firebaseConfig);
 
-  db = app.firestore();
+db = firebase.firestore();
 
 auth = firebase.auth();
 
