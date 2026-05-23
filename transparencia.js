@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarDashboardPublico();
     cargarInventarioPublico();
      cargarMetasComunitarias();
+     cargarPublicaciones();
   }, 700);
 });
 
