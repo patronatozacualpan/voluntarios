@@ -190,8 +190,8 @@ async function guardarPublicacion() {
       const ruta =
         `publicaciones/${anio}/${mes}/${nombreArchivo}`;
 
-      const referencia =
-        storage.ref(ruta);
+     const referencia =
+  storage.ref().child(ruta);
 
       await referencia.put(
         imagenArchivo
