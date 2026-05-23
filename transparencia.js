@@ -1084,5 +1084,6 @@ document.addEventListener(
     abrirModalImagen(url);
   }
 );
-window.testModal = "FUNCIONANDO";
+
+
 
