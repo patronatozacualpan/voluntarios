@@ -2077,4 +2077,46 @@ a {
   padding: 24px;
 }
 
+/* =========================================================
+   MODAL IMAGEN
+========================================================= */
+
+.modal-imagen {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,0.88);
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999999;
+
+  padding: 20px;
+}
+
+.modal-imagen.activo {
+
+  display: flex;
+}
+
+.imagen-modal-contenido {
+
+  max-width: 95%;
+
+  max-height: 92vh;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 40px rgba(0,0,0,.45);
+}
+
+
 
