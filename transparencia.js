@@ -1154,14 +1154,18 @@ document.addEventListener(
    SUSCRIPCION AVISOS
 ===================================================== */
 
+/* =====================================================
+   SUSCRIPCION AVISOS
+===================================================== */
+
 const modalSuscripcion =
   document.getElementById(
     "modalSuscripcion"
   );
 
-const btnAbrirSuscripcion =
+const btnRecibirAvisosAbrir =
   document.getElementById(
-    "btnAbrirSuscripcion"
+    "btnRecibirAvisos"
   );
 
 const btnCerrarSuscripcion =
@@ -1176,7 +1180,7 @@ const btnGuardarSuscripcion =
 
 /* ABRIR */
 
-btnAbrirSuscripcion?.addEventListener(
+btnRecibirAvisosAbrir?.addEventListener(
   "click",
   () => {
 
@@ -1294,54 +1298,4 @@ btnGuardarSuscripcion?.addEventListener(
   }
 );
 
-/* =========================================
-   MODAL AVISOS
-========================================= */
-
-const btnRecibirAvisos =
-  document.getElementById(
-    "btnRecibirAvisos"
-  );
-
-const modalAvisos =
-  document.getElementById(
-    "modalAvisos"
-  );
-
-btnRecibirAvisos?.addEventListener(
-  "click",
-  () => {
-
-    modalAvisos?.classList.add(
-      "activo"
-    );
-  }
-);
-
-/* CERRAR MODAL AVISOS */
-
-window.cerrarModalAvisos =
-  function () {
-
-    modalAvisos?.classList.remove(
-      "activo"
-    );
-  };
-
-/* CERRAR AFUERA */
-
-modalAvisos?.addEventListener(
-  "click",
-  (e) => {
-
-    if (
-      e.target === modalAvisos
-    ) {
-
-      modalAvisos.classList.remove(
-        "activo"
-      );
-    }
-  }
-);
 
