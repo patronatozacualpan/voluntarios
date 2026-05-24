@@ -991,7 +991,7 @@ async function cargarPublicaciones() {
         <img
           src="${d.imagenUrl}"
           alt="Publicación"
-          class="inventory-image"
+         class="publicacion-imagen"
         >
 
       </div>
