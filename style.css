@@ -2065,28 +2065,40 @@ a {
 
 
 /* =========================================================
-   FIX FINAL PUBLICACIONES
+   PUBLICACIONES
 ========================================================= */
 
 .publicacion-card {
 
-  overflow: hidden !important;
+  overflow: hidden;
 
   border-radius: 22px;
+
+  background: white;
 }
+
+/* IMAGEN */
 
 .publicacion-card img {
 
-  width: 100% !important;
+  width: 100%;
 
-  height: 220px !important;
+  height: 220px;
 
-  object-fit: cover !important;
+  object-fit: contain;
 
-  object-position: center !important;
+  background: #f3f4f6;
 
-  display: block !important;
+  display: block;
+
+  padding: 12px;
 }
 
+/* CONTENIDO */
+
+.publicacion-contenido {
+
+  padding: 24px;
+}
 
 
