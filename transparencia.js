@@ -1063,7 +1063,7 @@ async function cargarPublicaciones() {
 }
 
 /* =========================================
-   CLICK IMAGEN INVENTARIO
+   CLICK IMAGEN PUBLICACION
 ========================================= */
 
 document.addEventListener(
@@ -1072,26 +1072,22 @@ document.addEventListener(
 
     const imagen =
       e.target.closest(
-        ".inventory-image"
+        ".publicacion-imagen"
       );
 
     if (!imagen) return;
 
-    const url =
-      imagen.dataset.img;
-
-    if (!url) return;
+    const url = imagen.src;
 
     abrirModalImagen(url);
   }
 );
 
-
 /* =====================================
    MODAL IMAGEN
 ===================================== */
 
-function abrirImagenModal(url) {
+function abrirModalImagen(url) {
 
   const modal =
     document.getElementById(
@@ -1100,17 +1096,39 @@ function abrirImagenModal(url) {
 
   const imagen =
     document.getElementById(
-      "imagenModal"
+      "imagenModalContenido"
     );
 
   if (!modal || !imagen) return;
 
   imagen.src = url;
 
-  modal.classList.add("activo");
+  modal.classList.add(
+    "activo"
+  );
 }
 
-/* CERRAR */
+/* CERRAR MODAL IMAGEN */
+
+document
+  .getElementById(
+    "cerrarModalImagen"
+  )
+  ?.addEventListener(
+    "click",
+    () => {
+
+      document
+        .getElementById(
+          "modalImagen"
+        )
+        ?.classList.remove(
+          "activo"
+        );
+    }
+  );
+
+/* CERRAR TOCANDO AFUERA */
 
 document.addEventListener(
   "click",
@@ -1122,7 +1140,7 @@ document.addEventListener(
       );
 
     if (
-      e.target.id === "modalImagen"
+      e.target === modal
     ) {
 
       modal.classList.remove(
@@ -1131,7 +1149,6 @@ document.addEventListener(
     }
   }
 );
-
 
 /* =====================================================
    SUSCRIPCION AVISOS
@@ -1181,14 +1198,14 @@ btnCerrarSuscripcion?.addEventListener(
   }
 );
 
-/* CERRAR CLICK AFUERA */
+/* CERRAR AFUERA */
 
 modalSuscripcion?.addEventListener(
   "click",
   (e) => {
 
     if (
-      e.target.id === "modalSuscripcion"
+      e.target === modalSuscripcion
     ) {
 
       modalSuscripcion.classList.remove(
@@ -1205,6 +1222,21 @@ btnGuardarSuscripcion?.addEventListener(
   async () => {
 
     try {
+
+      const firebaseTools =
+        window.PCZ_FIREBASE;
+
+      if (!firebaseTools?.db) {
+
+        alert(
+          "Firebase no disponible."
+        );
+
+        return;
+      }
+
+      const { db } =
+        firebaseTools;
 
       const nombre =
         document.getElementById(
@@ -1238,7 +1270,9 @@ btnGuardarSuscripcion?.addEventListener(
           activo: true,
 
           fechaRegistro:
-            firebase.firestore.FieldValue.serverTimestamp()
+            firebase.firestore
+              .FieldValue
+              .serverTimestamp()
         });
 
       alert(
@@ -1260,24 +1294,54 @@ btnGuardarSuscripcion?.addEventListener(
   }
 );
 
+/* =========================================
+   MODAL AVISOS
+========================================= */
+
 const btnRecibirAvisos =
   document.getElementById(
     "btnRecibirAvisos"
+  );
+
+const modalAvisos =
+  document.getElementById(
+    "modalAvisos"
   );
 
 btnRecibirAvisos?.addEventListener(
   "click",
   () => {
 
-    const modal =
-      document.getElementById(
-        "modalAvisos"
+    modalAvisos?.classList.add(
+      "activo"
+    );
+  }
+);
+
+/* CERRAR MODAL AVISOS */
+
+window.cerrarModalAvisos =
+  function () {
+
+    modalAvisos?.classList.remove(
+      "activo"
+    );
+  };
+
+/* CERRAR AFUERA */
+
+modalAvisos?.addEventListener(
+  "click",
+  (e) => {
+
+    if (
+      e.target === modalAvisos
+    ) {
+
+      modalAvisos.classList.remove(
+        "activo"
       );
-
-    if (modal) {
-
-      modal.style.display = "flex";
     }
   }
-); 
+);
 
