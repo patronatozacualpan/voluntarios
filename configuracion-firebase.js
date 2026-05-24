@@ -71,7 +71,11 @@ try {
 
 db = firebase.firestore();
 
-auth = firebase.auth();
+if (firebase.auth) {
+
+  auth = firebase.auth();
+
+}
 
 storage = firebase.storage();
 
