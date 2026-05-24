@@ -192,8 +192,7 @@ async function guardarPublicacion() {
 
    
 const referencia =
-  storage
-    .child(ruta);
+storage.ref().child(ruta);
 
       await referencia.put(
         imagenArchivo
