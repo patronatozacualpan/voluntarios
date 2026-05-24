@@ -1087,4 +1087,51 @@ document.addEventListener(
 );
 
 
+/* =====================================
+   MODAL IMAGEN
+===================================== */
+
+function abrirImagenModal(url) {
+
+  const modal =
+    document.getElementById(
+      "modalImagen"
+    );
+
+  const imagen =
+    document.getElementById(
+      "imagenModal"
+    );
+
+  if (!modal || !imagen) return;
+
+  imagen.src = url;
+
+  modal.classList.add("activo");
+}
+
+/* CERRAR */
+
+document.addEventListener(
+  "click",
+  (e) => {
+
+    const modal =
+      document.getElementById(
+        "modalImagen"
+      );
+
+    if (
+      e.target.id === "modalImagen"
+    ) {
+
+      modal.classList.remove(
+        "activo"
+      );
+    }
+  }
+);
+
+
+
 
