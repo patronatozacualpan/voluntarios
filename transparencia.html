@@ -195,9 +195,38 @@
 
 <section class="section">
 
-  ...
-  botón recibir avisos
-  ...
+  <div class="section-container">
+
+    <div class="suscripcion-card">
+
+      <div>
+
+        <p class="section-label">
+          Avisos comunitarios
+        </p>
+
+        <h2 class="suscripcion-title">
+          Mantente informado
+        </h2>
+
+        <p class="suscripcion-text">
+          Recibe avisos sobre nuevas actividades,
+          adquisiciones, publicaciones y avances
+          comunitarios del patronato.
+        </p>
+
+      </div>
+
+      <button
+        id="btnAbrirSuscripcion"
+        class="primary-btn"
+      >
+        🔔 Recibir avisos
+      </button>
+
+    </div>
+
+  </div>
 
 </section>
 
@@ -475,6 +504,76 @@
 
 </div>
 
+
+  <!-- =====================================
+     MODAL SUSCRIPCION
+===================================== -->
+
+<div
+  id="modalSuscripcion"
+  class="modal-overlay"
+>
+
+  <div class="modal-card">
+
+    <h2>
+      🔔 Avisos comunitarios
+    </h2>
+
+    <p class="modal-text">
+      Registra tu información para recibir
+      avisos y actualizaciones del patronato.
+    </p>
+
+    <div class="form-group">
+
+      <label>
+        Nombre
+      </label>
+
+      <input
+        type="text"
+        id="suscriptorNombre"
+        placeholder="Tu nombre"
+      >
+
+    </div>
+
+    <div class="form-group">
+
+      <label>
+        Teléfono
+      </label>
+
+      <input
+        type="tel"
+        id="suscriptorTelefono"
+        placeholder="3221234567"
+      >
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        id="btnCerrarSuscripcion"
+        class="secondary-btn"
+      >
+        Cancelar
+      </button>
+
+      <button
+        id="btnGuardarSuscripcion"
+        class="primary-btn"
+      >
+        Guardar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
   
 </body>
 </html>
