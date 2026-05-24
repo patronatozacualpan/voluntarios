@@ -491,25 +491,6 @@
 </div>
 
 <!-- =====================================
-     MODAL IMAGEN
-===================================== -->
-
-<div
-  id="modalImagen"
-  class="modal-imagen"
->
-
-  <img
-    id="imagenModal"
-    class="imagen-modal-contenido"
-    src=""
-    alt="Imagen ampliada"
-  >
-
-</div>
-
-
-  <!-- =====================================
      MODAL SUSCRIPCION
 ===================================== -->
 
@@ -579,66 +560,74 @@
 
 </div>
 
-/* =========================================
-   MODAL AVISOS
-========================================= */
+<!-- =====================================
+     MODAL AVISOS
+===================================== -->
 
-window.abrirModalAvisos = function () {
+<div
+  id="modalAvisos"
+  class="modal-overlay"
+>
 
-  console.log("MODAL ABIERTO");
+  <div
+    class="modal-card modal-aviso-contenido"
+  >
 
-  const modal =
-    document.getElementById(
-      "modalAvisos"
-    );
+    <h2>
+      🔔 Avisos Comunitarios
+    </h2>
 
-  if (!modal) {
+    <p>
+      Recibe avisos importantes
+      del Patronato y Protección Civil.
+    </p>
 
-    console.error(
-      "NO EXISTE modalAvisos"
-    );
+    <ul>
 
-    return;
-  }
+      <li>
+        ✔ Actividades
+      </li>
 
-  modal.classList.add(
-    "activo"
-  );
-};
+      <li>
+        ✔ Emergencias
+      </li>
 
-window.cerrarModalAvisos = function () {
+      <li>
+        ✔ Jornadas
+      </li>
 
-  const modal =
-    document.getElementById(
-      "modalAvisos"
-    );
+      <li>
+        ✔ Transparencia
+      </li>
 
-  if (!modal) return;
+    </ul>
 
-  modal.classList.remove(
-    "activo"
-  );
-};
+    <a
+      href="https://chat.whatsapp.com/TU_ENLACE"
+      target="_blank"
+      class="btn-aviso-whatsapp"
+    >
+      Unirme al grupo WhatsApp
+    </a>
 
-/* CERRAR TOCANDO AFUERA */
+    <div
+      class="modal-actions"
+      style="justify-content:center;"
+    >
 
-document.addEventListener(
-  "click",
-  function (e) {
+      <button
+        onclick="cerrarModalAvisos()"
+        class="btn btn-secondary"
+      >
+        Cerrar
+      </button>
 
-    const modal =
-      document.getElementById(
-        "modalAvisos"
-      );
+    </div>
 
-    if (
-      e.target === modal
-    ) {
+  </div>
 
-      cerrarModalAvisos();
-    }
-  }
-);
-  
+</div>
+
 </body>
+  
 </html>
