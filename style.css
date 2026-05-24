@@ -2058,7 +2058,7 @@ a {
 
   object-fit: cover;
 
-  object-position: center;
+  object-position: center top;
 
   display: block;
 }
