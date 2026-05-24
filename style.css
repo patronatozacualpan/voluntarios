@@ -1991,4 +1991,43 @@ a {
 }
 
 
+/* =========================================================
+   PUBLICACIONES
+========================================================= */
+
+.publicacion-card {
+
+  overflow: hidden;
+}
+
+.publicacion-imagen {
+
+  width: 100%;
+
+  height: 240px;
+
+  object-fit: cover;
+
+  display: block;
+
+  background: #e5e7eb;
+}
+
+.publicacion-contenido {
+
+  padding: 24px;
+}
+
+.publicacion-card h3 {
+
+  margin-top: 16px;
+}
+
+.publicacion-card p {
+
+  line-height: 1.6;
+}
+
+
+
 
