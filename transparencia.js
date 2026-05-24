@@ -1133,5 +1133,130 @@ document.addEventListener(
 );
 
 
+/* =====================================================
+   SUSCRIPCION AVISOS
+===================================================== */
 
+const modalSuscripcion =
+  document.getElementById(
+    "modalSuscripcion"
+  );
+
+const btnAbrirSuscripcion =
+  document.getElementById(
+    "btnAbrirSuscripcion"
+  );
+
+const btnCerrarSuscripcion =
+  document.getElementById(
+    "btnCerrarSuscripcion"
+  );
+
+const btnGuardarSuscripcion =
+  document.getElementById(
+    "btnGuardarSuscripcion"
+  );
+
+/* ABRIR */
+
+btnAbrirSuscripcion?.addEventListener(
+  "click",
+  () => {
+
+    modalSuscripcion?.classList.add(
+      "activo"
+    );
+  }
+);
+
+/* CERRAR */
+
+btnCerrarSuscripcion?.addEventListener(
+  "click",
+  () => {
+
+    modalSuscripcion?.classList.remove(
+      "activo"
+    );
+  }
+);
+
+/* CERRAR CLICK AFUERA */
+
+modalSuscripcion?.addEventListener(
+  "click",
+  (e) => {
+
+    if (
+      e.target.id === "modalSuscripcion"
+    ) {
+
+      modalSuscripcion.classList.remove(
+        "activo"
+      );
+    }
+  }
+);
+
+/* GUARDAR */
+
+btnGuardarSuscripcion?.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      const nombre =
+        document.getElementById(
+          "suscriptorNombre"
+        ).value.trim();
+
+      const telefono =
+        document.getElementById(
+          "suscriptorTelefono"
+        ).value.trim();
+
+      if (!nombre || !telefono) {
+
+        alert(
+          "Completa todos los campos."
+        );
+
+        return;
+      }
+
+      await db
+        .collection(
+          "suscriptores_avisos"
+        )
+        .add({
+
+          nombre,
+
+          telefono,
+
+          activo: true,
+
+          fechaRegistro:
+            firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+      alert(
+        "Registro completado correctamente."
+      );
+
+      modalSuscripcion.classList.remove(
+        "activo"
+      );
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        "No se pudo guardar."
+      );
+    }
+  }
+);
 
