@@ -579,50 +579,43 @@
 
 </div>
 
-<!-- =========================================
-     MODAL AVISOS COMUNITARIOS
-========================================= -->
+/* =========================================
+   MODAL AVISOS
+========================================= */
 
-<div id="modalAvisos" class="modal-imagen-overlay">
+window.abrirModalAvisos = function () {
 
-  <div class="modal-imagen-card">
+  console.log("MODAL ABIERTO");
 
-    <button
-      class="cerrar-modal-imagen"
-      onclick="cerrarModalAvisos()"
-    >
-      ✕
-    </button>
+  const modal =
+    document.getElementById(
+      "modalAvisos"
+    );
 
-    <div class="modal-aviso-contenido">
+  if (!modal) {
 
-      <h2>🔔 Recibir avisos comunitarios</h2>
+    console.error(
+      "NO EXISTE modalAvisos"
+    );
 
-      <p>
-        Recibe notificaciones cuando el patronato publique:
-      </p>
+    return;
+  }
 
-      <ul>
-        <li>Nuevas adquisiciones</li>
-        <li>Entregas de equipo</li>
-        <li>Comunicados importantes</li>
-        <li>Actividades comunitarias</li>
-        <li>Avances de Protección Civil</li>
-      </ul>
+  modal.style.display = "flex";
+};
 
-      <a
-        href="https://chat.whatsapp.com/"
-        target="_blank"
-        class="btn-aviso-whatsapp"
-      >
-        Unirme por WhatsApp
-      </a>
+window.cerrarModalAvisos = function () {
 
-    </div>
+  const modal =
+    document.getElementById(
+      "modalAvisos"
+    );
 
-  </div>
+  if (modal) {
 
-</div>
+    modal.style.display = "none";
+  }
+};
 
   
 </body>
