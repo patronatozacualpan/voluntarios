@@ -77,7 +77,11 @@ if (firebase.auth) {
 
 }
 
-storage = firebase.storage();
+if (firebase.storage) {
+
+  storage = firebase.storage();
+
+}
 
   console.log("Firebase inicializado correctamente.");
 
