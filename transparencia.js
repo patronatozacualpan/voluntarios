@@ -1260,3 +1260,24 @@ btnGuardarSuscripcion?.addEventListener(
   }
 );
 
+const btnRecibirAvisos =
+  document.getElementById(
+    "btnRecibirAvisos"
+  );
+
+btnRecibirAvisos?.addEventListener(
+  "click",
+  () => {
+
+    const modal =
+      document.getElementById(
+        "modalAvisos"
+      );
+
+    if (modal) {
+
+      modal.style.display = "flex";
+    }
+  }
+); 
+
