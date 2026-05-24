@@ -2209,4 +2209,68 @@ a {
 }
 
 
+/* =========================================
+   MODAL AVISOS COMUNITARIOS
+========================================= */
+
+.modal-aviso-contenido {
+
+  padding: 30px;
+
+  text-align: center;
+}
+
+.modal-aviso-contenido h2 {
+
+  color: #002147;
+
+  margin-bottom: 15px;
+}
+
+.modal-aviso-contenido p {
+
+  margin-bottom: 20px;
+
+  color: #444;
+}
+
+.modal-aviso-contenido ul {
+
+  text-align: left;
+
+  margin: 20px auto;
+
+  max-width: 320px;
+
+  color: #333;
+
+  line-height: 1.8;
+}
+
+.btn-aviso-whatsapp {
+
+  display: inline-block;
+
+  margin-top: 20px;
+
+  background: #25D366;
+
+  color: white;
+
+  padding: 14px 22px;
+
+  border-radius: 14px;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  transition: .3s;
+}
+
+.btn-aviso-whatsapp:hover {
+
+  transform: scale(1.04);
+}
+
 
