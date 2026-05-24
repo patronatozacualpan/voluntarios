@@ -601,7 +601,9 @@ window.abrirModalAvisos = function () {
     return;
   }
 
-  modal.style.display = "flex";
+  modal.classList.add(
+    "activo"
+  );
 };
 
 window.cerrarModalAvisos = function () {
@@ -611,12 +613,32 @@ window.cerrarModalAvisos = function () {
       "modalAvisos"
     );
 
-  if (modal) {
+  if (!modal) return;
 
-    modal.style.display = "none";
-  }
+  modal.classList.remove(
+    "activo"
+  );
 };
 
+/* CERRAR TOCANDO AFUERA */
+
+document.addEventListener(
+  "click",
+  function (e) {
+
+    const modal =
+      document.getElementById(
+        "modalAvisos"
+      );
+
+    if (
+      e.target === modal
+    ) {
+
+      cerrarModalAvisos();
+    }
+  }
+);
   
 </body>
 </html>
