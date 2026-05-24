@@ -223,7 +223,7 @@ async function cargarInventarioPublico() {
   alt="Publicación"
   class="inventory-image"
   onclick="abrirImagenModal('${d.imagenUrl}')"
- />
+>
 
     : `
 
