@@ -2064,4 +2064,29 @@ a {
 }
 
 
+/* =========================================================
+   FIX FINAL PUBLICACIONES
+========================================================= */
+
+.publicacion-card {
+
+  overflow: hidden !important;
+
+  border-radius: 22px;
+}
+
+.publicacion-card img {
+
+  width: 100% !important;
+
+  height: 220px !important;
+
+  object-fit: cover !important;
+
+  object-position: center !important;
+
+  display: block !important;
+}
+
+
 
