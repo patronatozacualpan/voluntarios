@@ -798,28 +798,54 @@ a {
 }
 
 .inventory-description {
-  color: #4b5563;
-  line-height: 1.5;
+
+  color: #475569;
+
+  line-height: 1.7;
+
+  margin-top: 12px;
+
   margin-bottom: 18px;
+
+  font-size: 15px;
 }
 
 .inventory-data {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 12px;
-  margin-bottom: 18px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 14px;
+
+  margin-top: 20px;
 }
 
 .inventory-data div {
+
   background: #f8fafc;
-  padding: 12px;
-  border-radius: 14px;
+
+  padding: 14px 16px;
+
+  border-radius: 16px;
+
+  border:
+    1px solid rgba(226,232,240,.85);
 }
 
 .inventory-data strong {
+
   display: block;
-  margin-bottom: 5px;
+
+  margin-bottom: 6px;
+
   color: var(--azul);
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  letter-spacing: .3px;
 }
 
 .inventory-link {
