@@ -1154,148 +1154,178 @@ document.addEventListener(
    SUSCRIPCION AVISOS
 ===================================================== */
 
-/* =====================================================
-   SUSCRIPCION AVISOS
-===================================================== */
-
-const modalSuscripcion =
-  document.getElementById(
-    "modalSuscripcion"
-  );
-
-const btnRecibirAvisosAbrir =
-  document.getElementById(
-    "btnRecibirAvisos"
-  );
-
-const btnCerrarSuscripcion =
-  document.getElementById(
-    "btnCerrarSuscripcion"
-  );
-
-const btnGuardarSuscripcion =
-  document.getElementById(
-    "btnGuardarSuscripcion"
-  );
-
-/* ABRIR */
-
-btnRecibirAvisosAbrir?.addEventListener(
-  "click",
+document.addEventListener(
+  "DOMContentLoaded",
   () => {
 
-    modalSuscripcion?.classList.add(
-      "activo"
+    console.log(
+      "MODAL SUSCRIPCION READY"
+    );
+
+    const modalSuscripcion =
+      document.getElementById(
+        "modalSuscripcion"
+      );
+
+    const btnRecibirAvisosAbrir =
+      document.getElementById(
+        "btnRecibirAvisos"
+      );
+
+    const btnCerrarSuscripcion =
+      document.getElementById(
+        "btnCerrarSuscripcion"
+      );
+
+    const btnGuardarSuscripcion =
+      document.getElementById(
+        "btnGuardarSuscripcion"
+      );
+
+    console.log(
+      "BOTON:",
+      btnRecibirAvisosAbrir
+    );
+
+    console.log(
+      "MODAL:",
+      modalSuscripcion
+    );
+
+    /* =====================================
+       ABRIR
+    ===================================== */
+
+    btnRecibirAvisosAbrir?.addEventListener(
+      "click",
+      () => {
+
+        console.log(
+          "CLICK ABRIR MODAL"
+        );
+
+        modalSuscripcion?.classList.add(
+          "activo"
+        );
+      }
+    );
+
+    /* =====================================
+       CERRAR
+    ===================================== */
+
+    btnCerrarSuscripcion?.addEventListener(
+      "click",
+      () => {
+
+        modalSuscripcion?.classList.remove(
+          "activo"
+        );
+      }
+    );
+
+    /* =====================================
+       CERRAR AFUERA
+    ===================================== */
+
+    modalSuscripcion?.addEventListener(
+      "click",
+      (e) => {
+
+        if (
+          e.target === modalSuscripcion
+        ) {
+
+          modalSuscripcion.classList.remove(
+            "activo"
+          );
+        }
+      }
+    );
+
+    /* =====================================
+       GUARDAR
+    ===================================== */
+
+    btnGuardarSuscripcion?.addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          const firebaseTools =
+            window.PCZ_FIREBASE;
+
+          if (!firebaseTools?.db) {
+
+            alert(
+              "Firebase no disponible."
+            );
+
+            return;
+          }
+
+          const { db } =
+            firebaseTools;
+
+          const nombre =
+            document.getElementById(
+              "suscriptorNombre"
+            ).value.trim();
+
+          const telefono =
+            document.getElementById(
+              "suscriptorTelefono"
+            ).value.trim();
+
+          if (
+            !nombre ||
+            !telefono
+          ) {
+
+            alert(
+              "Completa todos los campos."
+            );
+
+            return;
+          }
+
+          await db
+            .collection(
+              "suscriptores_avisos"
+            )
+            .add({
+
+              nombre,
+
+              telefono,
+
+              activo: true,
+
+              fechaRegistro:
+                firebase.firestore
+                  .FieldValue
+                  .serverTimestamp()
+            });
+
+          alert(
+            "Registro completado correctamente."
+          );
+
+          modalSuscripcion.classList.remove(
+            "activo"
+          );
+
+        } catch (error) {
+
+          console.error(error);
+
+          alert(
+            "No se pudo guardar."
+          );
+        }
+      }
     );
   }
 );
-
-/* CERRAR */
-
-btnCerrarSuscripcion?.addEventListener(
-  "click",
-  () => {
-
-    modalSuscripcion?.classList.remove(
-      "activo"
-    );
-  }
-);
-
-/* CERRAR AFUERA */
-
-modalSuscripcion?.addEventListener(
-  "click",
-  (e) => {
-
-    if (
-      e.target === modalSuscripcion
-    ) {
-
-      modalSuscripcion.classList.remove(
-        "activo"
-      );
-    }
-  }
-);
-
-/* GUARDAR */
-
-btnGuardarSuscripcion?.addEventListener(
-  "click",
-  async () => {
-
-    try {
-
-      const firebaseTools =
-        window.PCZ_FIREBASE;
-
-      if (!firebaseTools?.db) {
-
-        alert(
-          "Firebase no disponible."
-        );
-
-        return;
-      }
-
-      const { db } =
-        firebaseTools;
-
-      const nombre =
-        document.getElementById(
-          "suscriptorNombre"
-        ).value.trim();
-
-      const telefono =
-        document.getElementById(
-          "suscriptorTelefono"
-        ).value.trim();
-
-      if (!nombre || !telefono) {
-
-        alert(
-          "Completa todos los campos."
-        );
-
-        return;
-      }
-
-      await db
-        .collection(
-          "suscriptores_avisos"
-        )
-        .add({
-
-          nombre,
-
-          telefono,
-
-          activo: true,
-
-          fechaRegistro:
-            firebase.firestore
-              .FieldValue
-              .serverTimestamp()
-        });
-
-      alert(
-        "Registro completado correctamente."
-      );
-
-      modalSuscripcion.classList.remove(
-        "activo"
-      );
-
-    } catch (error) {
-
-      console.error(error);
-
-      alert(
-        "No se pudo guardar."
-      );
-    }
-  }
-);
-
 
