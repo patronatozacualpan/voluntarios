@@ -2380,3 +2380,40 @@ a {
 }
 
 
+/* =========================================
+   LABEL INVENTARIO
+========================================= */
+
+.inventory-label {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #dbeafe,
+      #eff6ff
+    );
+
+  color: #1d4ed8;
+
+  padding: 7px 14px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  letter-spacing: .4px;
+
+  text-transform: uppercase;
+
+  margin-bottom: 16px;
+}
+
+
