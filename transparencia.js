@@ -244,7 +244,7 @@ async function cargarInventarioPublico() {
 
   <div class="inventory-card-body">
 
-    <p class="section-label">
+   <p class="inventory-label">
       ${escapeHtml(
         formatearCategoria(
           d.categoria || ""
