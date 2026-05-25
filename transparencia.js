@@ -211,7 +211,7 @@ async function cargarInventarioPublico() {
         <!-- =====================================
              IMAGEN / PLACEHOLDER
         ====================================== -->
-    ${
+${
   d.imagenUrl
 
     ? `
