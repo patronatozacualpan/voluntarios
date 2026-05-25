@@ -1409,43 +1409,102 @@ a {
 }
 
 /* =========================================
-   BADGES ESTADOS
+   STATUS CHIP PREMIUM
 ========================================= */
 
 .status-chip {
-  display: inline-block;
 
-  padding: 6px 12px;
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: fit-content;
+
+  padding: 8px 16px;
 
   border-radius: 999px;
 
-  font-size: 0.85rem;
+  font-size: 12px;
 
-  font-weight: 600;
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: .5px;
 }
 
-.status-entregado,
-.status-en_uso {
+/* ENTREGADO */
+
+.status-entregado {
+
   background: #dcfce7;
+
   color: #166534;
 }
 
-.status-comprado,
-.status-recibido {
+/* EN USO */
+
+.status-en_uso {
+
   background: #dbeafe;
+
   color: #1d4ed8;
 }
 
-.status-mantenimiento,
-.status-baja {
+/* RECIBIDO */
+
+.status-recibido {
+
+  background: #fef3c7;
+
+  color: #92400e;
+}
+
+/* COMPRADO */
+
+.status-comprado {
+
+  background: #e0f2fe;
+
+  color: #0369a1;
+}
+
+/* MANTENIMIENTO */
+
+.status-mantenimiento {
+
   background: #fee2e2;
+
   color: #991b1b;
 }
 
-.status-solicitado,
+/* BAJA */
+
+.status-baja {
+
+  background: #e5e7eb;
+
+  color: #374151;
+}
+
+/* SOLICITADO */
+
+.status-solicitado {
+
+  background: #fef9c3;
+
+  color: #854d0e;
+}
+
+/* COTIZADO */
+
 .status-cotizado {
-  background: #fef3c7;
-  color: #92400e;
+
+  background: #ede9fe;
+
+  color: #5b21b6;
 }
 
 /* =========================================
@@ -1845,76 +1904,70 @@ a {
 
 
 /* =========================================
-   BOTON EVIDENCIA
+   BOTON EVIDENCIA PREMIUM
 ========================================= */
 
-.btn-evidencia{
+.btn-evidencia {
 
-  display:flex;
+  display: inline-flex;
 
-  align-items:center;
+  align-items: center;
 
-  justify-content:center;
+  justify-content: center;
 
-  gap:10px;
+  gap: 8px;
 
-  width:100%;
+  width: 100%;
 
-  margin-top:18px;
+  background:
+    linear-gradient(
+      135deg,
+      #002147,
+      #003366
+    );
 
-  padding:14px 20px;
+  color: white;
 
-  background:linear-gradient(
-    135deg,
-    #002147,
-    #0d3b73
-  );
+  text-decoration: none;
 
-  color:white;
+  padding: 14px 18px;
 
-  text-decoration:none;
+  border-radius: 16px;
 
-  border-radius:16px;
+  font-weight: 800;
 
-  font-weight:700;
-
-  font-size:14px;
-
-  letter-spacing:.3px;
-
-  box-shadow:
-    0 10px 24px rgba(0,33,71,.18);
+  margin-top: 10px;
 
   transition:
     transform .25s ease,
-    box-shadow .25s ease,
-    background .25s ease;
-}
-
-.btn-evidencia::before{
-
-  content:"📄";
-
-  font-size:16px;
-}
-
-.btn-evidencia:hover{
-
-  transform:
-    translateY(-3px)
-    scale(1.02);
+    opacity .25s ease,
+    box-shadow .25s ease;
 
   box-shadow:
-    0 18px 30px rgba(0,33,71,.25);
-
-  background:linear-gradient(
-    135deg,
-    #0d3b73,
-    #14519b
-  );
+    0 8px 18px rgba(0,33,71,.18);
 }
 
+/* ICONO */
 
+.btn-evidencia::before {
+
+  content: "📄";
+
+  font-size: 16px;
+}
+
+/* HOVER */
+
+.btn-evidencia:hover {
+
+  transform:
+    translateY(-2px);
+
+  opacity: .95;
+
+  box-shadow:
+    0 14px 26px rgba(0,33,71,.28);
+}
 
 /* =========================================
    MODAL IMAGEN PREMIUM
