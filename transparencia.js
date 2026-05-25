@@ -206,121 +206,118 @@ async function cargarInventarioPublico() {
 
       card.className = "inventory-card";
 
-      card.innerHTML = `
+     card.innerHTML = `
 
-        <!-- =====================================
-             IMAGEN / PLACEHOLDER
-        ====================================== -->
-${
-  d.imagenUrl
+  <!-- =====================================
+       IMAGEN / PLACEHOLDER
+  ====================================== -->
 
-    ? `
+  ${
+    d.imagenUrl
 
-      <img
-        src="${d.imagenUrl}"
-        alt="Equipo"
-        class="inventory-image"
-        onclick="abrirModalImagen('${d.imagenUrl}')"
-      >
+      ? `
 
-    `
+        <img
+          src="${d.imagenUrl}"
+          alt="Equipo"
+          class="inventory-image"
+          onclick="abrirModalImagen('${d.imagenUrl}')"
+        >
 
-    : `
+      `
 
-      <div class="inventory-placeholder">
+      : `
 
-        📍
+        <div class="inventory-placeholder">
 
-        <span>
-          Evidencia visual pendiente
-          de documentación
-        </span>
+          📍
 
-      </div>
-
-    `
-}
-      
-       
-
-<div class="inventory-card-body">
-
-  <p class="section-label">
-    ${escapeHtml(
-      formatearCategoria(
-        d.categoria || ""
-      )
-    )}
-  </p>
-
-  <h3>
-    ${escapeHtml(
-      d.nombreEquipo || ""
-    )}
-  </h3>
-
-  <p class="inventory-description">
-    ${
-      escapeHtml(
-        d.descripcion || ""
-      ) || "Sin descripción."
-    }
-  </p>
-
-  <div class="inventory-data">
-
-    <p>
-      <strong>Cantidad:</strong>
-      ${Number(d.cantidad || 0)}
-    </p>
-
-    <p>
-      <strong>Inversión:</strong>
-      ${formatoMoneda(
-        d.costoTotal || 0
-      )}
-    </p>
-
-    <div
-      class="
-        status-chip
-        status-${d.estado || ""}
-      "
-    >
-      ${escapeHtml(
-        formatearEstado(
-          d.estado || ""
-        )
-      )}
-    </div>
-
-    ${
-      d.comprobanteUrl
-
-        ? `
-
-          <a
-            href="${d.comprobanteUrl}"
-            target="_blank"
-            class="btn-evidencia"
-          >
-            Ver comprobante
-          </a>
-
-        `
-
-        : ""
-    }
-
-  </div>
-
-</div>
+          <span>
+            Evidencia visual pendiente
+            de documentación
+          </span>
 
         </div>
 
-      `;
+      `
+  }
 
-      contenedor.appendChild(card);
+  <div class="inventory-card-body">
+
+    <p class="section-label">
+      ${escapeHtml(
+        formatearCategoria(
+          d.categoria || ""
+        )
+      )}
+    </p>
+
+    <h3>
+      ${escapeHtml(
+        d.nombreEquipo || ""
+      )}
+    </h3>
+
+    <p class="inventory-description">
+      ${
+        escapeHtml(
+          d.descripcion || ""
+        ) || "Sin descripción."
+      }
+    </p>
+
+    <div class="inventory-data">
+
+      <p>
+        <strong>Cantidad:</strong>
+        ${Number(d.cantidad || 0)}
+      </p>
+
+      <p>
+        <strong>Inversión:</strong>
+        ${formatoMoneda(
+          d.costoTotal || 0
+        )}
+      </p>
+
+      <div
+        class="
+          status-chip
+          status-${d.estado || ""}
+        "
+      >
+        ${escapeHtml(
+          formatearEstado(
+            d.estado || ""
+          )
+        )}
+      </div>
+
+      ${
+        d.comprobanteUrl
+
+          ? `
+
+            <a
+              href="${d.comprobanteUrl}"
+              target="_blank"
+              class="btn-evidencia"
+            >
+              Ver comprobante
+            </a>
+
+          `
+
+          : ""
+      }
+
+    </div>
+
+  </div>
+
+`;
+
+contenedor.appendChild(card);
 
     });
 
