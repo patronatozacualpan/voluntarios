@@ -196,11 +196,14 @@ navLinks.forEach(link => {
 
   link.addEventListener("click", () => {
 
-    if (window.innerWidth <= 768){
+  if (window.innerWidth <= 768){
 
-      mainNav.classList.remove("active");
+  mainNav.classList.remove("active");
 
-    }
+  mobileMenuToggle.innerHTML =
+    "☰ Navegación rápida";
+
+}
 
   });
 
