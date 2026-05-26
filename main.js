@@ -162,13 +162,28 @@ const mainNav =
 
 if (mobileMenuToggle && mainNav){
 
-  mobileMenuToggle.addEventListener("click", () => {
+ mobileMenuToggle.addEventListener("click", () => {
 
-    mainNav.classList.toggle("active");
+  mainNav.classList.toggle("active");
 
-  });
+  /* ICONO DINAMICO */
+
+  if (mainNav.classList.contains("active")){
+
+    mobileMenuToggle.innerHTML = "✕ Cerrar menú";
+
+  } else {
+
+    mobileMenuToggle.innerHTML = "☰ Navegación rápida";
+
+  }
+
+});
 
 }
+
+
+
 
 /* =====================================
    AUTO CERRAR MENU AL TOCAR LINK
@@ -188,5 +203,33 @@ navLinks.forEach(link => {
     }
 
   });
+
+});
+
+
+/* =====================================
+   CERRAR MENU AL TOCAR FUERA
+===================================== */
+
+document.addEventListener("click", (e) => {
+
+  const clickDentroMenu =
+    mainNav.contains(e.target);
+
+  const clickBoton =
+    mobileMenuToggle.contains(e.target);
+
+  if (
+    !clickDentroMenu &&
+    !clickBoton &&
+    window.innerWidth <= 768
+  ){
+
+    mainNav.classList.remove("active");
+
+    mobileMenuToggle.innerHTML =
+      "☰ Navegación rápida";
+
+  }
 
 });
