@@ -2510,6 +2510,35 @@ a {
 
 @media (max-width: 768px){
 
+/* MENU COLAPSABLE SOLO
+   EN PAGINAS CON BOTON */
+
+.mobile-menu-toggle + .main-nav{
+
+  max-height:0;
+
+  overflow:hidden;
+
+  opacity:0;
+
+  transform:translateY(-10px);
+
+  transition:
+    max-height .35s ease,
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.mobile-menu-toggle + .main-nav.active{
+
+  max-height:500px;
+
+  opacity:1;
+
+  transform:translateY(0);
+}
+  
+
   /* BOTON MENU */
 
   .mobile-menu-toggle{
@@ -2542,7 +2571,7 @@ a {
 
   /* NAVEGACION */
 
-  .main-nav{
+.main-nav{
 
   display:flex;
   flex-direction:column;
@@ -2551,31 +2580,8 @@ a {
 
   margin-top:12px;
   width:100%;
-
-  max-height:0;
-  overflow:hidden;
-
-  opacity:0;
-
-  transform:translateY(-10px);
-
-  transition:
-    max-height .35s ease,
-    opacity .25s ease,
-    transform .25s ease;
 }
 
-  /* MENU ABIERTO */
-
- .main-nav.active{
-
-  max-height:500px;
-
-  opacity:1;
-
-  transform:translateY(0);
-
-}
 
   /* BOTONES */
 
