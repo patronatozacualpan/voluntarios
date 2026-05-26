@@ -143,3 +143,50 @@ window.PCZ_MAIN = {
   mostrarMensajeTemporal,
   scrollAlInicio
 };
+
+
+
+/* =====================================
+   MENU MOVIL COMPACTO
+===================================== */
+
+const mobileMenuToggle =
+  document.getElementById("mobileMenuToggle");
+
+const mainNav =
+  document.getElementById("mainNav");
+
+/* =====================================
+   ABRIR / CERRAR MENU
+===================================== */
+
+if (mobileMenuToggle && mainNav){
+
+  mobileMenuToggle.addEventListener("click", () => {
+
+    mainNav.classList.toggle("active");
+
+  });
+
+}
+
+/* =====================================
+   AUTO CERRAR MENU AL TOCAR LINK
+===================================== */
+
+const navLinks =
+  document.querySelectorAll(".main-nav a");
+
+navLinks.forEach(link => {
+
+  link.addEventListener("click", () => {
+
+    if (window.innerWidth <= 768){
+
+      mainNav.classList.remove("active");
+
+    }
+
+  });
+
+});
