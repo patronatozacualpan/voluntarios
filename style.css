@@ -2496,3 +2496,93 @@ a {
 }
 
 
+/* =====================================
+   MENU MOVIL COMPACTO
+===================================== */
+
+.mobile-menu-toggle{
+  display:none;
+}
+
+/* =====================================
+   RESPONSIVE MOVIL
+===================================== */
+
+@media (max-width: 768px){
+
+  /* BOTON MENU */
+
+  .mobile-menu-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:100%;
+
+    margin-top:14px;
+    padding:12px 16px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#163763;
+    color:#ffffff;
+
+    font-size:0.95rem;
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:all .25s ease;
+  }
+
+  .mobile-menu-toggle:hover{
+    background:#1d4a84;
+  }
+
+  /* NAVEGACION */
+
+  .main-nav{
+    display:none;
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-top:12px;
+    width:100%;
+  }
+
+  /* MENU ABIERTO */
+
+  .main-nav.active{
+    display:flex;
+  }
+
+  /* BOTONES */
+
+  .main-nav a{
+    padding:10px 14px !important;
+
+    border-radius:14px;
+
+    font-size:0.92rem;
+
+    text-align:center;
+  }
+
+  /* HEADER */
+
+  .header-container{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  /* HERO */
+
+  .hero{
+    padding-top:30px;
+  }
+
+}
+
+
