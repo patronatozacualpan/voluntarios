@@ -2938,3 +2938,80 @@ a {
 }
 
 
+
+
+/* =====================================
+   OVERRIDE FINAL DASHBOARD MOVIL
+===================================== */
+
+@media (max-width:768px){
+
+  /* SECCIONES */
+
+  .section{
+
+    padding-top:12px !important;
+
+    padding-bottom:12px !important;
+  }
+
+  /* CONTENEDOR PRINCIPAL */
+
+  .section-container{
+
+    padding-top:0 !important;
+  }
+
+  /* GRID */
+
+  .dashboard-grid{
+
+    gap:10px !important;
+
+    margin-top:0 !important;
+  }
+
+  /* CARDS */
+
+  .dashboard-card{
+
+    padding:10px 12px !important;
+
+    min-height:84px !important;
+
+    height:auto !important;
+
+    border-radius:14px !important;
+  }
+
+  /* TITULO */
+
+  .dashboard-title{
+
+    font-size:.72rem !important;
+
+    margin-bottom:6px !important;
+  }
+
+  /* NUMEROS */
+
+  .dashboard-card h3{
+
+    font-size:1.75rem !important;
+
+    line-height:1 !important;
+
+    margin:0 !important;
+  }
+
+  /* CARD AZUL */
+
+  .dashboard-highlight h3{
+
+    font-size:1.5rem !important;
+  }
+
+}
+
+
+
