@@ -275,5 +275,21 @@ async function cargarSuscriptoresAvisos() {
 
    
 
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(texto) {
+
+  return String(texto || "")
+
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
 
 
