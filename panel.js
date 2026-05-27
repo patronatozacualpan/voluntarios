@@ -102,3 +102,173 @@ document.addEventListener("DOMContentLoaded", () => {
 --------------------------------------------------------- */
 
 window.cargarDashboardPanel = cargarDashboardPanel;
+
+
+
+
+/* =====================================================
+   SUSCRIPTORES AVISOS
+===================================================== */
+
+async function cargarSuscriptoresAvisos() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const tabla =
+    document.getElementById(
+      "tablaSuscriptoresAvisos"
+    );
+
+  const total =
+    document.getElementById(
+      "totalSuscriptoresAvisos"
+    );
+
+  if (!tabla || !total) return;
+
+  try {
+
+    const snap = await db
+      .collection(
+        "suscriptores_avisos"
+      )
+      .orderBy(
+        "fechaRegistro",
+        "desc"
+      )
+      .limit(100)
+      .get();
+
+    /* =====================================
+       VACIO
+    ===================================== */
+
+    if (snap.empty) {
+
+      tabla.innerHTML = `
+
+        <tr>
+
+          <td colspan="4">
+
+            No hay suscriptores registrados.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      total.textContent = "0";
+
+      return;
+    }
+
+    /* =====================================
+       TOTAL
+    ===================================== */
+
+    total.textContent =
+      snap.size;
+
+    /* =====================================
+       LIMPIAR
+    ===================================== */
+
+    tabla.innerHTML = "";
+
+    /* =====================================
+       RECORRER
+    ===================================== */
+
+    snap.forEach((doc) => {
+
+      const d = doc.data();
+
+      const fecha =
+        d.fechaRegistro?.toDate
+          ? d.fechaRegistro
+              .toDate()
+              .toLocaleDateString(
+                "es-MX"
+              )
+          : "Sin fecha";
+
+      const estado =
+        d.activo
+          ? "Activo"
+          : "Inactivo";
+
+      const fila =
+        document.createElement("tr");
+
+      fila.innerHTML = `
+
+        <td>
+          ${escapeHtml(
+            d.nombre || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            d.telefono || ""
+          )}
+        </td>
+
+        <td>
+          ${fecha}
+        </td>
+
+        <td>
+
+          <span class="
+            status-chip
+            ${d.activo
+              ? "status-entregado"
+              : "status-baja"
+            }
+          ">
+
+            ${estado}
+
+          </span>
+
+        </td>
+
+      `;
+
+      tabla.appendChild(fila);
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando suscriptores:",
+      error
+    );
+
+    tabla.innerHTML = `
+
+      <tr>
+
+        <td colspan="4">
+
+          Error cargando información.
+
+        </td>
+
+      </tr>
+
+    `;
+  }
+}
+
+
+
