@@ -242,6 +242,9 @@ if (
 
 comprobanteUrl:
   comprobanteUrl || "",
+
+       fechaEgreso:
+      obtenerTimestampServidor(),
        
       referenciaInventario:
         docRef.id,
