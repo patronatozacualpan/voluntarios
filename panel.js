@@ -139,10 +139,12 @@ async function cargarSuscriptoresAvisos() {
       .collection(
         "suscriptores_avisos"
       )
-      .orderBy(
-        "fechaRegistro",
-        "desc"
-      )
+     const snap = await db
+  .collection(
+    "suscriptores_avisos"
+  )
+  .limit(100)
+  .get();
       .limit(100)
       .get();
 
