@@ -96,7 +96,9 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
   }
-   setTimeout(() => {
+  setTimeout(() => {
+
+  aplicarPermisosSuscriptores();
 
   cargarSuscriptoresAvisos();
 
@@ -290,6 +292,54 @@ function escapeHtml(texto) {
     .replaceAll("'", "&#039;");
 }
 
+
+
+/* =====================================================
+   CONTROL ROLES SUSCRIPTORES
+===================================================== */
+
+function aplicarPermisosSuscriptores() {
+
+  const modulo =
+    document.getElementById(
+      "moduloSuscriptoresAvisos"
+    );
+
+  if (!modulo) return;
+
+  const usuario =
+    window.PCZ_USUARIO;
+
+  const rol =
+    usuario?.rol || "";
+
+  /* =====================================
+     ROLES PERMITIDOS
+  ===================================== */
+
+  const permitidos = [
+
+    "presidente",
+
+    "secretario",
+
+    "tesorera"
+
+  ];
+
+  /* =====================================
+     OCULTAR
+  ===================================== */
+
+  if (!permitidos.includes(rol)) {
+
+    modulo.style.display = "none";
+
+    console.warn(
+      "Modulo suscriptores oculto por permisos."
+    );
+  }
+}
 
 
 
