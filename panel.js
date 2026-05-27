@@ -96,22 +96,30 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
   }
- setTimeout(() => {
+setTimeout(() => {
 
   aplicarPermisosSuscriptores();
 
   cargarSuscriptoresAvisos();
 
-  document
-    .getElementById(
-      "btnExportarSuscriptores"
-    )
-    ?.addEventListener(
-      "click",
-      exportarSuscriptoresCSV
-    );
-
 }, 700);
+
+/* =====================================
+   EXPORTAR CSV
+===================================== */
+
+const btnExportar =
+  document.getElementById(
+    "btnExportarSuscriptores"
+  );
+
+if (btnExportar) {
+
+  btnExportar.addEventListener(
+    "click",
+    exportarSuscriptoresCSV
+  );
+}
 });
 
 /* ---------------------------------------------------------
