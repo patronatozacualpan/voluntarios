@@ -238,6 +238,11 @@ if (
 
       proveedor,
 
+      fuentePago: "otro",
+
+comprobanteUrl:
+  comprobanteUrl || "",
+       
       referenciaInventario:
         docRef.id,
 
