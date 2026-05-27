@@ -93,8 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
       window.PCZ_USUARIO = JSON.parse(usuarioLocal);
     } catch {
       window.PCZ_USUARIO = null;
+      
     }
   }
+   cargarSuscriptoresAvisos();
 });
 
 /* ---------------------------------------------------------
