@@ -96,7 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
   }
-   cargarSuscriptoresAvisos();
+   setTimeout(() => {
+
+  cargarSuscriptoresAvisos();
+
+}, 700);
 });
 
 /* ---------------------------------------------------------
