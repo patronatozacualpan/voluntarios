@@ -2510,6 +2510,79 @@ a {
 
 @media (max-width: 768px){
 
+/* =====================================
+   HEADER COMPACTO MOVIL
+===================================== */
+
+.site-header{
+
+  padding:10px 0 !important;
+
+}
+
+.header-container{
+
+  gap:8px;
+
+  padding:0 14px;
+}
+
+/* BRAND */
+
+.brand{
+
+  gap:10px;
+}
+
+/* LOGO */
+
+.brand-logo{
+
+  width:52px !important;
+  height:52px !important;
+}
+
+/* TEXTO */
+
+.brand-small{
+
+  font-size:0.72rem !important;
+
+  margin-bottom:2px !important;
+}
+
+.brand h1{
+
+  font-size:1.18rem !important;
+
+  line-height:1.15 !important;
+
+  margin:0 !important;
+}
+
+/* MENU */
+
+.mobile-menu-toggle{
+
+  margin-top:6px !important;
+
+  padding:8px 12px !important;
+
+  font-size:0.82rem !important;
+
+  border-radius:12px !important;
+}
+
+/* NAV LINKS */
+
+.main-nav a{
+
+  padding:8px 10px !important;
+
+  font-size:0.85rem !important;
+}
+
+  
 /* MENU COLAPSABLE SOLO
    EN PAGINAS CON BOTON */
 
@@ -2609,5 +2682,6 @@ a {
   }
 
 }
+
 
 
