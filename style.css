@@ -2779,3 +2779,114 @@ a {
 }
 
 
+/* =====================================
+   HEADER MOVIL ULTRA COMPACTO
+===================================== */
+
+@media (max-width:768px){
+
+  /* HEADER */
+
+  .site-header{
+
+    position:relative !important;
+
+    padding:0 !important;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.12) !important;
+  }
+
+  /* CONTENEDOR */
+
+  .header-container{
+
+    padding:8px 12px !important;
+
+    gap:8px !important;
+
+    flex-direction:column !important;
+
+    align-items:center !important;
+  }
+
+  /* BRAND */
+
+  .brand{
+
+    gap:8px !important;
+  }
+
+  /* LOGO */
+
+  .brand-logo{
+
+    width:42px !important;
+    height:42px !important;
+
+    padding:3px !important;
+
+    border-radius:10px !important;
+  }
+
+  /* TEXTO */
+
+  .brand-small{
+
+    font-size:.62rem !important;
+
+    line-height:1 !important;
+
+    margin:0 !important;
+  }
+
+  .brand h1{
+
+    font-size:1rem !important;
+
+    line-height:1.05 !important;
+
+    margin:0 !important;
+
+    text-align:center !important;
+  }
+
+  /* MENU BUTTON */
+
+  .mobile-menu-toggle{
+
+    width:100% !important;
+
+    margin-top:2px !important;
+
+    padding:6px 10px !important;
+
+    min-height:34px !important;
+
+    font-size:.78rem !important;
+
+    border-radius:10px !important;
+  }
+
+  /* NAV */
+
+  .main-nav{
+
+    width:100% !important;
+  }
+
+  /* LINKS */
+
+  .main-nav a{
+
+    padding:6px 10px !important;
+
+    min-height:34px !important;
+
+    font-size:.80rem !important;
+
+    border-radius:10px !important;
+  }
+
+}
+
+
