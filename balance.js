@@ -213,7 +213,6 @@ if (forma === "otro") {
         egresosEfectivo += monto;
       }
 
-      if (
   if (
 
   fuente === "transferencia_spin" ||
