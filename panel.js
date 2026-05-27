@@ -343,3 +343,117 @@ function aplicarPermisosSuscriptores() {
 
 
 
+/* =====================================================
+   EXPORTAR SUSCRIPTORES CSV
+===================================================== */
+
+async function exportarSuscriptoresCSV() {
+
+  try {
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    if (!firebaseTools?.db) {
+
+      alert(
+        "Firebase no disponible."
+      );
+
+      return;
+    }
+
+    const { db } = firebaseTools;
+
+    const snap = await db
+      .collection(
+        "suscriptores_avisos"
+      )
+      .limit(5000)
+      .get();
+
+    if (snap.empty) {
+
+      alert(
+        "No hay suscriptores para exportar."
+      );
+
+      return;
+    }
+
+    /* =====================================
+       ENCABEZADOS
+    ===================================== */
+
+    let csv =
+`Nombre,Telefono,Fecha,Estado\n`;
+
+    /* =====================================
+       RECORRER
+    ===================================== */
+
+    snap.forEach((doc) => {
+
+      const d = doc.data();
+
+      const fecha =
+        d.fechaRegistro?.toDate
+          ? d.fechaRegistro
+              .toDate()
+              .toLocaleDateString(
+                "es-MX"
+              )
+          : "";
+
+      const estado =
+        d.activo
+          ? "Activo"
+          : "Inactivo";
+
+      csv += `"${(d.nombre || "").replace(/"/g,'""')}","${(d.telefono || "").replace(/"/g,'""')}","${fecha}","${estado}"\n`;
+
+    });
+
+    /* =====================================
+       CREAR ARCHIVO
+    ===================================== */
+
+    const blob = new Blob(
+      [csv],
+      {
+        type:
+          "text/csv;charset=utf-8;"
+      }
+    );
+
+    const url =
+      URL.createObjectURL(blob);
+
+    const link =
+      document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+      "suscriptores_avisos.csv";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+  } catch (error) {
+
+    console.error(
+      "Error exportando CSV:",
+      error
+    );
+
+    alert(
+      "No se pudo exportar el archivo."
+    );
+  }
+}
+
+
