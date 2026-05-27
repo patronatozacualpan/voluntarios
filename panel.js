@@ -262,15 +262,16 @@ async function cargarSuscriptoresAvisos() {
 
       <td colspan="4">
 
-        Error cargando información.
+     Error cargando información.
 
-      </td>
+        </td>
 
-    </tr>
+      </tr>
 
-  `;
+    `;
+  }
+
 }
-
 
    
 
