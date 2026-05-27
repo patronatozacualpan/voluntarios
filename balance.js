@@ -214,12 +214,26 @@ if (forma === "otro") {
       }
 
       if (
+  if (
+
   fuente === "transferencia_spin" ||
-  fuente === "deposito_oxxo_spin"
+
+  fuente === "deposito_oxxo_spin" ||
+
+  fuente === "transferencia" ||
+
+  fuente === "deposito" ||
+
+  fuente === "spin_oxxo" ||
+
+  fuente === "otro"
+
 ) {
-        banco -= monto;
-        egresosBanco += monto;
-      }
+
+  banco -= monto;
+
+  egresosBanco += monto;
+}
     });
 
     const saldoNeto = totalIngresos - totalEgresos;
