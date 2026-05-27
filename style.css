@@ -2890,3 +2890,51 @@ a {
 }
 
 
+/* =====================================
+   DASHBOARD COMPACTO MOVIL
+===================================== */
+
+@media (max-width:768px){
+
+  .dashboard-grid{
+
+    gap:14px !important;
+
+    margin-top:10px !important;
+  }
+
+  .dashboard-card{
+
+    padding:14px 14px !important;
+
+    min-height:110px !important;
+
+    border-radius:16px !important;
+  }
+
+  .dashboard-title{
+
+    font-size:.78rem !important;
+
+    margin-bottom:10px !important;
+  }
+
+  .dashboard-card h3{
+
+    font-size:2rem !important;
+
+    line-height:1 !important;
+
+    margin:0 !important;
+  }
+
+  /* CARD AZUL */
+
+  .dashboard-highlight h3{
+
+    font-size:1.8rem !important;
+  }
+
+}
+
+
