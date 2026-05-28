@@ -233,6 +233,14 @@ async function confirmarEntrega(id) {
 
         recibidoPor,
 
+         
+
+         validadoPorRol:
+  usuarioValidador.rol,
+
+validadoPorNombre:
+  usuarioValidador.nombre,
+
         claveEntrega,
 
         fechaEntrega:
