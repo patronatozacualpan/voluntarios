@@ -582,9 +582,15 @@ async function guardarEntregaFirmada() {
 
         recibidoPor,
 
-        claveEntrega,
+claveEntrega,
 
-        firmaEntregaUrl,
+validadoPorRol:
+  usuarioValidador.rol,
+
+validadoPorNombre:
+  usuarioValidador.nombre,
+
+firmaEntregaUrl,
 
         fechaEntrega:
           firebase.firestore
