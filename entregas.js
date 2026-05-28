@@ -5,6 +5,18 @@
 
 document.addEventListener(
   "DOMContentLoaded",
+/* =====================================================
+   VARIABLES FIRMA
+===================================================== */
+
+let entregaActualId = null;
+
+let canvasFirma = null;
+
+let ctxFirma = null;
+
+let firmando = false;
+   
   () => {
 
     cargarEntregasPendientes();
