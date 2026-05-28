@@ -593,6 +593,60 @@ async function guardarEntregaFirmada() {
     const firebaseTools =
       window.PCZ_FIREBASE;
 
+/* =====================================
+   VALIDAR CLAVE OPERATIVA
+===================================== */
+
+const authUser =
+  firebase.auth().currentUser;
+
+if (!authUser) {
+
+  alert(
+    "Sesión no válida."
+  );
+
+  return;
+}
+
+const usuarioDoc =
+  await db
+    .collection("usuarios")
+    .doc(authUser.uid)
+    .get();
+
+if (!usuarioDoc.exists) {
+
+  alert(
+    "Usuario no encontrado."
+  );
+
+  return;
+}
+
+const usuarioData =
+  usuarioDoc.data();
+
+const claveCorrecta =
+  (
+    usuarioData
+      ?.claveOperativa || ""
+  ).trim();
+
+if (
+  claveEntrega !==
+  claveCorrecta
+) {
+
+  alert(
+    "⚠️ Clave operativa incorrecta."
+  );
+
+  return;
+}
+     
+     
+
     if (
       !firebaseTools?.db ||
       !firebaseTools?.storage
