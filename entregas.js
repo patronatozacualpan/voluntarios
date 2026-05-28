@@ -3,8 +3,6 @@
    Panel operativo PCZ
 ===================================================== */
 
-document.addEventListener(
-  "DOMContentLoaded",
 /* =====================================================
    VARIABLES FIRMA
 ===================================================== */
@@ -16,7 +14,13 @@ let canvasFirma = null;
 let ctxFirma = null;
 
 let firmando = false;
-   
+
+/* =====================================================
+   INIT
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
   () => {
 
     cargarEntregasPendientes();
@@ -27,7 +31,6 @@ let firmando = false;
 /* =====================================================
    CARGAR ENTREGAS
 ===================================================== */
-
 async function cargarEntregasPendientes() {
 
   const firebaseTools =
