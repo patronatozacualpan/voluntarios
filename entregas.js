@@ -230,6 +230,53 @@ async function confirmarEntrega(id) {
 
       });
 
+/* =========================================
+   PUBLICACION AUTOMATICA
+========================================= */
+
+const docInventario =
+  await db
+    .collection(
+      "inventario_equipo"
+    )
+    .doc(id)
+    .get();
+
+const inventario =
+  docInventario.data();
+
+await db
+  .collection(
+    "publicaciones"
+  )
+  .add({
+
+    titulo:
+      "Entrega operativa confirmada",
+
+    contenido:
+      `Se confirmó oficialmente la entrega de "${inventario.nombreEquipo}" para operación de Protección Civil Zacualpan.`,
+
+    tipo:
+      "entrega_operativa",
+
+    publico:
+      true,
+
+    fecha:
+      firebase.firestore
+        .FieldValue
+        .serverTimestamp(),
+
+    creadoPor:
+      recibidoPor,
+
+    referenciaInventario:
+      id
+
+  });
+
+     
     alert(
       "✅ Entrega confirmada."
     );
