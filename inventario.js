@@ -217,9 +217,15 @@ const estadosConEgreso = [
 ];
 
 if (
+
   estadosConEgreso.includes(
     estado
   )
+
+  &&
+
+  !equipo.egresoGenerado
+
 ) {
 
   await db
@@ -272,6 +278,21 @@ comprobanteUrl:
   console.log(
     "Egreso automático generado."
   );
+
+   /* =========================================
+   MARCAR EGRESO GENERADO
+========================================= */
+
+await db
+  .collection(
+    "inventario_equipo"
+  )
+  .doc(docRef.id)
+  .update({
+
+    egresoGenerado: true
+
+  });
 }
 
      
