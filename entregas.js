@@ -525,6 +525,163 @@ document
 document
   .getElementById(
     "btnLimpiarFirma"
+/* =====================================================
+   GUARDAR ENTREGA
+===================================================== */
+
+document
+  .getElementById(
+    "btnGuardarEntrega"
+  )
+  ?.addEventListener(
+    "click",
+    guardarEntregaFirmada
+  );
+
+/* =====================================================
+   GUARDAR ENTREGA FIRMADA
+===================================================== */
+
+async function guardarEntregaFirmada() {
+
+  const recibidoPor =
+    document.getElementById(
+      "firmaRecibidoPor"
+    )?.value?.trim();
+
+  const claveEntrega =
+    document.getElementById(
+      "firmaClaveEntrega"
+    )?.value?.trim();
+
+  if (!recibidoPor) {
+
+    alert(
+      "Escribe quién recibe."
+    );
+
+    return;
+  }
+
+  if (!claveEntrega) {
+
+    alert(
+      "Escribe la clave."
+    );
+
+    return;
+  }
+
+  if (!canvasFirma) {
+
+    alert(
+      "No hay firma."
+    );
+
+    return;
+  }
+
+  try {
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    if (
+      !firebaseTools?.db ||
+      !firebaseTools?.storage
+    ) {
+      return;
+    }
+
+    const {
+      db,
+      storage
+    } = firebaseTools;
+
+    /* =====================================
+       GENERAR PNG
+    ===================================== */
+
+    const firmaBase64 =
+      canvasFirma.toDataURL(
+        "image/png"
+      );
+
+    /* =====================================
+       STORAGE
+    ===================================== */
+
+    const nombreArchivo =
+      `firma-${Date.now()}.png`;
+
+    const ruta =
+      `firmas_entrega/${nombreArchivo}`;
+
+    const storageRef =
+      storage.ref().child(ruta);
+
+    await storageRef.putString(
+      firmaBase64,
+      "data_url"
+    );
+
+    const firmaEntregaUrl =
+      await storageRef
+        .getDownloadURL();
+
+    /* =====================================
+       ACTUALIZAR INVENTARIO
+    ===================================== */
+
+    await db
+      .collection(
+        "inventario_equipo"
+      )
+      .doc(
+        entregaActualId
+      )
+      .update({
+
+        entregadoConfirmado:
+          true,
+
+        recibidoPor,
+
+        claveEntrega,
+
+        firmaEntregaUrl,
+
+        fechaEntrega:
+          firebase.firestore
+            .FieldValue
+            .serverTimestamp(),
+
+        estado:
+          "entregado"
+
+      });
+
+    alert(
+      "✅ Entrega confirmada."
+    );
+
+    cerrarModalEntrega();
+
+    cargarEntregasPendientes();
+
+  } catch (error) {
+
+    console.error(
+      "Error guardando entrega:",
+      error
+    );
+
+    alert(
+      "⚠️ Error guardando entrega."
+    );
+  }
+}
+     
   )
   ?.addEventListener(
     "click",
