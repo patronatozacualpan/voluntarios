@@ -319,13 +319,21 @@ function usuarioEsTesorera() {
 function usuarioEsMesaDirectiva() {
   const usuario = obtenerUsuarioActivo();
 
-  return [
-    "presidente",
-    "tesorera",
-    "secretario",
-    "vocal1",
-    "vocal2"
-  ].includes(usuario?.rol);
+ return [
+
+  "presidente",
+
+  "tesorera",
+
+  "secretario",
+
+  "vocal1",
+
+  "vocal2",
+
+  "comandante_operativo"
+
+].includes(usuario?.rol);
 }
 
 window.PCZ_AUTH = {
