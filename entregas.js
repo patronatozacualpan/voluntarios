@@ -601,48 +601,60 @@ async function guardarEntregaFirmada() {
     const firebaseTools =
       window.PCZ_FIREBASE;
 
-/* =====================================
-   VALIDAR CLAVE OPERATIVA GLOBAL
-===================================== */
+    if (
+      !firebaseTools?.db ||
+      !firebaseTools?.storage
+    ) {
+      return;
+    }
 
-const usuariosSnap =
-  await db
-    .collection("usuarios")
-    .where(
-      "claveOperativa",
-      "==",
-      claveEntrega
-    )
-    .limit(1)
-    .get();
+    const {
+      db,
+      storage
+    } = firebaseTools;
 
-if (usuariosSnap.empty) {
+    /* =====================================
+       VALIDAR CLAVE OPERATIVA GLOBAL
+    ===================================== */
 
-  alert(
-    "⚠️ Clave operativa inválida."
-  );
+    const usuariosSnap =
+      await db
+        .collection("usuarios")
+        .where(
+          "claveOperativa",
+          "==",
+          claveEntrega
+        )
+        .limit(1)
+        .get();
 
-  return;
-}
+    if (usuariosSnap.empty) {
 
-const usuarioValidador =
-  usuariosSnap.docs[0].data();
+      alert(
+        "⚠️ Clave operativa inválida."
+      );
 
-/* =====================================
-   VALIDAR ROL
-===================================== */
+      return;
+    }
 
-if (
-  usuarioValidador.rol !==
-  "comandante_operativo"
-) {
+    const usuarioValidador =
+      usuariosSnap.docs[0].data();
 
-  alert(
-    "⚠️ Esta clave no pertenece al comandante operativo."
-  );
+    /* =====================================
+       VALIDAR ROL
+    ===================================== */
 
-  return;
-}
+    if (
+      usuarioValidador.rol !==
+      "comandante_operativo"
+    ) {
+
+      alert(
+        "⚠️ Esta clave no pertenece al comandante operativo."
+      );
+
+      return;
+    }
      
 
     if (
