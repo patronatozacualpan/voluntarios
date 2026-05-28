@@ -525,6 +525,8 @@ document
 document
   .getElementById(
     "btnLimpiarFirma"
+
+     
 /* =====================================================
    GUARDAR ENTREGA
 ===================================================== */
@@ -618,7 +620,9 @@ async function guardarEntregaFirmada() {
       `firmas_entrega/${nombreArchivo}`;
 
     const storageRef =
-      storage.ref().child(ruta);
+      storage
+        .ref()
+        .child(ruta);
 
     await storageRef.putString(
       firmaBase64,
@@ -626,8 +630,7 @@ async function guardarEntregaFirmada() {
     );
 
     const firmaEntregaUrl =
-      await storageRef
-        .getDownloadURL();
+      await storageRef.getDownloadURL();
 
     /* =====================================
        ACTUALIZAR INVENTARIO
@@ -681,12 +684,3 @@ async function guardarEntregaFirmada() {
     );
   }
 }
-     
-  )
-  ?.addEventListener(
-    "click",
-    limpiarFirma
-  );
-
-
-
