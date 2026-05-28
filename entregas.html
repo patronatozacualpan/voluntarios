@@ -126,6 +126,111 @@
 
   </div>
 
+
+
+<!-- =====================================
+     MODAL FIRMA ENTREGA
+===================================== -->
+
+<div
+  id="modalEntrega"
+  class="modal-overlay"
+>
+
+  <div class="modal-card modal-firma-card">
+
+    <h2>
+      Confirmar entrega operativa
+    </h2>
+
+    <p class="modal-text">
+
+      Validación oficial de entrega
+      de equipo operativo.
+
+    </p>
+
+    <!-- NOMBRE -->
+
+    <div class="form-group">
+
+      <label>
+        Recibido por
+      </label>
+
+      <input
+        type="text"
+        id="firmaRecibidoPor"
+        placeholder="Nombre completo"
+      >
+
+    </div>
+
+    <!-- CLAVE -->
+
+    <div class="form-group">
+
+      <label>
+        Clave operativa
+      </label>
+
+      <input
+        type="text"
+        id="firmaClaveEntrega"
+        placeholder="Clave"
+      >
+
+    </div>
+
+    <!-- CANVAS -->
+
+    <div class="firma-wrap">
+
+      <p class="firma-label">
+        Firma digital
+      </p>
+
+      <canvas
+        id="canvasFirma"
+        width="320"
+        height="180"
+      ></canvas>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="modal-actions">
+
+      <button
+        id="btnLimpiarFirma"
+        class="secondary-btn"
+      >
+        Limpiar
+      </button>
+
+      <button
+        id="btnCancelarEntrega"
+        class="secondary-btn"
+      >
+        Cancelar
+      </button>
+
+      <button
+        id="btnGuardarEntrega"
+        class="primary-btn"
+      >
+        Confirmar entrega
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  
+
+  
 </footer>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
