@@ -193,6 +193,7 @@ if (subidaComprobante.ok) {
       notasInternas: "",
       creadoPorUid: usuario.uid,
       creadoPorNombre: usuario.nombre,
+       egresoGenerado: false,
       creadoEn: obtenerTimestampServidor(),
       actualizadoEn: obtenerTimestampServidor(),
        fotoPendiente: !!fotoArchivo,
