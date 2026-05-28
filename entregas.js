@@ -594,57 +594,47 @@ async function guardarEntregaFirmada() {
       window.PCZ_FIREBASE;
 
 /* =====================================
-   VALIDAR CLAVE OPERATIVA
+   VALIDAR CLAVE OPERATIVA GLOBAL
 ===================================== */
 
-const authUser =
-  firebase.auth().currentUser;
-
-if (!authUser) {
-
-  alert(
-    "Sesión no válida."
-  );
-
-  return;
-}
-
-const usuarioDoc =
+const usuariosSnap =
   await db
     .collection("usuarios")
-    .doc(authUser.uid)
+    .where(
+      "claveOperativa",
+      "==",
+      claveEntrega
+    )
+    .limit(1)
     .get();
 
-if (!usuarioDoc.exists) {
+if (usuariosSnap.empty) {
 
   alert(
-    "Usuario no encontrado."
+    "⚠️ Clave operativa inválida."
   );
 
   return;
 }
 
-const usuarioData =
-  usuarioDoc.data();
+const usuarioValidador =
+  usuariosSnap.docs[0].data();
 
-const claveCorrecta =
-  (
-    usuarioData
-      ?.claveOperativa || ""
-  ).trim();
+/* =====================================
+   VALIDAR ROL
+===================================== */
 
 if (
-  claveEntrega !==
-  claveCorrecta
+  usuarioValidador.rol !==
+  "comandante_operativo"
 ) {
 
   alert(
-    "⚠️ Clave operativa incorrecta."
+    "⚠️ Esta clave no pertenece al comandante operativo."
   );
 
   return;
 }
-     
      
 
     if (
