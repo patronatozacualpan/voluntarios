@@ -582,7 +582,6 @@ async function guardarEntregaFirmada() {
 
         recibidoPor,
 
-claveEntrega,
 
 validadoPorRol:
   usuarioValidador.rol,
