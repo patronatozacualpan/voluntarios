@@ -525,6 +525,11 @@ document
 document
   .getElementById(
     "btnLimpiarFirma"
+  )
+  ?.addEventListener(
+    "click",
+    limpiarFirma
+  );
 
      
 /* =====================================================
