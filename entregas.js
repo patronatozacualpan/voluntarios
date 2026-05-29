@@ -572,9 +572,14 @@ await db
 
     entregadoConfirmado:
       true,
+recibidoPorNombre:
+  usuarioValidador.nombre,
 
-    recibidoPor:
-      recibidoPor,
+recibidoPorUid:
+  usuariosSnap.docs[0].id,
+
+recibidoPorRol:
+  usuarioValidador.rol,
 
     validadoPorRol:
       usuarioValidador.rol,
