@@ -434,195 +434,211 @@ document
 
 async function guardarEntregaFirmada() {
 
-  const recibidoPor =
-    document.getElementById(
-      "firmaRecibidoPor"
-    )?.value?.trim();
+const recibidoPor =
+document.getElementById(
+"firmaRecibidoPor"
+)?.value?.trim();
 
-  const claveEntrega =
-    document.getElementById(
-      "firmaClaveEntrega"
-    )?.value?.trim();
+const claveEntrega =
+document.getElementById(
+"firmaClaveEntrega"
+)?.value?.trim();
 
-  if (!recibidoPor) {
+if (!recibidoPor) {
 
-    alert(
-      "Escribe quién recibe."
-    );
+```
+alert(
+  "Escribe quién recibe."
+);
 
-    return;
-  }
+return;
+```
 
-  if (!claveEntrega) {
+}
 
-    alert(
-      "Escribe la clave."
-    );
+if (!claveEntrega) {
 
-    return;
-  }
+```
+alert(
+  "Escribe la clave."
+);
 
-  if (!canvasFirma) {
+return;
+```
 
-    alert(
-      "No hay firma."
-    );
+}
 
-    return;
-  }
+if (!canvasFirma) {
 
-  try {
+```
+alert(
+  "No hay firma."
+);
 
-    const firebaseTools =
-      window.PCZ_FIREBASE;
+return;
+```
 
-    if (
-      !firebaseTools?.db ||
-      !firebaseTools?.storage
-    ) {
-      return;
-    }
+}
 
-    const {
-      db,
-      storage
-    } = firebaseTools;
+try {
 
-    /* =====================================
-       VALIDAR CLAVE OPERATIVA GLOBAL
-    ===================================== */
+```
+const firebaseTools =
+  window.PCZ_FIREBASE;
 
-    const usuariosSnap =
-      await db
-        .collection("usuarios")
-        .where(
-          "claveOperativa",
-          "==",
-          claveEntrega
-        )
-        .limit(1)
-        .get();
+if (
+  !firebaseTools?.db ||
+  !firebaseTools?.storage
+) {
+  return;
+}
 
-    if (usuariosSnap.empty) {
-
-      alert(
-        "⚠️ Clave operativa inválida."
-      );
-
-      return;
-    }
-
-    const usuarioValidador =
-      usuariosSnap.docs[0].data();
-
-    /* =====================================
-       VALIDAR ROL
-    ===================================== */
-
-    if (
-      usuarioValidador.rol !==
-      "comandante_operativo"
-    ) {
-
-      alert(
-        "⚠️ Esta clave no pertenece al comandante operativo."
-      );
-
-      return;
-    }
-     
-
-    /* =====================================
-       STORAGE
-    ===================================== */
-
-    const nombreArchivo =
-      `firma-${Date.now()}.png`;
-
-    const ruta =
-      `firmas_entrega/${nombreArchivo}`;
-
-    const storageRef =
-      storage
-        .ref()
-        .child(ruta);
-
-    await storageRef.putString(
-      firmaBase64,
-      "data_url"
-    );
-
-  const firmaEntregaUrl =
-await storageRef.getDownloadURL();
+const {
+  db,
+  storage
+} = firebaseTools;
 
 /* =====================================
-ACTUALIZAR INVENTARIO
+   VALIDAR CLAVE OPERATIVA
+===================================== */
+
+const usuariosSnap =
+  await db
+    .collection("usuarios")
+    .where(
+      "claveOperativa",
+      "==",
+      claveEntrega
+    )
+    .limit(1)
+    .get();
+
+if (usuariosSnap.empty) {
+
+  alert(
+    "⚠️ Clave operativa inválida."
+  );
+
+  return;
+}
+
+const usuarioValidador =
+  usuariosSnap.docs[0].data();
+
+if (
+  usuarioValidador.rol !==
+  "comandante_operativo"
+) {
+
+  alert(
+    "⚠️ Esta clave no pertenece al comandante operativo."
+  );
+
+  return;
+}
+
+/* =====================================
+   EXPORTAR FIRMA PNG
+===================================== */
+
+const firmaBase64 =
+  canvasFirma.toDataURL(
+    "image/png"
+  );
+
+/* =====================================
+   STORAGE
+===================================== */
+
+const nombreArchivo =
+  `firma-${Date.now()}.png`;
+
+const ruta =
+  `firmas_entrega/${nombreArchivo}`;
+
+const storageRef =
+  storage
+    .ref()
+    .child(ruta);
+
+await storageRef.putString(
+  firmaBase64,
+  "data_url"
+);
+
+const firmaEntregaUrl =
+  await storageRef.getDownloadURL();
+
+/* =====================================
+   ACTUALIZAR INVENTARIO
 ===================================== */
 
 await db
-.collection(
-"inventario_equipo"
-)
-.doc(
-entregaActualId
-)
-.update({
+  .collection(
+    "inventario_equipo"
+  )
+  .doc(
+    entregaActualId
+  )
+  .update({
+
+    entregadoConfirmado:
+      true,
+
+    recibidoPor:
+      recibidoPor,
+
+    validadoPorRol:
+      usuarioValidador.rol,
+
+    validadoPorNombre:
+      usuarioValidador.nombre,
+
+    validadoPorUid:
+      usuariosSnap.docs[0].id,
+
+    claveEntrega:
+      claveEntrega,
+
+    firmaEntregaUrl:
+      firmaEntregaUrl,
+
+    folioEntrega:
+      "ENT-" + Date.now(),
+
+    fechaEntrega:
+      firebase.firestore
+        .FieldValue
+        .serverTimestamp(),
+
+    estado:
+      "entregado"
+
+  });
+
+alert(
+  "✅ Entrega confirmada."
+);
+
+cerrarModalEntrega();
+
+cargarEntregasPendientes();
+```
+
+} catch (error) {
 
 ```
-entregadoConfirmado:
-  true,
+console.error(
+  "Error guardando entrega:",
+  error
+);
 
-recibidoPor:
-  recibidoPor,
-
-validadoPorRol:
-  usuarioValidador.rol,
-
-validadoPorNombre:
-  usuarioValidador.nombre,
-
-validadoPorUid:
-  usuariosSnap.docs[0].id,
-
-claveEntrega:
-  claveEntrega,
-
-firmaEntregaUrl:
-  firmaEntregaUrl,
-
-folioEntrega:
-  "ENT-" + Date.now(),
-
-fechaEntrega:
-  firebase.firestore
-    .FieldValue
-    .serverTimestamp(),
-
-estado:
-  "entregado"
+alert(
+  "⚠️ Error guardando entrega."
+);
 ```
 
-});
-
-
-
-    alert(
-      "✅ Entrega confirmada."
-    );
-
-    cerrarModalEntrega();
-
-    cargarEntregasPendientes();
-
-  } catch (error) {
-
-    console.error(
-      "Error guardando entrega:",
-      error
-    );
-
-    alert(
-      "⚠️ Error guardando entrega."
-    );
-  }
 }
+}
+
+
