@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="es">
 
 <head>
 
   <meta charset="UTF-8" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+<meta
+ name="viewport"
+ content="width=device-width, initial-scale=1.0"
+/>
 
   <title>
     Entregas Operativas | PCZ
@@ -27,45 +28,47 @@
 
   <div class="header-container">
 
-    <div class="brand">
+```
+<div class="brand">
 
-      <img
-        src="assets/logos/logo-patronato.png"
-        class="brand-logo"
-      >
+  <img
+    src="assets/logos/logo-patronato.png"
+    class="brand-logo"
+  >
 
-      <div>
+  <div>
 
-        <p class="brand-small">
-          Protección Civil
-        </p>
+    <p class="brand-small">
+      Protección Civil
+    </p>
 
-        <h1>
-          Entregas Operativas
-        </h1>
+    <h1>
+      Entregas Operativas
+    </h1>
 
-      </div>
+  </div>
 
-    </div>
+</div>
 
-    <nav class="main-nav">
+<nav class="main-nav">
 
-      <a href="panel.html">
-        Panel
-      </a>
+  <a href="panel.html">
+    Panel
+  </a>
 
-      <a href="inventario.html">
-        Inventario
-      </a>
+  <a href="inventario.html">
+    Inventario
+  </a>
 
-      <a
-        href="#"
-        id="btnCerrarSesion"
-      >
-        Cerrar sesión
-      </a>
+  <a
+    href="#"
+    id="btnCerrarSesion"
+  >
+    Cerrar sesión
+  </a>
 
-    </nav>
+</nav>
+```
 
   </div>
 
@@ -75,36 +78,38 @@
 
   <section class="dashboard-section">
 
-    <div class="section-header">
+```
+<div class="section-header">
 
-      <span class="section-badge">
-        OPERATIVO
-      </span>
+  <span class="section-badge">
+    OPERATIVO
+  </span>
 
-      <h2>
-        Equipos pendientes de entrega
-      </h2>
+  <h2>
+    Equipos pendientes de entrega
+  </h2>
 
-      <p>
-        Validación operativa de equipo recibido.
-      </p>
+  <p>
+    Validación operativa de equipo recibido.
+  </p>
 
-    </div>
+</div>
 
-    <div
-      id="contenedorEntregas"
-      class="inventory-grid"
-    >
+<div
+  id="contenedorEntregas"
+  class="inventory-grid"
+>
 
-      <div class="info-card">
+  <div class="info-card">
 
-        <h3>
-          Cargando entregas...
-        </h3>
+    <h3>
+      Cargando entregas...
+    </h3>
 
-      </div>
+  </div>
 
-    </div>
+</div>
+```
 
   </section>
 
@@ -114,90 +119,23 @@
 
   <div class="footer-container">
 
-    <p>
-      <strong>
-        Patronato Zacualpan
-      </strong>
-    </p>
+```
+<p>
+  <strong>
+    Patronato Zacualpan
+  </strong>
+</p>
 
-    <p class="footer-small">
-      Panel operativo institucional.
-    </p>
-
-  </div>
-
-
-
-
-
-    <!-- CLAVE -->
-
-    <div class="form-group">
-
-      <label>
-        Clave operativa
-      </label>
-
-      <input
-        type="text"
-        id="firmaClaveEntrega"
-        placeholder="Clave"
-      >
-
-    </div>
-
-    <!-- CANVAS -->
-
-    <div class="firma-wrap">
-
-      <p class="firma-label">
-        Firma digital
-      </p>
-
-      <canvas
-        id="canvasFirma"
-        width="320"
-        height="180"
-      ></canvas>
-
-    </div>
-
-    <!-- BOTONES -->
-
-    <div class="modal-actions">
-
-      <button
-        id="btnLimpiarFirma"
-        class="secondary-btn"
-      >
-        Limpiar
-      </button>
-
-      <button
-        id="btnCancelarEntrega"
-        class="secondary-btn"
-      >
-        Cancelar
-      </button>
-
-      <button
-        id="btnGuardarEntrega"
-        class="primary-btn"
-      >
-        Confirmar entrega
-      </button>
-
-    </div>
+<p class="footer-small">
+  Panel operativo institucional.
+</p>
+```
 
   </div>
 
-</div>
-  
-
-  
 </footer>
 
-  <!-- =====================================
+<!-- =====================================
      MODAL FIRMA ENTREGA
 ===================================== -->
 
@@ -208,102 +146,101 @@
 
   <div class="modal-card modal-firma-card">
 
-    <h2>
-      Confirmar entrega operativa
-    </h2>
+```
+<h2>
+  Confirmar entrega operativa
+</h2>
 
-    <p class="modal-text">
+<p class="modal-text">
 
-      Validación oficial de entrega
-      de equipo operativo.
+  Validación oficial de entrega
+  de equipo operativo.
 
-    </p>
+</p>
 
-    <!-- NOMBRE -->
+<!-- NOMBRE -->
 
-    <div class="form-group">
+<div class="form-group">
 
-      <label>
-        Recibido por
-      </label>
+  <label>
+    Recibido por
+  </label>
 
-      <input
-        type="text"
-        id="firmaRecibidoPor"
-        placeholder="Nombre completo"
-      >
+  <input
+    type="text"
+    id="firmaRecibidoPor"
+    placeholder="Nombre completo"
+  >
 
-    </div>
+</div>
 
-    <!-- CLAVE -->
+<!-- CLAVE -->
 
-    <div class="form-group">
+<div class="form-group">
 
-      <label>
-        Clave operativa
-      </label>
+  <label>
+    Clave operativa
+  </label>
 
-      <input
-        type="password"
-        id="firmaClaveEntrega"
-        placeholder="Clave"
-      >
+  <input
+    type="password"
+    id="firmaClaveEntrega"
+    placeholder="Clave operativa"
+  >
 
-    </div>
+</div>
 
-    <!-- FIRMA -->
+<!-- FIRMA -->
 
-    <div class="firma-wrap">
+<div class="firma-wrap">
 
-      <p class="firma-label">
-        Firma digital
-      </p>
+  <p class="firma-label">
+    Firma digital
+  </p>
 
-      <canvas
-        id="canvasFirma"
-        width="320"
-        height="180"
-      ></canvas>
+  <canvas
+    id="canvasFirma"
+    width="320"
+    height="180"
+  ></canvas>
 
-    </div>
+</div>
 
-    <!-- BOTONES -->
+<!-- BOTONES -->
 
-    <div class="modal-actions">
+<div class="modal-actions">
 
-      <button
-        type="button"
-        id="btnLimpiarFirma"
-        class="secondary-btn"
-      >
-        Limpiar
-      </button>
+  <button
+    type="button"
+    id="btnLimpiarFirma"
+    class="secondary-btn"
+  >
+    Limpiar
+  </button>
 
-      <button
-        type="button"
-        id="btnCancelarEntrega"
-        class="secondary-btn"
-      >
-        Cancelar
-      </button>
+  <button
+    type="button"
+    id="btnCancelarEntrega"
+    class="secondary-btn"
+  >
+    Cancelar
+  </button>
 
-      <button
-        type="button"
-        id="btnGuardarEntrega"
-        class="primary-btn"
-      >
-        Confirmar entrega
-      </button>
+  <button
+    type="button"
+    id="btnGuardarEntrega"
+    class="primary-btn"
+  >
+    Confirmar entrega
+  </button>
 
-    </div>
+</div>
+```
 
   </div>
 
 </div>
 
-    </div>
-
-  
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
