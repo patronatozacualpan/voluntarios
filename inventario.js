@@ -4,6 +4,8 @@
    Patronato Zacualpan Pro-equipamiento de Protección Civil
 ========================================================= */
 
+let expedienteActual = null;
+
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     protegerModuloInventario();
@@ -516,6 +518,8 @@ async function verEntrega(id) {
   const d =
     docSnap.data();
 
+   expedienteActual = d;
+   
   const contenedor =
     document.getElementById(
       "contenidoExpedienteEntrega"
@@ -696,5 +700,179 @@ function cerrarModalExpediente() {
     .remove("activo");
 
 }
+
+
+
+async function descargarResguardoPDF() {
+
+  if (!expedienteActual) {
+
+    alert(
+      "No hay expediente cargado."
+    );
+
+    return;
+  }
+
+  const d =
+    expedienteActual;
+
+  const {
+    jsPDF
+  } = window.jspdf;
+
+  const pdf =
+    new jsPDF();
+
+  let y = 20;
+
+  pdf.setFontSize(16);
+
+  pdf.text(
+    "PATRONATO ZACUALPAN",
+    105,
+    y,
+    { align: "center" }
+  );
+
+  y += 8;
+
+  pdf.setFontSize(12);
+
+  pdf.text(
+    "RESGUARDO OPERATIVO DE EQUIPO",
+    105,
+    y,
+    { align: "center" }
+  );
+
+  y += 20;
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    `Equipo: ${d.nombreEquipo || "-"}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Categoria: ${d.categoria || "-"}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Cantidad: ${d.cantidad || 0}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Costo: $${Number(
+      d.costoTotal || 0
+    ).toFixed(2)}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Estado: ${d.estado || "-"}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Folio: ${d.folioEntrega || "-"}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Responsable: ${
+      d.recibidoPor || "-"
+    }`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Rol: ${
+      d.recibidoPorRol || "-"
+    }`,
+    15,
+    y
+  );
+
+  y += 20;
+
+  pdf.setFontSize(10);
+
+  pdf.text(
+    "El presente documento acredita la entrega del equipo operativo al Comandante Operativo de Proteccion Civil Zacualpan.",
+    15,
+    y,
+    {
+      maxWidth: 170
+    }
+  );
+
+  y += 30;
+
+  pdf.line(
+    60,
+    y,
+    150,
+    y
+  );
+
+  y += 6;
+
+  pdf.text(
+    "Firma digital registrada en sistema",
+    105,
+    y,
+    { align: "center" }
+  );
+
+  pdf.save(
+    `Resguardo-${d.folioEntrega || "equipo"}.pdf`
+  );
+
+}
+
+
+document.addEventListener(
+  "click",
+  (e) => {
+
+    if (
+      e.target.id ===
+      "btnDescargarResguardo"
+    ) {
+
+      descargarResguardoPDF();
+
+    }
+
+  }
+);
+
+
+
 
 
