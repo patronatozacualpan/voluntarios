@@ -551,7 +551,9 @@ const firmaBase64 =
 ===================================== */
 
 const nombreArchivo =
-  `firma-${Date.now()}.png`;
+  "firma-" +
+  Date.now() +
+  ".png";
 
 const ruta =
   `firmas_entrega/${nombreArchivo}`;
