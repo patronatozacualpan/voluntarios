@@ -434,27 +434,11 @@ document
 
 async function guardarEntregaFirmada() {
 
-const recibidoPor =
-document.getElementById(
-"firmaRecibidoPor"
-)?.value?.trim();
-
 const claveEntrega =
 document.getElementById(
 "firmaClaveEntrega"
 )?.value?.trim();
 
-if (!recibidoPor) {
-
-```
-alert(
-  "Escribe quién recibe."
-);
-
-return;
-```
-
-}
 
 if (!claveEntrega) {
 
@@ -470,19 +454,19 @@ return;
 
 if (!canvasFirma) {
 
-```
+
 alert(
   "No hay firma."
 );
 
 return;
-```
+
 
 }
 
 try {
 
-```
+
 const firebaseTools =
   window.PCZ_FIREBASE;
 
