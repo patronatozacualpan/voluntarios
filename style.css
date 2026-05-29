@@ -2285,11 +2285,16 @@ a {
 
   width: 100%;
 
-  max-width: 480px;
+  max-width: 900px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
 
   border-radius: 24px;
 
   padding: 32px;
+
 }
 
 .modal-text {
@@ -3313,5 +3318,14 @@ a {
 
 }
 
+
+
+#contenidoExpedienteEntrega img {
+
+  max-width: 100%;
+
+  height: auto;
+
+}
 
 
