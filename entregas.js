@@ -569,10 +569,17 @@ await db
   )
   .update({
 
-    entregadoConfirmado:
-      true,
+   entregadoConfirmado:
+  true,
+
 recibidoPorNombre:
   usuarioValidador.nombre,
+
+comandanteNombreOficial:
+  usuarioValidador.nombre,
+
+comandanteUid:
+  usuariosSnap.docs[0].id,
 
 recibidoPorUid:
   usuariosSnap.docs[0].id,
@@ -580,32 +587,31 @@ recibidoPorUid:
 recibidoPorRol:
   usuarioValidador.rol,
 
-    validadoPorRol:
-      usuarioValidador.rol,
+validadoPorRol:
+  usuarioValidador.rol,
 
-    validadoPorNombre:
-      usuarioValidador.nombre,
+validadoPorNombre:
+  usuarioValidador.nombre,
 
-    validadoPorUid:
-      usuariosSnap.docs[0].id,
+validadoPorUid:
+  usuariosSnap.docs[0].id,
 
-    claveEntrega:
-      claveEntrega,
+claveEntrega:
+  claveEntrega,
 
-    firmaEntregaUrl:
-      firmaEntregaUrl,
+firmaEntregaUrl:
+  firmaEntregaUrl,
 
-    folioEntrega:
-      "ENT-" + Date.now(),
+folioEntrega:
+  "ENT-" + Date.now(),
 
-    fechaEntrega:
-      firebase.firestore
-        .FieldValue
-        .serverTimestamp(),
+fechaEntrega:
+  firebase.firestore
+    .FieldValue
+    .serverTimestamp(),
 
-    estado:
-      "entregado"
-
+estado:
+  "entregado"
   });
 
 alert(
