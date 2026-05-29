@@ -533,15 +533,6 @@ async function guardarEntregaFirmada() {
      
 
     /* =====================================
-       GENERAR PNG
-    ===================================== */
-
-    const firmaBase64 =
-      canvasFirma.toDataURL(
-        "image/png"
-      );
-
-    /* =====================================
        STORAGE
     ===================================== */
 
@@ -561,27 +552,28 @@ async function guardarEntregaFirmada() {
       "data_url"
     );
 
-    const firmaEntregaUrl =
-      await storageRef.getDownloadURL();
+  const firmaEntregaUrl =
+await storageRef.getDownloadURL();
 
-    /* =====================================
-       ACTUALIZAR INVENTARIO
-    ===================================== */
+/* =====================================
+ACTUALIZAR INVENTARIO
+===================================== */
 
-    await db
-      .collection(
-        "inventario_equipo"
-      )
-      .doc(
-        entregaActualId
-      )
-      .update({
+await db
+.collection(
+"inventario_equipo"
+)
+.doc(
+entregaActualId
+)
+.update({
 
-        entregadoConfirmado:
-          true,
+```
+entregadoConfirmado:
+  true,
 
-        recibidoPor,
-
+recibidoPor:
+  recibidoPor,
 
 validadoPorRol:
   usuarioValidador.rol,
@@ -589,17 +581,30 @@ validadoPorRol:
 validadoPorNombre:
   usuarioValidador.nombre,
 
-firmaEntregaUrl,
+validadoPorUid:
+  usuariosSnap.docs[0].id,
 
-        fechaEntrega:
-          firebase.firestore
-            .FieldValue
-            .serverTimestamp(),
+claveEntrega:
+  claveEntrega,
 
-        estado:
-          "entregado"
+firmaEntregaUrl:
+  firmaEntregaUrl,
 
-      });
+folioEntrega:
+  "ENT-" + Date.now(),
+
+fechaEntrega:
+  firebase.firestore
+    .FieldValue
+    .serverTimestamp(),
+
+estado:
+  "entregado"
+```
+
+});
+
+
 
     alert(
       "✅ Entrega confirmada."
