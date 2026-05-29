@@ -493,17 +493,22 @@ async function verEntrega(id) {
 
   if (!firebaseTools?.db) return;
 
-  const { db } = firebaseTools;
+  const { db } =
+    firebaseTools;
 
   const docSnap =
     await db
-      .collection("inventario_equipo")
+      .collection(
+        "inventario_equipo"
+      )
       .doc(id)
       .get();
 
   if (!docSnap.exists) {
 
-    alert("Registro no encontrado");
+    alert(
+      "Registro no encontrado"
+    );
 
     return;
   }
@@ -511,41 +516,185 @@ async function verEntrega(id) {
   const d =
     docSnap.data();
 
-  let mensaje = `
-
-EQUIPO:
-${d.nombreEquipo || "-"}
-
-ESTADO:
-${d.estado || "-"}
-
-FOLIO:
-${d.folioEntrega || "-"}
-
-COMANDANTE:
-${d.recibidoPor || "-"}
-
-ROL:
-${d.recibidoPorRol || "-"}
-
-FECHA:
-${d.fechaEntrega
-? d.fechaEntrega.toDate().toLocaleString()
-: "-"}
-
-`;
-
-  if (d.firmaEntregaUrl) {
-
-    window.open(
-      d.firmaEntregaUrl,
-      "_blank"
+  const contenedor =
+    document.getElementById(
+      "contenidoExpedienteEntrega"
     );
 
+  if (!contenedor) {
+
+    alert(
+      "No existe contenidoExpedienteEntrega"
+    );
+
+    return;
   }
 
-  alert(mensaje);
+  contenedor.innerHTML = `
+
+    <div style="display:grid;gap:20px;">
+
+      <div>
+
+        <h3>
+          ${d.nombreEquipo || "-"}
+        </h3>
+
+        <p>
+          Estado:
+          <strong>
+            ${d.estado || "-"}
+          </strong>
+        </p>
+
+        <p>
+          Categoría:
+          ${formatearCategoria(
+            d.categoria || ""
+          )}
+        </p>
+
+        <p>
+          Costo:
+          ${formatoMoneda(
+            d.costoTotal || 0
+          )}
+        </p>
+
+      </div>
+
+      <hr>
+
+      <div>
+
+        <h3>
+          Foto del equipo
+        </h3>
+
+        ${
+          d.fotoEquipoUrl
+          ? `
+            <img
+              src="${d.fotoEquipoUrl}"
+              style="
+                max-width:100%;
+                border-radius:12px;
+              "
+            >
+          `
+          : "Sin fotografía"
+        }
+
+      </div>
+
+      <hr>
+
+      <div>
+
+        <h3>
+          Comprobante de compra
+        </h3>
+
+        ${
+          d.comprobanteUrl
+          ? `
+            <a
+              href="${d.comprobanteUrl}"
+              target="_blank"
+            >
+              Ver comprobante
+            </a>
+          `
+          : "Sin comprobante"
+        }
+
+      </div>
+
+      <hr>
+
+      <div>
+
+        <h3>
+          Datos de entrega
+        </h3>
+
+        <p>
+          Folio:
+          ${d.folioEntrega || "-"}
+        </p>
+
+        <p>
+          Fecha:
+          ${
+            d.fechaEntrega
+            ? d.fechaEntrega
+                .toDate()
+                .toLocaleString()
+            : "-"
+          }
+        </p>
+
+        <p>
+          Rol:
+          ${d.recibidoPorRol || "-"}
+        </p>
+
+        <p>
+          UID:
+          ${d.recibidoPorUid || "-"}
+        </p>
+
+      </div>
+
+      <hr>
+
+      <div>
+
+        <h3>
+          Firma digital
+        </h3>
+
+        ${
+          d.firmaEntregaUrl
+          ? `
+            <img
+              src="${d.firmaEntregaUrl}"
+              style="
+                max-width:500px;
+                border:1px solid #ddd;
+                border-radius:12px;
+                background:white;
+              "
+            >
+          `
+          : "Sin firma"
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+  document
+    .getElementById(
+      "modalVerEntrega"
+    )
+    ?.classList
+    .add("activo");
+
 }
 
+
+function cerrarModalExpediente() {
+
+  document
+    .getElementById(
+      "modalVerEntrega"
+    )
+    ?.classList
+    .remove("activo");
+
+}
 
 
