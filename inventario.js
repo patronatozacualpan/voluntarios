@@ -365,7 +365,17 @@ async function cargarInventario() {
         <td><span class="estatus-badge ${claseEstado(d.estado)}">${formatearEstado(d.estado || "")}</span></td>
         <td>${d.publico ? "Sí" : "No"}</td>
         <td>${d.fotoEquipoUrl ? `<a href="${d.fotoEquipoUrl}" target="_blank" rel="noopener">Ver foto</a>` : "Sin foto"}</td>
-        <td>${d.comprobanteUrl ? `<a href="${d.comprobanteUrl}" target="_blank" rel="noopener">Ver comprobante</a>` : "Sin comprobante"}</td>
+        <td>
+${d.comprobanteUrl
+? `<a href="${d.comprobanteUrl}" target="_blank" rel="noopener">Ver comprobante</a>`
+: "Sin comprobante"}
+</td>
+
+<td>
+${d.estado === "entregado"
+? `<button onclick="verEntrega('${doc.id}')" class="btn-primary">Ver entrega</button>`
+: "Pendiente"}
+</td>
       `;
 
       tbody.appendChild(tr);
@@ -472,3 +482,70 @@ function claseEstado(estado) {
   if (estado === "baja" || estado === "mantenimiento") return "atrasado";
   return "pendiente";
 }
+
+
+
+
+async function verEntrega(id) {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } = firebaseTools;
+
+  const docSnap =
+    await db
+      .collection("inventario_equipo")
+      .doc(id)
+      .get();
+
+  if (!docSnap.exists) {
+
+    alert("Registro no encontrado");
+
+    return;
+  }
+
+  const d =
+    docSnap.data();
+
+  let mensaje = `
+
+EQUIPO:
+${d.nombreEquipo || "-"}
+
+ESTADO:
+${d.estado || "-"}
+
+FOLIO:
+${d.folioEntrega || "-"}
+
+COMANDANTE:
+${d.recibidoPor || "-"}
+
+ROL:
+${d.recibidoPorRol || "-"}
+
+FECHA:
+${d.fechaEntrega
+? d.fechaEntrega.toDate().toLocaleString()
+: "-"}
+
+`;
+
+  if (d.firmaEntregaUrl) {
+
+    window.open(
+      d.firmaEntregaUrl,
+      "_blank"
+    );
+
+  }
+
+  alert(mensaje);
+}
+
+
+
