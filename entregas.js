@@ -556,7 +556,9 @@ const nombreArchivo =
   ".png";
 
 const ruta =
-  `firmas_entrega/${nombreArchivo}`;
+const ruta =
+  "firmas_entrega/" +
+  nombreArchivo;
 
 const storageRef =
   storage
