@@ -540,7 +540,6 @@ const nombreArchivo =
   ".png";
 
 const ruta =
-const ruta =
   "firmas_entrega/" +
   nombreArchivo;
 
