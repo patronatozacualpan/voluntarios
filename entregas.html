@@ -197,7 +197,7 @@
   
 </footer>
 
-<!-- =====================================
+  <!-- =====================================
      MODAL FIRMA ENTREGA
 ===================================== -->
 
@@ -232,6 +232,74 @@
         id="firmaRecibidoPor"
         placeholder="Nombre completo"
       >
+
+    </div>
+
+    <!-- CLAVE -->
+
+    <div class="form-group">
+
+      <label>
+        Clave operativa
+      </label>
+
+      <input
+        type="password"
+        id="firmaClaveEntrega"
+        placeholder="Clave"
+      >
+
+    </div>
+
+    <!-- FIRMA -->
+
+    <div class="firma-wrap">
+
+      <p class="firma-label">
+        Firma digital
+      </p>
+
+      <canvas
+        id="canvasFirma"
+        width="320"
+        height="180"
+      ></canvas>
+
+    </div>
+
+    <!-- BOTONES -->
+
+    <div class="modal-actions">
+
+      <button
+        type="button"
+        id="btnLimpiarFirma"
+        class="secondary-btn"
+      >
+        Limpiar
+      </button>
+
+      <button
+        type="button"
+        id="btnCancelarEntrega"
+        class="secondary-btn"
+      >
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        id="btnGuardarEntrega"
+        class="primary-btn"
+      >
+        Confirmar entrega
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
     </div>
 
