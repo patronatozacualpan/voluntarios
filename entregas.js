@@ -442,13 +442,13 @@ document.getElementById(
 
 if (!claveEntrega) {
 
-```
+
 alert(
   "Escribe la clave."
 );
 
 return;
-```
+
 
 }
 
@@ -615,11 +615,11 @@ alert(
 cerrarModalEntrega();
 
 cargarEntregasPendientes();
-```
+
 
 } catch (error) {
 
-```
+
 console.error(
   "Error guardando entrega:",
   error
@@ -628,7 +628,7 @@ console.error(
 alert(
   "⚠️ Error guardando entrega."
 );
-```
+
 
 }
 }
