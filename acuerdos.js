@@ -18,6 +18,8 @@ document.addEventListener(
           crearAcuerdo
         );
 
+
+      
       document
   .getElementById(
     "btnGuardarVoto"
@@ -26,7 +28,16 @@ document.addEventListener(
     "click",
     guardarVoto
   );
+document
+  .getElementById(
+    "btnDescargarActa"
+  )
+  ?.addEventListener(
+    "click",
+    descargarActaPDF
+  );
 
+      
     }, 800);
 
   }
@@ -941,6 +952,238 @@ function obtenerSemaforo(resultado) {
   return "🟡 Pendiente";
 
 }
+
+
+
+async function descargarActaPDF() {
+
+  if (!acuerdoActualData) {
+
+    alert(
+      "No hay acuerdo cargado."
+    );
+
+    return;
+  }
+
+  const d =
+    acuerdoActualData;
+
+  const {
+    jsPDF
+  } = window.jspdf;
+
+  const pdf =
+    new jsPDF();
+
+  let y = 20;
+
+  pdf.setFontSize(16);
+
+  pdf.text(
+    "PATRONATO ZACUALPAN",
+    105,
+    y,
+    { align: "center" }
+  );
+
+  y += 8;
+
+  pdf.setFontSize(12);
+
+  pdf.text(
+    "ACTA DIGITAL DE ACUERDO",
+    105,
+    y,
+    { align: "center" }
+  );
+
+  y += 15;
+
+  pdf.setFontSize(10);
+
+  pdf.text(
+    `Folio: ${d.folio || "-"}`,
+    15,
+    y
+  );
+
+  y += 7;
+
+  pdf.text(
+    `Tipo: ${d.tipo || "-"}`,
+    15,
+    y
+  );
+
+  y += 7;
+
+  pdf.text(
+    `Titulo: ${d.titulo || "-"}`,
+    15,
+    y
+  );
+
+  y += 7;
+
+  pdf.text(
+    `Monto estimado: $${Number(
+      d.montoEstimado || 0
+    ).toLocaleString()}`,
+    15,
+    y
+  );
+
+  y += 12;
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    "Descripcion:",
+    15,
+    y
+  );
+
+  y += 6;
+
+  pdf.setFontSize(10);
+
+  pdf.text(
+    pdf.splitTextToSize(
+      d.descripcion || "-",
+      170
+    ),
+    15,
+    y
+  );
+
+  y += 18;
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    "Justificacion:",
+    15,
+    y
+  );
+
+  y += 6;
+
+  pdf.setFontSize(10);
+
+  pdf.text(
+    pdf.splitTextToSize(
+      d.justificacion || "-",
+      170
+    ),
+    15,
+    y
+  );
+
+  y += 20;
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    `Resultado: ${(d.resultado || "pendiente").toUpperCase()}`,
+    15,
+    y
+  );
+
+  y += 10;
+
+  pdf.text(
+    `Favor: ${d.totalFavor || 0}`,
+    15,
+    y
+  );
+
+  y += 6;
+
+  pdf.text(
+    `Contra: ${d.totalContra || 0}`,
+    15,
+    y
+  );
+
+  y += 6;
+
+  pdf.text(
+    `Abstencion: ${d.totalAbstencion || 0}`,
+    15,
+    y
+  );
+
+  y += 15;
+
+  pdf.setFontSize(12);
+
+  pdf.text(
+    "VOTACION REGISTRADA",
+    15,
+    y
+  );
+
+  y += 10;
+
+  pdf.setFontSize(10);
+
+  Object.entries(
+    d.votos || {}
+  ).forEach(([rol, voto]) => {
+
+    pdf.text(
+
+      `${rol}: ${voto?.voto || "pendiente"}`,
+
+      15,
+
+      y
+
+    );
+
+    y += 6;
+
+  });
+
+  y += 12;
+
+  if (d.fechaResolucion) {
+
+    let fechaResolucion = "-";
+
+    try {
+
+      fechaResolucion =
+        d.fechaResolucion
+          .toDate()
+          .toLocaleString();
+
+    } catch (e) {}
+
+    pdf.text(
+      `Fecha resolucion: ${fechaResolucion}`,
+      15,
+      y
+    );
+
+    y += 8;
+  }
+
+  pdf.setFontSize(9);
+
+  pdf.text(
+    "Documento generado por el Sistema Institucional del Patronato Zacualpan.",
+    15,
+    y
+  );
+
+  pdf.save(
+    `ACTA-${d.folio || "ACUERDO"}.pdf`
+  );
+
+}
+
 
 
 
