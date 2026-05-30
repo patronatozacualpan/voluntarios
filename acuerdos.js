@@ -3,7 +3,7 @@ document.addEventListener(
   () => {
 
     setTimeout(() => {
-
+    validarPermisoCrear();
       cargarAcuerdos();
 
       document
