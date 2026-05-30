@@ -679,8 +679,61 @@ async function guardarVoto() {
   const { db } =
     firebaseTools;
 
-  let campoRol =
-    usuario.rol;
+  const acuerdoSnap =
+  await db
+    .collection(
+      "acuerdos"
+    )
+    .doc(
+      acuerdoActualId
+    )
+    .get();
+
+if (
+  !acuerdoSnap.exists
+) {
+
+  alert(
+    "Acuerdo no encontrado."
+  );
+
+  return;
+}
+
+const acuerdo =
+  acuerdoSnap.data();
+
+  
+
+ let campoRol =
+  usuario.rol;
+
+if (
+  campoRol === "vocal"
+) {
+
+  campoRol =
+    "vocal1";
+
+}
+
+  if (
+
+  acuerdo
+    ?.votos
+    ?.[campoRol]
+    ?.voto
+
+) {
+
+  alert(
+    "Usted ya emitió su voto."
+  );
+
+  return;
+}
+
+  
 
   if (
     campoRol === "vocal"
