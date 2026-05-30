@@ -356,6 +356,7 @@ async function cargarAcuerdos() {
           doc.data();
 
         html += `
+
         <div class="info-card">
 
           <h3>
@@ -368,10 +369,27 @@ async function cargarAcuerdos() {
 
           <p>
             Estado:
-            ${d.estado}
+            <strong>
+              ${d.estado}
+            </strong>
           </p>
 
+          <p>
+            Monto:
+            $${Number(
+              d.montoEstimado || 0
+            ).toLocaleString()}
+          </p>
+
+          <button
+            class="primary-btn"
+            onclick="verAcuerdo('${doc.id}')"
+          >
+            Ver expediente
+          </button>
+
         </div>
+
         `;
 
       }
@@ -383,10 +401,67 @@ async function cargarAcuerdos() {
   } catch (error) {
 
     console.error(
+      "Error cargando acuerdos:",
       error
     );
 
   }
+
+}
+
+
+async function verAcuerdo(id) {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db)
+    return;
+
+  const { db } =
+    firebaseTools;
+
+  const docSnap =
+    await db
+      .collection(
+        "acuerdos"
+      )
+      .doc(id)
+      .get();
+
+  if (!docSnap.exists) {
+
+    alert(
+      "Acuerdo no encontrado."
+    );
+
+    return;
+  }
+
+  const d =
+    docSnap.data();
+
+  alert(
+
+`FOLIO:
+${d.folio}
+
+TITULO:
+${d.titulo}
+
+DESCRIPCION:
+${d.descripcion}
+
+JUSTIFICACION:
+${d.justificacion}
+
+MONTO:
+$${d.montoEstimado}
+
+ESTADO:
+${d.estado}`
+
+  );
 
 }
 
