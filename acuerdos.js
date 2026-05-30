@@ -852,23 +852,35 @@ async function recalcularAcuerdo(id) {
 
   });
 
-  let resultado =
-    "pendiente";
+let resultado =
+  "pendiente";
 
-  const requiereComandante =
-    d.requiereComandante;
+const requiereComandante =
+  d.requiereComandante;
 
-  const minimo =
-    requiereComandante
-      ? 4
-      : 3;
+const minimo =
+  requiereComandante
+    ? 4
+    : 3;
 
-  if (favor >= minimo) {
+if (
+  favor >= minimo
+) {
 
-    resultado =
-      "aprobado";
+  resultado =
+    "aprobado";
 
-  }
+}
+
+if (
+  contra >= minimo
+) {
+
+  resultado =
+    "rechazado";
+
+}
+  
 
   await db
     .collection("acuerdos")
@@ -886,6 +898,11 @@ async function recalcularAcuerdo(id) {
 
       resultado,
 
+estado:
+  resultado === "pendiente"
+    ? "pendiente"
+    : "resuelto",
+      
       fechaResolucion:
         resultado === "aprobado"
           ? firebase.firestore
