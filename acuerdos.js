@@ -1,3 +1,5 @@
+let acuerdoActualData = null;
+
 let acuerdoActualId = null;
 document.addEventListener(
   "DOMContentLoaded",
@@ -461,6 +463,8 @@ async function verAcuerdo(id) {
   const d =
     docSnap.data();
 
+acuerdoActualData = d;
+  
 const usuario =
   window.PCZ_AUTH
     ?.obtenerUsuarioActivo?.();
