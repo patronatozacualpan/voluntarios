@@ -589,7 +589,10 @@ async function guardarVoto() {
       }
 
     });
-
+await recalcularAcuerdo(
+  acuerdoActualId
+);
+  
   alert(
     "Voto guardado."
   );
@@ -600,6 +603,100 @@ async function guardarVoto() {
 
 }
 
+
+
+
+async function recalcularAcuerdo(id) {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db)
+    return;
+
+  const { db } =
+    firebaseTools;
+
+  const docSnap =
+    await db
+      .collection("acuerdos")
+      .doc(id)
+      .get();
+
+  if (!docSnap.exists)
+    return;
+
+  const d =
+    docSnap.data();
+
+  let favor = 0;
+  let contra = 0;
+  let abstencion = 0;
+
+  Object.values(
+    d.votos || {}
+  ).forEach((v) => {
+
+    if (!v?.voto)
+      return;
+
+    if (v.voto === "favor")
+      favor++;
+
+    if (v.voto === "contra")
+      contra++;
+
+    if (
+      v.voto === "abstencion"
+    )
+      abstencion++;
+
+  });
+
+  let resultado =
+    "pendiente";
+
+  const requiereComandante =
+    d.requiereComandante;
+
+  const minimo =
+    requiereComandante
+      ? 4
+      : 3;
+
+  if (favor >= minimo) {
+
+    resultado =
+      "aprobado";
+
+  }
+
+  await db
+    .collection("acuerdos")
+    .doc(id)
+    .update({
+
+      totalFavor:
+        favor,
+
+      totalContra:
+        contra,
+
+      totalAbstencion:
+        abstencion,
+
+      resultado,
+
+      fechaResolucion:
+        resultado === "aprobado"
+          ? firebase.firestore
+              .FieldValue
+              .serverTimestamp()
+          : null
+
+    });
+
+}
 
 
 
