@@ -377,12 +377,28 @@ async function cargarAcuerdos() {
             ${d.titulo}
           </p>
 
-          <p>
-            Estado:
-            <strong>
-              ${d.estado}
-            </strong>
-          </p>
+         <p>
+
+  Estado Operativo:
+
+  <strong>
+    ${d.estado}
+  </strong>
+
+</p>
+
+<p>
+
+  Resultado:
+
+  <strong>
+    ${obtenerSemaforo(
+      d.resultado
+    )}
+  </strong>
+
+</p>
+
 
           <p>
             Monto:
@@ -578,10 +594,15 @@ if (yaVoto) {
         ${d.totalAbstencion || 0}
       </p>
 
-      <p>
-        <strong>Resultado:</strong>
-        ${d.resultado || "pendiente"}
-      </p>
+     <p>
+
+  <strong>Resultado:</strong>
+
+  ${obtenerSemaforo(
+    d.resultado
+  )}
+
+</p>
 
       <hr>
 
