@@ -445,6 +445,55 @@ async function verAcuerdo(id) {
   const d =
     docSnap.data();
 
+const usuario =
+  window.PCZ_AUTH
+    ?.obtenerUsuarioActivo?.();
+
+let rolUsuario =
+  usuario?.rol;
+
+if (
+  rolUsuario === "vocal"
+) {
+
+  rolUsuario =
+    "vocal1";
+
+}
+
+  const yaVoto =
+  d.votos?.[
+    rolUsuario
+  ]?.voto;
+
+let mensajeVoto = "";
+
+if (yaVoto) {
+
+  mensajeVoto = `
+
+    <div
+      style="
+        background:#e8f5e9;
+        padding:10px;
+        border-radius:8px;
+        margin-top:10px;
+      "
+    >
+
+      ✅ Usted ya emitió su voto:
+
+      <strong>
+        ${yaVoto}
+      </strong>
+
+    </div>
+
+  `;
+
+}
+  
+  
   let votosHtml =
     "<h3>Estado de votación</h3>";
 
