@@ -1,3 +1,4 @@
+let acuerdoActualId = null;
 document.addEventListener(
   "DOMContentLoaded",
   () => {
@@ -412,6 +413,8 @@ async function cargarAcuerdos() {
 
 async function verAcuerdo(id) {
 
+  acuerdoActualId = id;
+
   const firebaseTools =
     window.PCZ_FIREBASE;
 
@@ -429,39 +432,73 @@ async function verAcuerdo(id) {
       .doc(id)
       .get();
 
-  if (!docSnap.exists) {
-
-    alert(
-      "Acuerdo no encontrado."
-    );
-
+  if (!docSnap.exists)
     return;
-  }
 
   const d =
     docSnap.data();
 
-  alert(
+  document
+    .getElementById(
+      "contenidoAcuerdo"
+    )
+    .innerHTML = `
 
-`FOLIO:
-${d.folio}
+    <p>
+      <strong>Folio:</strong>
+      ${d.folio}
+    </p>
 
-TITULO:
-${d.titulo}
+    <p>
+      <strong>Título:</strong>
+      ${d.titulo}
+    </p>
 
-DESCRIPCION:
-${d.descripcion}
+    <p>
+      <strong>Descripción:</strong>
+      ${d.descripcion}
+    </p>
 
-JUSTIFICACION:
-${d.justificacion}
+    <p>
+      <strong>Justificación:</strong>
+      ${d.justificacion}
+    </p>
 
-MONTO:
-$${d.montoEstimado}
+    <p>
+      <strong>Monto:</strong>
+      $${Number(
+        d.montoEstimado || 0
+      ).toLocaleString()}
+    </p>
 
-ESTADO:
-${d.estado}`
+    <p>
+      <strong>Estado:</strong>
+      ${d.estado}
+    </p>
 
-  );
+  `;
+
+  document
+    .getElementById(
+      "modalAcuerdo"
+    )
+    .classList
+    .add(
+      "activo"
+    );
+
+}
+
+function cerrarModalAcuerdo() {
+
+  document
+    .getElementById(
+      "modalAcuerdo"
+    )
+    ?.classList
+    .remove(
+      "activo"
+    );
 
 }
 
