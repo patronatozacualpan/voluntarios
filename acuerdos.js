@@ -314,11 +314,6 @@ async function cargarAcuerdos() {
 
 
 
-<section
-  id="seccionCrearAcuerdo"
-  class="dashboard-section"
->
-
 
 
     
