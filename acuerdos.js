@@ -435,9 +435,7 @@ async function verAcuerdo(id) {
 
   const docSnap =
     await db
-      .collection(
-        "acuerdos"
-      )
+      .collection("acuerdos")
       .doc(id)
       .get();
 
@@ -447,43 +445,98 @@ async function verAcuerdo(id) {
   const d =
     docSnap.data();
 
+  let votosHtml =
+    "<h3>Estado de votación</h3>";
+
+  Object.entries(
+    d.votos || {}
+  ).forEach(([rol, v]) => {
+
+    const estado =
+      v?.voto
+        ? `✅ ${v.voto}`
+        : "⏳ Pendiente";
+
+    votosHtml += `
+
+      <p>
+
+        <strong>
+          ${rol}
+        </strong>
+
+        :
+        ${estado}
+
+      </p>
+
+    `;
+
+  });
+
   document
     .getElementById(
       "contenidoAcuerdo"
     )
     .innerHTML = `
 
-    <p>
-      <strong>Folio:</strong>
-      ${d.folio}
-    </p>
+      <p>
+        <strong>Folio:</strong>
+        ${d.folio}
+      </p>
 
-    <p>
-      <strong>Título:</strong>
-      ${d.titulo}
-    </p>
+      <p>
+        <strong>Título:</strong>
+        ${d.titulo}
+      </p>
 
-    <p>
-      <strong>Descripción:</strong>
-      ${d.descripcion}
-    </p>
+      <p>
+        <strong>Descripción:</strong>
+        ${d.descripcion}
+      </p>
 
-    <p>
-      <strong>Justificación:</strong>
-      ${d.justificacion}
-    </p>
+      <p>
+        <strong>Justificación:</strong>
+        ${d.justificacion}
+      </p>
 
-    <p>
-      <strong>Monto:</strong>
-      $${Number(
-        d.montoEstimado || 0
-      ).toLocaleString()}
-    </p>
+      <p>
+        <strong>Monto:</strong>
+        $${Number(
+          d.montoEstimado || 0
+        ).toLocaleString()}
+      </p>
 
-    <p>
-      <strong>Estado:</strong>
-      ${d.estado}
-    </p>
+      <p>
+        <strong>Estado:</strong>
+        ${d.estado}
+      </p>
+
+      <hr>
+
+      <p>
+        <strong>Favor:</strong>
+        ${d.totalFavor || 0}
+      </p>
+
+      <p>
+        <strong>Contra:</strong>
+        ${d.totalContra || 0}
+      </p>
+
+      <p>
+        <strong>Abstención:</strong>
+        ${d.totalAbstencion || 0}
+      </p>
+
+      <p>
+        <strong>Resultado:</strong>
+        ${d.resultado || "pendiente"}
+      </p>
+
+      <hr>
+
+      ${votosHtml}
 
   `;
 
@@ -497,6 +550,8 @@ async function verAcuerdo(id) {
     );
 
 }
+
+
 
 function cerrarModalAcuerdo() {
 
