@@ -16,6 +16,15 @@ document.addEventListener(
           crearAcuerdo
         );
 
+      document
+  .getElementById(
+    "btnGuardarVoto"
+  )
+  ?.addEventListener(
+    "click",
+    guardarVoto
+  );
+
     }, 800);
 
   }
@@ -501,6 +510,96 @@ function cerrarModalAcuerdo() {
     );
 
 }
+
+async function guardarVoto() {
+
+  if (!acuerdoActualId)
+    return;
+
+  const usuario =
+    window.PCZ_AUTH
+      ?.obtenerUsuarioActivo?.();
+
+  if (!usuario)
+    return;
+
+  const votoSeleccionado =
+    document.querySelector(
+      'input[name="tipoVoto"]:checked'
+    );
+
+  if (!votoSeleccionado) {
+
+    alert(
+      "Selecciona un voto."
+    );
+
+    return;
+  }
+
+  const voto =
+    votoSeleccionado.value;
+
+  const observacion =
+    document
+      .getElementById(
+        "observacionVoto"
+      )
+      .value
+      .trim();
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  const { db } =
+    firebaseTools;
+
+  let campoRol =
+    usuario.rol;
+
+  if (
+    campoRol === "vocal"
+  ) {
+
+    campoRol =
+      "vocal1";
+  }
+
+  await db
+    .collection(
+      "acuerdos"
+    )
+    .doc(
+      acuerdoActualId
+    )
+    .update({
+
+      [`votos.${campoRol}`]: {
+
+        voto,
+
+        observacion,
+
+        fecha:
+          firebase
+            .firestore
+            .FieldValue
+            .serverTimestamp()
+
+      }
+
+    });
+
+  alert(
+    "Voto guardado."
+  );
+
+  cerrarModalAcuerdo();
+
+  cargarAcuerdos();
+
+}
+
 
 
 
