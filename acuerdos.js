@@ -117,6 +117,21 @@ async function crearAcuerdo() {
     return;
   }
 
+
+const usuario =
+  window.PCZ_AUTH
+    ?.obtenerUsuarioActivo?.();
+
+if (!usuario) {
+
+  alert(
+    "No se pudo identificar al usuario."
+  );
+
+  return;
+}
+
+  
   const anio =
     new Date()
       .getFullYear();
@@ -144,60 +159,123 @@ console.log(
   firebase.auth().currentUser?.uid
 );
   
-  await db
-    .collection(
-      "acuerdos"
-    )
+await db
+  .collection(
+    "acuerdos"
+  )
+  .add({
+
+    folio,
+
+    estado:
+      "pendiente",
+
+    tipo,
+
+    titulo,
+
+    descripcion,
+
+    justificacion,
+
+    montoEstimado:
+      monto,
+
+    requiereComandante,
+
+creadoPorUid:
+  usuario.uid,
+
+creadoPorNombre:
+  usuario.nombre,
+
+creadoPorRol:
+  usuario.rol,
     
-    .add({
 
-      folio,
+    fechaCreacion:
+      firebase
+        .firestore
+        .FieldValue
+        .serverTimestamp(),
 
-      estado:
-        "pendiente",
+    votos: {
 
-      tipo,
+      presidente: {
 
-      titulo,
+        voto: null,
 
-      descripcion,
+        fecha: null,
 
-      justificacion,
+        observacion: ""
 
-      montoEstimado:
-        monto,
+      },
 
-      requiereComandante,
+      secretario: {
 
-      fechaCreacion:
-        firebase
-          .firestore
-          .FieldValue
-          .serverTimestamp(),
+        voto: null,
 
-      votos: {
+        fecha: null,
 
-        presidente:
-          null,
+        observacion: ""
 
-        secretario:
-          null,
+      },
 
-        tesorera:
-          null,
+      tesorera: {
 
-        vocal1:
-          null,
+        voto: null,
 
-        vocal2:
-          null,
+        fecha: null,
 
-        comandante_operativo:
-          null
+        observacion: ""
+
+      },
+
+      vocal1: {
+
+        voto: null,
+
+        fecha: null,
+
+        observacion: ""
+
+      },
+
+      vocal2: {
+
+        voto: null,
+
+        fecha: null,
+
+        observacion: ""
+
+      },
+
+      comandante_operativo: {
+
+        voto: null,
+
+        fecha: null,
+
+        observacion: ""
 
       }
 
-    });
+    },
+
+    resultado: null,
+
+  fechaResolucion: null,
+
+resueltoPor: null,
+
+    totalFavor: 0,
+
+    totalContra: 0,
+
+    totalAbstencion: 0
+
+  });
 
   alert(
     `Acuerdo creado:\n${folio}`
