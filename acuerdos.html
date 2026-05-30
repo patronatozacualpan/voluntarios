@@ -249,5 +249,113 @@ Patronato Zacualpan
 
 <script src="acuerdos.js"></script>
 
+<!-- =====================================
+     MODAL EXPEDIENTE ACUERDO
+===================================== -->
+
+<div
+  id="modalAcuerdo"
+  class="modal-overlay"
+>
+
+  <div
+    class="modal-card"
+    style="max-width:700px;"
+  >
+
+    <h2>
+      Expediente de Acuerdo
+    </h2>
+
+    <div
+      id="contenidoAcuerdo"
+    >
+    </div>
+
+    <hr>
+
+    <h3>
+      Mi voto
+    </h3>
+
+    <div class="form-group">
+
+      <label>
+
+        <input
+          type="radio"
+          name="tipoVoto"
+          value="favor"
+        >
+
+        A favor
+
+      </label>
+
+      <br>
+
+      <label>
+
+        <input
+          type="radio"
+          name="tipoVoto"
+          value="contra"
+        >
+
+        En contra
+
+      </label>
+
+      <br>
+
+      <label>
+
+        <input
+          type="radio"
+          name="tipoVoto"
+          value="abstencion"
+        >
+
+        Abstención
+
+      </label>
+
+    </div>
+
+    <div class="form-group">
+
+      <label>
+        Observaciones
+      </label>
+
+      <textarea
+        id="observacionVoto"
+        rows="4"
+      ></textarea>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="secondary-btn"
+        onclick="cerrarModalAcuerdo()"
+      >
+        Cerrar
+      </button>
+
+      <button
+        id="btnGuardarVoto"
+        class="primary-btn"
+      >
+        Guardar voto
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+  
 </body>
 </html>
