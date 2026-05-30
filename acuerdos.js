@@ -20,6 +20,30 @@ document.addEventListener(
   }
 );
 
+async function validarPermisoCrear() {
+
+  const usuario =
+    window.PCZ_AUTH
+      ?.obtenerUsuarioActivo?.();
+
+  if (!usuario)
+    return;
+
+  if (
+    usuario.rol !==
+    "presidente"
+  ) {
+
+    document
+      .getElementById(
+        "seccionCrearAcuerdo"
+      )
+      ?.remove();
+
+  }
+
+}
+
 async function crearAcuerdo() {
 
   const firebaseTools =
@@ -287,3 +311,14 @@ async function cargarAcuerdos() {
   }
 
 }
+
+
+
+<section
+  id="seccionCrearAcuerdo"
+  class="dashboard-section"
+>
+
+
+
+    
