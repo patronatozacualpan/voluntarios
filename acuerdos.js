@@ -878,6 +878,29 @@ async function recalcularAcuerdo(id) {
 
 
 
+function obtenerSemaforo(resultado) {
+
+  if (
+    resultado === "aprobado"
+  ) {
+
+    return "🟢 Aprobado";
+
+  }
+
+  if (
+    resultado === "rechazado"
+  ) {
+
+    return "🔴 Rechazado";
+
+  }
+
+  return "🟡 Pendiente";
+
+}
+
+
 
 
     
