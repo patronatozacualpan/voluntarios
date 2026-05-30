@@ -1,1 +1,247 @@
-nuevo
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+Acuerdos | Patronato Zacualpan
+</title>
+
+<link
+  rel="stylesheet"
+  href="style.css"
+>
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="header-container">
+
+    <div class="brand">
+
+      <img
+        src="assets/logos/logo-patronato.png"
+        class="brand-logo"
+      >
+
+      <div>
+
+        <p class="brand-small">
+          Mesa Directiva
+        </p>
+
+        <h1>
+          Acuerdos y Autorizaciones
+        </h1>
+
+      </div>
+
+    </div>
+
+    <nav class="main-nav">
+
+      <a href="panel.html">
+        Panel
+      </a>
+
+      <a href="#">
+        Acuerdos
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<main class="page-section">
+
+<section class="dashboard-section">
+
+<div class="section-header">
+
+<span class="section-badge">
+MÓDULO 13
+</span>
+
+<h2>
+Crear Acuerdo
+</h2>
+
+<p>
+Solicitudes institucionales sujetas a votación.
+</p>
+
+</div>
+
+<div class="form-card">
+
+<div class="form-group">
+
+<label>
+Tipo
+</label>
+
+<select id="acuerdoTipo">
+
+<option value="compra_equipo">
+Compra de Equipo
+</option>
+
+<option value="evento">
+Evento
+</option>
+
+<option value="servicio">
+Servicio
+</option>
+
+<option value="otro">
+Otro
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Título
+</label>
+
+<input
+type="text"
+id="acuerdoTitulo"
+>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Descripción
+</label>
+
+<textarea
+id="acuerdoDescripcion"
+rows="4"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Justificación
+</label>
+
+<textarea
+id="acuerdoJustificacion"
+rows="4"
+></textarea>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Monto estimado
+</label>
+
+<input
+type="number"
+id="acuerdoMonto"
+>
+</div>
+
+<div class="form-group">
+
+<label>
+
+<input
+type="checkbox"
+id="requiereComandante"
+>
+
+Requiere voto del Comandante Operativo
+
+</label>
+
+</div>
+
+<button
+id="btnCrearAcuerdo"
+class="primary-btn"
+>
+
+Crear Acuerdo
+
+</button>
+
+</div>
+
+</section>
+
+<section class="dashboard-section">
+
+<div class="section-header">
+
+<h2>
+Acuerdos Registrados
+</h2>
+
+</div>
+
+<div
+id="contenedorAcuerdos"
+>
+
+Cargando acuerdos...
+
+</div>
+
+</section>
+
+</main>
+
+<footer class="site-footer">
+
+<div class="footer-container">
+
+<p>
+
+<strong>
+Patronato Zacualpan
+</strong>
+
+</p>
+
+</div>
+
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+
+<script src="auth.js"></script>
+
+<script src="acuerdos.js"></script>
+
+</body>
+</html>
