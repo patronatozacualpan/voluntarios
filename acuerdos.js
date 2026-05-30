@@ -115,10 +115,16 @@ async function crearAcuerdo() {
   const folio =
     `ACU-${anio}-${consecutivo}`;
 
+console.log(
+  "UID ACTUAL:",
+  firebase.auth().currentUser?.uid
+);
+  
   await db
     .collection(
       "acuerdos"
     )
+    
     .add({
 
       folio,
