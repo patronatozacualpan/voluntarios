@@ -585,10 +585,31 @@ if (yaVoto) {
 
       <hr>
 
-      ${votosHtml}
+${mensajeVoto}
+
+${votosHtml}
 
   `;
 
+const btnGuardar =
+  document
+    .getElementById(
+      "btnGuardarVoto"
+    );
+
+if (yaVoto) {
+
+  btnGuardar.style.display =
+    "none";
+
+} else {
+
+  btnGuardar.style.display =
+    "inline-block";
+
+}
+
+  
   document
     .getElementById(
       "modalAcuerdo"
