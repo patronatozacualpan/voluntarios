@@ -1552,7 +1552,7 @@ ordenRoles.forEach((rol) => {
   
 
 
-  y += 12;
+  y += 2;
 
   if (d.fechaResolucion) {
 
