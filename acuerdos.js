@@ -1499,39 +1499,11 @@ pdf.setDrawColor(
   120
 );
 
-pdf.line(
-  20,
-  y,
-  80,
-  y
-);
 
-pdf.line(
-  120,
-  y,
-  180,
-  y
-);
 
 pdf.setFontSize(8);
 
-pdf.text(
-  "Presidente",
-  50,
-  y + 5,
-  {
-    align: "center"
-  }
-);
 
-pdf.text(
-  "Secretario",
-  150,
-  y + 5,
-  {
-    align: "center"
-  }
-);
 
 
   pdf.save(
