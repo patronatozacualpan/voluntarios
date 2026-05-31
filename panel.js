@@ -108,7 +108,24 @@ setTimeout(() => {
    EXPORTAR CSV
 ===================================== */
 
-const btnExportar =
+const usuario =
+  window.PCZ_AUTH
+    ?.obtenerUsuarioActivo?.();
+
+if (
+  usuario?.rol !==
+  "presidente"
+) {
+
+  document
+    .getElementById(
+      "btnExportarSuscriptores"
+    )
+    ?.remove();
+
+}
+   
+   const btnExportar =
   document.getElementById(
     "btnExportarSuscriptores"
   );
@@ -365,6 +382,23 @@ function aplicarPermisosSuscriptores() {
 ===================================================== */
 
 async function exportarSuscriptoresCSV() {
+
+   const usuario =
+  window.PCZ_AUTH
+    ?.obtenerUsuarioActivo?.();
+
+if (
+  usuario?.rol !==
+  "presidente"
+) {
+
+  alert(
+    "Acceso restringido."
+  );
+
+  return;
+
+}
 
   try {
 
