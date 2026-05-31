@@ -1365,6 +1365,42 @@ Object.entries(
     y
   );
 
+y += 12;
+
+pdf.setFontSize(11);
+
+pdf.text(
+  "ACREDITACION DEL ACUERDO",
+  15,
+  y
+);
+
+y += 8;
+
+pdf.setFontSize(9);
+
+const textoAcreditacion =
+`
+Los votos consignados en la presente acta fueron emitidos por integrantes acreditados de la Mesa Directiva mediante acceso individual al Sistema Institucional del Patronato Zacualpan.
+
+Cada participacion queda registrada de forma digital junto con la identidad institucional del participante, fecha y hora de emision, formando parte del expediente historico permanente del Patronato.
+
+El presente documento refleja el resultado oficial del acuerdo aqui descrito y servira como constancia administrativa para la ejecucion, seguimiento y archivo de las acciones autorizadas por la Mesa Directiva.
+
+Toda modificacion posterior al presente acuerdo debera realizarse mediante un nuevo acuerdo institucional registrado y votado dentro del sistema.
+`;
+
+pdf.text(
+  pdf.splitTextToSize(
+    textoAcreditacion,
+    170
+  ),
+  15,
+  y
+);
+
+y += 45;
+  
 y += 20;
 
 pdf.line(
