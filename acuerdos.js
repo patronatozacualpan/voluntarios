@@ -1070,7 +1070,7 @@ let y = 18;
   255
 );
 
-pdf.setFontSize(16);
+pdf.setFontSize(18);
 
 pdf.text(
   "PATRONATO ZACUALPAN",
@@ -1098,7 +1098,7 @@ pdf.setTextColor(
 
 y = 55;
 
-  pdf.setFontSize(10);
+  pdf.setFontSize(12);
 
 pdf.setDrawColor(
   180,
