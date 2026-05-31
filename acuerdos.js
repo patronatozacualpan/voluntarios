@@ -1048,18 +1048,6 @@ pdf.rect(
 );
 
 
-if (logo) {
-
-pdf.addImage(
-  logo,
-  "PNG",
-  91,
-  6,
-  16,
-  16
-);
-
-}
 
   
 let y = 18;
