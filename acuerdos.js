@@ -1403,23 +1403,7 @@ y += 12;
 
 y += 8;
 
-pdf.line(
-  20,
-  y,
-  80,
-  y
-);
-
-pdf.line(
-  120,
-  y,
-  180,
-  y
-);
-
-y += 6;
-  
-y += 8;
+y += 4;
 
 pdf.line(
   20,
@@ -1435,18 +1419,26 @@ pdf.line(
   y
 );
 
-y += 6;
+y += 5;
+
+pdf.setFontSize(8);
 
 pdf.text(
   "Presidente",
-  35,
-  y
+  50,
+  y,
+  {
+    align: "center"
+  }
 );
 
 pdf.text(
   "Secretario",
-  135,
-  y
+  150,
+  y,
+  {
+    align: "center"
+  }
 );
 
 
