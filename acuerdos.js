@@ -974,34 +974,77 @@ async function descargarActaPDF() {
   } = window.jspdf;
 
   const pdf =
-    new jsPDF();
+  new jsPDF();
 
-  let y = 20;
+pdf.setFillColor(
+  0,
+  33,
+  71
+);
 
-  pdf.setFontSize(16);
+pdf.rect(
+  0,
+  0,
+  210,
+  28,
+  "F"
+);
 
-  pdf.text(
-    "PATRONATO ZACUALPAN",
-    105,
-    y,
-    { align: "center" }
-  );
+let y = 18;
 
-  y += 8;
+  pdf.setTextColor(
+  255,
+  255,
+  255
+);
 
-  pdf.setFontSize(12);
+pdf.setFontSize(16);
 
-  pdf.text(
-    "ACTA DIGITAL DE ACUERDO",
-    105,
-    y,
-    { align: "center" }
-  );
+pdf.text(
+  "PATRONATO ZACUALPAN",
+  105,
+  12,
+  {
+    align: "center"
+  }
+);
 
-  y += 15;
+pdf.setFontSize(11);
+
+pdf.text(
+  "ACTA DIGITAL DE ACUERDO",
+  105,
+  20,
+  {
+    align: "center"
+  }
+);
+
+pdf.setTextColor(
+  0,
+  0,
+  0
+);
+
+y = 40;
 
   pdf.setFontSize(10);
 
+pdf.setDrawColor(
+  180,
+  180,
+  180
+);
+
+pdf.roundedRect(
+  10,
+  y - 6,
+  190,
+  35,
+  3,
+  3
+);
+  
   pdf.text(
     `Folio: ${d.folio || "-"}`,
     15,
@@ -1084,11 +1127,38 @@ async function descargarActaPDF() {
 
   pdf.setFontSize(11);
 
-  pdf.text(
-    `Resultado: ${(d.resultado || "pendiente").toUpperCase()}`,
-    15,
-    y
-  );
+let resultadoTexto =
+  "PENDIENTE";
+
+if (
+  d.resultado ===
+  "aprobado"
+) {
+
+  resultadoTexto =
+    "ACUERDO APROBADO";
+
+}
+
+if (
+  d.resultado ===
+  "rechazado"
+) {
+
+  resultadoTexto =
+    "ACUERDO RECHAZADO";
+
+}
+
+pdf.setFontSize(13);
+
+pdf.text(
+  resultadoTexto,
+  15,
+  y
+);
+
+pdf.setFontSize(10);
 
   y += 10;
 
@@ -1116,21 +1186,81 @@ async function descargarActaPDF() {
 
   y += 15;
 
-  pdf.setFontSize(12);
+pdf.setFillColor(
+  240,
+  240,
+  240
+);
 
-  pdf.text(
-    "VOTACION REGISTRADA",
-    15,
-    y
-  );
+pdf.rect(
+  10,
+  y - 5,
+  190,
+  8,
+  "F"
+);
+
+pdf.setFontSize(12);
+
+pdf.text(
+  "VOTACION REGISTRADA",
+  15,
+  y
+);
 
   y += 10;
 
   pdf.setFontSize(10);
 
-  Object.entries(
-    d.votos || {}
-  ).forEach(([rol, voto]) => {
+ const nombresRoles = {
+
+  presidente:
+    "Presidente",
+
+  secretario:
+    "Secretario",
+
+  tesorera:
+    "Tesorera",
+
+  vocal1:
+    "Vocal 1",
+
+  vocal2:
+    "Vocal 2",
+
+  comandante_operativo:
+    "Comandante Operativo"
+
+};
+
+Object.entries(
+  d.votos || {}
+).forEach(([rol, voto]) => {
+
+  const nombreRol =
+    nombresRoles[rol] ||
+    rol;
+
+  const valorVoto =
+    voto?.voto ||
+    "pendiente";
+
+  pdf.text(
+    nombreRol,
+    15,
+    y
+  );
+
+  pdf.text(
+    valorVoto.toUpperCase(),
+    120,
+    y
+  );
+
+  y += 7;
+
+});
 
     pdf.text(
 
@@ -1177,6 +1307,37 @@ async function descargarActaPDF() {
     15,
     y
   );
+
+y += 20;
+
+pdf.line(
+  20,
+  y,
+  80,
+  y
+);
+
+pdf.line(
+  120,
+  y,
+  180,
+  y
+);
+
+y += 6;
+
+pdf.text(
+  "Presidente",
+  35,
+  y
+);
+
+pdf.text(
+  "Secretario",
+  135,
+  y
+);
+
 
   pdf.save(
     `ACTA-${d.folio || "ACUERDO"}.pdf`
