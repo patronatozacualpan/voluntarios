@@ -1262,18 +1262,6 @@ Object.entries(
 
 });
 
-    pdf.text(
-
-      `${rol}: ${voto?.voto || "pendiente"}`,
-
-      15,
-
-      y
-
-    );
-
-    y += 6;
-
 
   y += 12;
 
