@@ -1059,7 +1059,6 @@ let y = 18;
 
 pdf.setFontSize(18);
 
-pdf.text(
   pdf.text(
   "PATRONATO ZACUALPAN",
   105,
