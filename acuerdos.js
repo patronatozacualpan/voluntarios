@@ -1,3 +1,5 @@
+let logoPatronatoBase64 = null;
+
 let acuerdoActualData = null;
 
 let acuerdoActualId = null;
@@ -953,7 +955,58 @@ function obtenerSemaforo(resultado) {
 
 }
 
+async function cargarLogoPatronato() {
 
+  if (logoPatronatoBase64)
+    return logoPatronatoBase64;
+
+  try {
+
+    const response =
+      await fetch(
+        "assets/logos/logo-patronato.png"
+      );
+
+    const blob =
+      await response.blob();
+
+    return await new Promise(
+      (resolve) => {
+
+        const reader =
+          new FileReader();
+
+        reader.onload =
+          () => {
+
+            logoPatronatoBase64 =
+              reader.result;
+
+            resolve(
+              logoPatronatoBase64
+            );
+
+          };
+
+        reader.readAsDataURL(
+          blob
+        );
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando logo:",
+      error
+    );
+
+    return null;
+
+  }
+
+}
 
 async function descargarActaPDF() {
 
@@ -976,6 +1029,10 @@ async function descargarActaPDF() {
   const pdf =
   new jsPDF();
 
+  const logo =
+  await cargarLogoPatronato();
+  
+
 pdf.setFillColor(
   0,
   33,
@@ -986,10 +1043,32 @@ pdf.rect(
   0,
   0,
   210,
-  28,
+  40,
   "F"
 );
 
+
+if (logo) {
+
+  pdf.addImage(
+
+    logo,
+
+    "PNG",
+
+    88,
+
+    4,
+
+    18,
+
+    18
+
+  );
+
+}
+
+  
 let y = 18;
 
   pdf.setTextColor(
@@ -1003,7 +1082,7 @@ pdf.setFontSize(16);
 pdf.text(
   "PATRONATO ZACUALPAN",
   105,
-  12,
+  28,
   {
     align: "center"
   }
@@ -1014,7 +1093,7 @@ pdf.setFontSize(11);
 pdf.text(
   "ACTA DIGITAL DE ACUERDO",
   105,
-  20,
+  34,
   {
     align: "center"
   }
@@ -1026,7 +1105,7 @@ pdf.setTextColor(
   0
 );
 
-y = 40;
+y = 55;
 
   pdf.setFontSize(10);
 
