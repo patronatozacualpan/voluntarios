@@ -1370,7 +1370,7 @@ y += 12;
 pdf.setFontSize(11);
 
 pdf.text(
-  "ACREDITACION DEL ACUERDO",
+  "VALIDEZ DIGITAL DEL ACUERDO",
   15,
   y
 );
@@ -1381,13 +1381,11 @@ pdf.setFontSize(9);
 
 const textoAcreditacion =
 `
-Los votos consignados en la presente acta fueron emitidos por integrantes acreditados de la Mesa Directiva mediante acceso individual al Sistema Institucional del Patronato Zacualpan.
+Los votos registrados en la presente acta fueron emitidos mediante acceso autenticado al Sistema Institucional del Patronato Zacualpan.
 
-Cada participacion queda registrada de forma digital junto con la identidad institucional del participante, fecha y hora de emision, formando parte del expediente historico permanente del Patronato.
+Cada participación queda asociada al usuario, cargo, fecha y hora de emisión, formando parte del expediente digital permanente del acuerdo.
 
-El presente documento refleja el resultado oficial del acuerdo aqui descrito y servira como constancia administrativa para la ejecucion, seguimiento y archivo de las acciones autorizadas por la Mesa Directiva.
-
-Toda modificacion posterior al presente acuerdo debera realizarse mediante un nuevo acuerdo institucional registrado y votado dentro del sistema.
+El presente documento constituye evidencia administrativa interna de la resolución adoptada por la Mesa Directiva.
 `;
 
 pdf.text(
@@ -1399,10 +1397,26 @@ pdf.text(
   y
 );
 
-y += 45;
+y += 30;
+
+if (y > 230) {
+
+  pdf.addPage();
+
+  y = 25;
+
+}
   
 y += 20;
 
+if (y > 220) {
+
+  pdf.addPage();
+
+  y = 30;
+
+}
+  
 pdf.line(
   20,
   y,
