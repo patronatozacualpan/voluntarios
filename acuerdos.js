@@ -1068,8 +1068,7 @@ pdf.text(
     align: "center"
   }
 );
-
-pdf.text(
+  
   pdf.text(
   "ACTA DIGITAL DE ACUERDO",
   105,
