@@ -1053,10 +1053,10 @@ if (logo) {
 pdf.addImage(
   logo,
   "PNG",
-  84,
-  3,
-  25,
-  25
+  91,
+  4,
+  16,
+  16
 );
 
 }
@@ -1081,8 +1081,6 @@ pdf.text(
   }
 );
 
-pdf.setFontSize(11);
-
 pdf.text(
   "ACTA DIGITAL DE ACUERDO",
   105,
@@ -1091,7 +1089,7 @@ pdf.text(
     align: "center"
   }
 );
-
+  
 pdf.setTextColor(
   0,
   0,
