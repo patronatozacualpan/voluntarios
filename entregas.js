@@ -614,6 +614,11 @@ estado:
   "entregado"
   });
 
+   console.log(
+  "usuarioValidador:",
+  usuarioValidador
+);
+
 await generarPdfEntrega({
 
   folioEntrega:
