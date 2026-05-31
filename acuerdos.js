@@ -1060,18 +1060,20 @@ let y = 18;
 pdf.setFontSize(18);
 
 pdf.text(
+  pdf.text(
   "PATRONATO ZACUALPAN",
   105,
-  28,
+  15,
   {
     align: "center"
   }
 );
 
 pdf.text(
+  pdf.text(
   "ACTA DIGITAL DE ACUERDO",
   105,
-  34,
+  21,
   {
     align: "center"
   }
@@ -1083,7 +1085,7 @@ pdf.setTextColor(
   0
 );
 
-y = 55;
+y = 38;
 
   pdf.setFontSize(12);
 
