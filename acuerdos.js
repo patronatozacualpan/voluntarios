@@ -530,9 +530,30 @@ if (yaVoto) {
   let votosHtml =
     "<h3>Estado de votación</h3>";
 
-  Object.entries(
-    d.votos || {}
-  ).forEach(([rol, v]) => {
+  const ordenRoles = [
+
+  "presidente",
+
+  "secretario",
+
+  "tesorera",
+
+  "vocal1",
+
+  "vocal2",
+
+  "comandante_operativo"
+
+];
+
+ordenRoles.forEach((rol) => {
+
+  const v =
+    d.votos?.[rol];
+
+  if (!v)
+    return;
+  
 
     const estado =
       v?.voto
@@ -1367,9 +1388,30 @@ pdf.setTextColor(
   0
 );
 
-Object.entries(
-  d.votos || {}
-).forEach(([rol, voto]) => {
+const ordenRoles = [
+
+  "presidente",
+
+  "secretario",
+
+  "tesorera",
+
+  "vocal1",
+
+  "vocal2",
+
+  "comandante_operativo"
+
+];
+
+ordenRoles.forEach((rol) => {
+
+  const voto =
+    d.votos?.[rol];
+
+  if (!voto)
+    return;
+  
 
   const nombreRol =
     nombresRoles[rol] || rol;
