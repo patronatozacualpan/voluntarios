@@ -1460,11 +1460,15 @@ pdf.setFontSize(9);
 
 const textoAcreditacion =
 `
-Los votos registrados en la presente acta fueron emitidos mediante acceso autenticado al Sistema Institucional del Patronato Zacualpan.
+Los votos registrados en la presente acta fueron emitidos de manera individual mediante acceso autenticado al Sistema Institucional del Patronato Zacualpan utilizando las credenciales electrónicas asignadas a cada integrante autorizado de la Mesa Directiva.
 
-Cada participación queda asociada al usuario, cargo, fecha y hora de emisión, formando parte del expediente digital permanente del acuerdo.
+Cada participación queda asociada de forma permanente al usuario institucional, cargo, fecha y hora de emisión, formando parte del expediente digital oficial del Patronato Zacualpan.
 
-El presente documento constituye evidencia administrativa interna de la resolución adoptada por la Mesa Directiva.
+La información registrada se conserva para fines de consulta, seguimiento, auditoría interna y trazabilidad administrativa.
+
+La presente acta constituye evidencia documental digital de la resolución adoptada por la Mesa Directiva y produce efectos administrativos internos a partir de su fecha de emisión.
+
+La autenticidad del acuerdo puede verificarse mediante el folio institucional consignado en la presente acta.
 `;
 
 const lineasAcreditacion =
@@ -1493,15 +1497,34 @@ y +=
 
   + 10;
 
-pdf.setDrawColor(
-  120,
-  120,
-  120
+  pdf.setFillColor(
+  240,
+  240,
+  240
 );
 
+pdf.rect(
+  15,
+  y,
+  180,
+  10,
+  "F"
+);
 
+pdf.setFontSize(9);
 
-pdf.setFontSize(8);
+pdf.setFont(
+  "helvetica",
+  "bold"
+);
+
+pdf.text(
+  `Folio de validación: ${d.folio}`,
+  20,
+  y + 7
+);
+
+y += 15;
 
 
 
