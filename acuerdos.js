@@ -1573,7 +1573,7 @@ ordenRoles.forEach((rol) => {
       y
     );
 
-    y += 8;
+    y += 2;
   }
 
   pdf.setFontSize(9);
@@ -1584,7 +1584,7 @@ ordenRoles.forEach((rol) => {
     y
   );
 
-y += 6;
+y += 2;
 
 pdf.setFontSize(11);
 
