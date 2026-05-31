@@ -1054,7 +1054,7 @@ pdf.addImage(
   logo,
   "PNG",
   91,
-  8,
+  6,
   16,
   16
 );
