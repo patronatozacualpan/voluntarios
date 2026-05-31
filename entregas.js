@@ -614,6 +614,59 @@ estado:
   "entregado"
   });
 
+await generarPdfEntrega({
+
+  folioEntrega:
+    "ENT-" + Date.now(),
+
+  nombreEquipo:
+    (
+      await db
+        .collection(
+          "inventario_equipo"
+        )
+        .doc(
+          entregaActualId
+        )
+        .get()
+    ).data().nombreEquipo || "",
+
+  categoria:
+    (
+      await db
+        .collection(
+          "inventario_equipo"
+        )
+        .doc(
+          entregaActualId
+        )
+        .get()
+    ).data().categoria || "",
+
+  cantidad:
+    (
+      await db
+        .collection(
+          "inventario_equipo"
+        )
+        .doc(
+          entregaActualId
+        )
+        .get()
+    ).data().cantidad || 0,
+
+  fechaEntrega:
+    new Date()
+      .toLocaleString(),
+
+  recibidoPorNombre:
+    usuarioValidador.nombre,
+
+  recibidoPorRol:
+    usuarioValidador.rol
+
+});
+   
 alert(
   "✅ Entrega confirmada."
 );
