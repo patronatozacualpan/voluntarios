@@ -640,3 +640,203 @@ alert(
 }
 
 
+/* =====================================================
+   PDF ENTREGA OPERATIVA
+===================================================== */
+
+async function generarPdfEntrega(
+  datos
+) {
+
+  const {
+    jsPDF
+  } = window.jspdf;
+
+  const pdf =
+    new jsPDF();
+
+  pdf.setFillColor(
+    0,
+    33,
+    71
+  );
+
+  pdf.rect(
+    0,
+    0,
+    210,
+    25,
+    "F"
+  );
+
+  pdf.setTextColor(
+    255,
+    255,
+    255
+  );
+
+  pdf.setFontSize(16);
+
+  pdf.text(
+    "PATRONATO ZACUALPAN",
+    105,
+    12,
+    {
+      align: "center"
+    }
+  );
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    "ACTA DE ENTREGA OPERATIVA",
+    105,
+    20,
+    {
+      align: "center"
+    }
+  );
+
+  pdf.setTextColor(
+    0,
+    0,
+    0
+  );
+
+  let y = 40;
+
+  pdf.setFontSize(11);
+
+  pdf.text(
+    `Folio Entrega: ${datos.folioEntrega}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Equipo: ${datos.nombreEquipo}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Categoria: ${datos.categoria}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Cantidad: ${datos.cantidad}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Fecha: ${datos.fechaEntrega}`,
+    15,
+    y
+  );
+
+  y += 12;
+
+  pdf.setFontSize(12);
+
+  pdf.text(
+    "RESPONSABLE RECEPTOR",
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.setFontSize(10);
+
+  pdf.text(
+    `Nombre: ${datos.recibidoPorNombre}`,
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.text(
+    `Cargo: ${datos.recibidoPorRol}`,
+    15,
+    y
+  );
+
+  y += 12;
+
+  pdf.setFontSize(12);
+
+  pdf.text(
+    "VALIDACION DIGITAL",
+    15,
+    y
+  );
+
+  y += 8;
+
+  pdf.setFontSize(9);
+
+  const texto = `
+La presente entrega fue validada mediante credenciales institucionales y firma digital registrada en el Sistema Institucional del Patronato Zacualpan.
+
+La evidencia queda incorporada al expediente digital permanente de la entrega.
+
+Este documento constituye evidencia administrativa interna de la recepción operativa del equipo.
+`;
+
+  const lineas =
+    pdf.splitTextToSize(
+      texto,
+      170
+    );
+
+  pdf.text(
+    lineas,
+    15,
+    y
+  );
+
+  y +=
+    (lineas.length * 4)
+    + 15;
+
+  pdf.setFillColor(
+    240,
+    240,
+    240
+  );
+
+  pdf.rect(
+    15,
+    y,
+    180,
+    10,
+    "F"
+  );
+
+  pdf.setFontSize(9);
+
+  pdf.text(
+    "Firma digital registrada en el sistema institucional.",
+    20,
+    y + 7
+  );
+
+  pdf.save(
+    `${datos.folioEntrega}.pdf`
+  );
+
+}
+
+
