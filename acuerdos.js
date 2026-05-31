@@ -1274,7 +1274,6 @@ Object.entries(
 
     y += 6;
 
-  });
 
   y += 12;
 
