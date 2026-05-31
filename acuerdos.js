@@ -1414,6 +1414,12 @@ y +=
 
   + 10;
 
+pdf.setDrawColor(
+  120,
+  120,
+  120
+);
+
 pdf.line(
   20,
   y,
@@ -1428,14 +1434,12 @@ pdf.line(
   y
 );
 
-y += 5;
-
 pdf.setFontSize(8);
 
 pdf.text(
   "Presidente",
   50,
-  y,
+  y + 5,
   {
     align: "center"
   }
@@ -1444,7 +1448,7 @@ pdf.text(
 pdf.text(
   "Secretario",
   150,
-  y,
+  y + 5,
   {
     align: "center"
   }
