@@ -1388,22 +1388,31 @@ Cada participación queda asociada al usuario, cargo, fecha y hora de emisión, 
 El presente documento constituye evidencia administrativa interna de la resolución adoptada por la Mesa Directiva.
 `;
 
-pdf.text(
+const lineasAcreditacion =
+
   pdf.splitTextToSize(
+
     textoAcreditacion,
+
     170
-  ),
+
+  );
+
+pdf.text(
+
+  lineasAcreditacion,
+
   15,
+
   y
+
 );
 
-y += 12;
+y +=
 
-y += 12;
+  (lineasAcreditacion.length * 4)
 
-y += 8;
-
-y += 4;
+  + 10;
 
 pdf.line(
   20,
