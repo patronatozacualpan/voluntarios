@@ -1050,21 +1050,14 @@ pdf.rect(
 
 if (logo) {
 
-  pdf.addImage(
-
-    logo,
-
-    "PNG",
-
-    88,
-
-    4,
-
-    18,
-
-    18
-
-  );
+pdf.addImage(
+  logo,
+  "PNG",
+  84,
+  3,
+  25,
+  25
+);
 
 }
 
