@@ -1444,7 +1444,7 @@ Object.entries(
     y
   );
 
-y += 12;
+y += 6;
 
 pdf.setFontSize(11);
 
@@ -1477,7 +1477,7 @@ const lineasAcreditacion =
 
     textoAcreditacion,
 
-    170
+    155
 
   );
 
@@ -1485,7 +1485,7 @@ pdf.text(
 
   lineasAcreditacion,
 
-  15,
+  20,
 
   y
 
@@ -1504,9 +1504,9 @@ y +=
 );
 
 pdf.rect(
-  15,
+  20,
   y,
-  180,
+  170,
   10,
   "F"
 );
