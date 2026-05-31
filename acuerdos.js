@@ -1397,26 +1397,30 @@ pdf.text(
   y
 );
 
-y += 30;
+y += 12;
 
-if (y > 230) {
+y += 12;
 
-  pdf.addPage();
+y += 8;
 
-  y = 25;
+pdf.line(
+  20,
+  y,
+  80,
+  y
+);
 
-}
+pdf.line(
+  120,
+  y,
+  180,
+  y
+);
+
+y += 6;
   
-y += 20;
+y += 8;
 
-if (y > 220) {
-
-  pdf.addPage();
-
-  y = 30;
-
-}
-  
 pdf.line(
   20,
   y,
