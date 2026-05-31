@@ -1114,6 +1114,20 @@ pdf.roundedRect(
   3,
   3
 );
+
+if (logo) {
+
+  pdf.addImage(
+    logo,
+    "PNG",
+    165,
+    y - 3,
+    25,
+    25
+  );
+
+}
+
   
   pdf.text(
     `Folio: ${d.folio || "-"}`,
@@ -1304,33 +1318,111 @@ pdf.text(
 
 };
 
+pdf.setFillColor(
+  0,
+  33,
+  71
+);
+
+pdf.setTextColor(
+  255,
+  255,
+  255
+);
+
+pdf.rect(
+  15,
+  y,
+  70,
+  8,
+  "F"
+);
+
+pdf.rect(
+  85,
+  y,
+  45,
+  8,
+  "F"
+);
+
+pdf.rect(
+  130,
+  y,
+  60,
+  8,
+  "F"
+);
+
+pdf.text(
+  "CARGO",
+  20,
+  y + 5
+);
+
+pdf.text(
+  "VOTO",
+  95,
+  y + 5
+);
+
+pdf.text(
+  "ESTADO",
+  140,
+  y + 5
+);
+
+y += 10;
+
+pdf.setTextColor(
+  0,
+  0,
+  0
+);
+
 Object.entries(
   d.votos || {}
 ).forEach(([rol, voto]) => {
 
   const nombreRol =
-    nombresRoles[rol] ||
-    rol;
+    nombresRoles[rol] || rol;
 
   const valorVoto =
-    voto?.voto ||
-    "pendiente";
+    voto?.voto
+      ? voto.voto.toUpperCase()
+      : "PENDIENTE";
+
+  const estado =
+    voto?.fecha
+      ? "Emitido"
+      : "Sin emitir";
+
+  pdf.rect(15, y - 4, 70, 8);
+  pdf.rect(85, y - 4, 45, 8);
+  pdf.rect(130, y - 4, 60, 8);
 
   pdf.text(
     nombreRol,
-    15,
-    y
+    18,
+    y + 1
   );
 
   pdf.text(
-    valorVoto.toUpperCase(),
-    120,
-    y
+    valorVoto,
+    95,
+    y + 1
   );
 
-  y += 7;
+  pdf.text(
+    estado,
+    140,
+    y + 1
+  );
+
+  y += 8;
 
 });
+  
 
 
   y += 12;
