@@ -1194,7 +1194,7 @@ if (logo) {
     y
   );
 
-  y += 20;
+  y += 15;
 
   pdf.setFontSize(11);
 
@@ -1255,7 +1255,7 @@ pdf.setFontSize(10);
     y
   );
 
-  y += 15;
+  y += 6;
 
 pdf.setFillColor(
   240,
@@ -1279,7 +1279,7 @@ pdf.text(
   y
 );
 
-  y += 10;
+  y += 6;
 
   pdf.setFontSize(10);
 
