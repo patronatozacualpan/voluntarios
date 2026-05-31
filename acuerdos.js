@@ -1227,33 +1227,131 @@ if (
   "aprobado"
 ) {
 
-  resultadoTexto =
-    "ACUERDO APROBADO";
+  pdf.setFillColor(
+    220,
+    252,
+    231
+  );
+
+  pdf.roundedRect(
+    15,
+    y - 6,
+    85,
+    10,
+    2,
+    2,
+    "F"
+  );
+
+  pdf.setTextColor(
+    6,
+    95,
+    70
+  );
+
+  pdf.setFont(
+    "helvetica",
+    "bold"
+  );
+
+  pdf.text(
+    "ACUERDO APROBADO",
+    20,
+    y
+  );
 
 }
-
-if (
+else if (
   d.resultado ===
   "rechazado"
 ) {
 
-  resultadoTexto =
-    "ACUERDO RECHAZADO";
+  pdf.setFillColor(
+    254,
+    226,
+    226
+  );
+
+  pdf.roundedRect(
+    15,
+    y - 6,
+    85,
+    10,
+    2,
+    2,
+    "F"
+  );
+
+  pdf.setTextColor(
+    153,
+    27,
+    27
+  );
+
+  pdf.setFont(
+    "helvetica",
+    "bold"
+  );
+
+  pdf.text(
+    "ACUERDO RECHAZADO",
+    20,
+    y
+  );
+
+}
+else {
+
+  pdf.setFillColor(
+    254,
+    243,
+    199
+  );
+
+  pdf.roundedRect(
+    15,
+    y - 6,
+    85,
+    10,
+    2,
+    2,
+    "F"
+  );
+
+  pdf.setTextColor(
+    146,
+    64,
+    14
+  );
+
+  pdf.setFont(
+    "helvetica",
+    "bold"
+  );
+
+  pdf.text(
+    "ACUERDO PENDIENTE",
+    20,
+    y
+  );
 
 }
 
-pdf.setFontSize(13);
+pdf.setTextColor(
+  0,
+  0,
+  0
+);
 
-pdf.text(
-  resultadoTexto,
-  15,
-  y
+pdf.setFont(
+  "helvetica",
+  "normal"
 );
 
 pdf.setFontSize(10);
 
-  y += 10;
-
+y += 12;
+  
   pdf.text(
     `Favor: ${d.totalFavor || 0}`,
     15,
