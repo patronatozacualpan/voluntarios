@@ -573,7 +573,10 @@ await db
   true,
 
 recibidoPorNombre:
-  usuarioValidador.nombre,
+  usuarioValidador.nombre ||
+  usuarioValidador.displayName ||
+  usuarioValidador.email ||
+  "Comandante Operativo",
 
 comandanteNombreOficial:
   usuarioValidador.nombre,
