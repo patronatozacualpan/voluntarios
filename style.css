@@ -857,7 +857,7 @@ a {
 
   overflow: hidden;
 
-  height: 420px;
+  height: 500px;
 
   background: #eef2f7;
 
@@ -3412,12 +3412,11 @@ a {
 
 #contenedorEntregas .inventory-card {
 
-  max-width: 900px;
+  max-width: 950px;
 
   width: 100%;
 
 }
-
 
 .estado-badge {
 
