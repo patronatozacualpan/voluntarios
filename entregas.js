@@ -129,10 +129,16 @@ async function cargarEntregasPendientes() {
         <div class="inventory-body">
 
           <h3>
-            ${
-              d.nombreEquipo || ""
-            }
-          </h3>
+  ${
+    d.nombreEquipo || ""
+  }
+</h3>
+
+<span class="inventory-category">
+  ${
+    d.categoria || ""
+  }
+</span>
 
           <p>
             Categoría:
