@@ -3437,3 +3437,25 @@ a {
   font-size: 12px;
 
 }
+
+
+
+/* PRUEBA ENTREGAS */
+
+#contenedorEntregas {
+
+  max-width: 1200px !important;
+
+  margin: 0 auto !important;
+
+}
+
+#contenedorEntregas .inventory-card {
+
+  width: 95% !important;
+
+  max-width: 1100px !important;
+
+}
+
+
