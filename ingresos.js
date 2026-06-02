@@ -832,7 +832,6 @@ function obtenerFechaRegistroDonador(
 
 
 
-
 /* ---------------------------------------------------------
    Balance
 --------------------------------------------------------- */
@@ -841,7 +840,6 @@ function actualizarBalanceFormasPago(ingresos) {
 
   let efectivo = 0;
   let banco = 0;
-  let otros = 0;
 
   ingresos.forEach((ingreso) => {
 
@@ -855,32 +853,22 @@ function actualizarBalanceFormasPago(ingresos) {
 
       efectivo += monto;
 
-    } else if (
-      forma === "transferencia"
-      || forma === "deposito"
-      || forma === "spin_oxxo"
-    ) {
+    } else if (forma === "banco") {
 
       banco += monto;
 
-    } else {
-
-      otros += monto;
     }
 
   });
 
   const total =
-    efectivo + banco + otros;
+    efectivo + banco;
 
   const elEfectivo =
     document.getElementById("balanceEfectivo");
 
   const elBanco =
     document.getElementById("balanceBanco");
-
-  const elOtros =
-    document.getElementById("balanceOtros");
 
   const elTotal =
     document.getElementById("balanceTotalIngresos");
@@ -895,15 +883,11 @@ function actualizarBalanceFormasPago(ingresos) {
       formatoMoneda(banco);
   }
 
-  if (elOtros) {
-    elOtros.textContent =
-      formatoMoneda(otros);
-  }
-
   if (elTotal) {
     elTotal.textContent =
       formatoMoneda(total);
   }
+
 }
 
 /* ---------------------------------------------------------
