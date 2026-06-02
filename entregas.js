@@ -140,12 +140,7 @@ async function cargarEntregasPendientes() {
   }
 </span>
 
-          <p>
-            Categoría:
-            ${
-              d.categoria || ""
-            }
-          </p>
+         
 
           <p>
             Cantidad:
