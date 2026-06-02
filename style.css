@@ -710,17 +710,10 @@ a {
 
   height: 260px;
 
-  object-fit: cover;
-
-  display: block;
+  object-fit: contain;
 
   background: #eef2f7;
 
-  cursor: pointer;
-
-  transition:
-    transform .45s ease,
-    filter .35s ease;
 }
 
 /* EFECTO HOVER */
