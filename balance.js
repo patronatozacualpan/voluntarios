@@ -205,25 +205,12 @@ if (
         egresosEfectivo += monto;
       }
 
-  if (
-
-  fuente === "transferencia_spin" ||
-
-  fuente === "deposito_oxxo_spin" ||
-
-  fuente === "transferencia" ||
-
-  fuente === "deposito" ||
-
-  fuente === "spin_oxxo" ||
-
-  fuente === "otro"
-
-) {
+ if (fuente === "banco") {
 
   banco -= monto;
 
   egresosBanco += monto;
+
 }
     });
 
