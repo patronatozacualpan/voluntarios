@@ -247,7 +247,7 @@ if (
 
       proveedor,
 
-      fuentePago: "otro",
+      fuentePago: "banco",
 
 comprobanteUrl:
   comprobanteUrl || "",
