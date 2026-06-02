@@ -135,19 +135,15 @@ if (forma === "efectivo") {
 }
 
 /* =========================================
-   BANCO / SPIN
+   BANCO
 ========================================= */
 
-if (
-  forma === "transferencia_spin" ||
-  forma === "deposito_oxxo_spin" ||
+if (forma === "banco") {
 
-  forma === "transferencia" ||
-  forma === "deposito" ||
-  forma === "spin_oxxo"
-) {
   banco += monto;
+
   ingresosBanco += monto;
+
 }
 
     });
