@@ -78,17 +78,30 @@ function pintarOpiniones(opiniones) {
 
     const tr = document.createElement("tr");
 
-    tr.innerHTML = `
-      <td>${escapeHtml(fecha)}</td>
-      <td>${escapeHtml(opinion.nombre || "Anónimo")}</td>
-      <td>${escapeHtml(opinion.telefono || "")}</td>
-      <td>${escapeHtml(opinion.poblacion || "")}</td>
-      <td>${formatearApoyo(opinion.apoyaCausa)}</td>
-      <td>${formatearNecesidad(opinion.necesidadUrgente)}</td>
-      <td>${formatearQuiereDonar(opinion.quiereSerDonador)}</td>
-      <td>${"★".repeat(Number(opinion.calificacion || 0))}</td>
-      <td>${escapeHtml(opinion.opinion || "")}</td>
-    `;
+   tr.innerHTML = `
+  <td>${escapeHtml(fecha)}</td>
+  <td>${escapeHtml(opinion.nombre || "Anónimo")}</td>
+  <td>${escapeHtml(opinion.telefono || "")}</td>
+  <td>${escapeHtml(opinion.poblacion || "")}</td>
+  <td>${formatearApoyo(opinion.apoyaCausa)}</td>
+  <td>${formatearNecesidad(opinion.necesidadUrgente)}</td>
+  <td>${formatearQuiereDonar(opinion.quiereSerDonador)}</td>
+  <td>${"★".repeat(Number(opinion.calificacion || 0))}</td>
+  <td>${escapeHtml(opinion.opinion || "")}</td>
+
+  <td>
+    ${opinion.estadoRevision || "pendiente"}
+  </td>
+
+  <td>
+    <button
+      class="btn btn-small"
+      onclick="marcarRevisada('${opinion.id}')"
+    >
+      Revisar
+    </button>
+  </td>
+`;
 
     tbody.appendChild(tr);
   });
@@ -160,3 +173,48 @@ function escapeHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+
+
+
+async function marcarRevisada(id) {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } =
+    firebaseTools;
+
+  try {
+
+    await db
+      .collection("opiniones")
+      .doc(id)
+      .update({
+
+        estadoRevision:
+          "revisada"
+
+      });
+
+    await cargarOpinionesAdmin();
+
+  } catch (error) {
+
+    console.error(
+      "Error actualizando opinión:",
+      error
+    );
+
+    alert(
+      "⚠️ No se pudo actualizar la opinión."
+    );
+
+  }
+
+}
+
+
+
