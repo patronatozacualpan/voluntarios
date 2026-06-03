@@ -300,15 +300,13 @@ async function calcularBalanceOperativo() {
       const monto = Number(d.monto || 0);
       const forma = d.formaPago || "";
 
-      if (forma === "efectivo") {
-        efectivo += monto;
-      } else if (
-        forma === "transferencia" ||
-        forma === "deposito" ||
-        forma === "spin_oxxo"
-      ) {
-        banco += monto;
-      }
+    if (forma === "efectivo") {
+  efectivo += monto;
+}
+
+if (forma === "banco") {
+  banco += monto;
+}
     });
 
     traspasosSnap.forEach((doc) => {
@@ -382,13 +380,9 @@ async function obtenerBalanceActual() {
       efectivo += monto;
     }
 
-    if (
-      forma === "transferencia" ||
-      forma === "deposito" ||
-      forma === "spin_oxxo"
-    ) {
-      banco += monto;
-    }
+   if (forma === "banco") {
+  banco += monto;
+}
   });
 
   /* =========================
