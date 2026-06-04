@@ -198,15 +198,218 @@ async function cargarInventarioPublico() {
 
     contenedor.innerHTML = "";
 
+    let totalInvertido = 0;
+    let totalRegistrados = 0;
+    let totalEntregados = 0;
+
     snap.forEach((doc) => {
 
       const d = doc.data();
+
+      totalRegistrados++;
+
+      totalInvertido += Number(
+        d.costoTotal || 0
+      );
+
+      if (d.estado === "entregado") {
+        totalEntregados++;
+      }
 
       const card = document.createElement("div");
 
       card.className = "inventory-card";
 
-     card.innerHTML = `
+      card.innerHTML = `
+
+        ${
+          (d.imagenUrl || d.fotoEquipoUrl)
+
+            ? `
+
+              <img
+                src="${d.imagenUrl || d.fotoEquipoUrl}"
+                alt="Equipo"
+                class="inventory-image"
+                onclick="abrirModalImagen('${d.imagenUrl || d.fotoEquipoUrl}')"
+              >
+
+            `
+
+            : `
+
+              <div class="inventory-placeholder">
+
+                📍
+
+                <span>
+                  Evidencia visual pendiente
+                  de documentación
+                </span>
+
+              </div>
+
+            `
+        }
+
+        <div class="inventory-card-body">
+
+          <p class="inventory-label">
+
+            ${escapeHtml(
+              formatearCategoria(
+                d.categoria || ""
+              )
+            )}
+
+          </p>
+
+          <h3>
+
+            ${escapeHtml(
+              d.nombreEquipo || ""
+            )}
+
+          </h3>
+
+          <p class="inventory-description">
+
+            ${
+              escapeHtml(
+                d.descripcion || ""
+              ) || "Sin descripción."
+            }
+
+          </p>
+
+          <div class="inventory-data">
+
+            <p>
+
+              <strong>Cantidad:</strong>
+
+              ${Number(
+                d.cantidad || 0
+              )}
+
+            </p>
+
+            <p>
+
+              <strong>Inversión:</strong>
+
+              ${formatoMoneda(
+                d.costoTotal || 0
+              )}
+
+            </p>
+
+            <div
+              class="
+                status-chip
+                status-${d.estado || ""}
+              "
+            >
+
+              ${escapeHtml(
+                formatearEstado(
+                  d.estado || ""
+                )
+              )}
+
+            </div>
+
+            ${
+              d.comprobanteUrl
+
+                ? `
+
+                  <a
+                    href="${d.comprobanteUrl}"
+                    target="_blank"
+                    class="btn-evidencia"
+                  >
+                    Ver comprobante
+                  </a>
+
+                `
+
+                : ""
+            }
+
+          </div>
+
+        </div>
+
+      `;
+
+      contenedor.appendChild(card);
+
+    });
+
+    /* =====================================
+       RESUMEN SUPERIOR
+    ===================================== */
+
+    const totalInvertidoEl =
+      document.getElementById(
+        "publicoTotalInvertido"
+      );
+
+    const totalRegistradosEl =
+      document.getElementById(
+        "publicoEquiposRegistrados"
+      );
+
+    const totalEntregadosEl =
+      document.getElementById(
+        "publicoEquiposEntregados"
+      );
+
+    if (totalInvertidoEl) {
+
+      totalInvertidoEl.textContent =
+        formatoMoneda(
+          totalInvertido
+        );
+
+    }
+
+    if (totalRegistradosEl) {
+
+      totalRegistradosEl.textContent =
+        totalRegistrados;
+
+    }
+
+    if (totalEntregadosEl) {
+
+      totalEntregadosEl.textContent =
+        totalEntregados;
+
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando inventario público:",
+      error
+    );
+
+    contenedor.innerHTML = `
+
+      <div class="info-card">
+
+        <p>
+          ⚠️ No se pudo cargar la
+          información pública.
+        </p>
+
+      </div>
+
+    `;
+  }
+}
 
   <!-- =====================================
        IMAGEN / PLACEHOLDER
