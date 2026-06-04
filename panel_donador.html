@@ -58,13 +58,31 @@
         <div class="filters-card">
           <input type="search" id="buscarDonador" placeholder="Buscar por nombre, teléfono o población...">
 
-          <select id="filtroEstatus">
-            <option value="">Todos los estatus</option>
-            <option value="al_dia">Al día</option>
-            <option value="adelantado">Adelantado</option>
-            <option value="atrasado">Atrasado</option>
-            <option value="pendiente">Pendiente de validar</option>
-          </select>
+<select id="filtroEstatus">
+  <option value="">Todos los estatus</option>
+
+  <option value="pendiente">
+    Pendiente de validar
+  </option>
+
+  <option value="primera_aportacion">
+    Primera aportación
+  </option>
+
+  <option value="al_dia">
+    Al día
+  </option>
+
+  <option value="adelantado">
+    Adelantado
+  </option>
+
+  <option value="atrasado">
+    Atrasado
+  </option>
+
+</select>
+
 
           <button id="btnRecargarDonadores" class="btn btn-secondary">Actualizar</button>
         </div>
