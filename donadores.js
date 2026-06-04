@@ -304,6 +304,27 @@ function crearMensajeWhatsApp(donador, calculo) {
   const promesa = formatoMoneda(donador.promesaMensual || 0);
   const pendiente = formatoMoneda(calculo.montoPendiente || 0);
 
+if (calculo.estatusClave === "primera_aportacion") {
+
+  return `Hola ${nombre}.
+
+Gracias por confirmar tu participación como padrino del Patronato Zacualpan.
+
+Tu apoyo mensual comprometido es de ${promesa}.
+
+Aún no aparece registrada tu primera aportación y queremos compartirte las opciones disponibles para realizarla:
+
+1.- Entregarla directamente a Tesorería.
+
+2.- Transferencia bancaria.
+
+3.- Depósito en OXXO.
+
+Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualpan.
+
+Muchas gracias por formar parte de esta causa.`;
+}
+   
   if (calculo.estatusClave === "atrasado") {
     return `Hola ${nombre}, este es un recordatorio amistoso del Patronato Zacualpan. Tu aportación aparece pendiente por ${pendiente}. Cada peso ayuda a fortalecer a Protección Civil Zacualpan. Gracias por seguir apoyando esta causa.`;
   }
