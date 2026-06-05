@@ -8,8 +8,10 @@ document.addEventListener(
 
     iniciarModuloPublicaciones();
 
-iniciarPreviewImagen();
-     
+    iniciarPreviewImagen();
+
+    cargarPublicacionesRecientes();
+
   }
 );
 
@@ -264,3 +266,120 @@ storage.ref().child(ruta);
     );
   }
 }
+
+
+
+/* =========================================================
+   PUBLICACIONES RECIENTES
+========================================================= */
+
+async function cargarPublicacionesRecientes() {
+
+  try {
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    if (!firebaseTools?.db) return;
+
+    const { db } = firebaseTools;
+
+    const tabla =
+      document.getElementById(
+        "tablaPublicaciones"
+      );
+
+    if (!tabla) return;
+
+    const snap = await db
+      .collection("publicaciones")
+      .orderBy(
+        "creadoEn",
+        "desc"
+      )
+      .limit(20)
+      .get();
+
+    if (snap.empty) {
+
+      tabla.innerHTML = `
+
+        <tr>
+
+          <td colspan="5">
+
+            No hay publicaciones.
+
+          </td>
+
+        </tr>
+
+      `;
+
+      return;
+    }
+
+    tabla.innerHTML = "";
+
+    snap.forEach((doc) => {
+
+      const d = doc.data();
+
+      const fecha =
+        d.creadoEn?.toDate
+          ? d.creadoEn
+              .toDate()
+              .toLocaleDateString("es-MX")
+          : "-";
+
+      tabla.innerHTML += `
+
+        <tr>
+
+          <td>${fecha}</td>
+
+          <td>${escapeHtml(
+            d.titulo || ""
+          )}</td>
+
+          <td>${escapeHtml(
+            d.tipo || "-"
+          )}</td>
+
+          <td>
+
+            ${
+              d.activa
+                ? "✅ Activa"
+                : "❌ Inactiva"
+            }
+
+          </td>
+
+          <td>
+
+            <button
+              class="secondary-btn"
+              onclick="eliminarPublicacion('${doc.id}')"
+            >
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Error cargando publicaciones:",
+      error
+    );
+  }
+}
+
+
