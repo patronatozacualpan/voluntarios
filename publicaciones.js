@@ -254,6 +254,8 @@ storage.ref().child(ruta);
       "Publicación guardada correctamente."
     );
 
+cargarPublicacionesRecientes();
+     
   } catch (error) {
 
     console.error(
@@ -378,6 +380,49 @@ async function cargarPublicacionesRecientes() {
     console.error(
       "Error cargando publicaciones:",
       error
+    );
+  }
+}
+
+
+/* =========================================================
+   ELIMINAR PUBLICACION
+========================================================= */
+
+async function eliminarPublicacion(id) {
+
+  try {
+
+    const confirmar =
+      confirm(
+        "¿Eliminar publicación?"
+      );
+
+    if (!confirmar) return;
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    const { db } =
+      firebaseTools;
+
+    await db
+      .collection("publicaciones")
+      .doc(id)
+      .delete();
+
+    alert(
+      "Publicación eliminada."
+    );
+
+    cargarPublicacionesRecientes();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "No se pudo eliminar."
     );
   }
 }
