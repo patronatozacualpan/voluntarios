@@ -26,37 +26,134 @@
 </header>
 
 <main>
+
   <section class="section">
-    <div class="section-container">
 
-      <p class="section-label">Seguimiento</p>
-      <h2>Cobranza amable y agradecimientos</h2>
+```
+<div class="section-container">
 
-      <div class="info-card large">
-        <h3>Módulo WhatsApp</h3>
-        <p>
-          Este módulo servirá para dar seguimiento a donadores, enviar recordatorios,
-          agradecimientos y mensajes informativos del patronato.
-        </p>
-        <p>
-          Por ahora funcionará como seguimiento manual mediante enlaces WhatsApp.
-          En una fase posterior se conectará con WhatsApp Cloud API y plantillas aprobadas por Meta.
-        </p>
-      </div>
+  <p class="section-label">
+    Seguimiento a Donadores
+  </p>
 
-      <div class="table-card">
-        <h3>Próximas funciones</h3>
-        <ul>
-          <li>Recordatorio manual por donador.</li>
-          <li>Agradecimiento automático después de registrar ingreso.</li>
-          <li>Plantillas de cobranza amable.</li>
-          <li>Mensajes para donadores atrasados.</li>
-          <li>Registro de historial de mensajes.</li>
-        </ul>
-      </div>
+  <h2>
+    WhatsApp y seguimiento institucional
+  </h2>
+
+  <div class="dashboard-grid">
+
+    <article class="dashboard-card">
+      <span>
+        Primera aportación pendiente
+      </span>
+
+      <strong id="totalPrimeraAportacion">
+        0
+      </strong>
+    </article>
+
+    <article class="dashboard-card">
+      <span>
+        Donadores atrasados
+      </span>
+
+      <strong id="totalAtrasados">
+        0
+      </strong>
+    </article>
+
+    <article class="dashboard-card">
+      <span>
+        Aceptan WhatsApp
+      </span>
+
+      <strong id="totalWhatsApp">
+        0
+      </strong>
+    </article>
+
+    <article class="dashboard-card featured">
+      <span>
+        Total seguimiento
+      </span>
+
+      <strong id="totalSeguimiento">
+        0
+      </strong>
+    </article>
+
+  </div>
+
+  <div class="info-card">
+
+    <h3>
+      Seguimiento manual
+    </h3>
+
+    <p>
+      Este módulo concentra únicamente los
+      donadores que requieren contacto o seguimiento.
+    </p>
+
+    <p>
+      Los mensajes se envían manualmente
+      mediante WhatsApp mientras se implementa
+      la automatización institucional.
+    </p>
+
+  </div>
+
+  <div class="table-card">
+
+    <div class="table-responsive">
+
+      <table class="data-table">
+
+        <thead>
+
+          <tr>
+
+            <th>Nombre</th>
+
+            <th>Teléfono</th>
+
+            <th>Promesa</th>
+
+            <th>Aportado</th>
+
+            <th>Estatus</th>
+
+            <th>Acción</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody id="tablaSeguimientoBody">
+
+          <tr>
+
+            <td colspan="6">
+
+              Cargando seguimiento...
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
 
     </div>
+
+  </div>
+
+</div>
+```
+
   </section>
+
 </main>
 
 <footer class="site-footer">
@@ -71,6 +168,9 @@
 
 <script src="configuracion-firebase.js"></script>
 <script src="auth.js"></script>
+  
+<script src="whatsapp.js"></script>
+
 
 </body>
 </html>
