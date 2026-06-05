@@ -603,6 +603,10 @@ Aún no aparece registrada tu primera aportación y queremos compartirte las opc
 
 Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualpan.
 
+Puedes consultar los avances, compras, entregas, transparencia financiera e inventario público del patronato en:
+
+https://patronatozacualpan.github.io/voluntarios/
+
 Muchas gracias por formar parte de esta causa.`;
 
   }
