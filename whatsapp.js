@@ -593,7 +593,7 @@ Gracias por confirmar tu participación como padrino del Patronato Zacualpan.
 
 Tu apoyo mensual comprometido es de ${promesa}.
 
-Aún no aparece registrada tu primera aportación y queremos compartirte las opciones disponibles para realizarla:
+Aún no vemos reflejada tu primera aportación en nuestros registros. y queremos compartirte las opciones disponibles para realizarla:
 
 1.- Entregarla directamente a Tesorería.
 
