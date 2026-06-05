@@ -561,3 +561,167 @@ function calcularMesesTranscurridos(
   return meses;
 
 }
+
+
+/* ---------------------------------------------------------
+   WhatsApp
+--------------------------------------------------------- */
+
+function crearMensajeWhatsApp(donador, calculo) {
+
+  const nombre =
+    donador.nombre || "amigo";
+
+  const promesa =
+    formatoMoneda(
+      donador.promesaMensual || 0
+    );
+
+  const pendiente =
+    formatoMoneda(
+      calculo.montoPendiente || 0
+    );
+
+  if (
+    calculo.estatusClave ===
+    "primera_aportacion"
+  ) {
+
+    return `Hola ${nombre}.
+
+Gracias por confirmar tu participación como padrino del Patronato Zacualpan.
+
+Tu apoyo mensual comprometido es de ${promesa}.
+
+Aún no aparece registrada tu primera aportación y queremos compartirte las opciones disponibles para realizarla:
+
+1.- Entregarla directamente a Tesorería.
+
+2.- Transferencia bancaria.
+
+3.- Depósito en OXXO.
+
+Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualpan.
+
+Muchas gracias por formar parte de esta causa.`;
+
+  }
+
+  if (
+    calculo.estatusClave ===
+    "atrasado"
+  ) {
+
+    return `Hola ${nombre}.
+
+Te saludamos con gusto desde el Patronato Zacualpan.
+
+El periodo cubierto por tus aportaciones anteriores ya ha transcurrido.
+
+Tu apoyo sigue siendo muy importante para fortalecer el equipamiento de Protección Civil Zacualpan.
+
+Si deseas continuar participando como padrino, con gusto seguiremos contando contigo.
+
+Gracias por formar parte de esta iniciativa ciudadana.`;
+
+  }
+
+  if (
+    calculo.estatusClave ===
+    "adelantado"
+  ) {
+
+    return `Hola ${nombre}.
+
+Gracias por tu apoyo al Patronato Zacualpan.
+
+Tu aportación va adelantada y eso fortalece mucho la causa de Protección Civil.`;
+
+  }
+
+  if (
+    calculo.estatusClave ===
+    "al_dia"
+  ) {
+
+    return `Hola ${nombre}.
+
+Gracias por mantenerte al día con tu apoyo mensual de ${promesa} al Patronato Zacualpan.
+
+Tu generosidad equipa a nuestros héroes voluntarios.`;
+
+  }
+
+  return `Hola ${nombre}.
+
+Gracias por registrarte como donador del Patronato Zacualpan.
+
+Queremos confirmar tu apoyo mensual de ${promesa} para fortalecer a Protección Civil Zacualpan.`;
+
+}
+
+/* ---------------------------------------------------------
+   Telefono WhatsApp
+--------------------------------------------------------- */
+
+function normalizarTelefonoParaWhatsApp(
+  telefono
+) {
+
+  const limpio =
+    String(telefono || "")
+      .replace(/\D/g, "");
+
+  if (limpio.length === 10) {
+
+    return `52${limpio}`;
+
+  }
+
+  if (
+    limpio.length === 12
+    &&
+    limpio.startsWith("52")
+  ) {
+
+    return limpio;
+
+  }
+
+  return limpio;
+
+}
+
+/* ---------------------------------------------------------
+   Formato moneda
+--------------------------------------------------------- */
+
+function formatoMoneda(valor) {
+
+  return Number(valor || 0)
+    .toLocaleString(
+      "es-MX",
+      {
+        style: "currency",
+        currency: "MXN"
+      }
+    );
+
+}
+
+/* ---------------------------------------------------------
+   Escape HTML
+--------------------------------------------------------- */
+
+function escapeHtml(texto) {
+
+  return String(texto || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
