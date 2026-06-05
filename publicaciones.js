@@ -345,7 +345,7 @@ async function cargarPublicacionesRecientes() {
           )}</td>
 
           <td>${escapeHtml(
-            d.tipo || "-"
+            d.tipoPublicacion || "-"
           )}</td>
 
           <td>
