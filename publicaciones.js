@@ -211,22 +211,26 @@ storage.ref().child(ruta);
        GUARDAR FIRESTORE
     ===================================== */
 
-    await db
-      .collection("publicaciones")
-      .add({
+  await db
+  .collection("publicaciones")
+  .add({
 
-        titulo,
-        descripcion,
+    tipoPublicacion,
 
-        imagenUrl,
+    titulo,
 
-        activa,
-        publico,
+    descripcion,
 
-        creadoEn:
-          firebase.firestore.FieldValue.serverTimestamp()
+    imagenUrl,
 
-      });
+    activa,
+
+    publico,
+
+    creadoEn:
+      firebase.firestore.FieldValue.serverTimestamp()
+
+  });
 
     /* =====================================
        LIMPIAR
