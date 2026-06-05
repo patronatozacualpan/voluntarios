@@ -113,6 +113,11 @@ async function guardarPublicacion() {
       storage
     } = firebaseTools;
 
+const tipoPublicacion =
+  document.getElementById(
+    "tipoPublicacion"
+  )?.value || "aviso";
+     
     /* =====================================
        CAMPOS
     ===================================== */
