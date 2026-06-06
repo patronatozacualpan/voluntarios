@@ -340,10 +340,36 @@ async function cargarPublicacionesRecientes() {
 
     tabla.innerHTML = "";
 
+
+let totalPublicaciones = 0;
+let totalActivas = 0;
+let totalInactivas = 0;
+let totalConImagen = 0;
+     
+
     snap.forEach((doc) => {
 
       const d = doc.data();
 
+totalPublicaciones++;
+
+if (d.activa) {
+
+  totalActivas++;
+
+} else {
+
+  totalInactivas++;
+
+}
+
+if (d.imagenUrl) {
+
+  totalConImagen++;
+
+}
+
+       
       const fecha =
         d.creadoEn?.toDate
           ? d.creadoEn
@@ -456,6 +482,27 @@ async function cargarPublicacionesRecientes() {
     });
 
   } catch (error) {
+
+     document.getElementById(
+  "totalPublicaciones"
+).textContent =
+  totalPublicaciones;
+
+document.getElementById(
+  "totalActivas"
+).textContent =
+  totalActivas;
+
+document.getElementById(
+  "totalInactivas"
+).textContent =
+  totalInactivas;
+
+document.getElementById(
+  "totalConImagen"
+).textContent =
+  totalConImagen;
+     
 
     console.error(
       "Error cargando publicaciones:",
