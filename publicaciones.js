@@ -355,40 +355,81 @@ async function cargarPublicacionesRecientes() {
 
         <tr>
 
-          <td>${fecha}</td>
+       <td>${fecha}</td>
 
-          <td>${escapeHtml(
-            d.titulo || ""
-          )}</td>
+<td>
 
-          <td>${escapeHtml(
-            d.tipoPublicacion || "-"
-          )}</td>
+  ${
+    d.imagenUrl
 
-          <td>
+      ? `
+        <img
+          src="${d.imagenUrl}"
+          style="
+            width:80px;
+            height:60px;
+            object-fit:cover;
+            border-radius:6px;
+            border:1px solid #ddd;
+          "
+        >
+      `
 
-            ${
-              d.activa
-                ? "✅ Activa"
-                : "❌ Inactiva"
-            }
+      : "—"
+  }
 
-          </td>
+</td>
 
-         <td>
+<td>
+
+  ${escapeHtml(
+    d.titulo || ""
+  )}
+
+</td>
+
+<td>
+
+  ${escapeHtml(
+    d.tipoPublicacion || "aviso"
+  )}
+
+</td>
+
+<td>
+
+  ${
+    d.publico
+      ? "🌎 Pública"
+      : "🔒 Oculta"
+  }
+
+</td>
+
+<td>
+
+  ${
+    d.activa
+      ? "✅ Activa"
+      : "❌ Inactiva"
+  }
+
+</td>
+
+<td>
 
   <button
     class="secondary-btn"
     onclick="editarPublicacion('${doc.id}')"
   >
-    Editar
+    ✏ Editar
   </button>
 
   <button
     class="secondary-btn"
     onclick="eliminarPublicacion('${doc.id}')"
   >
-    Eliminar
+    🗑 Eliminar
   </button>
 
 </td>
