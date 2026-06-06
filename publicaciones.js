@@ -419,18 +419,32 @@ async function cargarPublicacionesRecientes() {
 <td>
 
   <button
-    class="secondary-btn"
-    onclick="editarPublicacion('${doc.id}')"
-  >
-    ✏ Editar
-  </button>
+  class="secondary-btn"
+  onclick="editarPublicacion('${doc.id}')"
+>
+  ✏ Editar
+</button>
 
-  <button
-    class="secondary-btn"
-    onclick="eliminarPublicacion('${doc.id}')"
-  >
-    🗑 Eliminar
-  </button>
+<button
+  class="secondary-btn"
+  onclick="cambiarEstadoPublicacion(
+    '${doc.id}',
+    ${!d.activa}
+  )"
+>
+  ${
+    d.activa
+      ? "👁 Ocultar"
+      : "👁 Mostrar"
+  }
+</button>
+
+<button
+  class="secondary-btn"
+  onclick="eliminarPublicacion('${doc.id}')"
+>
+  🗑 Eliminar
+</button>
 
 </td>
 
@@ -575,6 +589,52 @@ async function editarPublicacion(id) {
 
     alert(
       "No se pudo abrir la publicación."
+    );
+  }
+}
+
+
+/* =========================================================
+   ACTIVAR / DESACTIVAR
+========================================================= */
+
+async function cambiarEstadoPublicacion(
+  id,
+  nuevoEstado
+) {
+
+  try {
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    if (!firebaseTools?.db) return;
+
+    const { db } = firebaseTools;
+
+    await db
+      .collection("publicaciones")
+      .doc(id)
+      .update({
+
+        activa: nuevoEstado,
+
+        actualizadoEn:
+          firebase.firestore.FieldValue.serverTimestamp()
+
+      });
+
+    cargarPublicacionesRecientes();
+
+  } catch (error) {
+
+    console.error(
+      "Error cambiando estado:",
+      error
+    );
+
+    alert(
+      "No se pudo actualizar la publicación."
     );
   }
 }
