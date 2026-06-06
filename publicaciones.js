@@ -217,7 +217,7 @@ storage.ref().child(ruta);
        GUARDAR FIRESTORE
     ===================================== */
 
- const datosPublicacion = {
+const datosPublicacion = {
 
   titulo,
   descripcion,
@@ -249,42 +249,27 @@ if (PUBLICACION_EDITANDO) {
     .add(datosPublicacion);
 }
 
-    tipoPublicacion,
+/* =====================================
+   LIMPIAR
+===================================== */
 
-    titulo,
+PUBLICACION_EDITANDO = null;
 
-    descripcion,
+document.getElementById(
+  "tituloPublicacion"
+).value = "";
 
-    imagenUrl,
+document.getElementById(
+  "descripcionPublicacion"
+).value = "";
 
-    activa,
+document.getElementById(
+  "imagenPublicacion"
+).value = "";
 
-    publico,
-
-    creadoEn:
-      firebase.firestore.FieldValue.serverTimestamp()
-
-  });
-
-    /* =====================================
-       LIMPIAR
-    ===================================== */
-
-    document.getElementById(
-      "tituloPublicacion"
-    ).value = "";
-
-    document.getElementById(
-      "descripcionPublicacion"
-    ).value = "";
-
-    document.getElementById(
-      "imagenPublicacion"
-    ).value = "";
-
-    alert(
-      "Publicación guardada correctamente."
-    );
+alert(
+  "Publicación guardada correctamente."
+);
 
 cargarPublicacionesRecientes();
      
