@@ -15,6 +15,10 @@ document.addEventListener(
   }
 );
 
+let PUBLICACION_EDITANDO = null;
+
+
+
 /* =========================================================
    INICIAR
 ========================================================= */
@@ -213,9 +217,37 @@ storage.ref().child(ruta);
        GUARDAR FIRESTORE
     ===================================== */
 
+ const datosPublicacion = {
+
+  titulo,
+  descripcion,
+  imagenUrl,
+
+  activa,
+  publico,
+
+  tipoPublicacion,
+
+  actualizadoEn:
+    firebase.firestore.FieldValue.serverTimestamp()
+};
+
+if (PUBLICACION_EDITANDO) {
+
   await db
-  .collection("publicaciones")
-  .add({
+    .collection("publicaciones")
+    .doc(PUBLICACION_EDITANDO)
+    .update(datosPublicacion);
+
+} else {
+
+  datosPublicacion.creadoEn =
+    firebase.firestore.FieldValue.serverTimestamp();
+
+  await db
+    .collection("publicaciones")
+    .add(datosPublicacion);
+}
 
     tipoPublicacion,
 
@@ -358,16 +390,24 @@ async function cargarPublicacionesRecientes() {
 
           </td>
 
-          <td>
+         <td>
 
-            <button
-              class="secondary-btn"
-              onclick="eliminarPublicacion('${doc.id}')"
-            >
-              Eliminar
-            </button>
+  <button
+    class="secondary-btn"
+    onclick="editarPublicacion('${doc.id}')"
+  >
+    Editar
+  </button>
 
-          </td>
+  <button
+    class="secondary-btn"
+    onclick="eliminarPublicacion('${doc.id}')"
+  >
+    Eliminar
+  </button>
+
+</td>
+
 
         </tr>
 
@@ -436,4 +476,81 @@ function escapeHtml(texto) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 }
+
+
+
+async function editarPublicacion(id) {
+
+  try {
+
+    const db =
+      window.PCZ_FIREBASE.db;
+
+    const doc =
+      await db
+        .collection("publicaciones")
+        .doc(id)
+        .get();
+
+    if (!doc.exists) {
+
+      alert(
+        "Publicación no encontrada."
+      );
+
+      return;
+    }
+
+    const data =
+      doc.data();
+
+    document.getElementById(
+      "tituloPublicacion"
+    ).value =
+      data.titulo || "";
+
+    document.getElementById(
+      "descripcionPublicacion"
+    ).value =
+      data.descripcion || "";
+
+    document.getElementById(
+      "publicacionActiva"
+    ).checked =
+      data.activa !== false;
+
+    document.getElementById(
+      "publicacionPublica"
+    ).checked =
+      data.publico !== false;
+
+    if (
+      document.getElementById(
+        "tipoPublicacion"
+      )
+    ) {
+
+      document.getElementById(
+        "tipoPublicacion"
+      ).value =
+        data.tipoPublicacion || "aviso";
+    }
+
+    PUBLICACION_EDITANDO = id;
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "No se pudo abrir la publicación."
+    );
+  }
+}
+
 
