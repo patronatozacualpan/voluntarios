@@ -1526,6 +1526,10 @@ console.log("ID RECIBIDO:", id);
 
 console.log(modal);
 
+modal.classList.remove(
+  "hidden"
+);
+
 modal.classList.add(
   "activo"
 );
@@ -1576,8 +1580,12 @@ document.addEventListener(
             e.target === modal
           ) {
 
-          modal.classList.remove(
+         modal.classList.remove(
   "activo"
+);
+
+modal.classList.add(
+  "hidden"
 );
           }
         }
