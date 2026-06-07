@@ -1493,6 +1493,8 @@ console.log("ID RECIBIDO:", id);
     const d =
       doc.data();
 
+PUBLICACION_ACTIVA = d;
+     
     document.getElementById(
       "modalPublicacionTitulo"
     ).textContent =
@@ -1596,5 +1598,52 @@ modal.classList.add(
     }
   }
 );
+
+
+/* =====================================
+   COMPARTIR WHATSAPP
+===================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const btn =
+      document.getElementById(
+        "btnCompartirWhatsapp"
+      );
+
+    if (!btn) return;
+
+    btn.addEventListener(
+      "click",
+      () => {
+
+        if (
+          !PUBLICACION_ACTIVA
+        ) return;
+
+        const texto =
+
+`${PUBLICACION_ACTIVA.titulo || ""}
+
+${PUBLICACION_ACTIVA.descripcion || ""}
+
+https://patronatozacualpan.github.io/voluntarios/transparencia.html`;
+
+        window.open(
+
+          `https://wa.me/?text=${encodeURIComponent(texto)}`,
+
+          "_blank"
+
+        );
+
+      }
+    );
+
+  }
+);
+
 
 
