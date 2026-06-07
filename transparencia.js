@@ -1526,18 +1526,9 @@ console.log("ID RECIBIDO:", id);
 
 console.log(modal);
 
-modal.classList.remove(
-  "hidden"
+modal.classList.add(
+  "activo"
 );
-
-modal.style.display =
-  "flex";
-
-modal.style.visibility =
-  "visible";
-
-modal.style.opacity =
-  "1";
 
   } catch (error) {
 
@@ -1568,9 +1559,9 @@ document.addEventListener(
         "click",
         () => {
 
-          modal.classList.add(
-            "hidden"
-          );
+         modal.classList.remove(
+  "activo"
+);
         }
       );
     }
@@ -1585,9 +1576,9 @@ document.addEventListener(
             e.target === modal
           ) {
 
-            modal.classList.add(
-              "hidden"
-            );
+          modal.classList.remove(
+  "activo"
+);
           }
         }
       );
