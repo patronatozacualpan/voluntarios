@@ -1519,13 +1519,25 @@ console.log("ID RECIBIDO:", id);
         "none";
     }
 
-    document
-      .getElementById(
-        "modalPublicacion"
-      )
-      .classList.remove(
-        "hidden"
-      );
+   const modal =
+  document.getElementById(
+    "modalPublicacion"
+  );
+
+console.log(modal);
+
+modal.classList.remove(
+  "hidden"
+);
+
+modal.style.display =
+  "flex";
+
+modal.style.visibility =
+  "visible";
+
+modal.style.opacity =
+  "1";
 
   } catch (error) {
 
