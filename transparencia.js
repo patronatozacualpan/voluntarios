@@ -1058,9 +1058,8 @@ async function cargarPublicaciones() {
 
       const d = doc.data();
 
-       console.log("ID:", id);
-console.log("DOC:", doc.exists);
-console.log("DATA:", d);
+
+       
       const fecha =
         d.creadoEn?.toDate
           ? d.creadoEn
