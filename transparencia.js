@@ -478,6 +478,30 @@ function formatearCategoria(categoria) {
 
 function formatearEstado(estado) {
 
+function formatearTipoPublicacion(tipo) {
+
+  const mapa = {
+
+    aviso:
+      "📢 Aviso",
+
+    adquisicion:
+      "🎁 Adquisición",
+
+    entrega:
+      "🚑 Entrega",
+
+    agradecimiento:
+      "🙏 Agradecimiento",
+
+    actividad:
+      "📅 Actividad"
+
+  };
+
+  return mapa[tipo] || "📢 Publicación";
+}
+   
   const mapa = {
 
     solicitado:
@@ -1083,9 +1107,13 @@ async function cargarPublicaciones() {
 
   <div class="timeline-top">
 
-    <span class="timeline-type">
-      📢 Comunicado
-    </span>
+    span class="timeline-type">
+
+  ${formatearTipoPublicacion(
+    d.tipoPublicacion
+  )}
+
+</span>
 
     <span class="timeline-date">
       ${fecha}
