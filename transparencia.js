@@ -1107,7 +1107,7 @@ async function cargarPublicaciones() {
 
   <div class="timeline-top">
 
-    span class="timeline-type">
+<span class="timeline-type">
 
   ${formatearTipoPublicacion(
     d.tipoPublicacion
