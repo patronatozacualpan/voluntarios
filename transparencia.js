@@ -1,3 +1,6 @@
+let PUBLICACION_ACTIVA = null;
+
+
 /* =========================================================
    transparencia.js
    Transparencia y Participación Comunitaria
