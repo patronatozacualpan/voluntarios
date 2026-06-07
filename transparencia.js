@@ -1456,3 +1456,128 @@ document.addEventListener(
   }
 );
 
+
+
+/* =====================================
+   MODAL PUBLICACION
+===================================== */
+
+async function abrirPublicacion(id) {
+
+  try {
+
+    const firebaseTools =
+      window.PCZ_FIREBASE;
+
+    if (!firebaseTools?.db) return;
+
+    const { db } =
+      firebaseTools;
+
+    const doc =
+      await db
+        .collection(
+          "publicaciones"
+        )
+        .doc(id)
+        .get();
+
+    if (!doc.exists) return;
+
+    const d =
+      doc.data();
+
+    document.getElementById(
+      "modalPublicacionTitulo"
+    ).textContent =
+      d.titulo || "";
+
+    document.getElementById(
+      "modalPublicacionTexto"
+    ).textContent =
+      d.descripcion || "";
+
+    const img =
+      document.getElementById(
+        "modalPublicacionImagen"
+      );
+
+    if (d.imagenUrl) {
+
+      img.src =
+        d.imagenUrl;
+
+      img.style.display =
+        "block";
+
+    } else {
+
+      img.style.display =
+        "none";
+    }
+
+    document
+      .getElementById(
+        "modalPublicacion"
+      )
+      .classList.remove(
+        "hidden"
+      );
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+  }
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const cerrar =
+      document.getElementById(
+        "cerrarModalPublicacion"
+      );
+
+    const modal =
+      document.getElementById(
+        "modalPublicacion"
+      );
+
+    if (cerrar) {
+
+      cerrar.addEventListener(
+        "click",
+        () => {
+
+          modal.classList.add(
+            "hidden"
+          );
+        }
+      );
+    }
+
+    if (modal) {
+
+      modal.addEventListener(
+        "click",
+        (e) => {
+
+          if (
+            e.target === modal
+          ) {
+
+            modal.classList.add(
+              "hidden"
+            );
+          }
+        }
+      );
+    }
+  }
+);
+
+
