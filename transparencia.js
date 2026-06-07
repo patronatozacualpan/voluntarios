@@ -476,8 +476,6 @@ function formatearCategoria(categoria) {
   return mapa[categoria] || categoria;
 }
 
-function formatearEstado(estado) {
-
 function formatearTipoPublicacion(tipo) {
 
   const mapa = {
@@ -501,7 +499,10 @@ function formatearTipoPublicacion(tipo) {
 
   return mapa[tipo] || "📢 Publicación";
 }
-   
+
+
+function formatearEstado(estado) {
+
   const mapa = {
 
     solicitado:
@@ -531,7 +532,6 @@ function formatearTipoPublicacion(tipo) {
 
   return mapa[estado] || estado;
 }
-
 
 /* =========================================================
    METAS COMUNITARIAS
