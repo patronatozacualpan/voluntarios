@@ -1466,7 +1466,8 @@ document.addEventListener(
 ===================================== */
 
 async function abrirPublicacion(id) {
-
+console.log("ABRIR PUBLICACION");
+console.log("ID RECIBIDO:", id);
   try {
 
     const firebaseTools =
