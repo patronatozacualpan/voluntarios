@@ -2183,11 +2183,14 @@ a {
 
   height: 240px;
 
-  object-fit: cover;
+  object-fit: contain;
 
   display: block;
 
-  background: #e5e7eb;
+  background: #ffffff;
+
+  padding: 20px;
+
 }
 
 .publicacion-contenido {
