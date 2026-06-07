@@ -417,6 +417,21 @@ if (d.imagenUrl) {
 <td>
 
   ${escapeHtml(
+    (d.descripcion || "")
+      .substring(0, 80)
+  )}
+
+  ${
+    (d.descripcion || "").length > 80
+      ? "..."
+      : ""
+  }
+
+</td>
+
+<td>
+
+  ${escapeHtml(
     d.tipoPublicacion || "aviso"
   )}
 
