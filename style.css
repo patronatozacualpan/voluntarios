@@ -3443,3 +3443,18 @@ a {
 
 
 
+.modal-close {
+
+  float: right;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 24px;
+
+  cursor: pointer;
+
+  color: #374151;
+
+}
