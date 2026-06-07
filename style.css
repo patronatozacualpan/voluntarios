@@ -3458,3 +3458,28 @@ a {
   color: #374151;
 
 }
+
+
+
+
+#btnCompartirWhatsapp {
+
+  background: #25D366;
+
+  border: none;
+
+  color: white;
+
+  font-weight: 700;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+}
+
+
+
+
