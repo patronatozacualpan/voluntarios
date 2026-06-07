@@ -1067,7 +1067,7 @@ async function cargarPublicaciones() {
 
         
 
-     ${
+    ${
   d.imagenUrl
 
     ? `
@@ -1077,14 +1077,26 @@ async function cargarPublicaciones() {
         <img
           src="${d.imagenUrl}"
           alt="Publicación"
-         class="publicacion-imagen"
+          class="publicacion-imagen"
         >
 
       </div>
 
     `
 
-    : ""
+    : `
+
+      <div class="inventory-image-placeholder">
+
+        <img
+          src="assets/logos/logo-patronato.png"
+          alt="Patronato Zacualpan"
+          class="publicacion-imagen"
+        >
+
+      </div>
+
+    `
 }
 
 <div class="inventory-card-body">
@@ -1099,11 +1111,20 @@ async function cargarPublicaciones() {
     )}
   </h3>
 
-  <p class="inventory-description">
-    ${escapeHtml(
-      d.descripcion || ""
-    )}
-  </p>
+<p class="inventory-description">
+
+  ${escapeHtml(
+    (d.descripcion || "")
+      .substring(0, 220)
+  )}
+
+  ${
+    (d.descripcion || "").length > 220
+      ? "..."
+      : ""
+  }
+
+</p>
 
   <div class="timeline-top">
 
