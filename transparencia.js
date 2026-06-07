@@ -1134,6 +1134,15 @@ async function cargarPublicaciones() {
 
 </p>
 
+<button
+  class="secondary-btn"
+  onclick="abrirPublicacion(
+    '${doc.id}'
+  )"
+>
+  📖 Leer más
+</button>
+
   <div class="timeline-top">
 
 <span class="timeline-type">
