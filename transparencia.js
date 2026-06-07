@@ -273,7 +273,15 @@ async function cargarInventarioPublico() {
           </h3>
 
           <p class="inventory-description">
-
+<button
+  class="secondary-btn"
+  style="
+    margin-top:10px;
+    width:100%;
+  "
+>
+  Leer más
+</button>
             ${
               escapeHtml(
                 d.descripcion || ""
