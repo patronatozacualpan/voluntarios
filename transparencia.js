@@ -753,20 +753,23 @@ async function cargarTimelineOperativo() {
 
       const d = doc.data();
 
-      actividades.push({
+    actividades.push({
 
-       tipo: "💰 Ingreso",
+  tipo: "Ingreso",
 
-        fecha:
-          d.creadoEn?.toDate
-            ? d.creadoEn.toDate()
-            : null,
+  folio:
+    "PCZ-" +
+    (d.folioTexto || d.folio || "0000"),
 
-        texto:
-          `Ingreso registrado por ${formatoMoneda(d.monto || 0)}.`
+  fecha:
+    d.fechaIngreso?.toDate
+      ? d.fechaIngreso.toDate()
+      : null,
 
-      });
+  texto:
+    `Ingreso registrado por ${formatoMoneda(d.monto || 0)}.`
 
+});
     });
 
     /* =====================================
@@ -781,21 +784,24 @@ async function cargarTimelineOperativo() {
     egresosSnap.forEach((doc) => {
 
       const d = doc.data();
+actividades.push({
 
-      actividades.push({
+  tipo: "Egreso",
 
-        tipo: "📄 Egreso",
+  folio:
+    d.folio ||
+    d.folioTexto ||
+    "Sin folio",
 
-        fecha:
-          d.creadoEn?.toDate
-            ? d.creadoEn.toDate()
-            : null,
+  fecha:
+    d.creadoEn?.toDate
+      ? d.creadoEn.toDate()
+      : null,
 
-        texto:
-          `Egreso registrado: ${escapeHtml(d.concepto || "")}.`
+  texto:
+    `Egreso registrado: ${escapeHtml(d.concepto || "")}.`
 
-      });
-
+});
     });
 
     /* =====================================
@@ -811,21 +817,23 @@ async function cargarTimelineOperativo() {
     inventarioSnap.forEach((doc) => {
 
       const d = doc.data();
+actividades.push({
 
-      actividades.push({
+  tipo: "Equipo",
 
-       tipo: "🛡️ Equipo",
+  folio:
+    d.folioEntrega ||
+    "INV-SF",
 
-        fecha:
-          d.creadoEn?.toDate
-            ? d.creadoEn.toDate()
-            : null,
+  fecha:
+    d.creadoEn?.toDate
+      ? d.creadoEn.toDate()
+      : null,
 
-        texto:
-          `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
+  texto:
+    `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
 
-      });
-
+});
     });
 
     /* =====================================
@@ -885,25 +893,46 @@ async function cargarTimelineOperativo() {
       div.className =
         "timeline-item";
 
-      div.innerHTML = `
+    div.innerHTML = `
 
-        <div class="timeline-top">
+<div class="timeline-top">
 
-          <span class="timeline-type">
-            ${item.tipo}
-          </span>
+  <span class="timeline-type">
 
-          <span class="timeline-date">
-            ${fechaTexto}
-          </span>
+    ${item.tipo}
 
-        </div>
+    ${
+      item.folio
+      ? ` · ${item.folio}`
+      : ""
+    }
 
-        <div class="timeline-text">
-          ${item.texto}
-        </div>
+  </span>
 
-      `;
+  <span class="timeline-date">
+    ${fechaTexto}
+  </span>
+
+</div>
+
+  <div
+    style="
+      font-size:12px;
+      color:#666;
+      margin-top:4px;
+      margin-bottom:6px;
+      font-weight:600;
+    "
+  >
+    Folio:
+    ${item.folio || "Sin folio"}
+  </div>
+
+  <div class="timeline-text">
+    ${item.texto}
+  </div>
+
+`;
 
       contenedor.appendChild(div);
 
