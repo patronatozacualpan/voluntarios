@@ -96,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
       
     }
   }
-setTimeout(() => {
 
 setTimeout(() => {
 
