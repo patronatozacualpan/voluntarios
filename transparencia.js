@@ -492,23 +492,23 @@ function formatearTipoPublicacion(tipo) {
   const mapa = {
 
     aviso:
-      "📢 Aviso",
+      "Aviso",
 
     adquisicion:
-      "🎁 Adquisición",
+      "Adquisición",
 
     entrega:
-      "🚑 Entrega",
+      "Entrega",
 
     agradecimiento:
-      "🙏 Agradecimiento",
+      "Agradecimiento",
 
     actividad:
-      "📅 Actividad"
+      "Actividad"
 
   };
 
-  return mapa[tipo] || "📢 Publicación";
+  return mapa[tipo] || "Publicación";
 }
 
 
