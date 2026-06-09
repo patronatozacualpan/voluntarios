@@ -787,11 +787,10 @@ async function cargarTimelineOperativo() {
 actividades.push({
 
   tipo: "Egreso",
-
-  folio:
-    d.folio ||
-    d.folioTexto ||
-    "Sin folio",
+folio:
+  d.referenciaInventario
+    ? "INV-REL"
+    : "",
 
   fecha:
     d.creadoEn?.toDate
@@ -897,17 +896,17 @@ actividades.push({
 
 <div class="timeline-top">
 
-  <span class="timeline-type">
+ <span class="timeline-type">
 
-    ${item.tipo}
+  ${item.tipo}
 
-    ${
-      item.folio
+  ${
+    item.folio
       ? ` · ${item.folio}`
       : ""
-    }
+  }
 
-  </span>
+</span>
 
   <span class="timeline-date">
     ${fechaTexto}
@@ -915,18 +914,7 @@ actividades.push({
 
 </div>
 
-  <div
-    style="
-      font-size:12px;
-      color:#666;
-      margin-top:4px;
-      margin-bottom:6px;
-      font-weight:600;
-    "
-  >
-    Folio:
-    ${item.folio || "Sin folio"}
-  </div>
+  
 
   <div class="timeline-text">
     ${item.texto}
