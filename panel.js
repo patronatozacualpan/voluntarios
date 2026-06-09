@@ -98,7 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 setTimeout(() => {
 
+setTimeout(() => {
+
   aplicarPermisosSuscriptores();
+
+  aplicarPermisosPanel();
 
   cargarSuscriptoresAvisos();
 
