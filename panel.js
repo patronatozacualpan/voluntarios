@@ -581,6 +581,18 @@ function aplicarPermisosPanel() {
 
     });
 
+  const dashboard =
+    document.getElementById(
+      "dashboardResumen"
+    );
+
+  if (dashboard) {
+
+    dashboard.style.display =
+      "none";
+
+  }
+   
 }
 
 
