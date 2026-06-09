@@ -896,16 +896,8 @@ actividades.push({
 
 <div class="timeline-top">
 
- <span class="timeline-type">
-
+<span class="timeline-type">
   ${item.tipo}
-
-  ${
-    item.folio
-      ? ` · ${item.folio}`
-      : ""
-  }
-
 </span>
 
   <span class="timeline-date">
