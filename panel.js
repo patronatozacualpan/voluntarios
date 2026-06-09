@@ -508,3 +508,76 @@ if (
 }
 
 
+
+
+/* =====================================================
+   CONTROL ROLES SUSCRIPTORES
+===================================================== */
+
+function aplicarPermisosSuscriptores() {
+
+  const modulo =
+    document.getElementById(
+      "moduloSuscriptoresAvisos"
+    );
+
+  if (!modulo) return;
+
+  const usuario =
+    window.PCZ_USUARIO;
+
+  const rol =
+    usuario?.rol || "";
+
+  const permitidos = [
+
+    "presidente",
+
+    "secretario",
+
+    "tesorera"
+
+  ];
+
+  if (!permitidos.includes(rol)) {
+
+    modulo.style.display = "none";
+
+    console.warn(
+      "Modulo suscriptores oculto por permisos."
+    );
+  }
+}
+
+
+/* =====================================================
+   CONTROL ACCESOS COMANDANTE OPERATIVO
+===================================================== */
+
+function aplicarPermisosPanel() {
+
+  const usuario =
+    window.PCZ_USUARIO;
+
+  const rol =
+    usuario?.rol || "";
+
+  if (
+    rol !==
+    "comandante_operativo"
+  ) return;
+
+  document
+    .querySelectorAll(
+      ".solo-directiva"
+    )
+    .forEach((el) => {
+
+      el.style.display =
+        "none";
+
+    });
+
+}
+
+
