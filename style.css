@@ -3487,3 +3487,15 @@ a {
   margin-bottom:8px;
 }
 
+button:disabled {
+
+  opacity: .65;
+
+  cursor: not-allowed;
+
+  pointer-events: none;
+
+}
+
+
+
