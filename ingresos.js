@@ -279,6 +279,19 @@ function activarFormularioIngreso() {
 --------------------------------------------------------- */
 
 async function registrarIngreso(event) {
+   const btnSubmit =
+  event.target.querySelector(
+    'button[type="submit"]'
+  );
+
+if (btnSubmit) {
+
+  btnSubmit.disabled = true;
+
+  btnSubmit.textContent =
+    "Procesando...";
+
+}
 
   event.preventDefault();
 
@@ -525,21 +538,39 @@ setTimeout(() => {
 
     }
 
+if (btnSubmit) {
+
+  btnSubmit.disabled = false;
+
+  btnSubmit.textContent =
+    "Registrar ingreso";
+
+}
+     
     mostrarMensajeIngreso();
 
     event.target.reset();
 
-  } catch (error) {
+ } catch (error) {
 
-    console.error(
-      "Error registrando ingreso:",
-      error
-    );
+  if (btnSubmit) {
 
-    alert(
-      "⚠️ No se pudo registrar el ingreso."
-    );
+    btnSubmit.disabled = false;
+
+    btnSubmit.textContent =
+      "Registrar ingreso";
+
   }
+
+  console.error(
+    "Error registrando ingreso:",
+    error
+  );
+
+  alert(
+    "⚠️ No se pudo registrar el ingreso."
+  );
+
 }
 /* ---------------------------------------------------------
    Generar folio
