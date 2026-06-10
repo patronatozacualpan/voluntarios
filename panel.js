@@ -559,16 +559,25 @@ function aplicarPermisosSuscriptores() {
 
 function aplicarPermisosPanel() {
 
-  const usuario =
-    window.PCZ_USUARIO;
+   const usuario =
+  window.PCZ_USUARIO;
 
-  const rol =
-    usuario?.rol || "";
+const rol =
+  usuario?.rol || "";
 
-  if (
-    rol !==
-    "comandante_operativo"
-  ) return;
+const rolesLimitados = [
+
+  "comandante_operativo",
+
+  "vocal1",
+
+  "vocal2"
+
+];
+
+if (
+  !rolesLimitados.includes(rol)
+) return;
 
   document
     .querySelectorAll(
