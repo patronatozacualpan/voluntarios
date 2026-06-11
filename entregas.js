@@ -435,6 +435,45 @@ document
   );
 
 /* =====================================================
+   GENERAR FOLIO ENTREGA
+===================================================== */
+
+async function generarFolioEntrega() {
+
+  const db =
+    window.PCZ_FIREBASE.db;
+
+  const snap = await db
+    .collection(
+      "inventario_equipo"
+    )
+    .get();
+
+  let maximo = 0;
+
+  snap.forEach((doc) => {
+
+    const d = doc.data();
+
+    const numero =
+      Number(
+        d.folioEntregaNumero || 0
+      );
+
+    if (numero > maximo) {
+
+      maximo = numero;
+
+    }
+
+  });
+
+  return maximo + 1;
+}
+
+
+
+/* =====================================================
    GUARDAR ENTREGA FIRMADA
 ===================================================== */
 
@@ -487,6 +526,14 @@ const {
   db,
   storage
 } = firebaseTools;
+
+   const folioEntregaNumero =
+  await generarFolioEntrega();
+
+const folioEntregaTexto =
+  "ENT-" +
+  String(folioEntregaNumero)
+    .padStart(3, "0");
 
 /* =====================================
    VALIDAR CLAVE OPERATIVA
@@ -612,7 +659,10 @@ firmaEntregaUrl:
   firmaEntregaUrl,
 
 folioEntrega:
-  "ENT-" + Date.now(),
+  folioEntregaTexto,
+
+folioEntregaNumero:
+  folioEntregaNumero,
 
 fechaEntrega:
   firebase.firestore
@@ -631,7 +681,10 @@ estado:
 await generarPdfEntrega({
 
   folioEntrega:
-    "ENT-" + Date.now(),
+  folioEntregaTexto,
+
+folioEntregaNumero:
+  folioEntregaNumero,
 
   nombreEquipo:
     (
