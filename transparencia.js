@@ -789,8 +789,8 @@ actividades.push({
 
   tipo: "Egreso",
 folio:
-  d.referenciaInventario
-    ? "INV-REL"
+  d.folio
+    ? `EGR-${String(d.folio).padStart(3,"0")}`
     : "EGR-SF",
 
   fecha:
