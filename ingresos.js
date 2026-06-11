@@ -281,7 +281,19 @@ function activarFormularioIngreso() {
 async function registrarIngreso(event) {
 
   event.preventDefault();
+const btnSubmit =
+  document.querySelector(
+    '#formIngreso button[type="submit"]'
+  );
 
+if (btnSubmit) {
+
+  btnSubmit.disabled = true;
+
+  btnSubmit.textContent =
+    "Registrando ingreso...";
+
+}
   const firebaseTools =
     window.PCZ_FIREBASE;
 
@@ -415,7 +427,17 @@ async function registrarIngreso(event) {
         obtenerTimestampServidor()
     };
 
-    const ingresoRef =
+    
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     const ingresoRef =
       await db
         .collection("ingresos")
         .add(ingreso);
@@ -525,11 +547,30 @@ setTimeout(() => {
 
     }
 
+if (btnSubmit) {
+
+  btnSubmit.disabled = false;
+
+  btnSubmit.textContent =
+    "Registrar ingreso";
+
+}
+
+     
     mostrarMensajeIngreso();
 
     event.target.reset();
 
   } catch (error) {
+
+    if (btnSubmit) {
+
+      btnSubmit.disabled = false;
+
+      btnSubmit.textContent =
+        "Registrar ingreso";
+
+    }
 
     console.error(
       "Error registrando ingreso:",
@@ -537,7 +578,7 @@ setTimeout(() => {
     );
 
     alert(
-      "?? No se pudo registrar el ingreso."
+      "No se pudo registrar el ingreso."
     );
   }
 }
