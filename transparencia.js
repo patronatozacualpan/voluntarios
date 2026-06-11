@@ -757,9 +757,10 @@ async function cargarTimelineOperativo() {
 
   tipo: "Ingreso",
 
-  folio:
-    "PCZ-" +
-    (d.folioTexto || d.folio || "0000"),
+ folio:
+  d.folio
+    ? `ING-${String(d.folio).padStart(3, "0")}`
+    : "ING-SF",
 
   fecha:
     d.fechaIngreso?.toDate
@@ -790,7 +791,7 @@ actividades.push({
 folio:
   d.referenciaInventario
     ? "INV-REL"
-    : "",
+    : "EGR-SF",
 
   fecha:
     d.creadoEn?.toDate
