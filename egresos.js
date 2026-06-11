@@ -317,6 +317,42 @@ function mostrarMensajeEgreso() {
   }, 5000);
 }
 
+
+
+/* ---------------------------------------------------------
+   Generar folio consecutivo egreso
+--------------------------------------------------------- */
+
+async function generarFolioEgreso() {
+
+  const db =
+    window.PCZ_FIREBASE.db;
+
+  const snap = await db
+    .collection("egresos")
+    .get();
+
+  let maximo = 0;
+
+  snap.forEach((doc) => {
+
+    const d = doc.data();
+
+    const numero =
+      Number(d.folio || 0);
+
+    if (numero > maximo) {
+
+      maximo = numero;
+
+    }
+
+  });
+
+  return maximo + 1;
+}
+
+
 /* ---------------------------------------------------------
    Utilidades
 --------------------------------------------------------- */
