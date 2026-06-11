@@ -50,15 +50,15 @@ async function cargarEntregasPendientes() {
   try {
 
     const snap = await db
-      .collection(
-        "inventario_equipo"
-      )
-      .where(
-        "estado",
-        "==",
-        "recibido"
-      )
-      .get();
+  .collection(
+    "inventario_equipo"
+  )
+  .where(
+    "estado",
+    "==",
+    "comprado"
+  )
+  .get();
 
     /* =====================================
        VACIO
