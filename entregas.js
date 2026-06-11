@@ -149,13 +149,15 @@ async function cargarEntregasPendientes() {
             }
           </p>
 
-        <div class="estado-badge">
+       <div class="estado-badge">
 
   ${
-    d.estado === "recibido"
-      ? "🟡 RECIBIDO"
+    d.estado === "comprado"
+      ? "🟡 COMPRADO"
       : d.estado === "entregado"
       ? "🟢 ENTREGADO"
+      : d.estado === "baja"
+      ? "🔴 BAJA"
       : d.estado || ""
   }
 
