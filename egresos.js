@@ -127,6 +127,13 @@ if (btnSubmit) {
   }
 
   try {
+
+     const folioNumero =
+  await generarFolioEgreso();
+
+const folioTexto =
+  String(folioNumero)
+    .padStart(3, "0");
     const egresoIdTemporal = generarIdSimple();
     const extension = obtenerExtensionArchivo(archivo.name);
     const fechaObj = new Date(fechaEgresoValor + "T12:00:00");
@@ -142,6 +149,9 @@ if (btnSubmit) {
 };
     
  const egreso = {
+    folio: folioNumero,
+
+folioTexto,
   concepto,
   descripcion,
   monto,
