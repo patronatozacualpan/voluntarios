@@ -37,7 +37,7 @@ function protegerModuloTesorera() {
   if (usuario.rol !== "tesorera") {
 
     alert(
-      "⛔ Solo la tesorera puede registrar ingresos."
+      "? Solo la tesorera puede registrar ingresos."
     );
 
     window.location.href = "panel.html";
@@ -55,7 +55,7 @@ async function cargarDonadoresParaIngreso() {
 
   if (!firebaseTools?.db) {
 
-    alert("⚠️ Firebase no está configurado.");
+    alert("?? Firebase no está configurado.");
     return;
   }
 
@@ -279,19 +279,6 @@ function activarFormularioIngreso() {
 --------------------------------------------------------- */
 
 async function registrarIngreso(event) {
-   const btnSubmit =
-  event.target.querySelector(
-    'button[type="submit"]'
-  );
-
-if (btnSubmit) {
-
-  btnSubmit.disabled = true;
-
-  btnSubmit.textContent =
-    "Procesando...";
-
-}
 
   event.preventDefault();
 
@@ -303,14 +290,14 @@ if (btnSubmit) {
 
   if (!firebaseTools?.db) {
 
-    alert("⚠️ Firebase no está configurado.");
+    alert("?? Firebase no está configurado.");
     return;
   }
 
   if (!usuario || usuario.rol !== "tesorera") {
 
     alert(
-      "⛔ No tienes permiso para registrar ingresos."
+      "? No tienes permiso para registrar ingresos."
     );
 
     return;
@@ -341,7 +328,7 @@ if (btnSubmit) {
   if (!donadorId || monto <= 0 || !formaPago) {
 
     alert(
-      "⚠️ Completa donador, monto y forma de pago."
+      "?? Completa donador, monto y forma de pago."
     );
 
     return;
@@ -355,7 +342,7 @@ if (btnSubmit) {
   if (!donador) {
 
     alert(
-      "⚠️ No se encontró el donador seleccionado."
+      "?? No se encontró el donador seleccionado."
     );
 
     return;
@@ -538,39 +525,21 @@ setTimeout(() => {
 
     }
 
-if (btnSubmit) {
-
-  btnSubmit.disabled = false;
-
-  btnSubmit.textContent =
-    "Registrar ingreso";
-
-}
-     
     mostrarMensajeIngreso();
 
     event.target.reset();
 
- } catch (error) {
+  } catch (error) {
 
-  if (btnSubmit) {
+    console.error(
+      "Error registrando ingreso:",
+      error
+    );
 
-    btnSubmit.disabled = false;
-
-    btnSubmit.textContent =
-      "Registrar ingreso";
-
+    alert(
+      "?? No se pudo registrar el ingreso."
+    );
   }
-
-  console.error(
-    "Error registrando ingreso:",
-    error
-  );
-
-  alert(
-    "⚠️ No se pudo registrar el ingreso."
-  );
-
 }
 /* ---------------------------------------------------------
    Generar folio
@@ -763,7 +732,7 @@ async function cargarIngresosRecientes() {
     );
 
     tbody.innerHTML =
-      `<tr><td colspan="8">⚠️ Error cargando ingresos.</td></tr>`;
+      `<tr><td colspan="8">?? Error cargando ingresos.</td></tr>`;
   }
 }
 
@@ -863,6 +832,7 @@ function obtenerFechaRegistroDonador(
 
 
 
+
 /* ---------------------------------------------------------
    Balance
 --------------------------------------------------------- */
@@ -871,6 +841,7 @@ function actualizarBalanceFormasPago(ingresos) {
 
   let efectivo = 0;
   let banco = 0;
+  let otros = 0;
 
   ingresos.forEach((ingreso) => {
 
@@ -884,22 +855,32 @@ function actualizarBalanceFormasPago(ingresos) {
 
       efectivo += monto;
 
-    } else if (forma === "banco") {
+    } else if (
+      forma === "transferencia"
+      || forma === "deposito"
+      || forma === "spin_oxxo"
+    ) {
 
       banco += monto;
 
+    } else {
+
+      otros += monto;
     }
 
   });
 
   const total =
-    efectivo + banco;
+    efectivo + banco + otros;
 
   const elEfectivo =
     document.getElementById("balanceEfectivo");
 
   const elBanco =
     document.getElementById("balanceBanco");
+
+  const elOtros =
+    document.getElementById("balanceOtros");
 
   const elTotal =
     document.getElementById("balanceTotalIngresos");
@@ -914,11 +895,15 @@ function actualizarBalanceFormasPago(ingresos) {
       formatoMoneda(banco);
   }
 
+  if (elOtros) {
+    elOtros.textContent =
+      formatoMoneda(otros);
+  }
+
   if (elTotal) {
     elTotal.textContent =
       formatoMoneda(total);
   }
-
 }
 
 /* ---------------------------------------------------------
