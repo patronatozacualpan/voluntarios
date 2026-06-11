@@ -63,7 +63,20 @@ function activarFormularioEgreso() {
 
 async function registrarEgreso(event) {
   event.preventDefault();
+const btnSubmit =
+  document.querySelector(
+    '#formEgreso button[type="submit"]'
+  );
 
+if (btnSubmit) {
+
+  btnSubmit.disabled = true;
+
+  btnSubmit.textContent =
+    "Registrando egreso...";
+
+}
+   
   const firebaseTools = window.PCZ_FIREBASE;
   const usuario = window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
@@ -169,6 +182,15 @@ async function registrarEgreso(event) {
       }
     });
 
+if (btnSubmit) {
+
+  btnSubmit.disabled = false;
+
+  btnSubmit.textContent =
+    "Registrar egreso";
+
+}
+     
     mostrarMensajeEgreso();
 
     event.target.reset();
@@ -176,9 +198,25 @@ async function registrarEgreso(event) {
     await cargarEgresosRecientes();
 
   } catch (error) {
-    console.error("Error registrando egreso:", error);
-    alert("⚠️ No se pudo registrar el egreso.");
+
+  if (btnSubmit) {
+
+    btnSubmit.disabled = false;
+
+    btnSubmit.textContent =
+      "Registrar egreso";
+
   }
+
+  console.error(
+    "Error registrando egreso:",
+    error
+  );
+
+  alert(
+    "⚠️ No se pudo registrar el egreso."
+  );
+}
 }
 
 /* ---------------------------------------------------------
