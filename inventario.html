@@ -77,17 +77,24 @@
         <label>Proveedor</label>
         <input type="text" id="proveedorEquipo">
 
-        <label>Estado *</label>
-        <select id="estadoEquipo" required>
-          <option value="solicitado">Solicitado</option>
-          <option value="cotizado">Cotizado</option>
-          <option value="comprado">Comprado</option>
-          <option value="recibido">Recibido</option>
-          <option value="entregado">Entregado</option>
-          <option value="en_uso">En uso</option>
-          <option value="mantenimiento">Mantenimiento</option>
-          <option value="baja">Baja</option>
-        </select>
+      
+     <label>Estado *</label>
+
+<select id="estadoEquipo" required>
+
+  <option value="comprado" selected>
+    Comprado
+  </option>
+
+  <option value="entregado">
+    Entregado
+  </option>
+
+  <option value="baja">
+    Baja
+  </option>
+
+</select>
 
         <label>Foto del equipo</label>
         <input type="file" id="fotoEquipo" accept="image/*">
