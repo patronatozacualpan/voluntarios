@@ -481,6 +481,20 @@ async function generarFolioEntrega() {
 
 async function guardarEntregaFirmada() {
 
+const btnConfirmar =
+
+document.getElementById(
+  "btnConfirmarEntrega"
+);
+
+if (btnConfirmar) {
+
+  btnConfirmar.disabled = true;
+
+  btnConfirmar.textContent =
+    "Guardando entrega...";
+}
+   
 const claveEntrega =
 document.getElementById(
 "firmaClaveEntrega"
@@ -557,7 +571,13 @@ if (usuariosSnap.empty) {
   alert(
     "⚠️ Clave operativa inválida."
   );
+if (btnConfirmar) {
 
+  btnConfirmar.disabled = false;
+
+  btnConfirmar.textContent =
+    "Confirmar entrega";
+}
   return;
 }
 
@@ -572,7 +592,13 @@ if (
   alert(
     "⚠️ Esta clave no pertenece al comandante operativo."
   );
+if (btnConfirmar) {
 
+  btnConfirmar.disabled = false;
+
+  btnConfirmar.textContent =
+    "Confirmar entrega";
+}
   return;
 }
 
@@ -742,19 +768,32 @@ cerrarModalEntrega();
 
 cargarEntregasPendientes();
    
+if (btnConfirmar) {
 
+  btnConfirmar.disabled = false;
+
+  btnConfirmar.textContent =
+    "Confirmar entrega";
+}
 } catch (error) {
 
+  if (btnConfirmar) {
 
-console.error(
-  "Error guardando entrega:",
-  error
-);
+    btnConfirmar.disabled = false;
 
-alert(
-  "⚠️ Error guardando entrega."
-);
+    btnConfirmar.textContent =
+      "Confirmar entrega";
 
+  }
+
+  console.error(
+    "Error guardando entrega:",
+    error
+  );
+
+  alert(
+    "⚠️ Error guardando entrega."
+  );
 
 }
 }
