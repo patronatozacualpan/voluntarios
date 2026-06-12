@@ -88,8 +88,20 @@ async function registrarEquipo(event) {
   const descripcion = sanitizarTexto(document.getElementById("descripcionEquipo").value);
   const cantidad = Number(document.getElementById("cantidadEquipo").value || 0);
   const costoTotal = Number(document.getElementById("costoEquipo").value || 0);
-  const proveedor = sanitizarTexto(document.getElementById("proveedorEquipo").value);
-  const estado = document.getElementById("estadoEquipo").value;
+
+   
+  const proveedor = sanitizarTexto(
+  document.getElementById("proveedorEquipo").value
+);
+
+const fuentePago =
+  document.getElementById(
+    "fuentePagoEquipo"
+  ).value;
+
+const estado =
+  document.getElementById("estadoEquipo").value;
+   
   const publico = document.getElementById("publicoEquipo")?.checked || false;
 
   const fotoArchivo = document.getElementById("fotoEquipo")?.files[0] || null;
@@ -247,7 +259,7 @@ if (
 
       proveedor,
 
-      fuentePago: "banco",
+     fuentePago,
 
 comprobanteUrl:
   comprobanteUrl || "",
