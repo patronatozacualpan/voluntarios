@@ -214,118 +214,40 @@ if (subidaComprobante.ok) {
 comprobantePendiente: !!comprobanteArchivo,
     };
 
-    const docRef = await db.collection("inventario_equipo").add(equipo);
+const docRef = await db.collection("inventario_equipo").add(equipo);
 
-     /* =========================================
-   GENERAR EGRESO AUTOMATICO
-========================================= */
+await registrarLog({
 
-const estadosConEgreso = [
+  accion: "registrar_equipo",
 
-  "comprado",
+  descripcion: `Equipo registrado: ${nombreEquipo}`,
 
-  "recibido",
+  usuarioUid: usuario.uid,
 
-  "entregado"
+  usuarioNombre: usuario.nombre,
 
-];
+  modulo: "inventario",
 
-if (
+  datos: {
 
-  estadosConEgreso.includes(
-    estado
-  )
+    equipoId: docRef.id,
 
-  &&
+    nombreEquipo,
 
-  !equipo.egresoGenerado
+    categoria,
 
-) {
-   
-  await db
-    .collection("egresos")
-    .add({
+    cantidad,
 
-      tipo: "inventario",
+    costoTotal,
 
-      concepto:
-        `Compra de equipo: ${nombreEquipo}`,
+    estado,
 
-      monto:
-        Number(costoTotal || 0),
+    publico
 
-      categoria:
-        "equipo_proteccion_civil",
+  }
 
-      proveedor,
+});
 
-     fuentePago,
-
-comprobanteUrl:
-  comprobanteUrl || "",
-
-       fechaEgreso:
-      obtenerTimestampServidor(),
-       
-      referenciaInventario:
-        docRef.id,
-
-      inventarioRelacionado:
-        true,
-
-      publico,
-
-      creadoPorUid:
-        usuario.uid,
-
-      creadoPorNombre:
-        usuario.nombre,
-
-      creadoEn:
-        obtenerTimestampServidor(),
-
-      actualizadoEn:
-        obtenerTimestampServidor()
-
-    });
-
-  console.log(
-    "Egreso automático generado."
-  );
-
-   /* =========================================
-   MARCAR EGRESO GENERADO
-========================================= */
-
-await db
-  .collection(
-    "inventario_equipo"
-  )
-  .doc(docRef.id)
-  .update({
-
-    egresoGenerado: true
-
-  });
-}
-
-     
-    await registrarLog({
-      accion: "registrar_equipo",
-      descripcion: `Equipo registrado: ${nombreEquipo}`,
-      usuarioUid: usuario.uid,
-      usuarioNombre: usuario.nombre,
-      modulo: "inventario",
-      datos: {
-        equipoId: docRef.id,
-        nombreEquipo,
-        categoria,
-        cantidad,
-        costoTotal,
-        estado,
-        publico
-      }
-    });
 
     mostrarMensajeInventario();
 
