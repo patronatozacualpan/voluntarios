@@ -959,3 +959,51 @@ Este documento constituye evidencia administrativa interna de la recepción oper
 
 }
 
+
+
+
+function mostrarMensajeEntrega() {
+
+  let modal =
+    document.getElementById(
+      "mensajeEntregaExito"
+    );
+
+  if (!modal) {
+
+    modal =
+      document.createElement("div");
+
+    modal.id =
+      "mensajeEntregaExito";
+
+    modal.innerHTML = `
+
+      <div class="mensaje-entrega-box">
+
+        ✅ Entrega confirmada correctamente
+
+      </div>
+
+    `;
+
+    document.body.appendChild(
+      modal
+    );
+
+  }
+
+  modal.classList.add(
+    "visible"
+  );
+
+  setTimeout(() => {
+
+    modal.classList.remove(
+      "visible"
+    );
+
+  }, 4000);
+
+}
+
