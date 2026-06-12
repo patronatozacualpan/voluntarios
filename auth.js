@@ -256,7 +256,9 @@ async function cerrarSesion() {
 
   localStorage.removeItem("pcz_usuario");
 window.PCZ_USUARIO = null;
-
+     
+console.log("REDIRIGIENDO A INDEX PUBLICO");
+     
 window.location.href = "../index.html";
 
   } catch (error) {
