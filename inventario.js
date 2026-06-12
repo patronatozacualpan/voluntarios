@@ -241,11 +241,6 @@ if (
   !equipo.egresoGenerado
 
 ) {
-
-console.log(
-  "FUENTE PAGO INVENTARIO:",
-  fuentePago
-);
    
   await db
     .collection("egresos")
