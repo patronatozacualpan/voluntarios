@@ -254,12 +254,10 @@ async function cerrarSesion() {
       await firebaseTools.auth.signOut();
     }
 
-  localStorage.removeItem("pcz_usuario");
+ localStorage.removeItem("pcz_usuario");
 window.PCZ_USUARIO = null;
-     
-console.log("REDIRIGIENDO A INDEX PUBLICO");
-     
-window.location.href = "../index.html";
+
+window.location.href = "index.html";
 
   } catch (error) {
     console.error("Error cerrando sesión:", error);
