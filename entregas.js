@@ -484,7 +484,7 @@ async function guardarEntregaFirmada() {
 const btnConfirmar =
 
 document.getElementById(
-  "btnConfirmarEntrega"
+  "btnGuardarEntrega"
 );
 
 if (btnConfirmar) {
