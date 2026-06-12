@@ -242,6 +242,11 @@ if (
 
 ) {
 
+console.log(
+  "FUENTE PAGO INVENTARIO:",
+  fuentePago
+);
+   
   await db
     .collection("egresos")
     .add({
