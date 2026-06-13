@@ -246,8 +246,8 @@ const folioInventario =
       descripcion,
       cantidad,
       costoTotal,
-     folioInventario: "",
-  folioInventarioNumero: 0,
+     folioInventario,
+  folioInventarioNumero,
        
       proveedor,
       estado,
