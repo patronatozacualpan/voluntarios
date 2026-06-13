@@ -239,16 +239,12 @@ const folioInventario =
      
      const equipo = {
       nombreEquipo,
-
          folioInventario,
   folioInventarioNumero,
       categoria,
       descripcion,
       cantidad,
       costoTotal,
-     folioInventario,
-  folioInventarioNumero,
-       
       proveedor,
       estado,
       publico,
