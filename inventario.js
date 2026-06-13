@@ -688,6 +688,38 @@ async function descargarResguardoPDF() {
   const d =
     expedienteActual;
 
+let fechaEntregaTexto = "-";
+
+try {
+
+  if (d.fechaEntrega?.toDate) {
+
+    fechaEntregaTexto =
+      d.fechaEntrega
+        .toDate()
+        .toLocaleDateString(
+          "es-MX",
+          {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+          }
+        );
+
+  } else if (d.fechaEntrega) {
+
+    fechaEntregaTexto =
+      String(d.fechaEntrega);
+
+  }
+
+} catch (error) {
+
+  fechaEntregaTexto = "-";
+
+}
+
+   
   const {
     jsPDF
   } = window.jspdf;
@@ -729,11 +761,11 @@ async function descargarResguardoPDF() {
 
   y += 8;
 
-  pdf.text(
-    `Categoria: ${d.categoria || "-"}`,
-    15,
-    y
-  );
+ pdf.text(
+  `Categoría: ${formatearCategoria(d.categoria || "")}`,
+  15,
+  y
+);
 
   y += 8;
 
@@ -769,25 +801,40 @@ async function descargarResguardoPDF() {
     y
   );
 
+
+   y += 8;
+
+pdf.text(
+  `Fecha: ${fechaEntregaTexto}`,
+  15,
+  y
+);
+
   y += 8;
 
-  pdf.text(
-    `Responsable: ${
-      d.recibidoPor || "-"
-    }`,
-    15,
-    y
-  );
+pdf.text(
+  `Responsable: ${
+    d.recibidoPorNombre || "-"
+  }`,
+  15,
+  y
+);
 
   y += 8;
 
-  pdf.text(
-    `Rol: ${
-      d.recibidoPorRol || "-"
-    }`,
-    15,
-    y
-  );
+  const cargoTexto =
+d.recibidoPorRol ===
+"comandante_operativo"
+
+? "Comandante Operativo"
+
+: (d.recibidoPorRol || "-");
+
+pdf.text(
+  `Cargo: ${cargoTexto}`,
+  15,
+  y
+);
 
   y += 20;
 
