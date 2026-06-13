@@ -186,12 +186,69 @@ if (subidaComprobante.ok) {
 }
 
 }
-    const equipo = {
+
+     /* =========================================
+   GENERAR FOLIO INVENTARIO
+========================================= */
+
+async function generarFolioInventario() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  const { db } =
+    firebaseTools;
+
+  const snap =
+    await db
+      .collection(
+        "inventario_equipo"
+      )
+      .orderBy(
+        "folioInventarioNumero",
+        "desc"
+      )
+      .limit(1)
+      .get();
+
+  if (snap.empty) {
+
+    return 1;
+
+  }
+
+  const ultimo =
+    snap.docs[0].data();
+
+  return (
+    Number(
+      ultimo.folioInventarioNumero || 0
+    ) + 1
+  );
+
+}
+const folioInventarioNumero =
+  await generarFolioInventario();
+
+const folioInventario =
+  "INV-" +
+  String(
+    folioInventarioNumero
+  ).padStart(3, "0");
+
+     
+     const equipo = {
       nombreEquipo,
+
+         folioInventario,
+  folioInventarioNumero,
       categoria,
       descripcion,
       cantidad,
       costoTotal,
+     folioInventario: "",
+  folioInventarioNumero: 0,
+       
       proveedor,
       estado,
       publico,
