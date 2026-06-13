@@ -561,27 +561,64 @@ async function verEntrega(id) {
           ${d.folioEntrega || "-"}
         </p>
 
-        <p>
-          Fecha:
-          ${
-            d.fechaEntrega
-            ? d.fechaEntrega
-                .toDate()
-                .toLocaleString()
-            : "-"
+      <p>
+  Fecha:
+
+  ${
+    d.fechaEntrega
+
+    ? d.fechaEntrega
+        .toDate()
+        .toLocaleDateString(
+          "es-MX",
+          {
+
+            day: "2-digit",
+
+            month: "long",
+
+            year: "numeric"
+
           }
-        </p>
 
-        <p>
-          Rol:
-          ${d.recibidoPorRol || "-"}
-        </p>
+        )
 
-        <p>
-          UID:
-          ${d.recibidoPorUid || "-"}
-        </p>
+    : "-"
+  }
 
+</p>
+
+       <p>
+  Recibido por:
+  <strong>
+    ${d.recibidoPorNombre || "-"}
+  </strong>
+</p>
+
+<p>
+  Cargo:
+  <strong>
+
+    ${
+      d.recibidoPorRol ===
+      "comandante_operativo"
+
+      ? "Comandante Operativo"
+
+      : (
+          d.recibidoPorRol || "-"
+        )
+    }
+
+  </strong>
+</p>
+
+<p>
+  Validado por:
+  <strong>
+    ${d.validadoPorNombre || "-"}
+  </strong>
+</p>
       </div>
 
       <hr>
