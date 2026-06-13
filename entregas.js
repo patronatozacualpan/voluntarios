@@ -805,6 +805,38 @@ if (btnConfirmar) {
 }
 }
 
+function formatearCategoria(categoria) {
+
+  const categorias = {
+
+    herramienta_manual:
+      "Herramienta manual",
+
+    equipo_proteccion_civil:
+      "Equipo de protección civil",
+
+    radiocomunicacion:
+      "Radiocomunicación",
+
+    equipo_medico:
+      "Equipo médico",
+
+    seguridad:
+      "Seguridad",
+
+    otro:
+      "Otro"
+
+  };
+
+  return (
+    categorias[categoria]
+    || categoria
+    || "-"
+  );
+
+}
+
 
 /* =====================================================
    PDF ENTREGA OPERATIVA
