@@ -65,50 +65,19 @@ return;
 
 tbody.innerHTML = "";
 
+auditoriaCompleta = [];
+
 snap.forEach((doc) => {
 
-const d =
-doc.data();
+  const d = doc.data();
 
-const fecha =
-
-d.creadoEn?.toDate
-
-? d.creadoEn
-.toDate()
-.toLocaleString("es-MX")
-
-: "-";
-
-tbody.innerHTML += `
-
-<tr>
-
-<td>
-${fecha}
-</td>
-
-<td>
-${d.usuarioNombre || "-"}
-</td>
-
-<td>
-${d.modulo || "-"}
-</td>
-
-<td>
-${d.accion || "-"}
-</td>
-
-<td>
-${d.descripcion || "-"}
-</td>
-
-</tr>
-
-`;
+  auditoriaCompleta.push(d);
 
 });
+
+renderizarAuditoria(
+  auditoriaCompleta
+);
 
 }
 
@@ -131,6 +100,62 @@ Error cargando auditoría.
 `;
 
 }
+
+}
+
+
+function renderizarAuditoria(
+  registros
+) {
+
+  const tbody =
+    document.getElementById(
+      "tablaAuditoriaBody"
+    );
+
+  tbody.innerHTML = "";
+
+  registros.forEach((d) => {
+
+    const fecha =
+
+      d.creadoEn?.toDate
+
+      ? d.creadoEn
+          .toDate()
+          .toLocaleString("es-MX")
+
+      : "-";
+
+    tbody.innerHTML += `
+
+      <tr>
+
+        <td>
+          ${fecha}
+        </td>
+
+        <td>
+          ${d.usuarioNombre || "-"}
+        </td>
+
+        <td>
+          ${d.modulo || "-"}
+        </td>
+
+        <td>
+          ${d.accion || "-"}
+        </td>
+
+        <td>
+          ${d.descripcion || "-"}
+        </td>
+
+      </tr>
+
+    `;
+
+  });
 
 }
 
