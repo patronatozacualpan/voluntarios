@@ -184,3 +184,72 @@ document
 
 
 
+function aplicarFiltros() {
+
+  const modulo =
+    document
+      .getElementById(
+        "filtroModulo"
+      )
+      ?.value || "";
+
+  const dias =
+    Number(
+      document
+        .getElementById(
+          "filtroFecha"
+        )
+        ?.value || 0
+    );
+
+  let resultado =
+    [...auditoriaCompleta];
+
+  if (modulo) {
+
+    resultado =
+      resultado.filter(
+        (r) =>
+          r.modulo === modulo
+      );
+
+  }
+
+  if (dias > 0) {
+
+    const limite =
+      new Date();
+
+    limite.setDate(
+      limite.getDate() - dias
+    );
+
+    resultado =
+      resultado.filter(
+        (r) => {
+
+          if (
+            !r.creadoEn?.toDate
+          ) {
+            return false;
+          }
+
+          return (
+            r.creadoEn.toDate()
+            >= limite
+          );
+
+        }
+      );
+
+  }
+
+  renderizarAuditoria(
+    resultado
+  );
+
+}
+
+
+
+
