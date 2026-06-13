@@ -160,3 +160,42 @@ function renderizarAuditoria(
 }
 
 cargarAuditoria();
+
+
+document
+.getElementById(
+  "filtroModulo"
+)
+?.addEventListener(
+  "change",
+  (e) => {
+
+    const modulo =
+      e.target.value;
+
+    if (!modulo) {
+
+      renderizarAuditoria(
+        auditoriaCompleta
+      );
+
+      return;
+
+    }
+
+    const filtrados =
+
+      auditoriaCompleta.filter(
+        (r) =>
+
+          r.modulo === modulo
+      );
+
+    renderizarAuditoria(
+      filtrados
+    );
+
+  }
+);
+
+
