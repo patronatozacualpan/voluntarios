@@ -821,7 +821,8 @@ actividades.push({
 
   tipo: "Equipo",
 
-  folio:
+ folio:
+  d.folioEntrega ||
   d.folioInventario ||
   "INV-000",
 
