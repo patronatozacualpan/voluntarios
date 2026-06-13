@@ -1,3 +1,5 @@
+let auditoriaCompleta = [];
+
 async function cargarAuditoria() {
 
 const firebaseTools =
