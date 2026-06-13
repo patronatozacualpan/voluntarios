@@ -825,10 +825,13 @@ actividades.push({
 
   tipo: "Equipo",
 
- folio:
-  d.folioEntrega ||
-  d.folioInventario ||
-  "INV-000",
+folio:
+
+d.folioEntrega
+
+? `${d.folioInventario || "INV-SF"} / ${d.folioEntrega}`
+
+: (d.folioInventario || "INV-SF"),
 
   fecha:
     d.creadoEn?.toDate
