@@ -168,34 +168,19 @@ document
 )
 ?.addEventListener(
   "change",
-  (e) => {
-
-    const modulo =
-      e.target.value;
-
-    if (!modulo) {
-
-      renderizarAuditoria(
-        auditoriaCompleta
-      );
-
-      return;
-
-    }
-
-    const filtrados =
-
-      auditoriaCompleta.filter(
-        (r) =>
-
-          r.modulo === modulo
-      );
-
-    renderizarAuditoria(
-      filtrados
-    );
-
-  }
+  aplicarFiltros
 );
+
+
+document
+.getElementById(
+  "filtroFecha"
+)
+?.addEventListener(
+  "change",
+  aplicarFiltros
+);
+
+
 
 
