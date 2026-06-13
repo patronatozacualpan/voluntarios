@@ -605,14 +605,23 @@ async function verEntrega(id) {
 
       <div>
 
-        <h3>
-          Datos de entrega
-        </h3>
+      <h3>
+  Datos de entrega
+</h3>
 
-        <p>
-          Folio:
-          ${d.folioEntrega || "-"}
-        </p>
+<p>
+  Folio Entrega:
+  <strong>
+    ${d.folioEntrega || "-"}
+  </strong>
+</p>
+
+<p>
+  Folio Inventario:
+  <strong>
+    ${d.folioInventario || "-"}
+  </strong>
+</p>
 
       <p>
   Fecha:
