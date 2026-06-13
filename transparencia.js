@@ -896,16 +896,28 @@ d.folioEntrega
 
     ultimas.forEach((item) => {
 
-      const fechaTexto =
-        item.fecha
-          ? item.fecha.toLocaleDateString("es-MX")
-          : "Sin fecha";
+     const fechaTexto =
+
+item.fecha
+
+? item.fecha.toLocaleString(
+    "es-MX",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  )
+
+: "Sin fecha";
 
       const div =
         document.createElement("div");
 
       div.className =
-        "timeline-item";
+  `timeline-item timeline-${item.tipo.toLowerCase()}`;
 
     div.innerHTML = `
 
