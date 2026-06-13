@@ -750,9 +750,16 @@ folioEntregaNumero:
         .get()
     ).data().cantidad || 0,
 
-  fechaEntrega:
-    new Date()
-      .toLocaleString(),
+ fechaEntrega:
+  new Date()
+    .toLocaleDateString(
+      "es-MX",
+      {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }
+    ),
 
   recibidoPorNombre:
     usuarioValidador.nombre,
@@ -882,11 +889,13 @@ async function generarPdfEntrega(
 
   y += 8;
 
-  pdf.text(
-    `Categoria: ${datos.categoria}`,
-    15,
-    y
-  );
+ pdf.text(
+  `Categoria: ${formatearCategoria(
+    datos.categoria || ""
+  )}`,
+  15,
+  y
+);
 
   y += 8;
 
@@ -926,11 +935,20 @@ async function generarPdfEntrega(
 
   y += 8;
 
-  pdf.text(
-    `Cargo: ${datos.recibidoPorRol}`,
-    15,
-    y
-  );
+const cargoPdf =
+
+datos.recibidoPorRol ===
+"comandante_operativo"
+
+? "Comandante Operativo"
+
+: (datos.recibidoPorRol || "-");
+
+pdf.text(
+  `Cargo: ${cargoPdf}`,
+  15,
+  y
+);
 
   y += 12;
 
