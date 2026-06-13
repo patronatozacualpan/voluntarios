@@ -182,7 +182,6 @@ document
 );
 
 
-let auditoriaCompleta = [];
 
 async function cargarAuditoria() {
 
