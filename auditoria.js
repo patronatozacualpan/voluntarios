@@ -19,6 +19,17 @@ document.getElementById(
 
 try {
 
+console.log(
+  "USUARIO:",
+  window.PCZ_USUARIO
+);
+
+console.log(
+  "FIREBASE:",
+  window.PCZ_FIREBASE
+);
+
+  
 const snap =
 
 await db
