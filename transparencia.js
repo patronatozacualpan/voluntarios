@@ -837,11 +837,17 @@ actividades.push({
 
   texto:
 
+texto:
+
 d.folioEntrega
 
-? `Entrega operativa confirmada: ${escapeHtml(d.nombreEquipo || "")}.`
+? `Entrega operativa confirmada: ${escapeHtml(d.nombreEquipo || "")}.
+   <br>
+   Costo: ${formatoMoneda(d.costoTotal || 0)}`
 
-: `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
+: `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.
+   <br>
+   Costo: ${formatoMoneda(d.costoTotal || 0)}`
 
 });
     });
