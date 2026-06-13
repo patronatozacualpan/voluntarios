@@ -217,7 +217,60 @@ function aplicarFiltros() {
 
   if (dias > 0) {
 
+    const ahora =
+      new Date();
 
+    let limite;
+
+    if (dias === 1) {
+
+      limite = new Date(
+        ahora.getFullYear(),
+        ahora.getMonth(),
+        ahora.getDate(),
+        0,
+        0,
+        0,
+        0
+      );
+
+    } else {
+
+      limite = new Date();
+
+      limite.setDate(
+        limite.getDate() - dias
+      );
+
+    }
+
+    resultado =
+      resultado.filter(
+        (r) => {
+
+          if (
+            !r.creadoEn?.toDate
+          ) {
+            return false;
+          }
+
+          return (
+            r.creadoEn.toDate()
+            >= limite
+          );
+
+        }
+      );
+
+  }
+
+  renderizarAuditoria(
+    resultado
+  );
+
+}
+
+ 
 
 if (dias > 0) {
 
