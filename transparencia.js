@@ -767,8 +767,10 @@ async function cargarTimelineOperativo() {
       ? d.fechaIngreso.toDate()
       : null,
 
-  texto:
-    `Ingreso registrado por ${formatoMoneda(d.monto || 0)}.`
+texto:
+
+  `Donativo recibido<br>
+   Monto: ${formatoMoneda(d.monto || 0)}`
 
 });
     });
@@ -799,7 +801,9 @@ folio:
       : null,
 
   texto:
-    `Egreso registrado: ${escapeHtml(d.concepto || "")}.`
+
+  `${escapeHtml(d.concepto || "Egreso")}<br>
+   Monto: ${formatoMoneda(d.monto || 0)}`
 
 });
     });
