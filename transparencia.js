@@ -832,7 +832,12 @@ actividades.push({
       : null,
 
   texto:
-    `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
+
+d.folioEntrega
+
+? `Entrega operativa confirmada: ${escapeHtml(d.nombreEquipo || "")}.`
+
+: `Equipo registrado: ${escapeHtml(d.nombreEquipo || "")}.`
 
 });
     });
