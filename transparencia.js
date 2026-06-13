@@ -835,8 +835,6 @@ actividades.push({
       ? d.creadoEn.toDate()
       : null,
 
-  texto:
-
 texto:
 
 d.folioEntrega
