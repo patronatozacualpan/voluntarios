@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Auditoría Institucional
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="header-container">
+
+<div class="brand">
+
+<img
+src="assets/logos/logo-patronato.png"
+class="brand-logo">
+
+<div>
+
+<p class="brand-small">
+Mesa Directiva
+</p>
+
+<h1>
+Auditoría Institucional
+</h1>
+
+</div>
+
+</div>
+
+<nav>
+
+<a href="panel.html">
+Panel
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<main class="page-container">
+
+<section class="hero-section">
+
+<span class="hero-badge">
+AUDITORÍA
+</span>
+
+<h2>
+Historial institucional
+</h2>
+
+<p>
+Todas las acciones registradas por el sistema.
+</p>
+
+</section>
+
+<section class="section-container">
+
+<div
+class="table-card">
+
+<table
+class="data-table">
+
+<thead>
+
+<tr>
+
+<th>Fecha</th>
+
+<th>Usuario</th>
+
+<th>Módulo</th>
+
+<th>Acción</th>
+
+<th>Descripción</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="tablaAuditoriaBody">
+
+<tr>
+
+<td colspan="5">
+Cargando...
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+
+<script src="auditoria.js"></script>
+
+</body>
+
+</html>
