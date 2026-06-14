@@ -142,11 +142,23 @@ const folioTexto =
 
     const rutaComprobante = `comprobantes-egresos/${anio}/${mes}/${egresoIdTemporal}.${extension}`;
 
-   const subida = {
-  ok: true,
-  url: "",
-  ruta: rutaComprobante
-};
+   const subida =
+  await subirArchivoStorage({
+
+    archivo,
+
+    ruta:
+      rutaComprobante
+
+  });
+
+if (!subida.ok) {
+
+  throw new Error(
+    "No se pudo subir el comprobante."
+  );
+
+}
     
  const egreso = {
     folio: folioNumero,
@@ -160,14 +172,16 @@ folioTexto,
   fechaEgreso:
     firebase.firestore.Timestamp.fromDate(fechaObj),
 
-  comprobanteUrl: "",
+comprobanteUrl:
+  subida.url,
 
-  comprobanteRuta: rutaComprobante,
+comprobanteRuta:
+  rutaComprobante,
 
-  comprobanteTipo:
-    archivo.type || extension,
+comprobanteTipo:
+  archivo.type || extension,
 
-  comprobantePendiente: true,
+comprobantePendiente: false,
 
   registradoPorUid: usuario.uid,
 
