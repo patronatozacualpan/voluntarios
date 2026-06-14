@@ -325,8 +325,9 @@ Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualp
 Muchas gracias por formar parte de esta causa.`;
 }
    
-  if (calculo.estatusClave === "atrasado") {
-    Hola ${nombre}.
+if (calculo.estatusClave === "atrasado") {
+
+  return `Hola ${nombre}.
 
 📌 *Recordatorio de aportación*
 
@@ -355,9 +356,9 @@ Ahí podrás conocer los ingresos, egresos, inventario, avances y actividades qu
 
 🤝 Gracias por continuar apoyando esta causa ciudadana en beneficio de Zacualpan.
 
-*Patronato Zacualpan Pro-equipamiento de Protección Civil*
+*Patronato Zacualpan Pro-equipamiento de Protección Civil*`;
 
-  }
+}
 
   if (calculo.estatusClave === "adelantado") {
     return `Hola ${nombre}, gracias por tu apoyo al Patronato Zacualpan. Tu aportación va adelantada y eso fortalece mucho la causa de Protección Civil.`;
