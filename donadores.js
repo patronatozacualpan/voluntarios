@@ -337,7 +337,7 @@ Muchas gracias por formar parte de esta causa.`;
     return `Hola ${nombre}, gracias por mantenerte al día con tu apoyo mensual de ${promesa} al Patronato Zacualpan. Tu generosidad equipa a nuestros héroes voluntarios.`;
   }
 
-  return `Hola ${nombre}, gracias por registrarte como donador del Patronato Zacualpan. Queremos confirmar tu apoyo mensual de ${promesa} para fortalecer a Protección Civil Zacualpan. Existen dos formas de pago, 1.- llevarlo a domicilio a la casa de tesorera. 2.- transferir a la cuenta de spin oxxo. 3.- depositarlos en un oxxo. A la siguiente cuenta `;
+  return `Hola ${nombre}, gracias por registrarte como donador del Patronato Zacualpan. Queremos confirmar tu apoyo mensual de ${promesa} para fortalecer a Protección Civil Zacualpan. Existen dos formas de pago, 1.- llevarlo a domicilio a la casa de tesorera. 2.- transferir a la cuenta de spin oxxo. 3.- depositarlos en un oxxo. A la siguiente cuenta... spin oxxo es: 4217 4701 2331 3559 y la clabe interbancaria e: 7289 6900 0138 8899 56 A nombre de Miriam Camacho Martinez, GRACIAS POR UNIRTE A ESTE ESFUERZO COLECTIVO, Esperamos tu captura de comprobante recuerda que no tenemos cobrador a domicilio , con el fin de que todo sea invertido en equipo para salvar vidas. `;
 }
 
 function normalizarTelefonoParaWhatsApp(telefono) {
