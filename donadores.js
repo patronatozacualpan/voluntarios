@@ -343,7 +343,7 @@ Cada peso aportado ayuda a fortalecer el equipamiento y la capacidad de respuest
 *CLABE INTERBANCARIA*
 7289 6900 0138 8899 56
 
-*TITULAR*
+*TITULAR TESORERA*
 Miriam Camacho Martínez
 
 Una vez realizado el depósito o transferencia, te agradeceremos compartir la captura o fotografía de tu comprobante.
@@ -388,7 +388,7 @@ Queremos confirmar tu apoyo mensual de *${promesa}* para fortalecer a Protecció
 *CLABE INTERBANCARIA*
 7289 6900 0138 8899 56
 
-*TITULAR*
+*TITULAR TESORERA*
 Miriam Camacho Martínez
 
 *Gracias por unirte a este esfuerzo colectivo.*
