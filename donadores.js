@@ -308,7 +308,7 @@ if (calculo.estatusClave === "primera_aportacion") {
 
   return `Hola ${nombre}.
 
-Gracias por confirmar tu participación como padrino del Patronato Zacualpan.
+Gracias por confirmar tu participación como padrino del Patronato Zacualpan y pueblos circunvecinos.
 
 Tu apoyo mensual comprometido es de ${promesa}.
 
@@ -320,41 +320,41 @@ Aún no aparece registrada tu primera aportación y queremos compartirte las opc
 
 3.- Depósito en OXXO.
 
-Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualpan.
+Cada aportación ayuda a fortalecer el equipamiento de Protección Civil Zacualpan y pueblos circunvecinos.
 
 Muchas gracias por formar parte de esta causa.`;
 }
    
 if (calculo.estatusClave === "atrasado") {
 
-  return `Hola ${nombre}.
+ return `Hola ${nombre}.
 
-📌 *Recordatorio de aportación*
+*Recordatorio de aportación*
 
 De acuerdo con nuestros registros, actualmente aparece una aportación pendiente por *${pendiente}*.
 
-🚑 Cada peso aportado ayuda a fortalecer el equipamiento y la capacidad de respuesta de Protección Civil Zacualpan.
+Cada peso aportado ayuda a fortalecer el equipamiento y la capacidad de respuesta de Protección Civil Zacualpan.
 
 *Opciones para realizar tu aportación:*
 
-💳 *Cuenta SPIN OXXO:*
+*CUENTA SPIN OXXO*
 4217 4701 2331 3559
 
-🏦 *CLABE Interbancaria:*
+*CLABE INTERBANCARIA*
 7289 6900 0138 8899 56
 
-👤 *Titular:*
+*TITULAR*
 Miriam Camacho Martínez
 
-📷 Una vez realizado el depósito o transferencia, te agradeceremos compartir la captura o fotografía de tu comprobante.
+Una vez realizado el depósito o transferencia, te agradeceremos compartir la captura o fotografía de tu comprobante.
 
-🔎 Te invitamos también a consultar nuestro portal de transparencia y seguimiento institucional:
+También te invitamos a consultar nuestro portal de transparencia y seguimiento institucional:
 
 https://patronatozacualpan.github.io/voluntarios/transparencia.html
 
 Ahí podrás conocer los ingresos, egresos, inventario, avances y actividades que se realizan gracias al apoyo de la comunidad.
 
-🤝 Gracias por continuar apoyando esta causa ciudadana en beneficio de Zacualpan.
+Gracias por continuar apoyando esta causa ciudadana en beneficio de Zacualpan.
 
 *Patronato Zacualpan Pro-equipamiento de Protección Civil*`;
 
@@ -368,36 +368,36 @@ Ahí podrás conocer los ingresos, egresos, inventario, avances y actividades qu
     return `Hola ${nombre}, gracias por mantenerte al día con tu apoyo mensual de ${promesa} al Patronato Zacualpan. Tu generosidad equipa a nuestros héroes voluntarios.`;
   }
 
-  return `Hola ${nombre}.
+ return `Hola ${nombre}.
 
 *Gracias por registrarte como donador del Patronato Zacualpan.*
 
 Queremos confirmar tu apoyo mensual de *${promesa}* para fortalecer a Protección Civil Zacualpan.
 
-*📌 Formas de realizar tu aportación:*
+*FORMAS DE REALIZAR TU APORTACIÓN*
 
-1️⃣ Entregarla directamente con la tesorera.
+1. Entregarla directamente con la tesorera.
 
-2️⃣ Realizar transferencia bancaria.
+2. Realizar transferencia bancaria.
 
-3️⃣ Depositar en cualquier tienda OXXO.
+3. Depositar en cualquier tienda OXXO.
 
-*💳 Cuenta SPIN OXXO:*
+*CUENTA SPIN OXXO*
 4217 4701 2331 3559
 
-*🏦 CLABE Interbancaria:*
+*CLABE INTERBANCARIA*
 7289 6900 0138 8899 56
 
-*👤 Titular:*
+*TITULAR*
 Miriam Camacho Martínez
 
-*🤝 Gracias por unirte a este esfuerzo colectivo.*
+*Gracias por unirte a este esfuerzo colectivo.*
 
-📷 Una vez realizado tu pago, agradecemos enviar fotografía o captura del comprobante.
+Una vez realizado tu pago, agradecemos enviar fotografía o captura del comprobante.
 
-ℹ️ No contamos con servicio de cobranza a domicilio, lo que nos permite destinar más recursos al equipamiento de Protección Civil Zacualpan.
+No contamos con servicio de cobranza a domicilio, lo que nos permite destinar más recursos al equipamiento de Protección Civil Zacualpan.
 
-🚑 *Cada aportación ayuda a salvar vidas.*
+*Cada aportación ayuda a salvar vidas.*
 
 ¡Muchas gracias por tu apoyo!`;
 }
