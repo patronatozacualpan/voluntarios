@@ -326,7 +326,7 @@ Muchas gracias por formar parte de esta causa.`;
 }
    
   if (calculo.estatusClave === "atrasado") {
-    return `Hola ${nombre}, este es un recordatorio amistoso del Patronato Zacualpan. Tu aportación aparece pendiente por ${pendiente}. Cada peso ayuda a fortalecer a Protección Civil Zacualpan. Gracias por seguir apoyando esta causa.`;
+    return `Hola ${nombre}, este es un recordatorio respetuoso del Patronato Zacualpan. Tu aportación aparece pendiente por ${pendiente}. Cada peso ayuda a fortalecer a Protección Civil Zacualpan. la cuenta spin oxxo es: 4217 4701 2331 3559 y la clabe interbancaria e: 7289 6900 0138 8899 56 A nombre de Miriam Camacho Martinez, Gracias por seguir apoyando esta causa. te invitamos a explorar el area d transparencia de nuestro portal de control y evidenci, https://patronatozacualpan.github.io/voluntarios/transparencia.html `;
   }
 
   if (calculo.estatusClave === "adelantado") {
