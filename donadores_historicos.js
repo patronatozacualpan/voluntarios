@@ -1,201 +1,267 @@
-<!DOCTYPE html>
-<html lang="es">
+async function registrarDonadorHistorico() {
 
-<head>
+const firebaseTools =
+window.PCZ_FIREBASE;
 
-<meta charset="UTF-8">
+if (!firebaseTools?.db) {
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+alert(
+"No existe conexión con Firebase."
+);
 
-<title>
-Regularización de Donadores
-</title>
+return;
 
-<link
-rel="stylesheet"
-href="style.css">
+}
 
-</head>
+const { db } =
+firebaseTools;
 
-<body>
+const nombre =
+document
+.getElementById("nombre")
+.value
+.trim();
 
-<header class="site-header">
+const telefono =
+document
+.getElementById("telefono")
+.value
+.trim();
 
-<div class="header-container">
+const poblacion =
+document
+.getElementById("poblacion")
+.value
+.trim();
 
-<div class="brand">
+const promesaMensual =
+Number(
+document
+.getElementById(
+"promesaMensual"
+)
+.value
+);
 
-<img
-src="assets/logos/logo-patronato.png"
-class="brand-logo">
+const fechaInicioPatrocinio =
+document
+.getElementById(
+"fechaInicioPatrocinio"
+)
+.value;
 
-<div>
+const diaPagoPreferido =
+Number(
+document
+.getElementById(
+"diaPagoPreferido"
+)
+.value
+);
 
-<p class="brand-small">
-Mesa Directiva
-</p>
+const observaciones =
+document
+.getElementById(
+"observaciones"
+)
+.value
+.trim();
 
-<h1>
-Regularización de Donadores
-</h1>
+if (
 
-</div>
+!nombre ||
+!telefono ||
+!poblacion ||
+!promesaMensual ||
+!fechaInicioPatrocinio
 
-</div>
+) {
 
-<nav>
+alert(
+"Complete todos los campos obligatorios."
+);
 
-<a href="panel.html">
-Panel
-</a>
+return;
 
-</nav>
+}
 
-</div>
+try {
 
-</header>
+const fechaInicio =
+firebase.firestore.Timestamp
+.fromDate(
+new Date(
+fechaInicioPatrocinio
+)
+);
 
-<main class="page-container">
+await db
+.collection("donadores")
+.add({
 
-<section class="hero-section">
+nombre,
 
-<span class="hero-badge">
-MIGRACIÓN HISTÓRICA
-</span>
+telefono,
 
-<h2>
-Registro de padrinos fundadores
-</h2>
+telefonoNormalizado:
+"52" +
+telefono.replace(
+/\D/g,
+""
+),
 
-<p>
-Utilice este módulo únicamente para capturar donadores que ya participaban antes de la implementación del sistema.
-</p>
+poblacion,
 
-</section>
+promesaMensual,
 
-<section class="section-container">
+diaPagoPreferido,
 
-<div class="form-card">
+aceptaWhatsApp: true,
 
-<h3>
-Datos del donador
-</h3>
+activo: true,
 
-<label>
-Nombre completo *
-</label>
+recordatoriosActivos: true,
 
-<input
-type="text"
-id="nombre"
-required>
+estadoValidacion:
+"validado",
 
-<label>
-Teléfono *
-</label>
+origenRegistro:
+"migracion_historica",
 
-<input
-type="tel"
-id="telefono"
-required>
+esDonadorHistorico:
+true,
 
-<label>
-Población *
-</label>
+fechaInicioPatrocinio:
+fechaInicio,
 
-<input
-type="text"
-id="poblacion"
-required>
+ultimoPago:
+fechaInicio,
 
-<label>
-Promesa mensual *
-</label>
+totalAportado: 0,
 
-<input
-type="number"
-id="promesaMensual"
-min="1"
-required>
+observaciones,
 
-<label>
-Fecha inicio de patrocinio *
-</label>
+validadoPorNombre:
+window.PCZ_USUARIO?.nombre
+|| "",
 
-<input
-type="date"
-id="fechaInicioPatrocinio"
-required>
+validadoPorUid:
+window.PCZ_USUARIO?.uid
+|| "",
 
-<label>
-Día preferido de pago
-</label>
+validadoEn:
+firebase.firestore
+.FieldValue
+.serverTimestamp(),
 
-<input
-type="number"
-id="diaPagoPreferido"
-min="1"
-max="31"
-value="15">
+creadoEn:
+firebase.firestore
+.FieldValue
+.serverTimestamp(),
 
-<label>
-Observaciones
-</label>
+actualizadoEn:
+firebase.firestore
+.FieldValue
+.serverTimestamp()
 
-<textarea
-id="observaciones"
-rows="4"></textarea>
+});
 
-<button
-id="btnGuardarHistorico"
-class="primary-btn">
+alert(
+"Donador histórico registrado correctamente."
+);
 
-Registrar donador histórico
+document
+.getElementById(
+"nombre"
+)
+.value = "";
 
-</button>
+document
+.getElementById(
+"telefono"
+)
+.value = "";
 
-</div>
+document
+.getElementById(
+"poblacion"
+)
+.value = "";
 
-</section>
+document
+.getElementById(
+"promesaMensual"
+)
+.value = "";
 
-<section class="section-container">
+document
+.getElementById(
+"fechaInicioPatrocinio"
+)
+.value = "";
 
-<div class="table-card">
+document
+.getElementById(
+"observaciones"
+)
+.value = "";
 
-<h3>
-Últimos registros históricos
-</h3>
+cargarHistoricos();
 
-<table class="data-table">
+}
 
-<thead>
+catch(error){
 
-<tr>
+console.error(error);
 
-<th>
-Nombre
-</th>
+alert(
+"Error registrando donador."
+);
 
-<th>
-Teléfono
-</th>
+}
 
-<th>
-Inicio patrocinio
-</th>
+}
 
-<th>
-Promesa mensual
-</th>
+async function cargarHistoricos() {
 
-</tr>
+const firebaseTools =
+window.PCZ_FIREBASE;
 
-</thead>
+if (!firebaseTools?.db) {
 
-<tbody
-id="tablaHistoricos">
+return;
+
+}
+
+const { db } =
+firebaseTools;
+
+const tbody =
+document.getElementById(
+"tablaHistoricos"
+);
+
+try {
+
+const snap =
+
+await db
+.collection("donadores")
+.where(
+"esDonadorHistorico",
+"==",
+true
+)
+.orderBy(
+"creadoEn",
+"desc"
+)
+.limit(20)
+.get();
+
+if (snap.empty) {
+
+tbody.innerHTML = `
 
 <tr>
 
@@ -207,48 +273,78 @@ Sin registros
 
 </tr>
 
-</tbody>
+`;
 
-</table>
+return;
 
-</div>
+}
 
-</section>
+tbody.innerHTML = "";
 
-</main>
+snap.forEach((doc) => {
 
-<footer class="site-footer">
+const d =
+doc.data();
 
-<div class="footer-container">
+const fecha =
 
-<p>
+d.fechaInicioPatrocinio
+?.toDate()
 
-<strong>
-Patronato Zacualpan Pro-equipamiento de Protección Civil
-</strong>
+? d
+.fechaInicioPatrocinio
+.toDate()
+.toLocaleDateString(
+"es-MX"
+)
 
-</p>
+: "-";
 
-<p>
-Regularización histórica de padrinos fundadores.
-</p>
+tbody.innerHTML += `
 
-</div>
+<tr>
 
-</footer>
+<td>
+${d.nombre || "-"}
+</td>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<td>
+${d.telefono || "-"}
+</td>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<td>
+${fecha}
+</td>
 
-<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<td>
+$${Number(
+d.promesaMensual || 0
+).toFixed(2)}
+</td>
 
-<script src="configuracion-firebase.js"></script>
+</tr>
 
-<script src="auth.js"></script>
+`;
 
-<script src="donadores_historicos.js"></script>
+});
 
-</body>
+}
 
-</html>
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+document
+.getElementById(
+"btnGuardarHistorico"
+)
+?.addEventListener(
+"click",
+registrarDonadorHistorico
+);
+
+cargarHistoricos();
