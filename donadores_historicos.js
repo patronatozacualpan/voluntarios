@@ -138,7 +138,7 @@ ultimoPago:
 fechaInicio,
 
 totalAportado: 0,
-
+aportacionHistoricaInicial: 0,
 observaciones,
 
 validadoPorNombre:
