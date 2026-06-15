@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Migración de Donadores Históricos
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+<div class="header-container">
+
+<div class="brand">
+
+<img
+src="assets/logos/logo-patronato.png"
+class="brand-logo">
+
+<div>
+
+<p class="brand-small">
+Tesorería
+</p>
+
+<h1>
+Donadores Históricos
+</h1>
+
+</div>
+
+</div>
+
+<nav>
+
+<a href="panel.html">
+Panel
+</a>
+
+</nav>
+
+</div>
+
+</header>
+
+<main class="page-container">
+
+<section class="hero-section">
+
+<span class="hero-badge">
+MIGRACIÓN HISTÓRICA
+</span>
+
+<h2>
+Registro de padrinos fundadores
+</h2>
+
+<p>
+Captura de donadores provenientes de listas físicas anteriores al sistema.
+</p>
+
+</section>
+
+<section class="section-container">
+
+<div class="form-card">
+
+<div class="form-group">
+
+<label>
+Nombre completo
+</label>
+
+<input
+type="text"
+id="nombre">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Teléfono
+</label>
+
+<input
+type="tel"
+id="telefono">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Población
+</label>
+
+<input
+type="text"
+id="poblacion"
+value="Zacualpan Nayarit">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Promesa mensual
+</label>
+
+<input
+type="number"
+id="promesaMensual">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Fecha de inicio del padrinazgo
+</label>
+
+<input
+type="date"
+id="fechaInicio">
+
+</div>
+
+<div class="form-group">
+
+<label>
+Observaciones
+</label>
+
+<textarea
+id="observaciones"
+rows="4"></textarea>
+
+</div>
+
+<button
+id="btnGuardarHistorico"
+class="primary-btn">
+
+Registrar donador histórico
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<script src="configuracion-firebase.js"></script>
+<script src="auth.js"></script>
+<script src="historicos.js"></script>
+
+</body>
+</html>
