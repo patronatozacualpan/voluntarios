@@ -124,7 +124,16 @@ aportacionHistoricaInicial:
 estatusMigracion:
 "pendiente_regularizacion",
 
-/* NUEVOS */
+decisionRegularizacion:
+"pendiente",
+
+fechaRegularizacion:
+null,
+
+regularizadoPor:
+"",
+
+/* DATOS CALCULADOS PARA REGULARIZACION */
 
 estatusRegularizacion:
 "pendiente",
@@ -138,7 +147,7 @@ diferenciaRegularizacion:
 mesesAcumulados:
 0,
 
-/* FIN NUEVOS */
+/* FIN DATOS REGULARIZACION */
 
 estadoValidacion:
 "validado",
@@ -169,6 +178,5 @@ firebase.firestore
 .serverTimestamp()
 
 });
-
 
 
