@@ -187,6 +187,14 @@ function mostrarPanel(usuario) {
   }
 
   aplicarPermisosVisuales(usuario.rol);
+   if (
+  typeof aplicarPermisosPanel ===
+  "function"
+) {
+
+  aplicarPermisosPanel();
+
+}
 
   if (typeof cargarDashboardPanel === "function") {
     cargarDashboardPanel();
