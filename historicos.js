@@ -77,6 +77,8 @@ fechaInicioTexto
 )
 );
 
+
+
 await db
 .collection("donadores")
 .add({
@@ -122,6 +124,22 @@ aportacionHistoricaInicial:
 estatusMigracion:
 "pendiente_regularizacion",
 
+/* NUEVOS */
+
+estatusRegularizacion:
+"pendiente",
+
+participacionEsperada:
+0,
+
+diferenciaRegularizacion:
+0,
+
+mesesAcumulados:
+0,
+
+/* FIN NUEVOS */
+
 estadoValidacion:
 "validado",
 
@@ -152,19 +170,5 @@ firebase.firestore
 
 });
 
-alert(
-"Donador histórico registrado."
-);
 
-location.reload();
 
-}
-
-document
-.getElementById(
-"btnGuardarHistorico"
-)
-.addEventListener(
-"click",
-registrarHistorico
-);
