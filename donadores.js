@@ -203,15 +203,19 @@ function calcularEstatusDonador(donador) {
     };
   }
 
-  if (donador.estadoValidacion === "validado" && totalAportado === 0) {
-    return {
-      montoEsperado: promesaMensual,
-      montoPendiente: promesaMensual,
-      estatusClave: "primera_aportacion",
-      estatusClase: "pendiente",
-      estatusTexto: "🟡 Primera aportación"
-    };
-  }
+if (
+  donador.estadoValidacion === "validado" &&
+  totalAportado === 0 &&
+  !donador.esDonadorHistorico
+) {
+  return {
+    montoEsperado: promesaMensual,
+    montoPendiente: promesaMensual,
+    estatusClave: "primera_aportacion",
+    estatusClase: "pendiente",
+    estatusTexto: "🟡 Primera aportación"
+  };
+}
 
   const fechaRegistro = obtenerFechaRegistro(donador);
   const meses = calcularMesesTranscurridos(fechaRegistro);
