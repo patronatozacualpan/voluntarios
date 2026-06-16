@@ -105,7 +105,7 @@ setTimeout(() => {
 
   cargarSuscriptoresAvisos();
 
-}, 700);
+}, 0);
 
 /* =====================================
    EXPORTAR CSV
