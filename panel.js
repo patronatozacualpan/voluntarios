@@ -101,8 +101,6 @@ setTimeout(() => {
 
   aplicarPermisosSuscriptores();
 
-  aplicarPermisosPanel();
-
   cargarSuscriptoresAvisos();
 
 }, 0);
