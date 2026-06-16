@@ -3708,3 +3708,20 @@ button:disabled {
 }
 
 
+.hero {
+  position: relative;
+  min-height: 78vh;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(0,33,71,.55),
+      rgba(0,59,115,.35)
+    ),
+    url("assets/portada.jpeg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+
