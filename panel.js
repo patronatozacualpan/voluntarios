@@ -593,35 +593,35 @@ function aplicarPermisosPanel() {
       "dashboardResumen"
     );
 
-  if (dashboard) {
 
-    dashboard.style.display =
+if (dashboard) {
+
+  dashboard.style.display =
+    "none";
+
+}
+
+/* NUEVO */
+
+if (
+  rol === "comandante_operativo"
+) {
+
+  const auditoria =
+    document.querySelector(
+      'a[href="auditoria.html"]'
+    );
+
+  if (auditoria) {
+
+    auditoria.style.display =
       "none";
-
-  }
-
-  /* NUEVO */
-
-  if (
-    rol === "comandante_operativo"
-  ) {
-
-    const auditoria =
-      document.querySelector(
-        'a[href="auditoria.html"]'
-      );
-
-    if (auditoria) {
-
-      auditoria.style.display =
-        "none";
-
-    }
 
   }
 
 }
 
+/* MANUAL COMANDANTE */
 
 const manualComandante =
   document.querySelector(
@@ -636,9 +636,18 @@ if (manualComandante) {
   ) {
 
     manualComandante.classList.remove(
+      "hidden";
+
+  } else {
+
+    manualComandante.classList.add(
       "hidden"
     );
 
   }
 
 }
+
+}
+
+
