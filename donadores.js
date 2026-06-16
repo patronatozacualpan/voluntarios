@@ -250,20 +250,42 @@ function calcularEstatusDonador(donador) {
    Fechas
 --------------------------------------------------------- */
 
-function obtenerFechaRegistro(donador) {
-  if (donador.fechaRegistro?.toDate) {
-    return donador.fechaRegistro.toDate();
+function obtenerFechaRegistro(
+  donador
+) {
+
+  if (
+    donador.fechaInicioPatrocinio?.toDate
+  ) {
+
+    return donador
+      .fechaInicioPatrocinio
+      .toDate();
+
   }
 
-  if (donador.creadoEn?.toDate) {
-    return donador.creadoEn.toDate();
+  if (
+    donador.fechaRegistro?.toDate
+  ) {
+
+    return donador
+      .fechaRegistro
+      .toDate();
+
   }
 
-  if (donador.fechaRegistro) {
-    return new Date(donador.fechaRegistro);
+  if (
+    donador.creadoEn?.toDate
+  ) {
+
+    return donador
+      .creadoEn
+      .toDate();
+
   }
 
   return new Date();
+
 }
 
 function calcularMesesTranscurridos(fechaRegistro) {
