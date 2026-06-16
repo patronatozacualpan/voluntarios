@@ -623,7 +623,6 @@ function aplicarPermisosPanel() {
 }
 
 
-
 const manualComandante =
   document.querySelector(
     ".acceso-comandante"
@@ -636,16 +635,10 @@ if (manualComandante) {
     "comandante_operativo"
   ) {
 
-    manualComandante.style.display =
-      "block";
-
-  } else {
-
-    manualComandante.style.display =
-      "none";
+    manualComandante.classList.remove(
+      "hidden"
+    );
 
   }
 
 }
-
-
