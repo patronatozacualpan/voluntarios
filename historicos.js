@@ -9,6 +9,10 @@ alert(
 "Firebase no disponible."
 );
 
+
+
+
+  
 return;
 
 }
@@ -178,5 +182,23 @@ firebase.firestore
 .serverTimestamp()
 
 });
+
+alert(
+"Donador histórico registrado."
+);
+
+location.reload();
+
+}
+
+document
+.getElementById(
+"btnGuardarHistorico"
+)
+.addEventListener(
+"click",
+registrarHistorico
+);
+
 
 
