@@ -557,25 +557,25 @@ function aplicarPermisosSuscriptores() {
 
 function aplicarPermisosPanel() {
 
-   const usuario =
-  window.PCZ_USUARIO;
+  const usuario =
+    window.PCZ_USUARIO;
 
-const rol =
-  usuario?.rol || "";
+  const rol =
+    usuario?.rol || "";
 
-const rolesLimitados = [
+  const rolesLimitados = [
 
-  "comandante_operativo",
+    "comandante_operativo",
 
-  "vocal1",
+    "vocal1",
 
-  "vocal2"
+    "vocal2"
 
-];
+  ];
 
-if (
-  !rolesLimitados.includes(rol)
-) return;
+  if (
+    !rolesLimitados.includes(rol)
+  ) return;
 
   document
     .querySelectorAll(
@@ -599,7 +599,26 @@ if (
       "none";
 
   }
-   
-}
 
+  /* NUEVO */
+
+  if (
+    rol === "comandante_operativo"
+  ) {
+
+    const auditoria =
+      document.querySelector(
+        'a[href="auditoria.html"]'
+      );
+
+    if (auditoria) {
+
+      auditoria.style.display =
+        "none";
+
+    }
+
+  }
+
+}
 
