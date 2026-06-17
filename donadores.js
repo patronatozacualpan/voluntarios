@@ -217,12 +217,47 @@ if (
   };
 }
 
-  const fechaRegistro = obtenerFechaRegistro(donador);
-  const meses = calcularMesesTranscurridos(fechaRegistro);
-  const montoEsperado = meses * promesaMensual;
-  const montoPendiente = Math.max(montoEsperado - totalAportado, 0);
+let montoEsperado;
+let montoPendiente;
 
-  if (totalAportado > montoEsperado) {
+if (donador.esDonadorHistorico) {
+
+  montoEsperado =
+    Number(
+      donador.participacionEsperada || 0
+    );
+
+  montoPendiente =
+    Number(
+      donador.diferenciaRegularizacion || 0
+    );
+
+} else {
+
+  const fechaRegistro =
+    obtenerFechaRegistro(
+      donador
+    );
+
+  const meses =
+    calcularMesesTranscurridos(
+      fechaRegistro
+    );
+
+  montoEsperado =
+    meses *
+    promesaMensual;
+
+  montoPendiente =
+    Math.max(
+      montoEsperado -
+      totalAportado,
+      0
+    );
+
+}
+
+  if (montoPendiente < 0) {
     return {
       montoEsperado,
       montoPendiente,
@@ -232,7 +267,7 @@ if (
     };
   }
 
-  if (totalAportado === montoEsperado) {
+  if (montoPendiente === 0) {
     return {
       montoEsperado,
       montoPendiente,
