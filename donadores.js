@@ -220,42 +220,26 @@ if (
 let montoEsperado;
 let montoPendiente;
 
-if (donador.esDonadorHistorico) {
+const fechaRegistro =
+  obtenerFechaRegistro(
+    donador
+  );
 
-  montoEsperado =
-    Number(
-      donador.participacionEsperada || 0
-    );
+const meses =
+  calcularMesesTranscurridos(
+    fechaRegistro
+  );
 
-  montoPendiente =
-    Number(
-      donador.diferenciaRegularizacion || 0
-    );
+montoEsperado =
+  meses *
+  promesaMensual;
 
-} else {
-
-  const fechaRegistro =
-    obtenerFechaRegistro(
-      donador
-    );
-
-  const meses =
-    calcularMesesTranscurridos(
-      fechaRegistro
-    );
-
-  montoEsperado =
-    meses *
-    promesaMensual;
-
-  montoPendiente =
-    Math.max(
-      montoEsperado -
-      totalAportado,
-      0
-    );
-
-}
+montoPendiente =
+  Math.max(
+    montoEsperado -
+    totalAportado,
+    0
+  );
 
   if (montoPendiente < 0) {
     return {
@@ -289,9 +273,7 @@ if (donador.esDonadorHistorico) {
    Fechas
 --------------------------------------------------------- */
 
-function obtenerFechaRegistro(
-  donador
-) {
+function obtenerFechaRegistro(donador) {
 
   if (
     donador.fechaInicioPatrocinio?.toDate
