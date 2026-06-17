@@ -490,17 +490,22 @@ if (btnSubmit) {
             fechaTexto:
               new Date().toLocaleDateString("es-MX"),
 
-            nombreTesorera:
-              usuario.nombre,
+           nombreTesorera:
+usuario.nombre,
 
-            promesaMensual:
-              Number(donador.promesaMensual || 0),
+promesaMensual:
+Number(donador.promesaMensual || 0),
 
-            totalAportadoDespues:
-              resumenCobertura.totalAportadoDespues,
+participacionEsperada:
+Number(
+  donador.participacionEsperada || 0
+),
 
-            cuotaCubiertaHasta:
-              resumenCobertura.cubiertoHastaTexto
+totalAportadoDespues:
+resumenCobertura.totalAportadoDespues,
+
+cuotaCubiertaHasta:
+resumenCobertura.cubiertoHastaTexto
           });
 
        if (resultadoPdf?.ok && resultadoPdf.blob) {
