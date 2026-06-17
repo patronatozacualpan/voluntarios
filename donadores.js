@@ -356,7 +356,7 @@ if (donador.esDonadorHistorico === true) {
   return `Hola ${nombre}.
 
 Queremos agradecerte porque apareces en nuestros registros como uno de los padrinos fundadores del Patronato Zacualpan.
-
+Antes que nada queremos agradecerte porque tu apoyo durante este tiempo ayudó a mantener viva esta iniciativa ciudadana aun antes de contar con la plataforma actual.
 Tu registro histórico indica una participación desde ${fechaInicio.toLocaleDateString("es-MX")}.
 
 Desde entonces han transcurrido aproximadamente *${meses} meses*.
