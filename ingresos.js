@@ -866,27 +866,77 @@ function calcularCoberturaDonador(
     return {
       totalAportadoDespues,
       mesesCubiertos: 0,
-      cubiertoHastaTexto: "No determinado"
+      cubiertoHastaTexto:
+        "No determinado"
     };
+
   }
+
+  /* ==========================
+     DONADORES HISTORICOS
+  ========================== */
+
+  if (donador.esDonadorHistorico) {
+
+    const esperado =
+      Number(
+        donador.participacionEsperada || 0
+      );
+
+    const pendiente =
+      Math.max(
+        esperado - totalAportadoDespues,
+        0
+      );
+
+    return {
+
+      totalAportadoDespues,
+
+      mesesCubiertos:
+        Math.floor(
+          totalAportadoDespues /
+          promesaMensual
+        ),
+
+      cubiertoHastaTexto:
+        pendiente > 0
+          ? `Regularización pendiente (${formatoMoneda(pendiente)})`
+          : "Historial regularizado"
+
+    };
+
+  }
+
+  /* ==========================
+     DONADORES NORMALES
+  ========================== */
 
   const mesesCubiertos =
     Math.floor(
-      totalAportadoDespues / promesaMensual
+      totalAportadoDespues /
+      promesaMensual
     );
 
   if (mesesCubiertos <= 0) {
 
     return {
+
       totalAportadoDespues,
+
       mesesCubiertos: 0,
+
       cubiertoHastaTexto:
         "Primera aportación incompleta"
+
     };
+
   }
 
   const fechaBase =
-    obtenerFechaRegistroDonador(donador);
+    obtenerFechaRegistroDonador(
+      donador
+    );
 
   const fechaCubierta =
     new Date(fechaBase);
@@ -911,9 +961,10 @@ function calcularCoberturaDonador(
           year: "numeric"
         }
       )
-  };
-}
 
+  };
+
+}
 /* ---------------------------------------------------------
    Obtener fecha registro
 --------------------------------------------------------- */
