@@ -428,13 +428,13 @@ Hoy ya disponemos de una plataforma pública donde cualquier ciudadano puede con
 
 Por ello queremos consultarte qué opción prefieres:
 
-✅ OPCIÓN 1
+OPCIÓN 1
 Regularizar tu historial de participación considerando el tiempo transcurrido desde tu incorporación.
 
-✅ OPCIÓN 2
+OPCIÓN 2
 Comenzar desde hoy con registro nuevo dentro de la plataforma y dejar el historial anterior únicamente como antecedente ciudadano.
 
-✅ OPCIÓN 3
+OPCIÓN 3
 Solicitar revisión de aportaciones anteriores que pudieran no estar registradas actualmente en el sistema.
 
 Tu decisión será respetada en cualquiera de los casos.
