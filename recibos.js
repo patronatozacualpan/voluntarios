@@ -110,9 +110,71 @@ async function generarReciboPDF(datos) {
   pdf.text(`Cantidad: ${formatearMonedaRecibo(datos.monto || 0)}`, 18, 58);
   pdf.text(`Forma de pago: ${formatearFormaPago(datos.formaPago || "")}`, 18, 68);
 pdf.setFontSize(9);
-pdf.text(`Promesa mensual: ${formatearMonedaRecibo(datos.promesaMensual || 0)}`, 18, 75);
-pdf.text(`Total aportado: ${formatearMonedaRecibo(datos.totalAportadoDespues || datos.monto || 0)}`, 70, 75);
-pdf.text(`Cubre hasta: ${datos.cuotaCubiertaHasta || "No determinado"}`, 122, 75);
+
+const esHistorico =
+  String(datos.cuotaCubiertaHasta || "")
+  .includes("Regularización pendiente");
+
+if (esHistorico) {
+
+  const esperado =
+    Number(datos.participacionEsperada || 0);
+
+  const aportado =
+    Number(datos.totalAportadoDespues || 0);
+
+  const pendiente =
+    Math.max(
+      esperado - aportado,
+      0
+    );
+
+  pdf.text(
+    `Promesa mensual: ${formatearMonedaRecibo(datos.promesaMensual || 0)}`,
+    18,
+    75
+  );
+
+  pdf.text(
+    `Histórico estimado: ${formatearMonedaRecibo(esperado)}`,
+    70,
+    75
+  );
+
+  pdf.text(
+    `Registrado: ${formatearMonedaRecibo(aportado)}`,
+    18,
+    81
+  );
+
+  pdf.text(
+    `Pendiente: ${formatearMonedaRecibo(pendiente)}`,
+    70,
+    81
+  );
+
+} else {
+
+  pdf.text(
+    `Promesa mensual: ${formatearMonedaRecibo(datos.promesaMensual || 0)}`,
+    18,
+    75
+  );
+
+  pdf.text(
+    `Total aportado: ${formatearMonedaRecibo(datos.totalAportadoDespues || datos.monto || 0)}`,
+    70,
+    75
+  );
+
+  pdf.text(
+    `Cubre hasta: ${datos.cuotaCubiertaHasta || "No determinado"}`,
+    122,
+    75
+  );
+
+}
+
 pdf.setFont("helvetica", "bold");
 pdf.text("Recibido por Tesorera", 120, 38);
 
