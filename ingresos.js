@@ -663,20 +663,84 @@ async function actualizarDonadorDespuesIngreso(
       const nuevoTotal =
         totalActual + Number(monto || 0);
 
-      transaction.update(
-        donadorRef,
-        {
-          totalAportado: nuevoTotal,
 
-          ultimoPago:
-            firebase.firestore.FieldValue.serverTimestamp(),
 
-          activo: true,
+let mesesAcumulados = 0;
 
-          actualizadoEn:
-            firebase.firestore.FieldValue.serverTimestamp()
-        }
-      );
+if (
+  actual.fechaInicioPatrocinio?.toDate
+) {
+
+  const inicio =
+    actual.fechaInicioPatrocinio.toDate();
+
+  const hoy =
+    new Date();
+
+  mesesAcumulados =
+    (hoy.getFullYear() - inicio.getFullYear()) * 12 +
+    (hoy.getMonth() - inicio.getMonth()) + 1;
+
+  if (mesesAcumulados < 1) {
+    mesesAcumulados = 1;
+  }
+
+}
+
+const participacionEsperada =
+  mesesAcumulados *
+  Number(actual.promesaMensual || 0);
+
+const diferenciaRegularizacion =
+  participacionEsperada -
+  nuevoTotal;
+
+let estatusRegularizacion =
+  "al_corriente";
+
+if (
+  diferenciaRegularizacion > 0
+) {
+
+  estatusRegularizacion =
+    "pendiente";
+
+}
+
+if (
+  diferenciaRegularizacion < 0
+) {
+
+  estatusRegularizacion =
+    "adelantado";
+
+}
+
+       
+transaction.update(
+  donadorRef,
+  {
+    totalAportado:
+      nuevoTotal,
+
+    ultimoPago:
+      firebase.firestore.FieldValue.serverTimestamp(),
+
+    activo:
+      true,
+
+    mesesAcumulados,
+
+    participacionEsperada,
+
+    diferenciaRegularizacion,
+
+    estatusRegularizacion,
+
+    actualizadoEn:
+      firebase.firestore.FieldValue.serverTimestamp()
+  }
+);
 
     }
   );
