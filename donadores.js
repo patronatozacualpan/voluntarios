@@ -330,6 +330,64 @@ function crearMensajeWhatsApp(donador, calculo) {
   const promesa = formatoMoneda(donador.promesaMensual || 0);
   const pendiente = formatoMoneda(calculo.montoPendiente || 0);
 
+
+   /* --------------------------------------------------
+   DONADORES HISTORICOS
+-------------------------------------------------- */
+
+if (donador.esDonadorHistorico === true) {
+
+  const fechaInicio =
+    donador.fechaInicioPatrocinio?.toDate
+      ? donador.fechaInicioPatrocinio.toDate()
+      : new Date();
+
+  const meses =
+    calcularMesesTranscurridos(
+      fechaInicio
+    );
+
+  const participacionEsperada =
+    meses *
+    Number(
+      donador.promesaMensual || 0
+    );
+
+  return `Hola ${nombre}.
+
+Queremos agradecerte porque apareces en nuestros registros como uno de los padrinos fundadores del Patronato Zacualpan.
+
+Tu registro histórico indica una participación desde ${fechaInicio.toLocaleDateString("es-MX")}.
+
+Desde entonces han transcurrido aproximadamente *${meses} meses*.
+
+Con una aportación comprometida de *${promesa} mensuales*, la participación acumulada estimada asciende a *${formatoMoneda(participacionEsperada)}*.
+
+Actualmente estamos regularizando los registros históricos debido a que anteriormente no contábamos con una plataforma integral de control y transparencia.
+
+Hoy ya disponemos de una plataforma pública donde cualquier ciudadano puede consultar ingresos, egresos, inventario, adquisiciones y avances institucionales.
+
+*Por ello queremos consultarte qué opción prefieres:*
+
+✅ *OPCIÓN 1*
+Regularizar tu historial de participación considerando el tiempo transcurrido desde tu incorporación.
+
+✅ *OPCIÓN 2*
+Comenzar desde hoy con registro nuevo dentro de la plataforma y dejar el historial anterior únicamente como antecedente ciudadano.
+
+Tu decisión será respetada en cualquiera de los casos.
+
+Portal de transparencia:
+
+https://patronatozacualpan.github.io/voluntarios/transparencia.html
+
+Si deseas continuar apoyando esta causa ciudadana te agradeceremos responder este mensaje.
+
+Muchas gracias por tu confianza y apoyo.
+
+*Patronato Zacualpan Pro-equipamiento de Protección Civil*`;
+}
+
 if (calculo.estatusClave === "primera_aportacion") {
 
   return `Hola ${nombre}.
