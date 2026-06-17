@@ -388,6 +388,19 @@ if (donador.esDonadorHistorico === true) {
       donador.promesaMensual || 0
     );
 
+const aportado =
+  Number(
+    donador.totalAportado || 0
+  );
+
+const pendienteRegularizacion =
+  Math.max(
+    participacionEsperada -
+    aportado,
+    0
+  );
+   
+
   return `Hola ${nombre}.
 
 Queremos agradecerte porque apareces en nuestros registros como uno de los padrinos fundadores del Patronato Zacualpan.
