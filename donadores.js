@@ -422,25 +422,19 @@ Con una aportación comprometida de *${promesa} mensuales*:
 
 Estos importes son únicamente una referencia de actualización histórica y podrán ajustarse si existen aportaciones anteriores que aún no hayan sido registradas en el sistema.
 
-• Aportaciones registradas en sistema:
-*${formatoMoneda(aportado)}*
-
-• Diferencia pendiente de regularización:
-*${formatoMoneda(pendienteRegularizacion)}* 
-
 Actualmente estamos regularizando los registros históricos debido a que anteriormente no contábamos con una plataforma integral de control y transparencia.
 
 Hoy ya disponemos de una plataforma pública donde cualquier ciudadano puede consultar ingresos, egresos, inventario, adquisiciones y avances institucionales.
 
-*Por ello queremos consultarte qué opción prefieres:*
+Por ello queremos consultarte qué opción prefieres:
 
- *OPCIÓN 1*
+✅ OPCIÓN 1
 Regularizar tu historial de participación considerando el tiempo transcurrido desde tu incorporación.
 
- *OPCIÓN 2*
+✅ OPCIÓN 2
 Comenzar desde hoy con registro nuevo dentro de la plataforma y dejar el historial anterior únicamente como antecedente ciudadano.
 
-✅ *OPCIÓN 3*
+✅ OPCIÓN 3
 Solicitar revisión de aportaciones anteriores que pudieran no estar registradas actualmente en el sistema.
 
 Tu decisión será respetada en cualquiera de los casos.
