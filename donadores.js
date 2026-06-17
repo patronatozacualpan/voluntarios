@@ -411,8 +411,16 @@ Desde entonces han transcurrido aproximadamente *${meses} meses*.
 
 Con una aportación comprometida de *${promesa} mensuales*:
 
-• Participación acumulada estimada:
+• Participación acumulada estimada desde tu incorporación:
 *${formatoMoneda(participacionEsperada)}*
+
+• Aportaciones registradas actualmente en la plataforma:
+*${formatoMoneda(aportado)}*
+
+• Diferencia pendiente de regularización:
+*${formatoMoneda(pendienteRegularizacion)}*
+
+Estos importes son únicamente una referencia de actualización histórica y podrán ajustarse si existen aportaciones anteriores que aún no hayan sido registradas en el sistema.
 
 • Aportaciones registradas en sistema:
 *${formatoMoneda(aportado)}*
@@ -426,11 +434,14 @@ Hoy ya disponemos de una plataforma pública donde cualquier ciudadano puede con
 
 *Por ello queremos consultarte qué opción prefieres:*
 
-✅ *OPCIÓN 1*
+ *OPCIÓN 1*
 Regularizar tu historial de participación considerando el tiempo transcurrido desde tu incorporación.
 
-✅ *OPCIÓN 2*
+ *OPCIÓN 2*
 Comenzar desde hoy con registro nuevo dentro de la plataforma y dejar el historial anterior únicamente como antecedente ciudadano.
+
+✅ *OPCIÓN 3*
+Solicitar revisión de aportaciones anteriores que pudieran no estar registradas actualmente en el sistema.
 
 Tu decisión será respetada en cualquiera de los casos.
 
@@ -439,6 +450,14 @@ Portal de transparencia:
 https://patronatozacualpan.github.io/voluntarios/transparencia.html
 
 Si deseas continuar apoyando esta causa ciudadana te agradeceremos responder este mensaje.
+
+Puedes responder simplemente:
+
+1 = Regularizar historial
+
+2 = Comenzar desde hoy
+
+3 = Revisar aportaciones anteriores
 
 Muchas gracias por tu confianza y apoyo.
 
