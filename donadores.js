@@ -409,7 +409,16 @@ Tu registro histórico indica una participación desde ${fechaInicio.toLocaleDat
 
 Desde entonces han transcurrido aproximadamente *${meses} meses*.
 
-Con una aportación comprometida de *${promesa} mensuales*, la participación acumulada estimada asciende a *${formatoMoneda(participacionEsperada)}*.
+Con una aportación comprometida de *${promesa} mensuales*:
+
+• Participación acumulada estimada:
+*${formatoMoneda(participacionEsperada)}*
+
+• Aportaciones registradas en sistema:
+*${formatoMoneda(aportado)}*
+
+• Diferencia pendiente de regularización:
+*${formatoMoneda(pendienteRegularizacion)}* 
 
 Actualmente estamos regularizando los registros históricos debido a que anteriormente no contábamos con una plataforma integral de control y transparencia.
 
