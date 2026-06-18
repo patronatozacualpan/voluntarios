@@ -992,15 +992,48 @@ function obtenerFechaRegistroDonador(
   donador
 ) {
 
-  if (donador.creadoEn?.toDate) {
-    return donador.creadoEn.toDate();
+  if (
+    donador.fechaInicioPatrocinio?.toDate
+  ) {
+
+    return donador
+      .fechaInicioPatrocinio
+      .toDate();
+
   }
 
-  if (donador.fechaRegistro?.toDate) {
-    return donador.fechaRegistro.toDate();
+  if (
+    donador.fechaInicioPatrocinio
+  ) {
+
+    return new Date(
+      donador.fechaInicioPatrocinio
+    );
+
+  }
+
+  if (
+    donador.fechaRegistro?.toDate
+  ) {
+
+    return donador
+      .fechaRegistro
+      .toDate();
+
+  }
+
+  if (
+    donador.creadoEn?.toDate
+  ) {
+
+    return donador
+      .creadoEn
+      .toDate();
+
   }
 
   return new Date();
+
 }
 
 
