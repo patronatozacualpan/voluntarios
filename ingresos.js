@@ -880,38 +880,52 @@ function calcularCoberturaDonador(
   /* ==========================
      DONADORES HISTORICOS
   ========================== */
+if (donador.esDonadorHistorico) {
 
-  if (donador.esDonadorHistorico) {
+  const mesesCubiertos =
+    Math.floor(
+      totalAportadoDespues /
+      promesaMensual
+    );
 
-    const esperado =
-      Number(
-        donador.participacionEsperada || 0
-      );
+  const fechaBase =
+    obtenerFechaRegistroDonador(
+      donador
+    );
 
-    const pendiente =
-      Math.max(
-        esperado - totalAportadoDespues,
-        0
-      );
+  const fechaCubierta =
+    new Date(fechaBase);
 
-    return {
+  if (mesesCubiertos > 0) {
 
-      totalAportadoDespues,
-
-      mesesCubiertos:
-        Math.floor(
-          totalAportadoDespues /
-          promesaMensual
-        ),
-
-      cubiertoHastaTexto:
-        pendiente > 0
-          ? `Regularización pendiente (${formatoMoneda(pendiente)})`
-          : "Historial regularizado"
-
-    };
+    fechaCubierta.setMonth(
+      fechaCubierta.getMonth()
+      + mesesCubiertos
+      - 1
+    );
 
   }
+
+  return {
+
+    totalAportadoDespues,
+
+    mesesCubiertos,
+
+    cubiertoHastaTexto:
+      mesesCubiertos > 0
+        ? fechaCubierta.toLocaleDateString(
+            "es-MX",
+            {
+              month: "long",
+              year: "numeric"
+            }
+          )
+        : "Sin cobertura"
+
+  };
+
+}
 
   /* ==========================
      DONADORES NORMALES
