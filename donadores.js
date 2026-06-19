@@ -240,11 +240,8 @@ montoEsperado =
   promesaMensual;
 
 montoPendiente =
-  Math.max(
-    montoEsperado -
-    totalAportado,
-    0
-  );
+  montoEsperado -
+  totalAportado;
 
   if (montoPendiente < 0) {
     return {
