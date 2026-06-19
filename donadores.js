@@ -344,53 +344,64 @@ function pintarValidacion(donador) {
 }
 
 
-function pintarRegularizacion(donador) {
+async function regularizarHistorial(donadorId) {
 
-  if (!donador.esDonadorHistorico) {
+  const { db } = window.PCZ_FIREBASE;
 
-    return `
-      <span class="estatus-badge al-dia">
-        N/A
-      </span>
-    `;
-  }
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
 
-  const estado =
-    donador.decisionRegularizacion
-    || "pendiente";
+      decisionRegularizacion:
+        "regularizar_historial",
 
-  if (estado === "regularizar_historial") {
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
 
-    return `
-      <span class="estatus-badge al-dia">
-        Regularizado
-      </span>
-    `;
-  }
+    });
 
-  if (estado === "comenzar_desde_hoy") {
+  await cargarDonadores();
+}
 
-    return `
-      <span class="estatus-badge adelantado">
-        Desde hoy
-      </span>
-    `;
-  }
+async function comenzarDesdeHoy(donadorId) {
 
-  if (estado === "revisar_aportaciones") {
+  const { db } = window.PCZ_FIREBASE;
 
-    return `
-      <span class="estatus-badge pendiente">
-        Revisar
-      </span>
-    `;
-  }
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
 
-  return `
-    <span class="estatus-badge pendiente">
-      Pendiente
-    </span>
-  `;
+      decisionRegularizacion:
+        "comenzar_desde_hoy",
+
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await cargarDonadores();
+}
+
+async function revisarAportaciones(donadorId) {
+
+  const { db } = window.PCZ_FIREBASE;
+
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
+
+      decisionRegularizacion:
+        "revisar_aportaciones",
+
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await cargarDonadores();
 }
 
 /* ---------------------------------------------------------
