@@ -148,11 +148,16 @@ function pintarTablaDonadores(donadores) {
       <td>${formatoMoneda(donador.totalAportado || 0)}</td>
       <td>${formatoMoneda(calculo.montoEsperado)}</td>
       <td>${formatoMoneda(calculo.montoPendiente)}</td>
-      <td>
-        <span class="estatus-badge ${calculo.estatusClase}">
-          ${calculo.estatusTexto}
-        </span>
-      </td>
+ <td>
+  <span class="estatus-badge ${calculo.estatusClase}">
+    ${calculo.estatusTexto}
+  </span>
+</td>
+
+<td>
+  ${pintarRegularizacion(donador)}
+</td>
+
 <td>
   ${pintarValidacion(donador)}
   ${pintarBotonesValidacion(donador)}
@@ -336,6 +341,56 @@ function pintarValidacion(donador) {
   }
 
   return `<span class="estatus-badge pendiente">Pendiente</span>`;
+}
+
+
+function pintarRegularizacion(donador) {
+
+  if (!donador.esDonadorHistorico) {
+
+    return `
+      <span class="estatus-badge al-dia">
+        N/A
+      </span>
+    `;
+  }
+
+  const estado =
+    donador.decisionRegularizacion
+    || "pendiente";
+
+  if (estado === "regularizar_historial") {
+
+    return `
+      <span class="estatus-badge al-dia">
+        Regularizado
+      </span>
+    `;
+  }
+
+  if (estado === "comenzar_desde_hoy") {
+
+    return `
+      <span class="estatus-badge adelantado">
+        Desde hoy
+      </span>
+    `;
+  }
+
+  if (estado === "revisar_aportaciones") {
+
+    return `
+      <span class="estatus-badge pendiente">
+        Revisar
+      </span>
+    `;
+  }
+
+  return `
+    <span class="estatus-badge pendiente">
+      Pendiente
+    </span>
+  `;
 }
 
 /* ---------------------------------------------------------
