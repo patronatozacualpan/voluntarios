@@ -777,3 +777,66 @@ async function descartarDonador(donadorId) {
   }
 }
 
+
+
+}
+    
+async function regularizarHistorial(donadorId) {
+
+  const { db } = window.PCZ_FIREBASE;
+
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
+
+      decisionRegularizacion:
+        "regularizar_historial",
+
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await cargarDonadores();
+}
+
+async function comenzarDesdeHoy(donadorId) {
+
+  const { db } = window.PCZ_FIREBASE;
+
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
+
+      decisionRegularizacion:
+        "comenzar_desde_hoy",
+
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await cargarDonadores();
+}
+
+async function revisarAportaciones(donadorId) {
+
+  const { db } = window.PCZ_FIREBASE;
+
+  await db
+    .collection("donadores")
+    .doc(donadorId)
+    .update({
+
+      decisionRegularizacion:
+        "revisar_aportaciones",
+
+      fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await cargarDonadores();
+}
