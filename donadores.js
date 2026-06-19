@@ -44,7 +44,7 @@ async function cargarDonadores() {
   if (tbody) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10">Cargando donadores...</td>
+        <td colspan="11">Cargando donadores...</td>
       </tr>
     `;
   }
@@ -74,7 +74,7 @@ async function cargarDonadores() {
     if (tbody) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="10">⚠️ No se pudieron cargar los donadores.</td>
+          <td colspan="11">⚠️ No se pudieron cargar los donadores.</td>
         </tr>
       `;
     }
@@ -122,7 +122,7 @@ function pintarTablaDonadores(donadores) {
   if (!donadores.length) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10">No hay donadores para mostrar.</td>
+        <td colspan="11">No hay donadores para mostrar.</td>
       </tr>
     `;
     return;
@@ -837,3 +837,75 @@ async function revisarAportaciones(donadorId) {
 
   await cargarDonadores();
 }
+
+
+
+/* ---------------------------------------------------------
+   Regularización histórica
+--------------------------------------------------------- */
+
+function pintarRegularizacion(donador) {
+
+  if (!donador.esDonadorHistorico) {
+    return "-";
+  }
+
+  const decision =
+    donador.decisionRegularizacion || "";
+
+  if (decision === "regularizar_historial") {
+
+    return `
+      <span class="estatus-badge al-dia">
+        Regularizar historial
+      </span>
+    `;
+  }
+
+  if (decision === "comenzar_desde_hoy") {
+
+    return `
+      <span class="estatus-badge adelantado">
+        Comenzar desde hoy
+      </span>
+    `;
+  }
+
+  if (decision === "revisar_aportaciones") {
+
+    return `
+      <span class="estatus-badge pendiente">
+        Revisar aportaciones
+      </span>
+    `;
+  }
+
+  return `
+    <div class="acciones-validacion">
+
+      <button
+        class="btn-mini"
+        onclick="regularizarHistorial('${donador.id}')"
+      >
+        Historial
+      </button>
+
+      <button
+        class="btn-mini"
+        onclick="comenzarDesdeHoy('${donador.id}')"
+      >
+        Desde hoy
+      </button>
+
+      <button
+        class="btn-mini"
+        onclick="revisarAportaciones('${donador.id}')"
+      >
+        Revisar
+      </button>
+
+    </div>
+  `;
+}
+
+
