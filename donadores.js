@@ -777,9 +777,6 @@ async function descartarDonador(donadorId) {
   }
 }
 
-
-
-}
     
 async function regularizarHistorial(donadorId) {
 
