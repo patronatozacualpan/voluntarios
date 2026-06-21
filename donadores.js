@@ -374,6 +374,11 @@ async function regularizarHistorial(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
 
+  const donador =
+    DONADORES_CACHE.find(
+      d => d.id === donadorId
+    );
+
   await db
     .collection("donadores")
     .doc(donadorId)
@@ -387,12 +392,34 @@ async function regularizarHistorial(donadorId) {
 
     });
 
+  await db
+    .collection("acuerdos_regularizacion")
+    .add({
+
+      donadorId,
+
+      nombreDonador:
+        donador?.nombre || "",
+
+      decision:
+        "regularizar_historial",
+
+      fecha:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
   await cargarDonadores();
 }
 
 async function comenzarDesdeHoy(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
+
+  const donador =
+    DONADORES_CACHE.find(
+      d => d.id === donadorId
+    );
 
   await db
     .collection("donadores")
@@ -407,12 +434,34 @@ async function comenzarDesdeHoy(donadorId) {
 
     });
 
+  await db
+    .collection("acuerdos_regularizacion")
+    .add({
+
+      donadorId,
+
+      nombreDonador:
+        donador?.nombre || "",
+
+      decision:
+        "comenzar_desde_hoy",
+
+      fecha:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
   await cargarDonadores();
 }
 
 async function revisarAportaciones(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
+
+  const donador =
+    DONADORES_CACHE.find(
+      d => d.id === donadorId
+    );
 
   await db
     .collection("donadores")
@@ -423,6 +472,23 @@ async function revisarAportaciones(donadorId) {
         "revisar_aportaciones",
 
       fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp()
+
+    });
+
+  await db
+    .collection("acuerdos_regularizacion")
+    .add({
+
+      donadorId,
+
+      nombreDonador:
+        donador?.nombre || "",
+
+      decision:
+        "revisar_aportaciones",
+
+      fecha:
         firebase.firestore.FieldValue.serverTimestamp()
 
     });
