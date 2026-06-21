@@ -945,30 +945,30 @@ function pintarRegularizacion(donador) {
 
   if (decision === "regularizar_historial") {
 
-    return `
-      <span class="estatus-badge al-dia">
-        Regularizar historial
-      </span>
-    `;
-  }
+  return `
+    <span class="estatus-badge al-dia">
+      🟢 Historial
+    </span>
+  `;
+}
 
-  if (decision === "comenzar_desde_hoy") {
+ if (decision === "comenzar_desde_hoy") {
 
-    return `
-      <span class="estatus-badge adelantado">
-        Comenzar desde hoy
-      </span>
-    `;
-  }
+  return `
+    <span class="estatus-badge al-dia">
+      🟢 Regularizado
+    </span>
+  `;
+}
 
-  if (decision === "revisar_aportaciones") {
+if (decision === "revisar_aportaciones") {
 
-    return `
-      <span class="estatus-badge pendiente">
-        Revisar aportaciones
-      </span>
-    `;
-  }
+  return `
+    <span class="estatus-badge pendiente">
+      🟠 Revisar
+    </span>
+  `;
+}
 
   return `
     <div class="acciones-validacion">
