@@ -892,6 +892,9 @@ async function comenzarDesdeHoy(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
 
+  const usuario =
+    window.PCZ_AUTH?.obtenerUsuarioActivo?.();
+
   await db
     .collection("donadores")
     .doc(donadorId)
@@ -900,7 +903,22 @@ async function comenzarDesdeHoy(donadorId) {
       decisionRegularizacion:
         "comenzar_desde_hoy",
 
+      estatusMigracion:
+        "regularizado",
+
+      estatusRegularizacion:
+        "completado",
+
+      diferenciaRegularizacion:
+        0,
+
+      regularizadoPor:
+        usuario?.nombre || "",
+
       fechaRegularizacion:
+        firebase.firestore.FieldValue.serverTimestamp(),
+
+      actualizadoEn:
         firebase.firestore.FieldValue.serverTimestamp()
 
     });
