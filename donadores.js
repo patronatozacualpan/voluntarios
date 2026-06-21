@@ -66,6 +66,9 @@ async function cargarDonadores() {
       });
     });
 
+actualizarResumenRegularizacion();
+
+     
     aplicarFiltrosDonadores();
 
   } catch (error) {
@@ -1014,6 +1017,70 @@ if (decision === "revisar_aportaciones") {
 
     </div>
   `;
+}
+
+
+
+
+function actualizarResumenRegularizacion() {
+
+  const historicos =
+    DONADORES_CACHE.filter(
+      d => d.esDonadorHistorico
+    );
+
+  const pendientes =
+    historicos.filter(
+      d =>
+        !d.decisionRegularizacion ||
+        d.decisionRegularizacion === "pendiente"
+    );
+
+  const historial =
+    historicos.filter(
+      d =>
+        d.decisionRegularizacion ===
+        "regularizar_historial"
+    );
+
+  const desdeHoy =
+    historicos.filter(
+      d =>
+        d.decisionRegularizacion ===
+        "comenzar_desde_hoy"
+    );
+
+  const revisar =
+    historicos.filter(
+      d =>
+        d.decisionRegularizacion ===
+        "revisar_aportaciones"
+    );
+
+  document.getElementById(
+    "totalHistoricos"
+  ).textContent =
+    historicos.length;
+
+  document.getElementById(
+    "totalPendientesRegularizacion"
+  ).textContent =
+    pendientes.length;
+
+  document.getElementById(
+    "totalHistorial"
+  ).textContent =
+    historial.length;
+
+  document.getElementById(
+    "totalDesdeHoy"
+  ).textContent =
+    desdeHoy.length;
+
+  document.getElementById(
+    "totalRevisar"
+  ).textContent =
+    revisar.length;
 }
 
 
