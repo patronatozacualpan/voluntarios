@@ -1173,6 +1173,31 @@ a {
   box-sizing: border-box;
 }
 
+
+@media (max-width: 900px) {
+
+  .dashboard-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .dashboard-grid {
+
+    grid-template-columns:
+      1fr;
+
+  }
+
+}
+
+
+
 .dashboard-card {
   background: white;
   border-radius: 22px;
