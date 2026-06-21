@@ -416,10 +416,8 @@ async function comenzarDesdeHoy(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
 
-  const donador =
-    DONADORES_CACHE.find(
-      d => d.id === donadorId
-    );
+  const usuario =
+    window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
   await db
     .collection("donadores")
@@ -429,30 +427,30 @@ async function comenzarDesdeHoy(donadorId) {
       decisionRegularizacion:
         "comenzar_desde_hoy",
 
+      estatusMigracion:
+        "regularizado",
+
+      estatusRegularizacion:
+        "completado",
+
+      diferenciaRegularizacion:
+        0,
+
+      regularizadoPor:
+        usuario?.nombre || "",
+
       fechaRegularizacion:
-        firebase.firestore.FieldValue.serverTimestamp()
+        firebase.firestore.FieldValue.serverTimestamp(),
 
-    });
-
-  await db
-    .collection("acuerdos_regularizacion")
-    .add({
-
-      donadorId,
-
-      nombreDonador:
-        donador?.nombre || "",
-
-      decision:
-        "comenzar_desde_hoy",
-
-      fecha:
+      actualizadoEn:
         firebase.firestore.FieldValue.serverTimestamp()
 
     });
 
   await cargarDonadores();
 }
+
+
 
 async function revisarAportaciones(donadorId) {
 
