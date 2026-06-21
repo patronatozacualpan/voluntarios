@@ -3725,3 +3725,31 @@ button:disabled {
 }
 
 
+/* =====================================
+   MANUAL COLAPSABLE DONADORES
+===================================== */
+
+.manual-toggle{
+  cursor:pointer;
+  font-size:18px;
+  font-weight:800;
+  color:#002147;
+  padding:4px 0;
+  list-style:none;
+}
+
+.manual-toggle::-webkit-details-marker{
+  display:none;
+}
+
+details.info-card[open] .manual-toggle{
+  margin-bottom:15px;
+}
+
+details.info-card{
+  transition:all .25s ease;
+}
+
+
+
+
