@@ -277,6 +277,32 @@ montoPendiente =
 
 function obtenerFechaRegistro(donador) {
 
+  /* ===========================
+     HISTÓRICO QUE ELIGIÓ
+     COMENZAR DESDE HOY
+  =========================== */
+
+  if (
+    donador.decisionRegularizacion ===
+    "comenzar_desde_hoy"
+  ) {
+
+    if (
+      donador.fechaRegularizacion?.toDate
+    ) {
+
+      return donador
+        .fechaRegularizacion
+        .toDate();
+
+    }
+
+  }
+
+  /* ===========================
+     HISTÓRICO NORMAL
+  =========================== */
+
   if (
     donador.fechaInicioPatrocinio?.toDate
   ) {
@@ -310,6 +336,9 @@ function obtenerFechaRegistro(donador) {
   return new Date();
 
 }
+
+
+
 
 function calcularMesesTranscurridos(fechaRegistro) {
   const inicio = new Date(fechaRegistro);
