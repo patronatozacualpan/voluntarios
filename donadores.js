@@ -860,25 +860,7 @@ async function descartarDonador(donadorId) {
 }
 
     
-async function regularizarHistorial(donadorId) {
 
-  const { db } = window.PCZ_FIREBASE;
-
-  await db
-    .collection("donadores")
-    .doc(donadorId)
-    .update({
-
-      decisionRegularizacion:
-        "regularizar_historial",
-
-      fechaRegularizacion:
-        firebase.firestore.FieldValue.serverTimestamp()
-
-    });
-
-  await cargarDonadores();
-}
 
 async function comenzarDesdeHoy(donadorId) {
 
