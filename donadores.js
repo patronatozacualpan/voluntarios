@@ -900,25 +900,6 @@ async function comenzarDesdeHoy(donadorId) {
   await cargarDonadores();
 }
 
-async function revisarAportaciones(donadorId) {
-
-  const { db } = window.PCZ_FIREBASE;
-
-  await db
-    .collection("donadores")
-    .doc(donadorId)
-    .update({
-
-      decisionRegularizacion:
-        "revisar_aportaciones",
-
-      fechaRegularizacion:
-        firebase.firestore.FieldValue.serverTimestamp()
-
-    });
-
-  await cargarDonadores();
-}
 
 
 
