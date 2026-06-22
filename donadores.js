@@ -377,10 +377,8 @@ async function regularizarHistorial(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
 
-  const donador =
-    DONADORES_CACHE.find(
-      d => d.id === donadorId
-    );
+  const usuario =
+    window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
   await db
     .collection("donadores")
@@ -390,30 +388,28 @@ async function regularizarHistorial(donadorId) {
       decisionRegularizacion:
         "regularizar_historial",
 
+      estatusMigracion:
+        "regularizado",
+
+      estatusRegularizacion:
+        "historial",
+
+      regularizadoPor:
+        usuario?.nombre || "",
+
       fechaRegularizacion:
-        firebase.firestore.FieldValue.serverTimestamp()
+        firebase.firestore.FieldValue.serverTimestamp(),
 
-    });
-
-  await db
-    .collection("acuerdos_regularizacion")
-    .add({
-
-      donadorId,
-
-      nombreDonador:
-        donador?.nombre || "",
-
-      decision:
-        "regularizar_historial",
-
-      fecha:
+      actualizadoEn:
         firebase.firestore.FieldValue.serverTimestamp()
 
     });
 
   await cargarDonadores();
 }
+
+
+
 
 async function comenzarDesdeHoy(donadorId) {
 
@@ -459,10 +455,8 @@ async function revisarAportaciones(donadorId) {
 
   const { db } = window.PCZ_FIREBASE;
 
-  const donador =
-    DONADORES_CACHE.find(
-      d => d.id === donadorId
-    );
+  const usuario =
+    window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
   await db
     .collection("donadores")
@@ -472,24 +466,19 @@ async function revisarAportaciones(donadorId) {
       decisionRegularizacion:
         "revisar_aportaciones",
 
+      estatusMigracion:
+        "revision",
+
+      estatusRegularizacion:
+        "revisar",
+
+      regularizadoPor:
+        usuario?.nombre || "",
+
       fechaRegularizacion:
-        firebase.firestore.FieldValue.serverTimestamp()
+        firebase.firestore.FieldValue.serverTimestamp(),
 
-    });
-
-  await db
-    .collection("acuerdos_regularizacion")
-    .add({
-
-      donadorId,
-
-      nombreDonador:
-        donador?.nombre || "",
-
-      decision:
-        "revisar_aportaciones",
-
-      fecha:
+      actualizadoEn:
         firebase.firestore.FieldValue.serverTimestamp()
 
     });
