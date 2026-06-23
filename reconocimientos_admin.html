@@ -79,17 +79,188 @@ Reconocimientos y Donaciones en Especie
 
 <div class="info-card">
 
-<p>
+<form id="formReconocimiento">
 
-Aquí se registran ciudadanos,
-empresas y organizaciones que
-han fortalecido a Protección Civil
-mediante donaciones, servicios,
-equipo o apoyos extraordinarios.
+<h3>
+Nuevo reconocimiento ciudadano
+</h3>
 
-</p>
+<label>
+Nombre del benefactor
+</label>
 
-</div>
+<input
+type="text"
+id="nombreBenefactor"
+required
+>
+
+<label>
+Empresa u organización
+</label>
+
+<input
+type="text"
+id="empresaBenefactor"
+>
+
+<label>
+Teléfono
+</label>
+
+<input
+type="text"
+id="telefonoBenefactor"
+>
+
+<label>
+Tipo de apoyo
+</label>
+
+<select id="tipoApoyo">
+
+<option value="equipo">
+Equipo
+</option>
+
+<option value="herramienta">
+Herramienta
+</option>
+
+<option value="servicio">
+Servicio
+</option>
+
+<option value="combustible">
+Combustible
+</option>
+
+<option value="material">
+Material
+</option>
+
+<option value="otro">
+Otro
+</option>
+
+</select>
+
+<label>
+Artículo o apoyo recibido
+</label>
+
+<input
+type="text"
+id="articuloDonado"
+required
+>
+
+<label>
+Descripción
+</label>
+
+<textarea
+id="descripcionApoyo"
+rows="4"
+></textarea>
+
+<label>
+Valor estimado
+</label>
+
+<input
+type="number"
+id="valorEstimado"
+min="0"
+step="0.01"
+>
+
+<label>
+Fotografía del benefactor
+</label>
+
+<input
+type="file"
+id="fotoBenefactor"
+accept="image/*"
+>
+
+<label>
+Fotografía del apoyo recibido
+</label>
+
+<input
+type="file"
+id="fotoApoyo"
+accept="image/*"
+>
+
+<label>
+
+<input
+type="checkbox"
+id="publicarNombre"
+checked
+>
+
+Autoriza publicar nombre
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="publicarFotoBenefactor"
+checked
+>
+
+Autoriza publicar fotografía personal
+
+</label>
+
+<label>
+
+<input
+type="checkbox"
+id="publicarFotoApoyo"
+checked
+>
+
+Autoriza publicar fotografía del apoyo
+
+</label>
+
+<label>
+Mensaje de agradecimiento
+</label>
+
+<textarea
+id="mensajeAgradecimiento"
+rows="5"
+></textarea>
+
+<label>
+
+<input
+type="checkbox"
+id="destacado"
+>
+
+Reconocimiento destacado
+
+</label>
+
+<button
+type="submit"
+class="btn-primary"
+>
+
+Guardar reconocimiento
+
+</button>
+
+</form>
 
 </div>
 
