@@ -270,63 +270,58 @@ comprobantePendiente: !!comprobanteArchivo,
 const docRef = await db.collection("inventario_equipo").add(equipo);
 
 /* =========================================
-   GENERAR EGRESO AUTOMATICO
+   EGRESO AUTOMATICO DESDE INVENTARIO
 ========================================= */
 
-await db
-  .collection("egresos")
-  .add({
+await db.collection("egresos").add({
 
-    concepto:
-      `Adquisición de equipo: ${nombreEquipo}`,
+  concepto:
+    `Adquisición de equipo: ${nombreEquipo}`,
 
-    descripcion:
-      descripcion || nombreEquipo,
+  descripcion:
+    descripcion || nombreEquipo,
 
-    categoria:
-      "equipo_proteccion_civil",
+  categoria:
+    "equipo_proteccion_civil",
 
-    monto:
-      costoTotal,
+  monto:
+    costoTotal,
 
-    fuentePago:
-      fuentePago,
+  fuentePago:
+    fuentePago,
 
-    tipo:
-      "inventario",
+  proveedor:
+    proveedor || "",
 
-    inventarioEquipoId:
-      docRef.id,
+  inventarioEquipoId:
+    docRef.id,
 
-    folioInventario:
-      folioInventario,
+  folioInventario:
+    folioInventario,
 
-    proveedor:
-      proveedor || "",
+  tipo:
+    "inventario",
 
-    comprobanteUrl:
-      comprobanteUrl || "",
+  comprobanteUrl:
+    comprobanteUrl || "",
 
-    comprobantePendiente:
-      !comprobanteUrl,
+  comprobantePendiente:
+    !comprobanteUrl,
 
-    creadoAutomaticamente:
-      true,
+  registradoPorUid:
+    usuario.uid,
 
-    creadoPorUid:
-      usuario.uid,
+  registradoPorNombre:
+    usuario.nombre,
 
-    creadoPorNombre:
-      usuario.nombre,
+  creadoAutomaticamente:
+    true,
 
-    creadoEn:
-      obtenerTimestampServidor(),
+  creadoEn:
+    obtenerTimestampServidor()
 
-    actualizadoEn:
-      obtenerTimestampServidor()
-
-  });
-
+});
+     
 
      
 
