@@ -3777,3 +3777,55 @@ details.info-card{
 
 
 
+/* =====================================
+   RECONOCIMIENTOS
+===================================== */
+
+#formReconocimiento{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+#formReconocimiento h3{
+  grid-column:1/-1;
+  margin-bottom:10px;
+}
+
+#formReconocimiento label{
+  display:block;
+  font-weight:700;
+  color:#002147;
+  margin-bottom:6px;
+}
+
+#formReconocimiento input,
+#formReconocimiento select,
+#formReconocimiento textarea{
+  width:100%;
+  padding:10px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  box-sizing:border-box;
+}
+
+#formReconocimiento textarea{
+  resize:vertical;
+}
+
+.campo-completo{
+  grid-column:1/-1;
+}
+
+.check-group{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.check-group label{
+  font-weight:500;
+}
+
+
