@@ -269,6 +269,68 @@ comprobantePendiente: !!comprobanteArchivo,
 
 const docRef = await db.collection("inventario_equipo").add(equipo);
 
+/* =========================================
+   GENERAR EGRESO AUTOMATICO
+========================================= */
+
+await db
+  .collection("egresos")
+  .add({
+
+    concepto:
+      `Adquisición de equipo: ${nombreEquipo}`,
+
+    descripcion:
+      descripcion || nombreEquipo,
+
+    categoria:
+      "equipo_proteccion_civil",
+
+    monto:
+      costoTotal,
+
+    fuentePago:
+      fuentePago,
+
+    tipo:
+      "inventario",
+
+    inventarioEquipoId:
+      docRef.id,
+
+    folioInventario:
+      folioInventario,
+
+    proveedor:
+      proveedor || "",
+
+    comprobanteUrl:
+      comprobanteUrl || "",
+
+    comprobantePendiente:
+      !comprobanteUrl,
+
+    creadoAutomaticamente:
+      true,
+
+    creadoPorUid:
+      usuario.uid,
+
+    creadoPorNombre:
+      usuario.nombre,
+
+    creadoEn:
+      obtenerTimestampServidor(),
+
+    actualizadoEn:
+      obtenerTimestampServidor()
+
+  });
+
+
+     
+
+     
 await registrarLog({
 
   accion: "registrar_equipo",
