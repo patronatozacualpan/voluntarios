@@ -260,7 +260,7 @@ const folioInventario =
       notasInternas: "",
       creadoPorUid: usuario.uid,
       creadoPorNombre: usuario.nombre,
-       egresoGenerado: false,
+      egresoGenerado: true,
       creadoEn: obtenerTimestampServidor(),
       actualizadoEn: obtenerTimestampServidor(),
        fotoPendiente: !!fotoArchivo,
