@@ -3829,3 +3829,92 @@ details.info-card{
 }
 
 
+/* =========================================
+   FORMULARIO MURO DE BENEFACTORES
+========================================= */
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, 1fr);
+
+  gap: 18px 24px;
+
+  margin-top: 20px;
+}
+
+.form-group {
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.form-group label {
+
+  font-weight: 700;
+
+  margin-bottom: 6px;
+
+  color: #002147;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+.campo-completo {
+
+  grid-column: 1 / -1;
+}
+
+.check-group {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+.check-group label {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-weight: 600;
+}
+
+.botones-benefactores {
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+
+  .form-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
