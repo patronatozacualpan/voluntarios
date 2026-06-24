@@ -4036,3 +4036,34 @@ details.info-card{
   }
 
 }
+
+
+
+.btn-benefactor{
+
+  display:inline-block !important;
+
+  width:auto !important;
+
+  height:auto !important;
+
+  min-width:260px;
+
+  padding:14px 24px;
+
+  background:#f7c62f;
+
+  color:#002147;
+
+  border:none;
+
+  border-radius:12px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+
+
