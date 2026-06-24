@@ -3781,6 +3781,7 @@ details.info-card{
    RECONOCIMIENTOS
 ===================================== */
 
+```css
 #formReconocimiento label{
   display:block;
   font-weight:700;
@@ -3788,14 +3789,29 @@ details.info-card{
   margin-bottom:6px;
 }
 
-#formReconocimiento input,
+/* Campos normales */
+#formReconocimiento input:not([type="checkbox"]),
 #formReconocimiento select,
 #formReconocimiento textarea{
+
   width:100%;
   padding:10px;
   border:1px solid #d1d5db;
   border-radius:10px;
   box-sizing:border-box;
+}
+
+/* Checkbox */
+.check-group input[type="checkbox"]{
+
+  width:18px;
+  height:18px;
+
+  margin:0;
+
+  padding:0;
+
+  flex:none;
 }
 
 #formReconocimiento textarea{
@@ -3809,13 +3825,38 @@ details.info-card{
 .check-group{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:10px;
 }
 
 .check-group label{
-  font-weight:500;
-}
 
+  display:flex;
+
+  align-items:center;
+
+  justify-content:flex-start;
+
+  gap:12px;
+
+  cursor:pointer;
+
+  font-weight:600;
+
+}
+```
+.check-group input[type="checkbox"]{
+
+  width:18px;
+
+  height:18px;
+
+  margin:0;
+
+  padding:0;
+
+  flex:none;
+
+} 
 
 /* =========================================
    FORMULARIO MURO DE BENEFACTORES
