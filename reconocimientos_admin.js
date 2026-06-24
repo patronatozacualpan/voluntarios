@@ -49,13 +49,139 @@ async function guardarReconocimiento(event) {
 
   }
 
-  const {
-    db,
-    obtenerTimestampServidor
-  } = firebaseTools;
-
+const {
+  db,
+  storage,
+  obtenerTimestampServidor,
+  subirArchivoStorage
+} = firebaseTools;
   try {
 
+/* =========================================
+   FOTOGRAFÍAS
+========================================= */
+
+const fotoBenefactorArchivo =
+  document.getElementById("fotoBenefactor")
+  ?.files[0] || null;
+
+const fotoApoyoArchivo =
+  document.getElementById("fotoApoyo")
+  ?.files[0] || null;
+
+
+    /* =========================================
+   VALIDAR IMÁGENES
+========================================= */
+
+if (
+  fotoBenefactorArchivo &&
+  !archivoPermitido(fotoBenefactorArchivo)
+){
+
+  alert(
+    "La fotografía del benefactor debe ser una imagen."
+  );
+
+  return;
+
+}
+
+if (
+  fotoApoyoArchivo &&
+  !archivoPermitido(fotoApoyoArchivo)
+){
+
+  alert(
+    "La fotografía del apoyo debe ser una imagen."
+  );
+
+  return;
+
+}
+
+/* =========================================
+   PREPARAR SUBIDA
+========================================= */
+
+const fecha = new Date();
+
+const anio = fecha.getFullYear();
+
+const mes = String(
+  fecha.getMonth() + 1
+).padStart(2,"0");
+
+const reconocimientoIdTemporal =
+  generarIdSimple();
+
+let fotoBenefactorUrl = "";
+
+let fotoBenefactorRuta = "";
+
+let fotoApoyoUrl = "";
+
+let fotoApoyoRuta = "";
+
+/* =========================================
+   FOTO BENEFECTOR
+========================================= */
+
+if (fotoBenefactorArchivo) {
+
+  fotoBenefactorRuta =
+    `reconocimientos/benefactor/${anio}/${mes}/${reconocimientoIdTemporal}`;
+
+  const subidaBenefactor =
+    await subirArchivoStorage({
+
+      archivo:
+        fotoBenefactorArchivo,
+
+      ruta:
+        fotoBenefactorRuta
+
+    });
+
+  if (subidaBenefactor.ok) {
+
+    fotoBenefactorUrl =
+      subidaBenefactor.url;
+
+  }
+
+}
+
+/* =========================================
+   FOTO APOYO
+========================================= */
+
+if (fotoApoyoArchivo) {
+
+  fotoApoyoRuta =
+    `reconocimientos/apoyo/${anio}/${mes}/${reconocimientoIdTemporal}`;
+
+  const subidaApoyo =
+    await subirArchivoStorage({
+
+      archivo:
+        fotoApoyoArchivo,
+
+      ruta:
+        fotoApoyoRuta
+
+    });
+
+  if (subidaApoyo.ok) {
+
+    fotoApoyoUrl =
+      subidaApoyo.url;
+
+  }
+
+}
+
+    
     const reconocimiento = {
 
       nombreBenefactor:
@@ -125,10 +251,22 @@ async function guardarReconocimiento(event) {
           "mensajeAgradecimiento"
         ).value.trim(),
 
-      fotoBenefactorUrl: "",
+    fotoBenefactorUrl,
 
-      fotoApoyoUrl: "",
+fotoBenefactorRuta,
 
+fotoApoyoUrl,
+
+fotoApoyoRuta,
+
+fotoBenefactorPendiente:
+  !!fotoBenefactorArchivo,
+
+fotoApoyoPendiente:
+  !!fotoApoyoArchivo,
+
+
+      
       creadoPorUid:
         usuario.uid,
 
@@ -143,6 +281,9 @@ async function guardarReconocimiento(event) {
 
     };
 
+
+
+    
     await db
       .collection(
         "reconocimientos"
@@ -168,3 +309,33 @@ async function guardarReconocimiento(event) {
   }
 
 }
+
+
+
+function generarIdSimple() {
+
+  return `${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2,10)}`;
+
+}
+
+function archivoPermitido(archivo){
+
+  const tipos = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/webp"
+
+  ];
+
+  return tipos.includes(
+    archivo.type
+  );
+
+}
+
+
