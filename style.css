@@ -3781,18 +3781,6 @@ details.info-card{
    RECONOCIMIENTOS
 ===================================== */
 
-#formReconocimiento{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:16px;
-  margin-top:20px;
-}
-
-#formReconocimiento h3{
-  grid-column:1/-1;
-  margin-bottom:10px;
-}
-
 #formReconocimiento label{
   display:block;
   font-weight:700;
