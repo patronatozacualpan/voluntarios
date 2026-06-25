@@ -194,11 +194,13 @@ console.log(
           "empresaBenefactor"
         ).value.trim(),
 
-      telefonoBenefactor:
-        document.getElementById(
-          "telefonoBenefactor"
-        ).value.trim(),
 
+      poblacionBenefactor:
+  document.getElementById(
+    "poblacionBenefactor"
+  ).value.trim(),
+
+      
       tipoApoyo:
         document.getElementById(
           "tipoApoyo"
