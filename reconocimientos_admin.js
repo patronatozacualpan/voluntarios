@@ -65,7 +65,30 @@ async function generarFolioReconocimiento() {
 
 async function guardarReconocimiento(event) {
 
-  event.preventDefault();
+event.preventDefault();
+
+/* =========================================
+   EVITAR DOBLE REGISTRO
+========================================= */
+
+const botonGuardar =
+  event.target.querySelector(
+    'button[type="submit"]'
+  );
+
+if (guardandoReconocimiento){
+
+  return;
+
+}
+
+guardandoReconocimiento = true;
+
+botonGuardar.disabled = true;
+
+botonGuardar.textContent =
+  "Guardando...";
+
 
   const firebaseTools =
     window.PCZ_FIREBASE;
@@ -347,32 +370,57 @@ fotoApoyoPendiente:
 
 
     
-    await db
-      .collection(
-        "reconocimientos"
-      )
-      .add(
-        reconocimiento
-      );
+  await db
+  .collection(
+    "reconocimientos"
+  )
+  .add(
+    reconocimiento
+  );
 
-    alert(
-      "✅ Benefactor registrado correctamente."
-    );
+alert(
+  "✅ Benefactor registrado correctamente."
+);
 
-    event.target.reset();
+/* =========================================
+   REACTIVAR BOTÓN
+========================================= */
 
-  } catch (error) {
+guardandoReconocimiento = false;
 
-    console.error(error);
+botonGuardar.disabled = false;
 
-    alert(
-      "⚠️ No se pudo guardar."
-    );
+botonGuardar.textContent =
+  "💾 Guardar reconocimiento";
 
-  }
+/* =========================================
+   LIMPIAR FORMULARIO
+========================================= */
+
+event.target.reset();
+
+} catch (error) {
+
+  console.error(error);
+
+  /* =========================================
+     REACTIVAR BOTÓN EN CASO DE ERROR
+  ========================================= */
+
+  guardandoReconocimiento = false;
+
+  botonGuardar.disabled = false;
+
+  botonGuardar.textContent =
+    "💾 Guardar reconocimiento";
+
+  alert(
+    "⚠️ No se pudo guardar."
+  );
 
 }
 
+}
 
 
 function generarIdSimple() {
