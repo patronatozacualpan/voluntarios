@@ -61,7 +61,7 @@ async function generarFolioReconocimiento() {
 
 
 
-
+let guardandoReconocimiento = false;
 
 async function guardarReconocimiento(event) {
 
@@ -96,27 +96,39 @@ botonGuardar.textContent =
   const usuario =
     window.PCZ_AUTH?.obtenerUsuarioActivo?.();
 
-  if (
-    !firebaseTools?.db
-  ) {
+ if (!firebaseTools?.db) {
 
-    alert(
-      "⚠️ Firebase no disponible."
-    );
+  guardandoReconocimiento = false;
 
-    return;
+  botonGuardar.disabled = false;
 
-  }
+  botonGuardar.textContent =
+    "💾 Guardar reconocimiento";
 
-  if (!usuario) {
+  alert(
+    "⚠️ Firebase no disponible."
+  );
 
-    alert(
-      "⚠️ No hay sesión activa."
-    );
+  return;
 
-    return;
+}
 
-  }
+if (!usuario) {
+
+  guardandoReconocimiento = false;
+
+  botonGuardar.disabled = false;
+
+  botonGuardar.textContent =
+    "💾 Guardar reconocimiento";
+
+  alert(
+    "⚠️ No hay sesión activa."
+  );
+
+  return;
+
+}
 
 const {
   db,
@@ -148,6 +160,13 @@ if (
   !archivoPermitido(fotoBenefactorArchivo)
 ){
 
+  guardandoReconocimiento = false;
+
+  botonGuardar.disabled = false;
+
+  botonGuardar.textContent =
+    "💾 Guardar reconocimiento";
+
   alert(
     "La fotografía del benefactor debe ser una imagen."
   );
@@ -160,6 +179,13 @@ if (
   fotoApoyoArchivo &&
   !archivoPermitido(fotoApoyoArchivo)
 ){
+
+  guardandoReconocimiento = false;
+
+  botonGuardar.disabled = false;
+
+  botonGuardar.textContent =
+    "💾 Guardar reconocimiento";
 
   alert(
     "La fotografía del apoyo debe ser una imagen."
