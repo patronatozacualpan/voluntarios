@@ -132,16 +132,16 @@ if (fotoBenefactorArchivo) {
   fotoBenefactorRuta =
     `reconocimientos/benefactor/${anio}/${mes}/${reconocimientoIdTemporal}`;
 
-  const subidaBenefactor =
-    await subirArchivoStorage({
+ const subidaBenefactor =
+  await subirArchivoStorage({
+    archivo: fotoBenefactorArchivo,
+    ruta: fotoBenefactorRuta
+  });
 
-      archivo:
-        fotoBenefactorArchivo,
-
-      ruta:
-        fotoBenefactorRuta
-
-    });
+console.log(
+  "SUBIDA BENEFECTOR",
+  subidaBenefactor
+);
 
   if (subidaBenefactor.ok) {
 
@@ -162,15 +162,15 @@ if (fotoApoyoArchivo) {
     `reconocimientos/apoyo/${anio}/${mes}/${reconocimientoIdTemporal}`;
 
   const subidaApoyo =
-    await subirArchivoStorage({
+  await subirArchivoStorage({
+    archivo: fotoApoyoArchivo,
+    ruta: fotoApoyoRuta
+  });
 
-      archivo:
-        fotoApoyoArchivo,
-
-      ruta:
-        fotoApoyoRuta
-
-    });
+console.log(
+  "SUBIDA APOYO",
+  subidaApoyo
+);
 
   if (subidaApoyo.ok) {
 
