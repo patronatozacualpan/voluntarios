@@ -339,3 +339,289 @@ function archivoPermitido(archivo){
 }
 
 
+
+
+/* ==========================================================
+   HISTORIAL DE BENEFECTORES
+========================================================== */
+
+async function cargarBenefactores() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  if (!firebaseTools?.db) return;
+
+  const { db } =
+    firebaseTools;
+
+  const lista =
+    document.getElementById(
+      "listaBenefactores"
+    );
+
+  if (!lista) return;
+
+  lista.innerHTML =
+    "<p>Cargando benefactores...</p>";
+
+  try {
+
+    const snap =
+      await db
+        .collection(
+          "reconocimientos"
+        )
+        .orderBy(
+          "creadoEn",
+          "desc"
+        )
+        .get();
+
+    if (snap.empty) {
+
+      lista.innerHTML = `
+      <div class="info-card">
+      No existen benefactores registrados.
+      </div>
+      `;
+
+      return;
+
+    }
+
+    let total = 0;
+    let publicados = 0;
+    let destacados = 0;
+    let ocultos = 0;
+
+    lista.innerHTML = "";
+
+    snap.forEach(doc => {
+
+      total++;
+
+      const d =
+        doc.data();
+
+      if (d.publicado)
+        publicados++;
+      else
+        ocultos++;
+
+      if (d.destacado)
+        destacados++;
+
+      lista.innerHTML += `
+
+<div class="benefactor-card">
+
+<div class="benefactor-header">
+
+<div class="benefactor-foto">
+
+${
+d.fotoBenefactorUrl
+
+?
+
+`<img
+src="${d.fotoBenefactorUrl}"
+>`
+
+:
+
+"👤"
+
+}
+
+</div>
+
+<div>
+
+<h3>
+
+${d.nombreBenefactor || "Sin nombre"}
+
+</h3>
+
+<p>
+
+${d.articuloDonado || ""}
+
+</p>
+
+<small>
+
+${d.empresaBenefactor || ""}
+
+</small>
+
+</div>
+
+</div>
+
+<div class="benefactor-body">
+
+<p>
+
+<b>Tipo:</b>
+
+${d.tipoApoyo || "-"}
+
+</p>
+
+<p>
+
+<b>Valor:</b>
+
+$${Number(
+d.valorEstimado || 0
+).toLocaleString("es-MX")}
+
+</p>
+
+<p>
+
+<b>Estado:</b>
+
+${
+d.publicado
+
+?
+
+"🟢 Publicado"
+
+:
+
+"⚪ Oculto"
+
+}
+
+${
+d.destacado
+
+?
+
+" ⭐"
+
+:
+
+""
+}
+
+</p>
+
+</div>
+
+<div class="benefactor-actions">
+
+<button
+onclick="verBenefactor('${doc.id}')"
+>
+
+👁 Ver
+
+</button>
+
+<button
+onclick="editarBenefactor('${doc.id}')"
+>
+
+✏ Editar
+
+</button>
+
+<button
+onclick="destacarBenefactor('${doc.id}')"
+>
+
+⭐
+
+</button>
+
+<button
+onclick="ocultarBenefactor('${doc.id}')"
+>
+
+🚫
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+    });
+
+    document.getElementById(
+      "totalBenefactores"
+    ).textContent =
+      total;
+
+    document.getElementById(
+      "benefactoresPublicados"
+    ).textContent =
+      publicados;
+
+    document.getElementById(
+      "benefactoresDestacados"
+    ).textContent =
+      destacados;
+
+    document.getElementById(
+      "benefactoresOcultos"
+    ).textContent =
+      ocultos;
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    lista.innerHTML =
+      "Error cargando benefactores.";
+
+  }
+
+}
+
+
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+cargarBenefactores();
+
+});
+
+
+function verBenefactor(id){
+
+alert(id);
+
+}
+
+function editarBenefactor(id){
+
+alert(id);
+
+}
+
+function destacarBenefactor(id){
+
+alert(id);
+
+}
+
+function ocultarBenefactor(id){
+
+alert(id);
+
+}
+
+
