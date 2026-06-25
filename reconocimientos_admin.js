@@ -17,6 +17,52 @@ document.addEventListener(
   }
 );
 
+
+
+
+/* =========================================
+   GENERAR FOLIO RECONOCIMIENTO
+========================================= */
+
+async function generarFolioReconocimiento() {
+
+  const firebaseTools =
+    window.PCZ_FIREBASE;
+
+  const { db } =
+    firebaseTools;
+
+  const snap =
+    await db
+      .collection("reconocimientos")
+      .orderBy(
+        "folioNumero",
+        "desc"
+      )
+      .limit(1)
+      .get();
+
+  if (snap.empty) {
+
+    return 1;
+
+  }
+
+  const ultimo =
+    snap.docs[0].data();
+
+  return (
+    Number(
+      ultimo.folioNumero || 0
+    ) + 1
+  );
+
+}
+
+
+
+
+
 async function guardarReconocimiento(event) {
 
   event.preventDefault();
@@ -181,14 +227,29 @@ console.log(
 
 }
 
+
+const folioNumero =
+  await generarFolioReconocimiento();
+
+const folioReconocimiento =
+  "REC-" +
+  String(
+    folioNumero
+  ).padStart(3,"0");
+
+    
     
     const reconocimiento = {
+        folioReconocimiento,
 
+        folioNumero,
       nombreBenefactor:
         document.getElementById(
           "nombreBenefactor"
         ).value.trim(),
 
+
+      
       empresaBenefactor:
         document.getElementById(
           "empresaBenefactor"
@@ -440,6 +501,12 @@ src="${d.fotoBenefactorUrl}"
 </div>
 
 <div>
+
+<div class="benefactor-folio">
+
+🏆 ${d.folioReconocimiento || "Pendiente"}
+
+</div>
 
 <h3>
 
