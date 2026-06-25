@@ -306,7 +306,92 @@ class="btn-benefactor"
 
 </form>
 
+<!-- =========================================
+     HISTORIAL DE BENEFECTORES
+========================================= -->
 
+<section class="panel-benefactores">
+
+<h3>
+🏆 Benefactores registrados
+</h3>
+
+<div class="benefactores-resumen">
+
+<div class="mini-card">
+<strong id="totalBenefactores">0</strong>
+<span>Total</span>
+</div>
+
+<div class="mini-card">
+<strong id="benefactoresPublicados">0</strong>
+<span>Publicados</span>
+</div>
+
+<div class="mini-card">
+<strong id="benefactoresDestacados">0</strong>
+<span>Destacados</span>
+</div>
+
+<div class="mini-card">
+<strong id="benefactoresOcultos">0</strong>
+<span>Ocultos</span>
+</div>
+
+</div>
+
+<div class="benefactores-filtros">
+
+<input
+type="text"
+id="buscarBenefactor"
+placeholder="Buscar benefactor..."
+>
+
+<select id="filtroPublicacion">
+
+<option value="">
+Todos
+</option>
+
+<option value="publicado">
+Publicados
+</option>
+
+<option value="oculto">
+Ocultos
+</option>
+
+<option value="destacado">
+Destacados
+</option>
+
+</select>
+
+<button
+class="btn-primary"
+id="btnActualizarBenefactores"
+>
+
+Actualizar
+
+</button>
+
+</div>
+
+<div
+id="listaBenefactores"
+class="lista-benefactores"
+>
+
+</div>
+
+</section>
+  
+
+
+
+  
 </div>
 
 </section>
