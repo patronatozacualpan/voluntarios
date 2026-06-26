@@ -4236,11 +4236,9 @@ border:1px solid #d9d9d9;
 
 display:grid;
 
-grid-template-columns:repeat(2,1fr);
+grid-template-columns:1fr 1fr;
 
 gap:12px;
-
-margin-bottom:18px;
 
 }
 
@@ -4287,6 +4285,13 @@ background:#f7f7f7;
 padding:20px;
 
 }
+
+.benefactor-info{
+
+padding-top:18px;
+
+}
+
 
 .benefactor-header h3{
 
