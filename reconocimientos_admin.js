@@ -967,6 +967,18 @@ cerrarExpedienteBenefactor();
 
 
 
+/* ==========================================================
+   VER BENEFECTOR
+========================================================== */
+
+async function verBenefactor(id){
+
+console.log("Ver Benefactor:", id);
+
+abrirExpedienteBenefactor();
+
+}
+
 
 
 
