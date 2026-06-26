@@ -4214,9 +4214,13 @@ transform:translateY(-4px);
 
 .benefactor-foto{
 
-height:230px;
+height:180px;
 
-background:#f5f7fb;
+border-radius:12px;
+
+overflow:hidden;
+
+background:#f3f4f7;
 
 display:flex;
 
@@ -4224,7 +4228,19 @@ justify-content:center;
 
 align-items:center;
 
-overflow:hidden;
+border:1px solid #d9d9d9;
+
+}
+
+.benefactor-fotos{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+margin-bottom:18px;
 
 }
 
@@ -4236,7 +4252,35 @@ height:100%;
 
 object-fit:cover;
 
+display:block;
+
 }
+
+.sin-foto{
+
+width:100%;
+
+height:100%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:20px;
+
+font-size:18px;
+
+color:#666;
+
+text-align:center;
+
+background:#f7f7f7;
+
+}
+
+
 
 .benefactor-header{
 
