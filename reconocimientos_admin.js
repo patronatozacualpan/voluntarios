@@ -807,3 +807,14 @@ document.getElementById(
 
 
 
+function cerrarModalBenefactor(){
+
+document.getElementById(
+"modalBenefactor"
+).style.display="none";
+
+}
+
+
+
+
