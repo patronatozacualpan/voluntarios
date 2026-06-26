@@ -822,20 +822,44 @@ document.getElementById(
    EXPEDIENTE DEL BENEFACTOR
 ========================================================== */
 
-const modalExpediente =
-document.getElementById(
-"modalExpedienteBenefactor"
+let modalExpediente;
+let btnCerrarExpediente;
+let btnCerrarBenefactor;
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+modalExpediente =
+document.getElementById("modalExpedienteBenefactor");
+
+btnCerrarExpediente =
+document.getElementById("cerrarExpedienteBenefactor");
+
+btnCerrarBenefactor =
+document.getElementById("btnCerrarBenefactor");
+
+btnCerrarExpediente?.addEventListener(
+"click",
+cerrarExpedienteBenefactor
 );
 
-const btnCerrarExpediente =
-document.getElementById(
-"cerrarExpedienteBenefactor"
+btnCerrarBenefactor?.addEventListener(
+"click",
+cerrarExpedienteBenefactor
 );
 
-const btnCerrarBenefactor =
-document.getElementById(
-"btnCerrarBenefactor"
-);
+modalExpediente?.addEventListener("click",(e)=>{
+
+if(e.target===modalExpediente){
+
+cerrarExpedienteBenefactor();
+
+
+  
+}
+
+});
+abrirExpedienteBenefactor();
+});
 
 /* ----------------------------------------------------------
    Abrir expediente
@@ -944,6 +968,5 @@ cerrarExpedienteBenefactor();
 
 
 
-abrirExpedienteBenefactor();
 
 
