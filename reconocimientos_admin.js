@@ -966,18 +966,183 @@ cerrarExpedienteBenefactor();
 );
 
 
-
 /* ==========================================================
    VER BENEFECTOR
 ========================================================== */
 
 async function verBenefactor(id){
 
-console.log("Ver Benefactor:", id);
+try{
+
+const firebaseTools =
+window.PCZ_FIREBASE;
+
+if(!firebaseTools?.db){
+
+alert("Firebase no disponible.");
+
+return;
+
+}
+
+const {db}=firebaseTools;
+
+const doc=await db
+.collection("reconocimientos")
+.doc(id)
+.get();
+
+if(!doc.exists){
+
+alert("No se encontró el reconocimiento.");
+
+return;
+
+}
+
+const d=doc.data();
+
+console.log(d);
+
+/*=====================================
+  FOLIO
+=====================================*/
+
+document.getElementById("expFolio").textContent =
+d.folioReconocimiento || "REC-000";
+
+/*=====================================
+  DATOS
+=====================================*/
+
+document.getElementById("expNombre").textContent =
+d.publicarNombre
+? d.nombreBenefactor
+: "Benefactor Anónimo";
+
+document.getElementById("expEmpresa").textContent =
+d.empresaBenefactor || "-";
+
+document.getElementById("expPoblacion").textContent =
+d.poblacionBenefactor || "-";
+
+document.getElementById("expTipo").textContent =
+d.tipoApoyo || "-";
+
+document.getElementById("expArticulo").textContent =
+d.articuloDonado || "-";
+
+document.getElementById("expDescripcion").textContent =
+d.descripcionApoyo || "-";
+
+document.getElementById("expMensaje").textContent =
+d.mensajeAgradecimiento || "-";
+
+/*=====================================
+  VALOR
+=====================================*/
+
+document.getElementById("expValor").textContent =
+
+Number(d.valorEstimado || 0)
+.toLocaleString("es-MX",{
+
+style:"currency",
+
+currency:"MXN"
+
+});
+
+/*=====================================
+  REGISTRÓ
+=====================================*/
+
+document.getElementById("expRegistro").textContent =
+d.creadoPorNombre || "-";
+
+/*=====================================
+  FECHA
+=====================================*/
+
+document.getElementById("expFecha").textContent =
+
+d.fechaRecepcion || "-";
+
+/*=====================================
+  FOTO DEL APOYO
+=====================================*/
+
+const fotoApoyo =
+document.getElementById("expFotoApoyo");
+
+fotoApoyo.src =
+d.fotoApoyoUrl || "";
+
+/*=====================================
+ FOTO BENEFACTOR
+=====================================*/
+
+const fotoBenefactor =
+document.getElementById("expFotoBenefactor");
+
+const sinFoto =
+document.getElementById("expSinFoto");
+
+if(
+
+d.publicarFotoBenefactor &&
+
+d.fotoBenefactorUrl
+
+){
+
+fotoBenefactor.src =
+d.fotoBenefactorUrl;
+
+fotoBenefactor.style.display="block";
+
+sinFoto.classList.add("hidden");
+
+}else{
+
+fotoBenefactor.style.display="none";
+
+sinFoto.classList.remove("hidden");
+
+}
+
+/*=====================================
+ ESTADO
+=====================================*/
+
+document.getElementById("expEstado").textContent =
+
+d.publicado
+
+? "🟢 Publicado"
+
+: "⚪ Oculto";
+
+/*=====================================
+ ABRIR
+=====================================*/
 
 abrirExpedienteBenefactor();
 
+}catch(error){
+
+console.error(error);
+
+alert("No fue posible cargar el expediente.");
+
 }
+
+}
+
+
+
+
+
 
 
 
