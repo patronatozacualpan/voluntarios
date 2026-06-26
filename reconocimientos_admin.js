@@ -555,26 +555,61 @@ async function cargarBenefactores() {
 
 <div class="benefactor-header">
 
+<div class="benefactor-fotos">
+
 <div class="benefactor-foto">
 
 ${
+d.publicarFotoBenefactor &&
 d.fotoBenefactorUrl
 
 ?
 
 `<img
 src="${d.fotoBenefactorUrl}"
+alt="Benefactor"
 >`
 
 :
 
-"👤"
+`<div class="sin-foto">
+
+👤
+
+</div>`
 
 }
 
 </div>
 
-<div>
+<div class="benefactor-foto">
+
+${
+d.publicarFotoApoyo &&
+d.fotoApoyoUrl
+
+?
+
+`<img
+src="${d.fotoApoyoUrl}"
+alt="Artículo donado"
+>`
+
+:
+
+`<div class="sin-foto">
+
+📦
+
+</div>`
+
+}
+
+</div>
+
+</div>
+
+<div class="benefactor-info">
 
 <div class="benefactor-folio">
 
