@@ -858,7 +858,7 @@ cerrarExpedienteBenefactor();
 }
 
 });
-abrirExpedienteBenefactor();
+  
 });
 
 /* ----------------------------------------------------------
