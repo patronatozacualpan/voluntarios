@@ -818,3 +818,129 @@ document.getElementById(
 
 
 
+/* ==========================================================
+   EXPEDIENTE DEL BENEFACTOR
+========================================================== */
+
+const modalExpediente =
+document.getElementById(
+"modalExpedienteBenefactor"
+);
+
+const btnCerrarExpediente =
+document.getElementById(
+"cerrarExpedienteBenefactor"
+);
+
+const btnCerrarBenefactor =
+document.getElementById(
+"btnCerrarBenefactor"
+);
+
+/* ----------------------------------------------------------
+   Abrir expediente
+---------------------------------------------------------- */
+
+function abrirExpedienteBenefactor(){
+
+if(!modalExpediente)return;
+
+modalExpediente.classList.remove(
+"hidden"
+);
+
+modalExpediente.classList.add(
+"activo"
+);
+
+document.body.style.overflow="hidden";
+
+}
+
+/* ----------------------------------------------------------
+   Cerrar expediente
+---------------------------------------------------------- */
+
+function cerrarExpedienteBenefactor(){
+
+if(!modalExpediente)return;
+
+modalExpediente.classList.remove(
+"activo"
+);
+
+modalExpediente.classList.add(
+"hidden"
+);
+
+document.body.style.overflow="auto";
+
+}
+
+/* ----------------------------------------------------------
+   Eventos
+---------------------------------------------------------- */
+
+btnCerrarExpediente?.addEventListener(
+
+"click",
+
+cerrarExpedienteBenefactor
+
+);
+
+btnCerrarBenefactor?.addEventListener(
+
+"click",
+
+cerrarExpedienteBenefactor
+
+);
+
+modalExpediente?.addEventListener(
+
+"click",
+
+(e)=>{
+
+if(e.target===modalExpediente){
+
+cerrarExpedienteBenefactor();
+
+}
+
+}
+
+);
+
+/* ----------------------------------------------------------
+   Escape
+---------------------------------------------------------- */
+
+document.addEventListener(
+
+"keydown",
+
+(e)=>{
+
+if(
+
+e.key==="Escape"
+
+&&
+
+modalExpediente?.classList.contains("activo")
+
+){
+
+cerrarExpedienteBenefactor();
+
+}
+
+}
+
+);
+
+
+
+
