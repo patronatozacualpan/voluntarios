@@ -4791,18 +4791,23 @@ width:100%;
 
 
 
-
-/*==================================================
- ENCABEZADO INSTITUCIONAL
-==================================================*/
+/*=========================================================
+ENCABEZADO DEL EXPEDIENTE
+=========================================================*/
 
 .expediente-header{
 
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
 text-align:center;
 
-padding-bottom:28px;
+padding-bottom:30px;
 
-margin-bottom:30px;
+margin-bottom:35px;
 
 border-bottom:2px solid #edf2f7;
 
@@ -4810,17 +4815,13 @@ border-bottom:2px solid #edf2f7;
 
 .expediente-logo-img{
 
-width:95px;
+width:90px;
 
-height:95px;
-
-object-fit:contain;
-
-margin-bottom:12px;
+margin-bottom:14px;
 
 }
 
-.expediente-institucion{
+.titulo-patronato{
 
 margin:0;
 
@@ -4828,55 +4829,53 @@ font-size:2rem;
 
 font-weight:800;
 
-color:#0b4b7c;
-
 letter-spacing:1px;
+
+color:#0b4b7c;
 
 }
 
-.expediente-subtitulo{
+.subtitulo-patronato{
 
 margin-top:8px;
 
-color:#64748b;
-
 font-size:1rem;
+
+color:#6b7280;
 
 }
 
-.expediente-linea{
+.linea-dorada{
 
 width:120px;
 
-height:3px;
+height:4px;
 
-background:#0b4b7c;
+background:#f5b301;
 
-margin:22px auto;
+margin:24px auto;
 
-border-radius:20px;
+border-radius:50px;
 
 }
 
-.expediente-titulo{
+.titulo-reconocimiento{
 
-margin:0;
-
-font-size:1.25rem;
-
-color:#374151;
+font-size:1.10rem;
 
 font-weight:700;
 
-letter-spacing:1px;
+letter-spacing:2px;
+
+color:#374151;
 
 }
 
-.expediente-folio-principal{
+.folio-principal{
 
 margin-top:18px;
 
-font-size:2.4rem;
+font-size:2.8rem;
 
 font-weight:800;
 
@@ -4884,25 +4883,21 @@ color:#0b4b7c;
 
 }
 
-.expediente-estado-principal{
+.estado-principal{
 
-display:inline-block;
+margin-top:18px;
 
-margin-top:16px;
+padding:9px 22px;
 
-padding:8px 22px;
-
-border-radius:999px;
+border-radius:50px;
 
 background:#dcfce7;
 
-border:1px solid #86efac;
-
-color:#166534;
+border:1px solid #7dd87d;
 
 font-weight:700;
 
-font-size:.92rem;
+color:#166534;
 
 }
 
