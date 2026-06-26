@@ -4794,22 +4794,37 @@ width:100%;
 /*=========================================================
 ENCABEZADO DEL EXPEDIENTE
 =========================================================*/
+/*=========================================================
+ EXPEDIENTE - ENCABEZADO
+=========================================================*/
 
 .expediente-header{
 
-display:flex;
+display:flex !important;
 
-flex-direction:column;
+flex-direction:column !important;
 
-align-items:center;
+justify-content:center !important;
+
+align-items:center !important;
+
+text-align:center !important;
+
+gap:10px;
+
+width:100%;
+
+padding:10px 0 30px;
+
+margin-bottom:25px;
+
+border-bottom:2px solid #e5e7eb;
+
+}
+
+.expediente-header *{
 
 text-align:center;
-
-padding-bottom:30px;
-
-margin-bottom:35px;
-
-border-bottom:2px solid #edf2f7;
 
 }
 
