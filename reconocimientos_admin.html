@@ -475,36 +475,26 @@ class="modal-overlay hidden"
 >
 
 <div class="modal-card expediente-benefactor">
+<button id="cerrarExpedienteBenefactor" class="modal-close">✕</button>
 
-<button
-id="cerrarExpedienteBenefactor"
-class="modal-close"
->
-✕
-</button>
-
-<div class="expediente-header">
+<header class="expediente-header">
 
     <img
     src="assets/logos/logo-patronato.png"
     class="expediente-logo-img"
     alt="Patronato">
 
-    <h1 class="titulo-patronato">
+    <h1>PATRONATO ZACUALPAN</h1>
 
-        PATRONATO ZACUALPAN
-
-    </h1>
-
-    <div class="subtitulo-patronato">
+    <p class="subtitulo">
 
         Pro-equipamiento de Protección Civil
 
-    </div>
+    </p>
 
-    <div class="linea-dorada"></div>
+    <div class="linea"></div>
 
-    <div class="titulo-reconocimiento">
+    <div class="titulo-doc">
 
         🏆 RECONOCIMIENTO CIUDADANO
 
@@ -512,7 +502,7 @@ class="modal-close"
 
     <div
     id="expFolio"
-    class="folio-principal">
+    class="folio">
 
         REC-000
 
@@ -520,49 +510,198 @@ class="modal-close"
 
     <div
     id="expEstado"
-    class="estado-principal">
+    class="estado">
 
         🟢 PUBLICADO
 
     </div>
 
-</div>
+</header>
 
-<h1 class="expediente-institucion">
 
-PATRONATO ZACUALPAN
 
-</h1>
+<section class="hero-apoyo">
 
-<p class="expediente-subtitulo">
+<img
+id="expFotoApoyo"
+src=""
+alt="Apoyo recibido">
 
-Pro-equipamiento de Protección Civil
+<h2 id="expArticulo">
 
-</p>
-
-<div class="expediente-linea"></div>
-
-<h2 class="expediente-titulo">
-
-🏆 RECONOCIMIENTO CIUDADANO
+Artículo recibido
 
 </h2>
 
-<div
-id="expFolio"
-class="expediente-folio-principal">
+<p id="expTipo">
 
-REC-000
+Tipo de apoyo
+
+</p>
+
+<div class="valor">
+
+<span>Valor estimado</span>
+
+<strong id="expValor">
+
+$0.00
+
+</strong>
 
 </div>
 
-<div
-id="expEstado"
-class="expediente-estado-principal">
+</section>
 
-🟢 PUBLICADO
+
+
+<section class="benefactor-card">
+
+<div class="foto">
+
+<img
+id="expFotoBenefactor"
+src="">
+
+<div
+id="expSinFoto"
+class="sin-foto">
+
+📷
+
+<br><br>
+
+Fotografía reservada
+por decisión del benefactor.
 
 </div>
+
+</div>
+
+<div class="datos">
+
+<h3 id="expNombre">
+
+Benefactor
+
+</h3>
+
+<p id="expEmpresa"></p>
+
+<p id="expPoblacion"></p>
+
+</div>
+
+</section>
+
+
+
+<section class="info">
+
+<div>
+
+<label>Fecha</label>
+
+<p id="expFecha"></p>
+
+</div>
+
+<div>
+
+<label>Registró</label>
+
+<p id="expRegistro"></p>
+
+</div>
+
+</section>
+
+
+
+<section class="bloque">
+
+<h3>
+
+Historia del apoyo
+
+</h3>
+
+<p id="expDescripcion">
+
+</p>
+
+</section>
+
+
+
+<section class="bloque">
+
+<h3>
+
+Mensaje Institucional
+
+</h3>
+
+<p id="expMensaje">
+
+</p>
+
+</section>
+
+
+
+<footer class="footer-expediente">
+
+<p>
+
+Este reconocimiento forma parte del programa permanente de transparencia del Patronato Zacualpan.
+
+</p>
+
+<p>
+
+Documento Institucional
+
+</p>
+
+</footer>
+
+
+
+<div class="expediente-botones">
+
+<button
+id="btnCompartirBenefactor">
+
+📲 Compartir
+
+</button>
+
+<button
+id="btnPdfBenefactor">
+
+📄 PDF
+
+</button>
+
+<button
+id="btnImprimirBenefactor">
+
+🖨 Imprimir
+
+</button>
+
+<button
+id="btnCerrarBenefactor">
+
+Cerrar
+
+</button>
+
+</div>
+
+
+
 
 </div>
 
@@ -578,7 +717,6 @@ src=""
 alt="Apoyo recibido"
 >
 
-</div>
 
 <!-- ==========================
      DATOS
