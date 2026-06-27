@@ -4952,3 +4952,118 @@ grid-template-columns:1fr;
 }
 
 
+
+
+/*=========================================================
+HISTORIA Y MENSAJE
+=========================================================*/
+
+/*=========================================================
+HISTORIA Y MENSAJE
+=========================================================*/
+
+.exp-v2-texto{
+
+margin-top:25px;
+
+padding:25px;
+
+background:#ffffff;
+
+border:1px solid #e5e7eb;
+
+border-radius:16px;
+
+box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.exp-v2-texto h3{
+
+margin:0 0 18px;
+
+padding-bottom:10px;
+
+font-size:1.2rem;
+
+font-weight:700;
+
+color:#0b4b7c;
+
+border-bottom:2px solid #edf2f7;
+
+}
+
+.exp-v2-texto p{
+
+margin:0;
+
+font-size:1rem;
+
+line-height:1.8;
+
+color:#475569;
+
+}
+
+.exp-v2-texto h3{
+
+margin:0 0 18px;
+
+font-size:1.25rem;
+
+font-weight:700;
+
+color:#0b4b7c;
+
+padding-bottom:10px;
+
+border-bottom:2px solid #edf2f7;
+
+}
+
+.exp-v2-texto p{
+
+margin:0;
+
+font-size:1rem;
+
+line-height:1.8;
+
+color:#475569;
+
+}
+
+
+
+
+
+/*=========================================================
+FOOTER V2
+=========================================================*/
+
+.exp-v2-footer{
+
+margin-top:40px;
+
+padding:30px 20px;
+
+text-align:center;
+
+border-top:2px solid #e5e7eb;
+
+color:#64748b;
+
+font-size:.95rem;
+
+line-height:1.8;
+
+background:#fafbfc;
+
+border-radius:14px;
+
+}
+
+
+
+
