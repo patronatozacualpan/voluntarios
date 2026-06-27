@@ -824,11 +824,7 @@ cargarBenefactores();
 });
 
 
-function verBenefactor(id){
 
-alert(id);
-
-}
 
 async function editarBenefactor(id){
 
@@ -857,50 +853,48 @@ reconocimientoEditando=id;
 FORMULARIO
 =========================*/
 
-nombreBenefactor.value =
+document.getElementById("nombreBenefactor").value =
 d.nombreBenefactor || "";
 
-empresaBenefactor.value =
+document.getElementById("empresaBenefactor").value =
 d.empresaBenefactor || "";
 
-telefonoBenefactor.value =
-d.telefonoBenefactor || "";
-
-poblacionBenefactor.value =
+document.getElementById("poblacionBenefactor").value =
 d.poblacionBenefactor || "";
 
-tipoApoyo.value =
+document.getElementById("tipoApoyo").value =
 d.tipoApoyo || "";
 
-articuloDonado.value =
+document.getElementById("articuloDonado").value =
 d.articuloDonado || "";
 
-descripcionApoyo.value =
+document.getElementById("descripcionApoyo").value =
 d.descripcionApoyo || "";
 
-valorEstimado.value =
+document.getElementById("valorEstimado").value =
 d.valorEstimado || "";
 
-mensajeAgradecimiento.value =
+document.getElementById("mensajeAgradecimiento").value =
 d.mensajeAgradecimiento || "";
 
+  
 /*=========================
 CHECKS
 =========================*/
 
-publicarNombre.checked =
+document.getElementById("publicarNombre").checked =
 !!d.publicarNombre;
 
-publicarFotoBenefactor.checked =
+document.getElementById("publicarFotoBenefactor").checked =
 !!d.publicarFotoBenefactor;
 
-publicarFotoApoyo.checked =
+document.getElementById("publicarFotoApoyo").checked =
 !!d.publicarFotoApoyo;
 
-publicado.checked =
+document.getElementById("publicado").checked =
 !!d.publicado;
 
-destacado.checked =
+document.getElementById("destacado").checked =
 !!d.destacado;
 
 /*=========================
