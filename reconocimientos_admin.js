@@ -541,6 +541,55 @@ async function cargarBenefactores() {
       const d =
         doc.data();
 
+
+let impacto =
+
+"Esta aportación fortalece la capacidad operativa de Protección Civil Zacualpan.";
+
+
+
+      switch(d.tipoApoyo){
+
+case "herramienta":
+
+impacto =
+"Las herramientas donadas permiten atender emergencias con mayor rapidez y seguridad para beneficio de toda la comunidad.";
+
+break;
+
+case "equipo":
+
+impacto =
+"El equipo recibido fortalece la capacidad operativa de Protección Civil Zacualpan para responder oportunamente a situaciones de emergencia.";
+
+break;
+
+case "material":
+
+impacto =
+"Los materiales donados contribuyen al mantenimiento y mejoramiento del equipamiento institucional.";
+
+break;
+
+case "combustible":
+
+impacto =
+"El combustible donado permite mantener las unidades operativas listas para responder a cualquier emergencia.";
+
+break;
+
+case "servicio":
+
+impacto =
+"Los servicios donados representan un valioso ahorro de recursos y fortalecen la operación institucional.";
+
+break;
+
+}
+      document.getElementById("expImpacto").textContent =
+impacto;
+      
+
       if (d.publicado)
         publicados++;
       else
