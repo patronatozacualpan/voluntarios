@@ -1038,6 +1038,18 @@ d.descripcionApoyo || "-";
 document.getElementById("expMensaje").textContent =
 d.mensajeAgradecimiento || "-";
 
+  document.getElementById("expTipoInfo").textContent =
+d.tipoApoyo || "-";
+
+document.getElementById("expValorInfo").textContent =
+"$" + Number(d.valorEstimado || 0).toLocaleString("es-MX");
+
+document.getElementById("expEmpresaInfo").textContent =
+d.empresaBenefactor || "-";
+
+document.getElementById("expPoblacionInfo").textContent =
+d.poblacion || "-";
+
 /*=====================================
   VALOR
 =====================================*/
