@@ -4893,7 +4893,7 @@ display:grid;
 
 grid-template-columns:repeat(2,1fr);
 
-gap:20px;
+gap:18px;
 
 }
 
@@ -4901,13 +4901,21 @@ gap:20px;
 
 background:#f8fafc;
 
-border:1px solid #e2e8f0;
+border:1px solid #dbe4ee;
 
 border-radius:14px;
 
 padding:18px;
 
-box-shadow:0 3px 10px rgba(0,0,0,.05);
+transition:.25s;
+
+}
+
+.exp-v2-datos div:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 6px 18px rgba(0,0,0,.08);
 
 }
 
@@ -4917,13 +4925,13 @@ display:block;
 
 margin-bottom:8px;
 
-font-size:.85rem;
+font-size:.82rem;
 
 font-weight:700;
 
-letter-spacing:.5px;
-
 text-transform:uppercase;
+
+letter-spacing:.6px;
 
 color:#64748b;
 
@@ -4933,11 +4941,13 @@ color:#64748b;
 
 margin:0;
 
-font-size:1.15rem;
+font-size:1.08rem;
 
 font-weight:600;
 
 color:#1e293b;
+
+line-height:1.5;
 
 }
 
@@ -4950,6 +4960,7 @@ grid-template-columns:1fr;
 }
 
 }
+
 
 
 
