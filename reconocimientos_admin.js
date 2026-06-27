@@ -1041,14 +1041,21 @@ d.mensajeAgradecimiento || "-";
   document.getElementById("expTipoInfo").textContent =
 d.tipoApoyo || "-";
 
-document.getElementById("expValorInfo").textContent =
-"$" + Number(d.valorEstimado || 0).toLocaleString("es-MX");
+  document.getElementById("expValorInfo").textContent =
+
+Number(d.valorEstimado || 0).toLocaleString(
+"es-MX",
+{
+style:"currency",
+currency:"MXN"
+}
+);
 
 document.getElementById("expEmpresaInfo").textContent =
 d.empresaBenefactor || "-";
 
 document.getElementById("expPoblacionInfo").textContent =
-d.poblacion || "-";
+d.poblacionBenefactor || "-";
 
 /*=====================================
   VALOR
@@ -1078,7 +1085,18 @@ d.creadoPorNombre || "-";
 
 document.getElementById("expFecha").textContent =
 
-d.fechaRecepcion || "-";
+d.creadoEn
+
+? d.creadoEn.toDate().toLocaleDateString(
+"es-MX",
+{
+day:"2-digit",
+month:"long",
+year:"numeric"
+}
+)
+
+: "-";
 
 /*=====================================
   FOTO DEL APOYO
