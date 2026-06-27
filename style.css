@@ -4497,363 +4497,79 @@ background:#fafafa;
 
 
 
-/*==========================================================
- EXPEDIENTE DEL BENEFACTOR
-==========================================================*/
+/*=========================================================
+EXPEDIENTE V2
+=========================================================*/
 
 .expediente-benefactor{
 
-    width:min(950px,95vw);
+width:min(900px,92vw);
 
-    max-height:92vh;
+max-height:92vh;
 
-    overflow-y:auto;
+overflow:auto;
 
-    background:#ffffff;
+background:#fff;
 
-    border-radius:18px;
+border-radius:18px;
 
-    padding:35px;
+padding:40px;
 
-    position:relative;
+box-shadow:0 18px 60px rgba(0,0,0,.20);
 
-    animation:fadeIn .25s ease;
-
-}
-
-.expediente-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:25px;
-
-    border-bottom:2px solid #edf2f7;
-
-    padding-bottom:20px;
+position:relative;
 
 }
 
-.expediente-folio span{
 
-    display:block;
 
-    font-size:.82rem;
-
-    color:#64748b;
-
-    letter-spacing:1px;
-
-    text-transform:uppercase;
-
-}
-
-.expediente-folio h2{
-
-    margin-top:6px;
-
-    font-size:2rem;
-
-    color:#0b4b7c;
-
-    font-weight:700;
-
-}
-
-.expediente-foto-principal{
-
-    margin-bottom:28px;
-
-}
-
-.expediente-foto-principal img{
-
-    width:100%;
-
-    max-height:460px;
-
-    object-fit:contain;
-
-    border-radius:12px;
-
-    background:#f5f7fa;
-
-    border:1px solid #e5e7eb;
-
-}
-
-.expediente-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:18px;
-
-    margin-bottom:30px;
-
-}
-
-.expediente-grid div{
-
-    background:#f8fafc;
-
-    border-radius:10px;
-
-    padding:14px;
-
-    border:1px solid #e8edf3;
-
-}
-
-.expediente-grid strong{
-
-    display:block;
-
-    margin-bottom:6px;
-
-    color:#0b4b7c;
-
-    font-size:.85rem;
-
-}
-
-.expediente-grid p{
-
-    margin:0;
-
-    color:#374151;
-
-    line-height:1.45;
-
-}
-
-.expediente-bloque{
-
-    margin-top:22px;
-
-    margin-bottom:24px;
-
-}
-
-.expediente-bloque h3{
-
-    margin-bottom:12px;
-
-    color:#0b4b7c;
-
-    border-left:5px solid #0b4b7c;
-
-    padding-left:10px;
-
-}
-
-.expediente-bloque p{
-
-    background:#fafafa;
-
-    padding:18px;
-
-    border-radius:10px;
-
-    line-height:1.7;
-
-    border:1px solid #ececec;
-
-}
-
-.expediente-benefactor-box{
-
-    text-align:center;
-
-    margin-top:35px;
-
-}
-
-.expediente-benefactor-box img{
-
-    width:170px;
-
-    height:170px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:6px solid #eef4fb;
-
-    box-shadow:0 4px 14px rgba(0,0,0,.12);
-
-}
-
-.exp-sin-foto{
-
-    margin-top:18px;
-
-    background:#f7f7f7;
-
-    border:2px dashed #cfd8dc;
-
-    padding:22px;
-
-    border-radius:12px;
-
-    color:#607d8b;
-
-    line-height:1.6;
-
-}
-
-.expediente-footer{
-
-    margin-top:40px;
-
-    padding-top:18px;
-
-    border-top:2px solid #edf2f7;
-
-    text-align:center;
-
-    color:#6b7280;
-
-    font-size:.90rem;
-
-}
-
-.expediente-botones{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    justify-content:center;
-
-    gap:14px;
-
-    margin-top:30px;
-
-}
-
-.expediente-botones button{
-
-    min-width:170px;
-
-}
-
-@media(max-width:768px){
-
-.expediente-benefactor{
-
-padding:22px;
-
-}
-
-.expediente-header{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:15px;
-
-}
-
-.expediente-grid{
-
-grid-template-columns:1fr;
-
-}
-
-.expediente-benefactor-box img{
-
-width:130px;
-
-height:130px;
-
-}
-
-.expediente-botones{
-
-flex-direction:column;
-
-}
-
-.expediente-botones button{
-
-width:100%;
-
-}
-
-}
-
-
-
-/*=========================================================
-ENCABEZADO DEL EXPEDIENTE
-=========================================================*/
-/*=========================================================
- EXPEDIENTE - ENCABEZADO
-=========================================================*/
-
-.expediente-header{
-
-display:flex !important;
-
-flex-direction:column !important;
-
-justify-content:center !important;
-
-align-items:center !important;
-
-text-align:center !important;
-
-gap:10px;
-
-width:100%;
-
-padding:10px 0 30px;
-
-margin-bottom:25px;
-
-border-bottom:2px solid #e5e7eb;
-
-}
-
-.expediente-header *{
+.exp-v2-header{
 
 text-align:center;
 
+margin-bottom:35px;
+
 }
 
 
-.titulo-patronato{
 
-margin:0;
+.exp-v2-logo{
+
+width:110px;
+
+margin:auto;
+
+display:block;
+
+}
+
+
+
+.exp-v2-header h1{
+
+margin:18px 0 8px;
 
 font-size:2rem;
 
 font-weight:800;
 
-letter-spacing:1px;
-
 color:#0b4b7c;
 
 }
 
-.subtitulo-patronato{
 
-margin-top:8px;
 
-font-size:1rem;
+.exp-v2-header p{
 
-color:#6b7280;
+margin:0;
+
+color:#64748b;
 
 }
 
-.linea-dorada{
+
+
+.exp-v2-linea{
 
 width:120px;
 
@@ -4861,47 +4577,53 @@ height:4px;
 
 background:#f5b301;
 
-margin:24px auto;
+margin:22px auto;
 
-border-radius:50px;
+border-radius:30px;
 
 }
 
-.titulo-reconocimiento{
 
-font-size:1.10rem;
+
+.exp-v2-documento{
+
+font-size:1rem;
 
 font-weight:700;
 
 letter-spacing:2px;
 
-color:#374151;
+color:#334155;
 
 }
 
-.folio-principal{
 
-margin-top:18px;
 
-font-size:2.8rem;
+.exp-v2-folio{
+
+font-size:3rem;
 
 font-weight:800;
+
+margin-top:18px;
 
 color:#0b4b7c;
 
 }
 
-.estado-principal{
 
-margin-top:18px;
 
-padding:9px 22px;
+.exp-v2-estado{
 
-border-radius:50px;
+display:inline-block;
+
+margin-top:16px;
+
+padding:8px 24px;
 
 background:#dcfce7;
 
-border:1px solid #7dd87d;
+border-radius:50px;
 
 font-weight:700;
 
