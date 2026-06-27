@@ -1,3 +1,6 @@
+let reconocimientoEditando = null;
+
+
 document.addEventListener(
   "DOMContentLoaded",
   () => {
@@ -827,9 +830,100 @@ alert(id);
 
 }
 
-function editarBenefactor(id){
+async function editarBenefactor(id){
 
-alert(id);
+try{
+
+const {db}=window.PCZ_FIREBASE;
+
+const doc=await db
+.collection("reconocimientos")
+.doc(id)
+.get();
+
+if(!doc.exists){
+
+alert("No existe el reconocimiento.");
+
+return;
+
+}
+
+const d=doc.data();
+
+reconocimientoEditando=id;
+
+/*=========================
+FORMULARIO
+=========================*/
+
+nombreBenefactor.value =
+d.nombreBenefactor || "";
+
+empresaBenefactor.value =
+d.empresaBenefactor || "";
+
+telefonoBenefactor.value =
+d.telefonoBenefactor || "";
+
+poblacionBenefactor.value =
+d.poblacionBenefactor || "";
+
+tipoApoyo.value =
+d.tipoApoyo || "";
+
+articuloDonado.value =
+d.articuloDonado || "";
+
+descripcionApoyo.value =
+d.descripcionApoyo || "";
+
+valorEstimado.value =
+d.valorEstimado || "";
+
+mensajeAgradecimiento.value =
+d.mensajeAgradecimiento || "";
+
+/*=========================
+CHECKS
+=========================*/
+
+publicarNombre.checked =
+!!d.publicarNombre;
+
+publicarFotoBenefactor.checked =
+!!d.publicarFotoBenefactor;
+
+publicarFotoApoyo.checked =
+!!d.publicarFotoApoyo;
+
+publicado.checked =
+!!d.publicado;
+
+destacado.checked =
+!!d.destacado;
+
+/*=========================
+SUBIR
+=========================*/
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+alert("Modo edición activado.");
+
+}catch(error){
+
+console.error(error);
+
+alert("No fue posible cargar el reconocimiento.");
+
+}
 
 }
 
