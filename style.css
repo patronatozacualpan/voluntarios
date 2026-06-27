@@ -4751,3 +4751,204 @@ letter-spacing:1px;
 
 
 
+/*=========================================================
+BENEFACTOR
+=========================================================*/
+
+.exp-v2-benefactor{
+
+margin-top:45px;
+
+padding:35px;
+
+background:#f8fafc;
+
+border:1px solid #e5e7eb;
+
+border-radius:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:35px;
+
+box-shadow:0 5px 16px rgba(0,0,0,.05);
+
+}
+
+.exp-v2-foto{
+
+flex:0 0 190px;
+
+text-align:center;
+
+}
+
+.exp-v2-foto img{
+
+width:170px;
+
+height:170px;
+
+object-fit:cover;
+
+border-radius:50%;
+
+border:6px solid #ffffff;
+
+background:#ffffff;
+
+box-shadow:0 8px 24px rgba(0,0,0,.15);
+
+}
+
+.exp-v2-sinfoto{
+
+padding:25px;
+
+border:2px dashed #cbd5e1;
+
+border-radius:14px;
+
+background:#ffffff;
+
+color:#64748b;
+
+line-height:1.7;
+
+}
+
+.exp-v2-info{
+
+flex:1;
+
+}
+
+.exp-v2-info h2{
+
+margin:0 0 18px;
+
+font-size:1.35rem;
+
+font-weight:700;
+
+color:#0b4b7c;
+
+}
+
+.exp-v2-info h3{
+
+margin:0;
+
+font-size:2rem;
+
+font-weight:800;
+
+color:#1e293b;
+
+}
+
+.exp-v2-info p{
+
+margin:10px 0;
+
+font-size:1.05rem;
+
+color:#475569;
+
+line-height:1.7;
+
+}
+
+@media(max-width:768px){
+
+.exp-v2-benefactor{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.exp-v2-foto{
+
+flex:none;
+
+}
+
+}
+
+
+
+/*=========================================================
+INFORMACIÓN INSTITUCIONAL
+=========================================================*/
+
+.exp-v2-datos{
+
+margin-top:35px;
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:20px;
+
+}
+
+.exp-v2-datos div{
+
+background:#f8fafc;
+
+border:1px solid #e2e8f0;
+
+border-radius:14px;
+
+padding:18px;
+
+box-shadow:0 3px 10px rgba(0,0,0,.05);
+
+}
+
+.exp-v2-datos label{
+
+display:block;
+
+margin-bottom:8px;
+
+font-size:.85rem;
+
+font-weight:700;
+
+letter-spacing:.5px;
+
+text-transform:uppercase;
+
+color:#64748b;
+
+}
+
+.exp-v2-datos p{
+
+margin:0;
+
+font-size:1.15rem;
+
+font-weight:600;
+
+color:#1e293b;
+
+}
+
+@media(max-width:768px){
+
+.exp-v2-datos{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+
