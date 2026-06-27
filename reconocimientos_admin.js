@@ -399,17 +399,41 @@ fotoApoyoPendiente:
 
 
     
-  await db
-  .collection(
-    "reconocimientos"
-  )
-  .add(
-    reconocimiento
-  );
+if(reconocimientoEditando){
+
+await db
+.collection("reconocimientos")
+.doc(reconocimientoEditando)
+.update({
+
+...reconocimiento,
+
+actualizadoEn:
+obtenerTimestampServidor()
+
+});
 
 alert(
-  "✅ Benefactor registrado correctamente."
+"✅ Reconocimiento actualizado correctamente."
 );
+
+reconocimientoEditando = null;
+
+}else{
+
+await db
+.collection("reconocimientos")
+.add(
+reconocimiento
+);
+
+alert(
+"✅ Benefactor registrado correctamente."
+);
+
+}
+
+    
 
 /* =========================================
    REACTIVAR BOTÓN
