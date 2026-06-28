@@ -457,27 +457,6 @@ behavior:"smooth"
 
     
 
-/* =========================================
-   REACTIVAR BOTÓN
-========================================= */
-
-guardandoReconocimiento = false;
-
-botonGuardar.disabled = false;
-
-botonGuardar.textContent =
-  "💾 Guardar reconocimiento";
-
-/* =========================================
-   LIMPIAR FORMULARIO
-========================================= */
-
-event.target.reset();
-
-} catch (error) {
-
-  console.error(error);
-
   /* =========================================
      REACTIVAR BOTÓN EN CASO DE ERROR
   ========================================= */
