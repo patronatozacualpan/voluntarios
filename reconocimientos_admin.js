@@ -1,5 +1,5 @@
 let reconocimientoEditando = null;
-
+let botonGuardar = null;
 
 document.addEventListener(
   "DOMContentLoaded",
@@ -9,6 +9,11 @@ document.addEventListener(
       document.getElementById(
         "formReconocimiento"
       );
+
+    botonGuardar =
+formulario.querySelector(
+'button[type="submit"]'
+);
 
     if (!formulario) return;
 
@@ -74,11 +79,7 @@ event.preventDefault();
    EVITAR DOBLE REGISTRO
 ========================================= */
 
-const botonGuardar =
-  event.target.querySelector(
-    'button[type="submit"]'
-  );
-
+  
 if (guardandoReconocimiento){
 
   return;
@@ -399,27 +400,6 @@ fotoApoyoPendiente:
 
 
     
-if(reconocimientoEditando){
-
-await db
-.collection("reconocimientos")
-.doc(reconocimientoEditando)
-.update({
-
-...reconocimiento,
-
-actualizadoEn:
-obtenerTimestampServidor()
-
-});
-
-alert(
-"✅ Reconocimiento actualizado correctamente."
-);
-
-reconocimientoEditando = null;
-
-}else{
 
 
 
@@ -1057,30 +1037,7 @@ cerrarExpedienteBenefactor();
 
 });
 
-  document
-.getElementById("btnCancelarEdicion")
-.onclick=()=>{
 
-reconocimientoEditando=null;
-
-document
-.getElementById("formReconocimiento")
-.reset();
-
-document
-.getElementById("panelModoEdicion")
-.classList.add("hidden");
-
-botonGuardar.textContent=
-"💾 Guardar reconocimiento";
-
-fotoBenefactorArchivo=null;
-
-fotoApoyoArchivo=null;
-
-};
-
-});
 
 /*=====================================
  CANCELAR EDICIÓN
@@ -1102,10 +1059,6 @@ document
 
 botonGuardar.textContent=
 "💾 Guardar reconocimiento";
-
-fotoBenefactorArchivo=null;
-
-fotoApoyoArchivo=null;
 
 window.scrollTo({
 
