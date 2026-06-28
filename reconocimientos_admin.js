@@ -958,23 +958,6 @@ alert(id);
 }
 
 
-function cerrarModalBenefactor(){
-
-document.getElementById(
-"modalBenefactor"
-).style.display="none";
-
-}
-
-
-
-function cerrarModalBenefactor(){
-
-document.getElementById(
-"modalBenefactor"
-).style.display="none";
-
-}
 
 
 
