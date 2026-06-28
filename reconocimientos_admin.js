@@ -222,6 +222,36 @@ let fotoApoyoUrl = "";
 
 let fotoApoyoRuta = "";
 
+/*=====================================
+SI ESTOY EDITANDO
+CONSERVAR FOTOS ACTUALES
+=====================================*/
+
+if(reconocimientoEditando){
+
+const docActual =
+await db
+.collection("reconocimientos")
+.doc(reconocimientoEditando)
+.get();
+
+const actual =
+docActual.data();
+
+fotoBenefactorUrl =
+actual.fotoBenefactorUrl || "";
+
+fotoBenefactorRuta =
+actual.fotoBenefactorRuta || "";
+
+fotoApoyoUrl =
+actual.fotoApoyoUrl || "";
+
+fotoApoyoRuta =
+actual.fotoApoyoRuta || "";
+
+}
+
 /* =========================================
    FOTO BENEFECTOR
 ========================================= */
@@ -281,14 +311,37 @@ console.log(
 }
 
 
-const folioNumero =
-  await generarFolioReconocimiento();
+let folioNumero;
+let folioReconocimiento;
 
-const folioReconocimiento =
-  "REC-" +
-  String(
-    folioNumero
-  ).padStart(3,"0");
+if(reconocimientoEditando){
+
+const docActual =
+await db
+.collection("reconocimientos")
+.doc(reconocimientoEditando)
+.get();
+
+const actual =
+docActual.data();
+
+folioNumero =
+actual.folioNumero;
+
+folioReconocimiento =
+actual.folioReconocimiento;
+
+}else{
+
+folioNumero =
+await generarFolioReconocimiento();
+
+folioReconocimiento =
+"REC-" +
+String(folioNumero)
+.padStart(3,"0");
+
+}
 
     
     
@@ -461,16 +514,18 @@ behavior:"smooth"
      REACTIVAR BOTÓN EN CASO DE ERROR
   ========================================= */
 
-  guardandoReconocimiento = false;
+}catch(error){
 
-  botonGuardar.disabled = false;
+console.error(error);
 
-  botonGuardar.textContent =
-    "💾 Guardar reconocimiento";
+guardandoReconocimiento=false;
 
-  alert(
-    "⚠️ No se pudo guardar."
-  );
+botonGuardar.disabled=false;
+
+botonGuardar.textContent=
+"💾 Guardar reconocimiento";
+
+alert("⚠️ No se pudo guardar.");
 
 }
 
