@@ -986,8 +986,8 @@ document
 .getElementById("panelModoEdicion")
 .classList.remove("hidden");
 
-botonGuardar.textContent =
-"💾 Actualizar reconocimiento";
+botonGuardar.innerHTML =
+"✏️ Actualizar reconocimiento";
 
 }catch(error){
 
