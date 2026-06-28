@@ -410,7 +410,7 @@ await db
 .doc(reconocimientoEditando)
 .update(reconocimiento);
 
-alert("Reconocimiento actualizado correctamente.");
+
 
 reconocimientoEditando = null;
 
@@ -433,9 +433,6 @@ document.getElementById("formReconocimiento").reset();
 
 reconocimientoEditando = null;
 
-fotoBenefactorArchivo = null;
-
-fotoApoyoArchivo = null;
 
 guardandoReconocimiento = false;
 
@@ -455,10 +452,6 @@ behavior:"smooth"
 });
   
   
-
-alert(
-"✅ Benefactor registrado correctamente."
-);
 
 }
 
