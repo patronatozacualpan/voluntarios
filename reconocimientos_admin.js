@@ -421,11 +421,60 @@ reconocimientoEditando = null;
 
 }else{
 
+
+
+  
+if(reconocimientoEditando){
 await db
 .collection("reconocimientos")
-.add(
-reconocimiento
-);
+.doc(reconocimientoEditando)
+.update(reconocimiento);
+
+alert("Reconocimiento actualizado correctamente.");
+
+reconocimientoEditando = null;
+
+}else{
+
+await db
+.collection("reconocimientos")
+.add(reconocimiento);
+
+alert("Reconocimiento registrado correctamente.");
+
+}
+
+
+/*=====================================
+FINALIZAR OPERACIÓN
+=====================================*/
+
+document.getElementById("formReconocimiento").reset();
+
+reconocimientoEditando = null;
+
+fotoBenefactorArchivo = null;
+
+fotoApoyoArchivo = null;
+
+guardandoReconocimiento = false;
+
+botonGuardar.disabled = false;
+
+botonGuardar.textContent =
+"💾 Guardar reconocimiento";
+
+await cargarBenefactores();
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+  
+  
 
 alert(
 "✅ Benefactor registrado correctamente."
@@ -933,7 +982,12 @@ behavior:"smooth"
 
 });
 
-alert("Modo edición activado.");
+document
+.getElementById("panelModoEdicion")
+.classList.remove("hidden");
+
+botonGuardar.textContent =
+"💾 Actualizar reconocimiento";
 
 }catch(error){
 
@@ -1002,8 +1056,70 @@ cerrarExpedienteBenefactor();
 }
 
 });
-  
+
+  document
+.getElementById("btnCancelarEdicion")
+.onclick=()=>{
+
+reconocimientoEditando=null;
+
+document
+.getElementById("formReconocimiento")
+.reset();
+
+document
+.getElementById("panelModoEdicion")
+.classList.add("hidden");
+
+botonGuardar.textContent=
+"💾 Guardar reconocimiento";
+
+fotoBenefactorArchivo=null;
+
+fotoApoyoArchivo=null;
+
+};
+
 });
+
+/*=====================================
+ CANCELAR EDICIÓN
+=====================================*/
+
+document
+.getElementById("btnCancelarEdicion")
+.addEventListener("click",()=>{
+
+reconocimientoEditando=null;
+
+document
+.getElementById("formReconocimiento")
+.reset();
+
+document
+.getElementById("panelModoEdicion")
+.classList.add("hidden");
+
+botonGuardar.textContent=
+"💾 Guardar reconocimiento";
+
+fotoBenefactorArchivo=null;
+
+fotoApoyoArchivo=null;
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+});
+
+
+
+
 
 /* ----------------------------------------------------------
    Abrir expediente
