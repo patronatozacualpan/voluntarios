@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>
+
+Muro de Benefactores | Patronato Zacualpan
+
+</title>
+
+<link
+rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<!--=========================================================
+ENCABEZADO
+==========================================================-->
+
+<header class="hero-benefactores">
+
+<img
+src="assets/logos/logo-patronato.png"
+class="hero-logo"
+alt="Patronato">
+
+<h1>
+
+MURO DE GRATITUD CIUDADANA
+
+</h1>
+
+<p>
+
+Ciudadanos, empresas e instituciones que fortalecen la capacidad operativa de Protección Civil Zacualpan mediante su solidaridad.
+
+</p>
+
+</header>
+
+<!--=========================================================
+BUSCADOR
+==========================================================-->
+
+<section class="benefactores-top">
+
+<input
+
+id="buscarBenefactor"
+
+type="text"
+
+placeholder="🔎 Buscar benefactor, empresa o artículo...">
+
+</section>
+
+<!--=========================================================
+CONTADOR
+==========================================================-->
+
+<section class="benefactores-resumen">
+
+<div class="contador-card">
+
+<h2 id="totalBenefactores">
+
+0
+
+</h2>
+
+<span>
+
+Reconocimientos Públicos
+
+</span>
+
+</div>
+
+</section>
+
+<!--=========================================================
+LISTADO
+==========================================================-->
+
+<section
+id="listaBenefactoresPublicos"
+class="benefactores-grid">
+
+</section>
+
+<!--=========================================================
+MODAL
+==========================================================-->
+
+<div
+
+id="modalExpedienteBenefactor"
+
+class="modal-overlay hidden">
+
+<div
+
+class="modal-card expediente-benefactor">
+
+<button
+
+id="cerrarExpedienteBenefactor"
+
+class="modal-close">
+
+✕
+
+</button>
+
+<header class="exp-v2-header">
+
+<img
+
+src="assets/logos/logo-patronato.png"
+
+class="exp-v2-logo">
+
+<h1>
+
+PATRONATO ZACUALPAN
+
+</h1>
+
+<p>
+
+Pro-equipamiento de Protección Civil
+
+</p>
+
+<div>
+
+🏆 RECONOCIMIENTO CIUDADANO
+
+</div>
+
+<h2 id="expFolio">
+
+REC-000
+
+</h2>
+
+<div
+id="expEstado">
+
+Publicado
+
+</div>
+
+</header>
+
+<section class="exp-v2-hero">
+
+<img
+id="expFotoApoyo">
+
+<h2
+id="expArticulo">
+
+</h2>
+
+<p
+id="expTipo">
+
+</p>
+
+<div>
+
+Valor estimado
+
+</div>
+
+<h3
+id="expValor">
+
+</h3>
+
+</section>
+
+<section class="exp-v2-benefactor">
+
+<div class="exp-v2-avatar">
+
+<img
+id="expFotoBenefactor">
+
+<div
+id="expSinFoto"
+class="hidden">
+
+Fotografía reservada.
+
+</div>
+
+</div>
+
+<div>
+
+<h2
+id="expNombre">
+
+</h2>
+
+<p
+id="expEmpresa">
+
+</p>
+
+<p
+id="expPoblacion">
+
+</p>
+
+</div>
+
+</section>
+
+<section class="exp-v2-info">
+
+<div>
+
+<label>
+
+Fecha
+
+</label>
+
+<p id="expFecha">
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Registró
+
+</label>
+
+<p id="expRegistro">
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Tipo
+
+</label>
+
+<p id="expTipoInfo">
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Valor
+
+</label>
+
+<p id="expValorInfo">
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Empresa
+
+</label>
+
+<p id="expEmpresaInfo">
+
+</p>
+
+</div>
+
+<div>
+
+<label>
+
+Población
+
+</label>
+
+<p id="expPoblacionInfo">
+
+</p>
+
+</div>
+
+</section>
+
+<section class="exp-v2-texto">
+
+<h3>
+
+Historia del apoyo
+
+</h3>
+
+<p
+id="expDescripcion">
+
+</p>
+
+</section>
+
+<section class="exp-v2-texto">
+
+<h3>
+
+Mensaje institucional
+
+</h3>
+
+<p
+id="expMensaje">
+
+</p>
+
+</section>
+
+<footer class="exp-v2-footer">
+
+Este reconocimiento forma parte del Programa Permanente de Transparencia del Patronato Zacualpan.
+
+</footer>
+
+</div>
+
+</div>
+
+<script src="configuracion-firebase.js"></script>
+
+<script src="benefactores.js"></script>
+
+</body>
+
+</html>
