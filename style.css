@@ -5085,3 +5085,57 @@ justify-content:center;
 
 
 
+/*=========================================================
+ MODO EDICIÓN
+=========================================================*/
+
+.modo-edicion{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:20px;
+
+padding:18px 22px;
+
+margin-bottom:25px;
+
+background:#fff8db;
+
+border:1px solid #f4d03f;
+
+border-left:8px solid #f1c40f;
+
+border-radius:12px;
+
+}
+
+.modo-edicion button{
+
+background:#d63031;
+
+color:white;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+cursor:pointer;
+
+font-weight:600;
+
+}
+
+.hidden{
+
+display:none!important;
+
+}
+
+
+
