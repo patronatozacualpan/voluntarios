@@ -24,6 +24,13 @@ document.getElementById("totalBenefactores");
 
 cargarBenefactoresPublicos();
 
+console.log(window.PCZ_FIREBASE);
+console.log(firebaseTools);
+  const {db}=firebaseTools;
+
+console.log(db);
+  
+  
 });
 
 /*=========================================================
