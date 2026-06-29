@@ -6,6 +6,20 @@ Patronato Zacualpan
 const firebaseTools =
 window.PCZ_FIREBASE;
 
+
+/*=========================================================
+FOLIO DESDE URL
+=========================================================*/
+
+const parametros =
+new URLSearchParams(
+window.location.search
+);
+
+const folio =
+parametros.get("folio");
+
+
 let listaBenefactores;
 
 let totalBenefactores;
@@ -95,17 +109,7 @@ try{
 
 const {db}=window.PCZ_FIREBASE;
 
-  /*=========================================================
-FOLIO DESDE URL
-=========================================================*/
-
-const parametros =
-new URLSearchParams(
-window.location.search
-);
-
-const folio =
-parametros.get("folio");     
+  
 
   
 const doc=
