@@ -129,3 +129,70 @@ Math.random()
 .substring(2,8);
 
 };
+
+
+
+/*=========================================================
+  TEXTO
+=========================================================*/
+
+PCZ.vacio=(valor,defecto="-")=>{
+
+return valor || defecto;
+
+};
+
+/*=========================================================
+  MOSTRAR / OCULTAR
+=========================================================*/
+
+PCZ.ver=(id)=>{
+
+const el=
+typeof id==="string"
+?document.getElementById(id)
+:id;
+
+if(el){
+
+el.style.display="block";
+
+}
+
+};
+
+PCZ.ocultarDisplay=(id)=>{
+
+const el=
+typeof id==="string"
+?document.getElementById(id)
+:id;
+
+if(el){
+
+el.style.display="none";
+
+}
+
+};
+
+/*=========================================================
+  HTML
+=========================================================*/
+
+PCZ.html=(id,texto)=>{
+
+document.getElementById(id).innerHTML=
+texto;
+
+};
+
+PCZ.texto=(id,texto)=>{
+
+document.getElementById(id).textContent=
+texto;
+
+};
+
+
+
