@@ -55,28 +55,22 @@ async function cargarReconocimiento(){
 try{
 
 const {db}=window.PCZ_FIREBASE;
+
 console.log("Folio recibido:", folio);
-  .get();
-  
+
 const snap=
 
 await db
-
 .collection("reconocimientos")
-
 .where(
-
 "folioReconocimiento",
-
 "==",
-
 folio
-
 )
-
 .limit(1)
-
 .get();
+
+console.log("Documentos encontrados:", snap.size);
 
 if(snap.empty){
 
