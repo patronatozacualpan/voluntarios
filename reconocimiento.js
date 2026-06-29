@@ -16,38 +16,31 @@ INICIO
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-listaBenefactores=
-document.getElementById("listaBenefactoresPublicos");
+if(!folio){
 
-totalBenefactores=
-document.getElementById("totalBenefactores");
+alert("No se especificó el reconocimiento.");
 
-cargarBenefactoresPublicos();
+return;
 
-console.log(window.PCZ_FIREBASE);
-console.log(firebaseTools);
-  const {db}=firebaseTools;
+}
 
-console.log(db);
-  
-  
+cargarReconocimiento();
+
 });
 
 /*=========================================================
 CARGAR RECONOCIMIENTOS
 =========================================================*/
 
-async function cargarBenefactoresPublicos(){
+/*=========================================================
+CARGAR RECONOCIMIENTO POR FOLIO
+=========================================================*/
+
+async function cargarReconocimiento(){
 
 try{
 
-if(!firebaseTools?.db){
-
-return;
-
-}
-
-const {db}=firebaseTools;
+const {db}=window.PCZ_FIREBASE;
 
 const snap=
 
@@ -55,96 +48,37 @@ await db
 
 .collection("reconocimientos")
 
-.where("publicado","==",true)
+.where(
 
-.orderBy("folioNumero","desc")
+"folioReconocimiento",
+
+"==",
+
+folio
+
+)
+
+.limit(1)
 
 .get();
 
-listaBenefactores.innerHTML="";
+if(snap.empty){
 
-totalBenefactores.textContent=
-snap.size;
+alert("No existe el reconocimiento.");
 
-snap.forEach(doc=>{
-
-const d=doc.data();
-
-listaBenefactores.innerHTML+=`
-
-<div class="benefactor-publico">
-
-<div class="benefactor-publico-foto">
-
-<img
-
-src="${
-d.fotoApoyoUrl ||
-
-"assets/img/sin-imagen.png"
-
-}"
-
-alt="Apoyo">
-
-</div>
-
-<div class="benefactor-publico-body">
-
-<div class="benefactor-publico-folio">
-
-${d.folioReconocimiento}
-
-</div>
-
-<h2>
-
-${d.articuloDonado||""}
-
-</h2>
-
-<p>
-
-${
-d.publicarNombre
-
-?
-
-d.nombreBenefactor
-
-:
-
-"Benefactor Anónimo"
+return;
 
 }
 
-</p>
+const doc=snap.docs[0];
 
-<small>
-
-${d.empresaBenefactor||""}
-
-</small>
-
-<button
-
-onclick="verBenefactorPublico('${doc.id}')">
-
-👁 Ver reconocimiento
-
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
+verBenefactorPublico(doc.id);
 
 }catch(error){
 
 console.error(error);
+
+alert("No fue posible cargar el reconocimiento.");
 
 }
 
@@ -156,10 +90,24 @@ VER RECONOCIMIENTO
 
 async function verBenefactorPublico(id){
 
+  
 try{
 
 const {db}=window.PCZ_FIREBASE;
 
+  /*=========================================================
+FOLIO DESDE URL
+=========================================================*/
+
+const parametros =
+new URLSearchParams(
+window.location.search
+);
+
+const folio =
+parametros.get("folio");     
+
+  
 const doc=
 await db
 .collection("reconocimientos")
