@@ -128,7 +128,7 @@ ${d.empresaBenefactor||""}
 
 <button
 
-onclick="verBenefactorPublico('${doc.id}')">
+onclick="window.location.href='reconocimiento.html?folio=${d.folioReconocimiento}'">
 
 👁 Ver reconocimiento
 
