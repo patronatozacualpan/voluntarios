@@ -124,6 +124,9 @@ return;
 
 const d=doc.data();
 
+  console.log("Entró a verBenefactorPublico");
+console.log(d);
+
 /*==========================
 ENCABEZADO
 ==========================*/
@@ -274,6 +277,8 @@ document
 
 .classList.remove("hidden");
 
+console.log("Terminó de cargar expediente");
+  
 }catch(error){
 
 console.error(error);
