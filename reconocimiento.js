@@ -55,7 +55,9 @@ async function cargarReconocimiento(){
 try{
 
 const {db}=window.PCZ_FIREBASE;
-
+console.log("Folio recibido:", folio);
+  .get();
+  
 const snap=
 
 await db
