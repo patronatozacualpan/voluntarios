@@ -271,11 +271,14 @@ d.mensajeAgradecimiento || "-";
 ABRIR
 ==========================*/
 
-document
+const modal =
+document.getElementById("modalExpedienteBenefactor");
 
-.getElementById("modalExpedienteBenefactor")
+modal.classList.remove("hidden");
 
-.classList.remove("hidden");
+modal.classList.add("activo");
+
+document.body.style.overflow="hidden";
 
 console.log("Terminó de cargar expediente");
   
