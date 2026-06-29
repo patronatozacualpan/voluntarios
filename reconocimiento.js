@@ -162,19 +162,7 @@ d.tipoApoyo || "";
 
 document.getElementById("expValor").textContent=
 
-Number(d.valorEstimado||0)
-
-.toLocaleString(
-
-"es-MX",
-
-{
-
-style:"currency",
-
-currency:"MXN"
-
-}
+PCZ.moneda(d.valorEstimado);
 
 );
 
@@ -239,31 +227,8 @@ sinFoto.classList.remove("hidden");
 INFO
 ==========================*/
 
-document.getElementById("expFecha").textContent=
-
-d.creadoEn
-
-?
-
-d.creadoEn.toDate().toLocaleDateString(
-
-"es-MX",
-
-{
-
-day:"2-digit",
-
-month:"long",
-
-year:"numeric"
-
-}
-
-)
-
-:
-
-"-";
+document.getElementById("expFecha").textContent =
+PCZ.fecha(d.creadoEn);
 
 document.getElementById("expRegistro").textContent=
 d.creadoPorNombre || "-";
@@ -273,21 +238,8 @@ d.tipoApoyo || "-";
 
 document.getElementById("expValorInfo").textContent=
 
-Number(d.valorEstimado||0)
+PCZ.moneda(d.valorEstimado);
 
-.toLocaleString(
-
-"es-MX",
-
-{
-
-style:"currency",
-
-currency:"MXN"
-
-}
-
-);
 
 document.getElementById("expEmpresaInfo").textContent=
 d.empresaBenefactor || "-";
