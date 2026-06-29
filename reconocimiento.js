@@ -181,11 +181,15 @@ d.nombreBenefactor
 
 "Benefactor Anónimo";
 
-document.getElementById("expEmpresa").textContent=
-d.empresaBenefactor || "-";
+PCZ.texto(
+"expEmpresa",
+PCZ.vacio(d.empresaBenefactor)
+);
 
-document.getElementById("expPoblacion").textContent=
-d.poblacionBenefactor || "-";
+PCZ.texto(
+"expPoblacion",
+PCZ.vacio(d.poblacionBenefactor)
+);
 
 /*==========================
 FOTO
@@ -229,22 +233,30 @@ INFO
 document.getElementById("expFecha").textContent =
 PCZ.fecha(d.creadoEn);
 
-document.getElementById("expRegistro").textContent=
-d.creadoPorNombre || "-";
+PCZ.texto(
+"expRegistro",
+PCZ.vacio(d.creadoPorNombre)
+);
 
-document.getElementById("expTipoInfo").textContent=
-d.tipoApoyo || "-";
+PCZ.texto(
+"expTipoInfo",
+PCZ.vacio(d.tipoApoyo)
+);
 
 document.getElementById("expValorInfo").textContent=
 
 PCZ.moneda(d.valorEstimado);
 
 
-document.getElementById("expEmpresaInfo").textContent=
-d.empresaBenefactor || "-";
+PCZ.texto(
+"expEmpresaInfo",
+PCZ.vacio(d.empresaBenefactor)
+);
 
-document.getElementById("expPoblacionInfo").textContent=
-d.poblacionBenefactor || "-";
+PCZ.texto(
+"expPoblacionInfo",
+PCZ.vacio(d.poblacionBenefactor)
+);
 
 /*==========================
 TEXTOS
