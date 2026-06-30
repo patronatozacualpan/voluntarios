@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarInventarioPublico();
      cargarMetasComunitarias();
      cargarPublicaciones();
+     cargarReconocimientosPublicos();
   }, 700);
 });
 
@@ -1692,6 +1693,143 @@ https://patronatozacualpan.github.io/voluntarios/transparencia.html`;
 
   }
 );
+
+
+
+/*=========================================================
+RECONOCIMIENTOS PÚBLICOS
+=========================================================*/
+
+async function cargarReconocimientosPublicos(){
+
+try{
+
+const lista =
+document.getElementById(
+"contenedorReconocimientos"
+);
+
+if(!lista)return;
+
+lista.innerHTML="";
+
+const {db}=window.PCZ_FIREBASE;
+
+const snap=
+
+await db
+
+.collection("reconocimientos")
+
+.where(
+"publicado",
+"==",
+true
+)
+
+.orderBy(
+"creadoEn",
+"desc"
+)
+
+.limit(6)
+
+.get();
+
+if(snap.empty){
+
+lista.innerHTML=`
+
+<div class="info-card">
+
+<p>
+
+Aún no existen reconocimientos públicos.
+
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+snap.forEach(doc=>{
+
+const d=doc.data();
+
+lista.innerHTML+=`
+
+<div class="info-card">
+
+<img
+
+src="${
+d.fotoApoyoUrl||
+'assets/img/sin-imagen.png'
+}"
+
+style="
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:12px;
+margin-bottom:15px;
+">
+
+<p class="section-label">
+
+${d.folioReconocimiento}
+
+</p>
+
+<h3>
+
+${d.articuloDonado||""}
+
+</h3>
+
+<p>
+
+${
+d.publicarNombre
+?
+d.nombreBenefactor
+:
+"Benefactor Anónimo"
+}
+
+</p>
+
+<button
+
+class="primary-btn"
+
+onclick="window.location.href='reconocimiento.html?folio=${d.folioReconocimiento}'"
+
+>
+
+Ver reconocimiento
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
 
 
 
