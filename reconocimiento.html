@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
@@ -12,7 +11,7 @@ content="width=device-width,initial-scale=1">
 
 <title>
 
-Muro de Benefactores | Patronato Zacualpan
+Reconocimiento Ciudadano | Patronato Zacualpan
 
 </title>
 
@@ -24,10 +23,6 @@ href="style.css">
 
 <body>
 
-<!--=========================================================
-ENCABEZADO
-==========================================================-->
-
 <header class="hero-benefactores">
 
 <img
@@ -37,87 +32,84 @@ alt="Patronato">
 
 <h1>
 
-MURO DE GRATITUD CIUDADANA
+RECONOCIMIENTO CIUDADANO
 
 </h1>
 
 <p>
 
-Ciudadanos, empresas e instituciones que fortalecen la capacidad operativa de Protección Civil Zacualpan mediante su solidaridad.
+Expediente público del Programa Permanente de Transparencia
+del Patronato Zacualpan Pro-equipamiento de Protección Civil.
 
 </p>
 
 </header>
 
-<!--=========================================================
-BUSCADOR
-==========================================================-->
+<section
+style="
+max-width:1100px;
+margin:25px auto;
+padding:0 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+">
 
-<section class="benefactores-top">
+<button
 
-<input
+onclick="window.location.href='benefactores.html'"
 
-id="buscarBenefactor"
+class="secondary-btn">
 
-type="text"
+⬅ Volver al muro
 
-placeholder="🔎 Buscar benefactor, empresa o artículo...">
+</button>
 
-</section>
+<div>
 
-<!--=========================================================
-CONTADOR
-==========================================================-->
+<button
+id="btnCompartirReconocimiento"
+class="primary-btn">
 
-<section class="benefactores-resumen">
+📲 Compartir
 
-<div class="contador-card">
+</button>
 
-<h2 id="totalBenefactores">
+<button
+id="btnImprimirReconocimiento"
+class="primary-btn">
 
-0
+🖨 Imprimir
 
-</h2>
-
-<span>
-
-Reconocimientos Públicos
-
-</span>
+</button>
 
 </div>
 
 </section>
 
-<!--=========================================================
-LISTADO
-==========================================================-->
 
-<section
-id="listaBenefactoresPublicos"
-class="benefactores-grid">
 
-</section>
-
-<!--=========================================================
-MODAL
-==========================================================-->
+  <main>
 
 <div
-
-id="modalExpedienteBenefactor"
-
-class="modal-overlay hidden">
+style="
+max-width:900px;
+margin:0 auto 50px auto;
+padding:0 20px;
+">
 
 <div
-
-class="modal-card expediente-benefactor">
+class="expediente-benefactor">
 
 <button
 
 id="cerrarExpedienteBenefactor"
 
-class="modal-close">
+class="modal-close"
+
+style="display:none;">
 
 ✕
 
@@ -155,8 +147,7 @@ REC-000
 
 </h2>
 
-<div
-id="expEstado">
+<div id="expEstado">
 
 Publicado
 
@@ -211,26 +202,19 @@ Fotografía reservada.
 
 <div>
 
-<h2
-id="expNombre">
+<h2 id="expNombre"></h2>
 
-</h2>
+<p id="expEmpresa"></p>
 
-<p
-id="expEmpresa">
-
-</p>
-
-<p
-id="expPoblacion">
-
-</p>
+<p id="expPoblacion"></p>
 
 </div>
 
 </section>
 
-<section class="exp-v2-info">
+
+
+  <section class="exp-v2-info">
 
 <div>
 
@@ -240,9 +224,7 @@ Fecha
 
 </label>
 
-<p id="expFecha">
-
-</p>
+<p id="expFecha"></p>
 
 </div>
 
@@ -254,9 +236,7 @@ Registró
 
 </label>
 
-<p id="expRegistro">
-
-</p>
+<p id="expRegistro"></p>
 
 </div>
 
@@ -264,13 +244,11 @@ Registró
 
 <label>
 
-Tipo
+Tipo de apoyo
 
 </label>
 
-<p id="expTipoInfo">
-
-</p>
+<p id="expTipoInfo"></p>
 
 </div>
 
@@ -278,13 +256,11 @@ Tipo
 
 <label>
 
-Valor
+Valor estimado
 
 </label>
 
-<p id="expValorInfo">
-
-</p>
+<p id="expValorInfo"></p>
 
 </div>
 
@@ -296,9 +272,7 @@ Empresa
 
 </label>
 
-<p id="expEmpresaInfo">
-
-</p>
+<p id="expEmpresaInfo"></p>
 
 </div>
 
@@ -310,9 +284,7 @@ Población
 
 </label>
 
-<p id="expPoblacionInfo">
-
-</p>
+<p id="expPoblacionInfo"></p>
 
 </div>
 
@@ -350,23 +322,77 @@ id="expMensaje">
 
 <footer class="exp-v2-footer">
 
-Este reconocimiento forma parte del Programa Permanente de Transparencia del Patronato Zacualpan.
+Este reconocimiento forma parte del Programa Permanente de Transparencia del Patronato Zacualpan Pro-equipamiento de Protección Civil.
+
+<br><br>
+
+Gracias a la solidaridad ciudadana seguimos fortaleciendo el equipamiento de Protección Civil Zacualpan.
 
 </footer>
 
 </div>
 
 </div>
+
+</main>
+
+
+
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
 <script src="configuracion-firebase.js"></script>
+
 <script src="00_core.js"></script>
+
 <script src="reconocimiento.js"></script>
+
+<script>
+
+/*=========================================================
+COMPARTIR
+=========================================================*/
+
+document
+.getElementById("btnCompartirReconocimiento")
+?.addEventListener("click",()=>{
+
+const url=
+window.location.href;
+
+const texto=
+
+"🏆 Conoce este reconocimiento ciudadano del Patronato Zacualpan.\n\n"+url;
+
+window.open(
+
+"https://wa.me/?text="+
+encodeURIComponent(texto),
+
+"_blank"
+
+);
+
+});
+
+/*=========================================================
+IMPRIMIR
+=========================================================*/
+
+document
+.getElementById("btnImprimirReconocimiento")
+?.addEventListener("click",()=>{
+
+window.print();
+
+});
+
+</script>
 
 </body>
 
