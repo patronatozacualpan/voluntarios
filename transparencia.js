@@ -1823,7 +1823,11 @@ Ver reconocimiento
 
 }catch(error){
 
-console.error(error);
+console.log(error.code);
+
+console.log(error.message);
+
+console.log(error);
 
 }
 
