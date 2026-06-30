@@ -267,21 +267,9 @@ d.descripcionApoyo || "-";
 document.getElementById("expMensaje").textContent=
 d.mensajeAgradecimiento || "-";
 
-/*==========================
-ABRIR
-==========================*/
+document.getElementById("expMensaje").textContent=
+d.mensajeAgradecimiento || "-";
 
-const modal =
-document.getElementById("modalExpedienteBenefactor");
-
-modal.classList.remove("hidden");
-
-modal.classList.add("activo");
-
-document.body.style.overflow="hidden";
-
-console.log("Terminó de cargar expediente");
-  
 }catch(error){
 
 console.error(error);
@@ -291,34 +279,6 @@ alert("No fue posible abrir el reconocimiento.");
 }
 
 }
-
-
-
-
-const modal=
-
-document.getElementById("modalExpedienteBenefactor");
-
-document
-
-.getElementById("cerrarExpedienteBenefactor")
-
-.addEventListener("click",()=>{
-
-modal.classList.add("hidden");
-
-});
-
-modal.addEventListener("click",(e)=>{
-
-if(e.target===modal){
-
-modal.classList.add("hidden");
-
-}
-
-});
-
 
 
 
