@@ -56,7 +56,7 @@ try{
 
 const {db}=window.PCZ_FIREBASE;
 
-console.log("Folio recibido:", folio);
+
 
 const snap=
 
@@ -70,7 +70,7 @@ folio
 .limit(1)
 .get();
 
-console.log("Documentos encontrados:", snap.size);
+
 
 if(snap.empty){
 
@@ -124,9 +124,7 @@ return;
 
 const d=doc.data();
 
-  console.log("Entró a verBenefactorPublico");
-console.log(d);
-
+ 
 /*==========================
 ENCABEZADO
 ==========================*/
@@ -267,8 +265,6 @@ d.descripcionApoyo || "-";
 document.getElementById("expMensaje").textContent=
 d.mensajeAgradecimiento || "-";
 
-document.getElementById("expMensaje").textContent=
-d.mensajeAgradecimiento || "-";
 
 }catch(error){
 
