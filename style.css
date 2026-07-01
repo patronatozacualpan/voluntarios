@@ -5422,7 +5422,7 @@ text-transform:uppercase;
 
 
 /*=========================================================
-BOTÓN VOLVER
+BOTONES NAVEGACIÓN
 =========================================================*/
 
 .benefactores-nav{
@@ -5432,6 +5432,14 @@ max-width:1200px;
 margin:0 auto 20px;
 
 padding:0 20px;
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+justify-content:flex-start;
 
 }
 
@@ -5469,7 +5477,7 @@ transform:translateY(-2px);
 
 .benefactores-nav{
 
-text-align:center;
+justify-content:center;
 
 }
 
@@ -5477,10 +5485,12 @@ text-align:center;
 
 width:100%;
 
-max-width:320px;
+max-width:340px;
 
 }
 
 }
+
+
 
 
