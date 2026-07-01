@@ -745,10 +745,11 @@ async function cargarTimelineOperativo() {
        INGRESOS
     ===================================== */
 
-    const ingresosSnap = await db
-      .collection("ingresos")
-      .limit(4)
-      .get();
+  const ingresosSnap = await db
+.collection("ingresos")
+.orderBy("fechaIngreso","desc")
+.limit(20)
+.get();
 
     ingresosSnap.forEach((doc) => {
 
@@ -763,11 +764,19 @@ async function cargarTimelineOperativo() {
     ? `ING-${String(d.folio).padStart(3, "0")}`
     : "ING-SF",
 
-  fecha:
-    d.fechaIngreso?.toDate
-      ? d.fechaIngreso.toDate()
-      : null,
+ fecha:
 
+d.creadoEn?.toDate
+
+?
+
+d.creadoEn.toDate()
+
+:
+
+null,
+
+       
 texto:
 
   `Donativo recibido<br>
@@ -779,11 +788,15 @@ texto:
     /* =====================================
        EGRESOS
     ===================================== */
+const egresosSnap = await db
 
-    const egresosSnap = await db
-      .collection("egresos")
-      .limit(4)
-      .get();
+.collection("egresos")
+
+.orderBy("creadoEn","desc")
+
+.limit(20)
+
+.get();
 
     egresosSnap.forEach((doc) => {
 
@@ -813,12 +826,19 @@ folio:
        INVENTARIO
     ===================================== */
 
-    const inventarioSnap = await db
-      .collection("inventario_equipo")
-      .where("publico", "==", true)
-      .limit(4)
-      .get();
+const inventarioSnap = await db
 
+.collection("inventario_equipo")
+
+.where("publico","==",true)
+
+.orderBy("creadoEn","desc")
+
+.limit(20)
+
+.get();
+     
+     
     inventarioSnap.forEach((doc) => {
 
       const d = doc.data();
@@ -867,8 +887,8 @@ Costo: ${formatoMoneda(d.costoTotal || 0)}`
 
     });
 
-    const ultimas =
-      actividades.slice(0, 8);
+   const ultimas =
+actividades.slice(0, 10);
 
     /* =====================================
        VALIDAR
