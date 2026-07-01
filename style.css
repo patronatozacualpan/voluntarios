@@ -5153,49 +5153,41 @@ font-family:Arial,Helvetica,sans-serif;
 
 }
 
+@media(max-width:768px){
+
 .hero-benefactores{
 
-max-width:1200px;
+margin:5px 10px;
 
-margin:20px auto;
+padding:15px;
 
-padding:25px 30px;
-
-text-align:center;
-
-background:#fff;
-
-border-radius:18px;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-}
-
-.hero-logo{
-
-display:none;
+border-radius:14px;
 
 }
 
 .hero-benefactores h1{
 
-font-size:2rem;
+font-size:1.15rem;
 
-color:#0b4b7c;
+line-height:1.2;
 
-margin-bottom:10px;
+margin-bottom:8px;
 
 }
 
 .hero-benefactores p{
 
-max-width:700px;
+font-size:.95rem;
 
-margin:auto;
+line-height:1.4;
 
-color:#5b6778;
+}
 
-line-height:1.6;
+.acciones-reconocimiento{
+
+margin:12px auto 15px;
+
+}
 
 }
 
