@@ -2989,52 +2989,7 @@ a {
 }
 
 
-/* =====================================
-   DASHBOARD COMPACTO MOVIL
-===================================== */
 
-@media (max-width:768px){
-
-  .dashboard-grid{
-
-    gap:14px !important;
-
-    margin-top:10px !important;
-  }
-
-  .dashboard-card{
-
-    padding:14px 14px !important;
-
-    min-height:110px !important;
-
-    border-radius:16px !important;
-  }
-
-  .dashboard-title{
-
-    font-size:.78rem !important;
-
-    margin-bottom:10px !important;
-  }
-
-  .dashboard-card h3{
-
-    font-size:2rem !important;
-
-    line-height:1 !important;
-
-    margin:0 !important;
-  }
-
-  /* CARD AZUL */
-
-  .dashboard-highlight h3{
-
-    font-size:1.8rem !important;
-  }
-
-}
 
 
 
@@ -3070,28 +3025,41 @@ a {
     margin-top:0 !important;
   }
 
-  /* CARDS */
+ /* CARDS */
 
-  .dashboard-card{
+.dashboard-card{
 
-    padding:10px 12px !important;
+padding:14px 14px !important;
 
-    min-height:84px !important;
+min-height:100px !important;
 
-    height:auto !important;
+height:auto !important;
 
-    border-radius:14px !important;
-  }
+border-radius:16px !important;
 
-  /* TITULO */
+display:flex !important;
 
-  .dashboard-title{
+flex-direction:column !important;
 
-    font-size:.72rem !important;
+justify-content:center !important;
 
-    margin-bottom:6px !important;
-  }
+}
 
+/* TITULO */
+
+.dashboard-title{
+
+font-size:.82rem !important;
+
+font-weight:600 !important;
+
+margin-bottom:10px !important;
+
+line-height:1.25 !important;
+
+}
+
+  
   /* NUMEROS */
 
   .dashboard-card h3{
