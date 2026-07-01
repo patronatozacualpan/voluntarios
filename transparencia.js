@@ -33,20 +33,26 @@ async function cargarDashboardPublico() {
   try {
 
     const [
-      ingresosSnap,
-      egresosSnap,
-      inventarioSnap
-    ] = await Promise.all([
+  ingresosSnap,
+  egresosSnap,
+  inventarioSnap,
+  reconocimientosSnap
+] = await Promise.all([
 
-      db.collection("ingresos").get(),
+  db.collection("ingresos").get(),
 
-      db.collection("egresos").get(),
+  db.collection("egresos").get(),
 
-      db.collection("inventario_equipo")
-        .where("publico", "==", true)
-        .get()
+  db.collection("inventario_equipo")
+    .where("publico", "==", true)
+    .get(),
 
-    ]);
+  db.collection("reconocimientos")
+    .where("publicado","==",true)
+    .get()
+
+]);
+     
 
     /* =========================================
        INGRESOS
@@ -146,6 +152,13 @@ async function cargarDashboardPublico() {
       "dashboardSaldoDisponible",
       formatoMoneda(saldoDisponible)
     );
+
+     setTexto(
+  "dashboardReconocimientos",
+  reconocimientosSnap.size
+);
+
+     
 
   } catch (error) {
 
