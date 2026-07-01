@@ -1837,3 +1837,20 @@ console.log(error);
 
 
 
+const btnBenefactores =
+document.getElementById(
+"btnVerTodosBenefactores"
+);
+
+btnBenefactores?.addEventListener(
+"click",
+()=>{
+
+window.location.href=
+"benefactores.html";
+
+}
+);
+
+
+
