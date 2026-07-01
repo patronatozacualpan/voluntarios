@@ -5421,3 +5421,66 @@ text-transform:uppercase;
 
 
 
+/*=========================================================
+BOTÓN VOLVER
+=========================================================*/
+
+.benefactores-nav{
+
+max-width:1200px;
+
+margin:0 auto 20px;
+
+padding:0 20px;
+
+}
+
+.btn-volver{
+
+background:#0b4b7c;
+
+color:#fff;
+
+border:none;
+
+padding:12px 22px;
+
+border-radius:10px;
+
+font-size:15px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.btn-volver:hover{
+
+background:#08375b;
+
+transform:translateY(-2px);
+
+}
+
+@media(max-width:768px){
+
+.benefactores-nav{
+
+text-align:center;
+
+}
+
+.btn-volver{
+
+width:100%;
+
+max-width:320px;
+
+}
+
+}
+
+
